@@ -87,3 +87,44 @@ def test_nieocenione_wpisy_wracaja_w_nastepnym_przebiegu(tmp_path, monkeypatch):
     www.przetworz_wpisy(con, {"nazwa": "ZST", "typ": "szkola_ponadpodstawowa", "url": "https://s.pl/"}, wpisy)
     zapisane = {r[0] for r in con.execute("SELECT link FROM radar_widziane")}
     assert zapisane == set()  # „niepewne” (np. awaria AI) i ponad limit: bez wyroku, wrócą w następnym przebiegu
+
+
+def test_wpisy_ponizej_starego_progu_wracaja_po_obnizeniu(tmp_path, monkeypatch):
+    """Wpis zapisany bez wyroku AI (sygnał poniżej progu) wraca, gdy próg spadnie do jego sygnału."""
+    from radar import ai, db
+    con = db.polacz(tmp_path / "t.sqlite")
+    www._widziane(con)
+    con.execute("INSERT INTO radar_widziane VALUES(?,?,?,?)", ("https://szkola.pl/robot", 2, None, 0.0))
+    con.execute("INSERT INTO radar_widziane VALUES(?,?,?,?)", ("https://szkola.pl/stary", 2, "nie", 0.0))
+    con.commit()
+    pytane = []
+    monkeypatch.setattr(ai, "czy_innowacja", lambda t, x: (pytane.append(t), ({"czy": "nie", "cytat": None}, 0.0))[1])
+    monkeypatch.setattr(www, "wstepny_sygnal", lambda t: (2, ["robot"]))
+    monkeypatch.setattr(www, "PROG", 2)
+    wpisy = [{"tytul": "Robot", "link": "https://szkola.pl/robot", "tekst": "zbudowali robota", "data": None},
+             {"tytul": "Stary", "link": "https://szkola.pl/stary", "tekst": "zbudowali", "data": None}]
+    www.przetworz_wpisy(con, {"nazwa": "ZS", "typ": "szkola_ponadpodstawowa"}, wpisy)
+    assert pytane == ["Robot"]  # wpis z wyrokiem AI nie wraca
+    assert www.PROG <= 2
+
+
+def test_tytul_radaru_to_nazwa_rozwiazania(tmp_path, monkeypatch):
+    from radar import ai, db
+    con = db.polacz(tmp_path / "t.sqlite")
+    monkeypatch.setattr(ai, "czy_innowacja", lambda t, x: ({"czy": "tak", "cytat": None}, 0.0))
+    monkeypatch.setattr(ai, "karta_z_tekstu", lambda t, x: ({"nazwa": "Robot sortujący odpady (Jan Kowalski)", "co": "Robot.",
+                                                            "opis": "Uczniowie zbudowali robota.", "instytucja": "",
+                                                            "typ_innowacji": "techniczna", "etap": "prototyp", "cytat": None}, 0.0))
+    monkeypatch.setattr(www, "sprawdz", lambda c, zid: None)
+    www.przetworz_wpisy(con, {"nazwa": "ZS", "typ": "szkola_ponadpodstawowa"}, www.wpisy_z_kanalu(RSS), dni=100000)
+    tytul = con.execute("SELECT tytul FROM zgloszenie WHERE wejscie='radar'").fetchone()[0]
+    assert tytul.startswith("Robot sortujący odpady") and "Kowalski" not in tytul
+
+
+def test_karta_z_tekstu_ma_nazwe(monkeypatch):
+    from radar import ai
+    monkeypatch.setattr(ai, "czat_json", lambda s, u: ({"nazwa": ["x"], "co": "c"}, 0.0))
+    k, _ = ai.karta_z_tekstu("t", "tekst")
+    assert k["nazwa"] == "" or isinstance(k["nazwa"], str)
+    monkeypatch.setattr(ai, "czat_json", lambda s, u: ({"nazwa": "RescuePet: aplikacja", "co": "c"}, 0.0))
+    assert ai.karta_z_tekstu("t", "tekst")[0]["nazwa"] == "RescuePet: aplikacja"

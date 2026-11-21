@@ -100,7 +100,8 @@ def _dokumenty_txt(dokumenty, dl: int) -> str:
 def karta_z_tekstu(tytul: str, tekst: str) -> tuple[dict, float]:
     odp, koszt = czat_json(SYSTEM, f"""Z tekstu wyciągnij kartę innowacji. NIE podawaj imion ani nazwisk osób: zastąp je rolą
 (uczniowie, nauczyciel, zespół). JSON:
-{{"co": "jedno zdanie: co powstało", "opis": "3-4 zdania: jaki problem, jakie rozwiązanie, jak działa, na jakim jest etapie",
+{{"nazwa": "krótka nazwa rozwiązania (do 80 znaków), np. Aplikacja do szukania zaginionych zwierząt; nie nagłówek newsa",
+ "co": "jedno zdanie: co powstało", "opis": "3-4 zdania: jaki problem, jakie rozwiązanie, jak działa, na jakim jest etapie",
  "instytucja": "nazwa instytucji",
  "typ_innowacji": "techniczna|organizacyjna|edukacyjna|spoleczna|procesowa", "etap": "pomysl|prototyp|wdrozone|zakonczone",
  "cytat": "dosłowny fragment tekstu (do 200 znaków) będący dowodem, bez imion i nazwisk"}}
@@ -108,7 +109,7 @@ def karta_z_tekstu(tytul: str, tekst: str) -> tuple[dict, float]:
 Tytuł: {tytul}
 Tekst:
 {tekst[:4000]}""")
-    return {"co": _tekst(odp.get("co")), "opis": _tekst(odp.get("opis")), "instytucja": _tekst(odp.get("instytucja")),
+    return {"nazwa": _tekst(odp.get("nazwa"))[:120], "co": _tekst(odp.get("co")), "opis": _tekst(odp.get("opis")), "instytucja": _tekst(odp.get("instytucja")),
             "typ_innowacji": _z(odp.get("typ_innowacji"), TYPY_INNOWACJI) or "",
             "etap": _z(odp.get("etap"), ETAPY) or "",
             "cytat": _cytat_ok(odp.get("cytat"), f"{tytul} {tekst}")}, koszt

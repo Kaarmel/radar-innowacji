@@ -20,8 +20,8 @@ STATYSTYKI = config.DANE / "radar_statystyki.json"
 PLUS2 = re.compile(r"zbudowal|skonstruowal|zaprojektowal|stworzyl|opracowal|wynalaz|prototyp|aplikacj|robot|patent|innowac|autorsk|startup")
 PLUS1 = re.compile(r"laureat|nagrod|finali|grant")
 MINUS3 = re.compile(r"jadlospis|wycieczk|akademi[ai]? (?:z okazji|szkoln|swiateczn|pierwszomajow)|rekolekc|zebrani|dyzur")
-PROG = 3
-MAX_AI = 60          # bezpiecznik kosztu: tyle wpisów na uruchomienie może trafić do AI
+PROG = 2            # przy 3 do AI trafiało 30 z 1510 wpisów; ostateczne sito to AI z cytatem i człowiek
+MAX_AI = 150         # bezpiecznik kosztu: tyle wpisów na uruchomienie może trafić do AI (ok. 0,05 $)
 TYPY = {"uczelnia": ("uczelnia", "mieszany"), "szkola_ponadpodstawowa": ("szkola_ponadpodstawowa", "16_30"),
         "jst": ("jst", "powyzej_30"), "instytucja": ("inna_publiczna", "mieszany")}
 
@@ -138,7 +138,8 @@ def przetworz_wpisy(con: sqlite3.Connection, zrodlo: dict, wpisy: list[dict], dn
         if w["data"] and w["data"] < granica:
             continue
         stat["wpisow"] = stat.get("wpisow", 0) + 1
-        if con.execute("SELECT 1 FROM radar_widziane WHERE link=?", (w["link"],)).fetchone() or \
+        # wraca wszystko bez wyroku AI: po zmianie progu albo słów sygnału wpis zostanie oceniony
+        if con.execute("SELECT 1 FROM radar_widziane WHERE link=? AND ai IN ('tak', 'nie')", (w["link"],)).fetchone() or \
                 con.execute("SELECT 1 FROM zgloszenie WHERE link=?", (w["link"],)).fetchone():
             continue
         sygnal, slowa = wstepny_sygnal(f"{w['tytul']} {w['tekst']}")
@@ -164,7 +165,7 @@ def przetworz_wpisy(con: sqlite3.Connection, zrodlo: dict, wpisy: list[dict], dn
         # tylko streszczenie AI (polecenie: bez nazwisk) przepuszczone przez bez_osob; surowy tekst zostaje na stronie źródła
         opis = bez_osob((karta.get("opis") or karta.get("co") or w["tytul"]).strip())[:1500]
         zid = db.zapisz_zgloszenie(con, Zgloszenie(
-            id=None, wejscie="radar", tytul=bez_osob(w["tytul"])[:200], opis=opis, link=w["link"], instytucja=zrodlo["nazwa"],
+            id=None, wejscie="radar", tytul=bez_osob(karta.get("nazwa") or w["tytul"])[:200], opis=opis, link=w["link"], instytucja=zrodlo["nazwa"],
             typ_instytucji=typ_inst, typ_innowacji=karta.get("typ_innowacji") or "techniczna",
             etap=karta.get("etap") or "pomysl", wiek_przedzial=wiek, cytat=bez_osob(karta.get("cytat") or ocena.get("cytat") or "") or None,
             organizacja=organizacja))
