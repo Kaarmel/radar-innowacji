@@ -4,7 +4,7 @@ Wyszukiwanie i **ocena projektów innowacyjnych** dla firm i instytucji, z dowod
 Rozwiązanie zadania „Radar innowacji” Podkarpackiego Centrum Innowacji (HackNation 2026). PCI jest jednym z użytkowników:
 nowa organizacja to jeden plik JSON.
 
-**Demo:** https://radar.46.60.21.253.sslip.io/ · **API:** https://radar.46.60.21.253.sslip.io/docs
+**Demo:** https://radar-innowacji.skroban.tech/ · **API:** https://radar-innowacji.skroban.tech/docs
 
 ## Problem
 

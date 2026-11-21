@@ -25,5 +25,5 @@ na który powołuje się AI, był w wynikach. Jedno sprawdzenie trwa ok. 15–60
 **Integracja i skalowanie.** REST API z dokumentacją OpenAPI (/docs), nowa organizacja = jeden plik JSON z komórkami,
 ścieżkami i wagami, licencja EUPL-1.2.
 
-**Demo:** https://radar.46.60.21.253.sslip.io/
+**Demo:** https://radar-innowacji.skroban.tech/
 **Repozytorium:** https://github.com/Kaarmel/radar-innowacji

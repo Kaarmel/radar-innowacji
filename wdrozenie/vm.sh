@@ -30,11 +30,13 @@ RestartSec=3
 [Install]
 WantedBy=multi-user.target
 EOF
-if ! grep -q "radar.46.60.21.253.sslip.io" /etc/caddy/Caddyfile; then
+if grep -Fq "radar.46.60.21.253.sslip.io {" /etc/caddy/Caddyfile; then
+sudo sed -i 's/^radar\.46\.60\.21\.253\.sslip\.io {/radar-innowacji.skroban.tech, radar.46.60.21.253.sslip.io {/' /etc/caddy/Caddyfile
+elif ! grep -Fq "radar-innowacji.skroban.tech" /etc/caddy/Caddyfile; then
 sudo tee -a /etc/caddy/Caddyfile > /dev/null <<'EOF'
 
 # Radar Innowacji (HackNation 2026) — osobny host, nie rusza bloku :80
-radar.46.60.21.253.sslip.io {
+radar-innowacji.skroban.tech, radar.46.60.21.253.sslip.io {
 	encode gzip
 	reverse_proxy 127.0.0.1:8090
 }
