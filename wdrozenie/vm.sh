@@ -55,7 +55,7 @@ User=eouser
 Nice=10
 ExecStart=/home/eouser/radar/wdrozenie/aktualizuj.sh %i
 EOF
-for wpis in "mapadotacji|Mon *-*-* 03:00" "radon|Tue *-*-* 03:00" "radon_patenty|Wed *-*-* 03:00" "interreg|*-*-01 03:30" "radar|*-*-* 06:00"; do
+for wpis in "mapadotacji|Mon *-*-* 03:00 Europe/Warsaw" "radon|Tue *-*-* 03:00 Europe/Warsaw" "radon_patenty|Wed *-*-* 03:00 Europe/Warsaw" "interreg|*-*-01 03:30 Europe/Warsaw" "radar|*-*-* 06:00 Europe/Warsaw"; do
   zr="${wpis%%|*}"; kiedy="${wpis#*|}"
   sudo tee /etc/systemd/system/radar-aktualizacja-$zr.timer > /dev/null <<EOF
 [Unit]

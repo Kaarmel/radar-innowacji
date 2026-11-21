@@ -115,10 +115,10 @@ def sprawdz(con: sqlite3.Connection, zgl_id: int) -> dict:
         pokrycie = {"zrodla": sorted(set(lokalne_liczby) - {"zgloszenie"} | set(ok)),
                     "lokalne": lokalne_liczby, "dokumentow": sum(lokalne_liczby.values()),
                     "kandydatow": len(kandydaci), "zgloszen_porownanych": len(poprzednie), "niedostepne": niedostepne,
-                    "stan_danych": {k: time.strftime("%Y-%m-%d", time.localtime(v["pobrano_do"]))
+                    "stan_danych": {k: slowniki.czas_pl(slowniki.stan_na(k, v), "%Y-%m-%d")
                                     for k, v in db.stan_zrodel(con).items() if v["pobrano_do"] and k in slowniki.HARMONOGRAM
                                     and slowniki.HARMONOGRAM[k]["tryb"] != "na żywo"},
-                    "na_zywo": time.strftime("%Y-%m-%d %H:%M")}
+                    "na_zywo": slowniki.czas_pl(time.time())}
         db.zapisz_wyniki(con, zgl_id, wyniki, werdykt.werdykt(wyniki), werdykt.komorka(z, profil),
                          werdykt.sciezka(z, wyniki, podobne, profil), werdykt.partnerzy(z, podobne),
                          round(time.time() - t0, 1), round(sum(koszt), 5), pokrycie=pokrycie)

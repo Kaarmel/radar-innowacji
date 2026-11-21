@@ -37,6 +37,18 @@ FILTRY = {
 DECYZJE = {"potwierdz_odrzucenie": "Potwierdzam odrzucenie", "przywroc": "Przywracam (flaga nietrafna)",
            "przekaz": "Przekazuję dalej (do komórki lub eksperta)"}
 STATUSY = {"nowe": "w kolejce", "w_toku": "sprawdzanie", "gotowe": "gotowe", "blad": "błąd sprawdzenia"}
+def czas_pl(ts: float, fmt: str = "%Y-%m-%d %H:%M") -> str:
+    """Czas w strefie Europe/Warsaw niezależnie od strefy serwera (serwer demo działa w UTC)."""
+    import datetime
+    from zoneinfo import ZoneInfo
+    return datetime.datetime.fromtimestamp(ts, ZoneInfo("Europe/Warsaw")).strftime(fmt)
+
+
+def stan_na(klucz: str, stan: dict) -> float:
+    """Kopia lokalna: najstarszy rekord (dociąganie pojedynczych rekordów nie odmładza całego źródła); na żywo: ostatnie zapytanie."""
+    return stan["pobrano_do"] if HARMONOGRAM.get(klucz, {}).get("tryb") == "na żywo" else stan["pobrano_od"]
+
+
 # Harmonogram aktualizacji (realizują go timery systemd z wdrozenie/vm.sh) i świadome opóźnienia samych źródeł.
 HARMONOGRAM = {
     "mapadotacji": {"tryb": "pobierane (API)", "co_ile": "co tydzień, poniedziałek 03:00",

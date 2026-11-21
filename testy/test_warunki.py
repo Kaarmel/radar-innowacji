@@ -68,3 +68,14 @@ def test_pobierz_od_nowa_czysci_postep(tmp_path, monkeypatch):
     monkeypatch.setattr(radon, "pobierz_wszystko", lambda c: widziane.append(mapadotacji._postep(c, "radon:token")) or 0)
     cli.main(["pobierz", "radon", "--od-nowa"])
     assert widziane == [None]
+
+
+def test_stan_kopii_lokalnej_to_najstarszy_rekord_w_czasie_polskim(klient):
+    from radar import config
+    con = db.polacz(config.BAZA)
+    db.zapisz_dokumenty(con, [Dokument(id=f"radon:{i}", zrodlo="radon", typ="projekt", tytul="A", opis="a", link=f"https://r/{i}")
+                              for i in (1, 2)])
+    with con:
+        con.execute("UPDATE dokument SET pobrano_at=1795262400 WHERE id='radon:1'")  # 2026-11-21 12:00 UTC = 13:00 w Polsce
+    radon = next(x for x in klient.get("/api/zrodla").json() if x["zrodlo"] == "radon")
+    assert radon["stan_na"] == "2026-11-21 13:00"

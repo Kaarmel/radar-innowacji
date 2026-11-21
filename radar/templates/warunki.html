@@ -8,19 +8,18 @@
 <section>
   <h2>Stan danych i harmonogram aktualizacji</h2>
   <table class="tabela">
-    <thead><tr><th>Źródło</th><th class="liczba">Dokumentów</th><th>Stan na</th><th class="liczba">Najnowszy rok</th><th>Tryb</th><th>Aktualizacja</th></tr></thead>
+    <thead><tr><th>Źródło</th><th class="liczba">Dokumentów</th><th>Stan na</th><th>Tryb</th><th>Aktualizacja</th></tr></thead>
     <tbody>
     {% for z in zrodla %}
       <tr><td>{% if z.adres %}<a href="{{ z.adres }}" rel="noopener" target="_blank">{{ z.nazwa }}</a>{% else %}{{ z.nazwa }}{% endif %}
             <br><span class="maly">{{ z.uwaga }}</span></td>
           <td class="liczba">{{ z.dokumentow | liczba(0) }}</td>
           <td>{{ z.stan_na or '—' }}{% if z.tryb == 'na żywo' %}<br><span class="maly">ostatnie zapytanie; przy sprawdzeniu zawsze świeże</span>{% endif %}</td>
-          <td class="liczba">{{ z.najnowszy_rok or '—' }}</td>
           <td>{{ z.tryb }}</td><td>{{ z.co_ile }}</td></tr>
     {% endfor %}
     </tbody>
   </table>
-  <p class="maly">„Stan na” to chwila ostatniego pobrania danych ze źródła. Każda karta innowacji podaje stan danych,
+  <p class="maly">„Stan na” (czas polski): dla kopii lokalnej to chwila pobrania najstarszego rekordu, czyli dane są co najmniej tak świeże; dla źródeł na żywo to ostatnie zapytanie. Każda karta innowacji podaje stan danych,
     na których ją oceniono, i godzinę zapytań na żywo.</p>
 </section>
 

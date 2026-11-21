@@ -274,7 +274,7 @@ def _zapisz(con, we: ZgloszenieWe, wejscie: str = "formularz") -> int:
 def start(request: Request, con=Depends(polaczenie)):
     liczby = db.liczba_dokumentow(con)
     zgl = con.execute("SELECT count(*) FROM zgloszenie").fetchone()[0]
-    stan = {k: time.strftime("%d.%m.%Y", time.localtime(v["pobrano_do"])) for k, v in db.stan_zrodel(con).items() if v["pobrano_do"]}
+    stan = {k: slowniki.czas_pl(slowniki.stan_na(k, v), "%d.%m.%Y") for k, v in db.stan_zrodel(con).items() if v["pobrano_do"]}
     return strona(request, "start.html", liczby=liczby, razem=sum(v for k, v in liczby.items()), zgloszen=zgl, stan=stan)
 
 
@@ -475,9 +475,9 @@ def _zrodla_stan(con) -> list[dict]:
     out = []
     for klucz, h in slowniki.HARMONOGRAM.items():
         s = stan.get(klucz) or {}
-        do = s.get("pobrano_do")
+        ts = slowniki.stan_na(klucz, s) if s else None
         out.append({"zrodlo": klucz, "nazwa": slowniki.ZRODLA[klucz][0], "adres": slowniki.ZRODLA[klucz][1],
-                    "dokumentow": s.get("dokumentow", 0), "stan_na": time.strftime("%Y-%m-%d %H:%M", time.localtime(do)) if do else None,
+                    "dokumentow": s.get("dokumentow", 0), "stan_na": slowniki.czas_pl(ts) if ts else None,
                     "najnowszy_rok": s.get("najnowszy_rok"), **h})
     return out
 
