@@ -122,10 +122,49 @@ def ocen(z: Zgloszenie, wyniki: list[WynikFiltra], ranking: list[tuple[float, Do
         udzial, uzas, dowody, zrodlo = KRYTERIA[kid](z, wyniki, ranking, profil)
         kryteria.append({"id": kid, "nazwa": NAZWY[kid], "max": waga, "zrodlo": zrodlo, "uzasadnienie": uzas, "dowody": dowody,
                          "punkty": None if udzial is None else round(waga * udzial, 2)})
+    return przelicz({"kryteria": kryteria})
+
+
+# Kryteria, które mówią o wartości rozwiązania tylko wtedy, gdy jest ono nowe: rutynowy zakup też bywa „dojrzały”,
+# powszechny, sfinansowany i bez kolidującego patentu. Liczą się proporcjonalnie do udziału punktów nowości.
+BRAMKA = ("dojrzalosc", "zapotrzebowanie", "ochrona", "finansowanie", "specjalizacje")
+FORMULA = ("100 × suma punktów / suma maksimów kryteriów z danymi; dojrzałość, zapotrzebowanie, ochrona, finansowanie "
+           "i specjalizacje mnożone przez udział punktów nowości (bramka nowości); wagi z profilu organizacji")
+
+
+def przelicz(ocena: dict) -> dict:
+    """Wynik z punktów kryteriów. Idempotentne: działa też na ocenach zapisanych przed wprowadzeniem bramki."""
+    kryteria = ocena["kryteria"]
+    for k in kryteria:
+        k.setdefault("punkty_bez_bramki", k["punkty"])
+    nowosc = next((k for k in kryteria if k["id"] == "nowosc"), None)
+    if nowosc is None:
+        bramka = 1.0
+    elif nowosc["punkty_bez_bramki"] is None:
+        bramka = None
+    else:
+        bramka = round(nowosc["punkty_bez_bramki"] / nowosc["max"], 4)
+    for k in kryteria:
+        surowe = k["punkty_bez_bramki"]
+        k["punkty"] = round(surowe * bramka, 2) if surowe is not None and bramka is not None and k["id"] in BRAMKA else surowe
     dostepne = [k for k in kryteria if k["punkty"] is not None]
     suma_max = sum(k["max"] for k in dostepne)
-    wynik = round(100 * sum(k["punkty"] for k in dostepne) / suma_max) if suma_max else None
-    brak = [k["nazwa"] for k in kryteria if k["punkty"] is None]
-    return {"wynik": wynik, "kryteria": kryteria, "suma_max": suma_max,
-            "uwaga": ("Brak danych dla: " + ", ".join(brak) + "; wynik liczony z pozostałych kryteriów.") if brak else "",
-            "formula": "100 × suma punktów / suma maksimów kryteriów z danymi; wagi z profilu organizacji"}
+    brak = [k.get("nazwa", k["id"]) for k in kryteria if k["punkty"] is None]
+    if bramka is None:
+        wynik, uwaga = None, "Brak oceny nowości (AI nie odpowiedziało): potencjał nie jest liczony. Użyj „Sprawdź ponownie”."
+    else:
+        wynik = round(100 * sum(k["punkty"] for k in dostepne) / suma_max) if suma_max else None
+        uwaga = ("Brak danych dla: " + ", ".join(brak) + "; wynik liczony z pozostałych kryteriów.") if brak else ""
+    return {**ocena, "wynik": wynik, "kryteria": kryteria, "suma_max": suma_max, "bramka": bramka, "uwaga": uwaga, "formula": FORMULA}
+
+
+def przelicz_zapisane(con) -> int:
+    """Przelicza wynik zapisanych ocen po zmianie wzoru (punkty kryteriów zostają, zmienia się agregacja)."""
+    import json
+
+    from . import db
+    n = 0
+    for zid, dane in con.execute("SELECT zgl_id, dane FROM ocena").fetchall():
+        db.zapisz_ocene(con, zid, przelicz(json.loads(dane)))
+        n += 1
+    return n

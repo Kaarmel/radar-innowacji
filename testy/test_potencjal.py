@@ -39,20 +39,20 @@ def test_formula_jawna_i_zrodla():
 
 
 def test_brak_danych_nie_zaniza():
-    o = potencjal.ocen(zgl(), wyniki(nowosc=None, patent="brak_danych", pasmo_nowosci="brak_danych"), [], PCI)
-    assert kryt(o, "nowosc")["punkty"] is None and kryt(o, "ochrona")["punkty"] is None
-    assert "brak danych" in o["uwaga"].lower()
+    o = potencjal.ocen(zgl(), wyniki(patent="brak_danych"), [], PCI)
+    assert kryt(o, "ochrona")["punkty"] is None and o["wynik"] is not None
+    assert "brak danych" in o["uwaga"].lower() and o["suma_max"] == 100 - PCI["potencjal"]["wagi"]["ochrona"]
 
 
 def test_dojrzalosc_z_etapu():
-    assert kryt(potencjal.ocen(zgl(etap="wdrozone"), wyniki(), [], PCI), "dojrzalosc")["punkty"] == PCI["potencjal"]["wagi"]["dojrzalosc"]
-    assert kryt(potencjal.ocen(zgl(etap="pomysl"), wyniki(), [], PCI), "dojrzalosc")["punkty"] < PCI["potencjal"]["wagi"]["dojrzalosc"] / 2
+    assert kryt(potencjal.ocen(zgl(etap="wdrozone"), wyniki(), [], PCI), "dojrzalosc")["punkty_bez_bramki"] == PCI["potencjal"]["wagi"]["dojrzalosc"]
+    assert kryt(potencjal.ocen(zgl(etap="pomysl"), wyniki(), [], PCI), "dojrzalosc")["punkty_bez_bramki"] < PCI["potencjal"]["wagi"]["dojrzalosc"] / 2
 
 
 def test_specjalizacje_pci_i_brak_w_ogolnym():
     o = potencjal.ocen(zgl(opis="Dron do inspekcji linii energetycznych z kamerą termowizyjną."), wyniki(), [], PCI)
     s = kryt(o, "specjalizacje")
-    assert s["punkty"] == s["max"] and "Lotnictwo" in s["uzasadnienie"]
+    assert s["punkty_bez_bramki"] == s["max"] and "Lotnictwo" in s["uzasadnienie"]
     assert all(k["id"] != "specjalizacje" for k in potencjal.ocen(zgl(), wyniki(), [], OGOLNY)["kryteria"])
 
 
@@ -78,3 +78,38 @@ def test_finansowanie_pomija_kopie():
 def test_liczebnik_jednej_instytucji():
     k = kryt(potencjal.ocen(zgl(), wyniki(), [(0.3, dok(1, "Gmina X"))], PCI), "zapotrzebowanie")
     assert k["uzasadnienie"].startswith("1 inna instytucja ma")
+
+
+def bogaty_ranking():
+    return [(0.3, dok(i, f"Gmina {i}", zrodlo="mapadotacji")) for i in range(6)]
+
+
+def test_bramka_nowosci_rutyna_nie_ma_potencjalu():
+    rutyna = potencjal.ocen(zgl(etap="zakonczone"), wyniki(nowosc=("nie",) * 5), bogaty_ranking(), PCI)
+    innowacja = potencjal.ocen(zgl(etap="zakonczone"), wyniki(nowosc=("tak",) * 5), bogaty_ranking(), PCI)
+    assert rutyna["bramka"] == 0.0 and rutyna["wynik"] == 0
+    assert kryt(rutyna, "zapotrzebowanie")["punkty"] == 0 and kryt(rutyna, "zapotrzebowanie")["punkty_bez_bramki"] == 15
+    assert innowacja["bramka"] == 1.0 and innowacja["wynik"] >= 90
+
+
+def test_bez_oceny_nowosci_brak_wyniku():
+    o = potencjal.ocen(zgl(), wyniki(nowosc=None, pasmo_nowosci="brak_danych"), bogaty_ranking(), PCI)
+    assert o["wynik"] is None and "nowości" in o["uwaga"]
+
+
+def test_przelicz_stara_ocene_bez_bramki():
+    stara = {"wynik": 74, "kryteria": [
+        {"id": "nowosc", "max": 25, "punkty": 12.5}, {"id": "przewaga", "max": 10, "punkty": 0.0},
+        {"id": "zapotrzebowanie", "max": 15, "punkty": 15.0}, {"id": "ochrona", "max": 10, "punkty": 10.0}]}
+    nowa = potencjal.przelicz(stara)
+    assert nowa["bramka"] == 0.5 and nowa["wynik"] == round(100 * (12.5 + 0 + 7.5 + 5) / 60)
+    assert potencjal.przelicz(nowa)["wynik"] == nowa["wynik"]  # ponowne przeliczenie niczego nie zmienia
+
+
+def test_przelicz_zapisane_oceny(tmp_path):
+    from radar import db
+    con = db.polacz(tmp_path / "t.sqlite")
+    db.zapisz_ocene(con, 7, {"wynik": 74, "kryteria": [{"id": "nowosc", "max": 25, "punkty": 0.0},
+                                                       {"id": "ochrona", "max": 10, "punkty": 10.0}]})
+    assert potencjal.przelicz_zapisane(con) == 1
+    assert con.execute("SELECT wynik FROM ocena WHERE zgl_id=7").fetchone()[0] == 0

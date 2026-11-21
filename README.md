@@ -40,6 +40,9 @@ opatentowany. Brakuje powtarzalnego procesu oceny z jawnymi kryteriami.
    **Wcześniejsza praca tej samej instytucji nie jest powodem odrzucenia.** Jest oznaczana jako kontynuacja
    i kierowana do ochrony lub licencji. Ponowne zgłoszenie tego samego tekstu to duplikat.
 4. **Ocena potencjału 0–100.** Wzór: `100 × Σ punkty / Σ maksimów kryteriów z danymi`. Wagi są w profilu organizacji.
+   **Bramka nowości:** dojrzałość, zapotrzebowanie, ochronę, finansowanie i specjalizacje mnożymy przez udział punktów
+   nowości. Rutynowy zakup bywa dojrzały, powszechny i sfinansowany, ale nie ma potencjału innowacji. Bez oceny nowości
+   wynik nie jest liczony.
 
 | Kryterium | Źródło | Jak liczone |
 |---|---|---|
@@ -95,6 +98,20 @@ jest tylko linkowana, a wyszukiwarka CORDIS (`Disallow: /search`) pominięta.
 Zestaw testowy (`python -m radar.cli zestaw`, na osobnej kopii bazy) buduje przypadki ze znaną prawdą z dzisiejszych
 danych: plagiat dwóch projektów, parafrazę AI, przepisany patent, własną pracę i duplikat. Do tego 20 projektów z bazy
 z ręczną etykietą „rutyna / nowość”. Wyniki: `walidacja/raport.md` i strona `/miary`.
+
+| Przypadek (21.11.2026, 52 sprawdzenia) | Wykryte |
+|---|---|
+| Plagiat (połowa zdań z dwóch projektów) | 9/9 |
+| Kopia (projekt przepisany przez AI) | 10/10 |
+| Patent (opis patentu uczelni przepisany) | 5/5 |
+| Własna praca: kontynuacja, bez odrzucenia | 5/5 |
+| Duplikat zgłoszenia | 3/3 |
+
+Mediana czasu sprawdzenia 44 s (4 równolegle), średni koszt AI 0,0013 $. Zestaw mierzy czułość na przypadkach
+zbudowanych, a nie odsetek fałszywych alarmów. Na 20 prawdziwych projektach z Mapy Dotacji pierwszy przebieg pokazał,
+że rutynowe zakupy (wozy OSP, oczyszczalnie) dostawały 62–74 pkt potencjału, prawie tyle co projekty B+R. Dlatego
+dodaliśmy bramkę nowości i przeliczyliśmy oceny (`python -m radar.cli przelicz`): rutyna 0–44, B+R do 65.
+Opisy projektów OSP często dzielą szablonowe zdania, więc filtr plagiatu flaguje je do przeglądu: decyzję podejmuje człowiek.
 
 ## Uruchomienie
 

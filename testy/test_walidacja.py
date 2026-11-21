@@ -29,3 +29,15 @@ def test_zgodnosc_z_etykietami():
     m = walidacja.miary(wiersze, etykiety={"1": "nowosc", "2": "rutyna", "3": "rutyna"})
     assert m["etykiety"]["zgodnosc"] == 0.67 and m["etykiety"]["n"] == 3
     assert m["etykiety"]["potencjal_nowosc"] == 70 and m["etykiety"]["potencjal_rutyna"] == 47.5
+
+
+def test_opis_nie_twierdzi_o_etykietach_gdy_ich_brak(tmp_path, monkeypatch):
+    from radar import db
+    monkeypatch.setattr(walidacja, "ETYKIETY", tmp_path / "brak.csv")
+    monkeypatch.setattr(walidacja, "RAPORT_JSON", tmp_path / "r.json")
+    monkeypatch.setattr(walidacja, "KATALOG", tmp_path)
+    monkeypatch.setattr(walidacja, "RAPORT_MD", tmp_path / "r.md")
+    con = db.polacz(tmp_path / "t.sqlite")
+    con.execute("CREATE TABLE test(zgl_id INTEGER, rodzaj TEXT, filtr TEXT, oczekiwane TEXT)")
+    w = walidacja.raport(con, log=lambda *a: None)
+    assert "nadał człowiek" not in w["opis"] and "nie zostały jeszcze" in w["opis"]

@@ -18,6 +18,7 @@ def main(argv=None) -> int:
     pz = sub.add_parser("zestaw", help="buduje i sprawdza zestaw testowy (najlepiej na kopii bazy: RADAR_BAZA=...)")
     pz.add_argument("--n", type=int, default=10)
     sub.add_parser("raport", help="liczy miary zestawu testowego → walidacja/raport.md i dane/zestaw_raport.json")
+    sub.add_parser("przelicz", help="przelicza zapisane oceny potencjału po zmianie wzoru")
     ps = sub.add_parser("sprawdz", help="sprawdza zgłoszenie o danym id albo nowe z --opis")
     ps.add_argument("id", nargs="?", type=int)
     ps.add_argument("--tytul", default="Zgłoszenie z wiersza poleceń")
@@ -45,6 +46,9 @@ def main(argv=None) -> int:
         from . import walidacja
         walidacja.zbuduj(con, a.n)
         walidacja.raport(con)
+    elif a.cmd == "przelicz":
+        from . import potencjal
+        print(f"przeliczono ocen: {potencjal.przelicz_zapisane(con)}", flush=True)
     elif a.cmd == "raport":
         from . import walidacja
         walidacja.raport(con)

@@ -61,7 +61,7 @@
     <h2>Ocena potencjału</h2>
     <div class="potencjal-wynik"><b>{{ o.wynik if o.wynik is not none else '—' }}</b><span>/100</span></div>
   </div>
-  <p class="maly">Wzór: {{ o.formula }}. Kryteria i wagi: profil „{{ profil.nazwa }}”.
+  <p class="maly">Wzór: {{ o.formula }}.{% if o.bramka is defined and o.bramka is not none %} Bramka nowości: ×{{ o.bramka | liczba }}.{% endif %} Kryteria i wagi: profil „{{ profil.nazwa }}”.
     {% if o.uwaga %}<b>{{ o.uwaga }}</b>{% endif %}
     {% if k.werdykt == 'odrzucone_do_przegladu' %}<b>Uwaga: zgłoszenie ma flagę odrzucenia; ocena potencjału nie znosi flagi.</b>{% endif %}</p>
   <table class="tabela kryteria">
@@ -71,7 +71,7 @@
       <tr>
         <td><b>{{ kr.nazwa }}</b>
           <div class="pasek maly-pasek"><div class="pasek-wypelnienie zielone" style="width: {{ (100 * (kr.punkty or 0) / kr.max) | round }}%"></div></div></td>
-        <td class="liczba">{% if kr.punkty is none %}brak danych{% else %}{{ kr.punkty | liczba }} / {{ kr.max }}{% endif %}</td>
+        <td class="liczba">{% if kr.punkty is none %}brak danych{% else %}{{ kr.punkty | liczba }} / {{ kr.max }}{% if kr.punkty_bez_bramki is defined and kr.punkty_bez_bramki is not none and kr.punkty_bez_bramki != kr.punkty %}<br><span class="maly">przed bramką {{ kr.punkty_bez_bramki | liczba }}</span>{% endif %}{% endif %}</td>
         <td><span class="znaczek zr-{{ kr.zrodlo }}">{{ kr.zrodlo }}</span></td>
         <td>{{ kr.uzasadnienie }}
           {% for d in kr.dowody if d.link %}{% set href = d.link | link %}

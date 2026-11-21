@@ -199,7 +199,8 @@ def raport(con, log=print) -> dict:
     czytelne["Średni koszt AI na sprawdzenie"] = f"{m['koszt_sredni_usd']} $"
     wynik = {"kiedy": time.strftime("%Y-%m-%d %H:%M"), "miary": czytelne, "szczegoly": m,
              "opis": "Przypadki ze znaną prawdą zbudowane z dzisiejszych danych (RAD-on, Mapa Dotacji): " + "; ".join(OPISY.values())
-                     + ". Etykiety „rutyna / nowość” nadał człowiek w walidacja/etykiety.csv."}
+                     + (". Etykiety „rutyna / nowość” nadał człowiek w walidacja/etykiety.csv." if "etykiety" in m else
+                        ". Etykiety „rutyna / nowość” w walidacja/etykiety.csv nie zostały jeszcze wypełnione: zgodność z człowiekiem nie jest policzona.")}
     RAPORT_JSON.parent.mkdir(parents=True, exist_ok=True)
     RAPORT_JSON.write_text(json.dumps(wynik, ensure_ascii=False, indent=1), encoding="utf-8")
     KATALOG.mkdir(exist_ok=True)
