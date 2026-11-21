@@ -1,0 +1,9 @@
+{% extends "baza.html" %}
+{% block tytul %}Błąd {{ kod }} · Radar Innowacji{% endblock %}
+{% block tresc %}
+<section class="pusty">
+  <h1>{% if kod == 429 %}Za dużo zgłoszeń{% elif kod == 404 %}Nie znaleziono{% else %}Nie udało się{% endif %}</h1>
+  <p>{{ komunikat }}</p>
+  <p><a class="przycisk drugi" href="/">Strona główna</a> <a class="przycisk drugi" href="/zglos">Formularz</a></p>
+</section>
+{% endblock %}

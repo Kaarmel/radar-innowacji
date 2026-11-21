@@ -1,0 +1,56 @@
+{% extends "baza.html" %}
+{% block tresc %}
+<section class="hero">
+  <h1>Wyszukiwanie i ocena innowacji z dowodami</h1>
+  <p class="lead">Dla firm i instytucji, które szukają nowych rozwiązań albo oceniają zgłoszenia, na przykład Podkarpackiego
+    Centrum Innowacji. Każde zgłoszenie przechodzi przez cztery filtry odrzucenia. Każdy wynik ma procent i linki do
+    dokumentów, na których się opiera. Decyzję podejmuje człowiek.</p>
+  <div class="akcje">
+    <a class="przycisk" href="/zglos">Zgłoś innowację</a>
+    <a class="przycisk drugi" href="/szukaj">Szukam rozwiązania</a>
+    <a class="przycisk drugi" href="/o/pci/kolejka">Kolejka analityka PCI</a>
+  </div>
+</section>
+
+<section>
+  <h2>Cztery filtry odrzucenia</h2>
+  <div class="siatka4">
+    {% for klucz, (nazwa, opis) in s.FILTRY.items() %}
+    <article class="kafel">
+      <h3>{{ nazwa }}</h3>
+      <p>{{ opis }}</p>
+      <p class="maly">{% if klucz == 'plagiat' %}Liczy kod, bez AI.{% elif klucz == 'nowosc' %}AI ocenia, a kod sprawdza, czy każdy wskazany dokument naprawdę był w wynikach.{% else %}Liczy kod, AI tylko potwierdza.{% endif %}</p>
+    </article>
+    {% endfor %}
+  </div>
+  <p class="maly">Wcześniejsza praca tej samej instytucji nie jest powodem odrzucenia. Karta oznacza ją jako kontynuację
+    i podpowiada ochronę albo licencję. Ponowne zgłoszenie tego samego tekstu oznacza jako duplikat.</p>
+</section>
+
+<section>
+  <h2>Przeszukiwane źródła</h2>
+  <table class="tabela">
+    <thead><tr><th>Źródło</th><th class="liczba">Dokumentów w bazie</th></tr></thead>
+    <tbody>
+    {% for klucz, (nazwa, adres) in s.ZRODLA.items() if klucz != 'zgloszenie' %}
+      <tr><td>{% if adres %}<a href="{{ adres }}" rel="noopener" target="_blank">{{ nazwa }}</a>{% else %}{{ nazwa }}{% endif %}</td>
+          <td class="liczba">{{ liczby.get(klucz, 0) | liczba(0) }}</td></tr>
+    {% endfor %}
+    </tbody>
+    <tfoot><tr><td>Razem (bez zgłoszeń: {{ zgloszen }})</td><td class="liczba">{{ razem | liczba(0) }}</td></tr></tfoot>
+  </table>
+  <p class="maly">Źródła oznaczone „na żądanie” są odpytywane przy każdym sprawdzeniu, a wyniki zostają w bazie.
+    Zgłoszenia patentowe są jawne dopiero po 18 miesiącach, więc karta zawsze o tym przypomina.</p>
+</section>
+
+<section>
+  <h2>Dla kogo</h2>
+  <div class="siatka3">
+    {% for o in organizacje() %}
+    <article class="kafel"><h3><a href="/o/{{ o.slug }}/kolejka">{{ o.nazwa }}</a></h3><p>{{ o.opis }}</p></article>
+    {% endfor %}
+    <article class="kafel"><h3>Twoja organizacja</h3><p>Nowy profil to jeden plik JSON z komórkami i ścieżkami.
+      Integracja przez <a href="/docs">API</a>.</p></article>
+  </div>
+</section>
+{% endblock %}

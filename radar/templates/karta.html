@@ -1,0 +1,151 @@
+{% extends "baza.html" %}
+{% block tytul %}{{ k.tytul }} · Radar Innowacji{% endblock %}
+{% block glowa %}{% if k.status in ('nowe', 'w_toku') %}<meta http-equiv="refresh" content="4">{% endif %}{% endblock %}
+{% macro dokument(d) %}
+  {% set href = d.link | link %}
+  {% if href %}<a href="{{ href }}" rel="noopener" {% if not href.startswith('/') %}target="_blank"{% endif %}>{{ d.tytul or d.dokument_id }}</a>{% else %}{{ d.tytul or d.dokument_id }}{% endif %}
+  <span class="maly">· {{ s.ZRODLA.get(d.zrodlo, (d.zrodlo, ''))[0] }}{% if d.rok %} · {{ d.rok }}{% endif %}{% if d.instytucje %} · {{ d.instytucje | join(', ') }}{% endif %}{% if d.status == 'udzielony' %} · patent udzielony{% elif d.status == 'zgloszenie' %} · zgłoszenie patentowe (w toku){% endif %}</span>
+  {% if d.wlasna %}<span class="znaczek wlasna">własna praca instytucji</span>{% endif %}
+{% endmacro %}
+{% block tresc %}
+<p class="okruszki"><a href="/o/{{ k.organizacja }}/kolejka">← kolejka: {{ profil.nazwa }}</a></p>
+<header class="karta-gora">
+  <h1>{{ k.tytul }}</h1>
+  <p class="maly">{{ k.instytucja }} · {{ s.TYPY_INSTYTUCJI.get(k.typ_instytucji, k.typ_instytucji) }} ·
+    innowacja {{ s.TYPY_INNOWACJI.get(k.typ_innowacji, k.typ_innowacji) | lower }} · etap: {{ s.ETAPY.get(k.etap, k.etap) | lower }} ·
+    {{ s.WEJSCIA.get(k.wejscie, k.wejscie) | lower }} · {{ k.utworzono_at | data }}
+    {% set href = k.link | link %}{% if href %} · <a href="{{ href }}" rel="noopener" target="_blank">źródło</a>{% endif %}</p>
+</header>
+
+{% if k.status in ('nowe', 'w_toku') %}
+<div class="werdykt-pasek w_toku" role="status">
+  <strong>Sprawdzam…</strong> Tłumaczenie, wyszukiwanie w bazie, patenty EPO i publikacje, cztery filtry.
+  Zwykle 15–60 sekund. Strona odświeży się sama.
+</div>
+{% elif k.status == 'blad' %}
+<div class="werdykt-pasek odrzucone_do_przegladu" role="alert">
+  <strong>Sprawdzenie nie powiodło się.</strong>
+  <form method="post" action="/karta/{{ k.id }}/ponow" class="w-linii"><button class="przycisk drugi">Sprawdź ponownie</button></form>
+</div>
+{% else %}
+<div class="werdykt-pasek {{ k.werdykt }}">
+  <strong>{{ s.WERDYKTY.get(k.werdykt, k.werdykt) }}</strong>
+  <span>Komórka: <b>{{ komorka }}</b>. System flaguje i podaje dowody; decyzję podejmuje człowiek (formularz na dole).</span>
+</div>
+
+<section class="filtry-paski" aria-label="Wyniki filtrów">
+  {% for w in k.wyniki %}
+  {% set nazwa, objasnienie = s.FILTRY[w.filtr] %}
+  <div class="pasek-wiersz">
+    <div class="pasek-nazwa"><a href="#f-{{ w.filtr }}">{{ nazwa }}</a></div>
+    <div class="pasek" role="img" aria-label="{{ nazwa }}: {{ w.procent | liczba }}%, {{ s.PASMA[w.pasmo] }}">
+      <div class="pasek-wypelnienie {{ w.pasmo }}" style="width: {{ [w.procent or 0, 100] | min }}%"></div>
+    </div>
+    <div class="pasek-wynik">{% if w.procent is none %}—{% else %}{{ w.procent | liczba }}%{% endif %}</div>
+    <div><span class="pasmo {{ w.pasmo }}">{{ s.PASMA[w.pasmo] }}</span></div>
+  </div>
+  {% endfor %}
+  {% set p = k.pokrycie %}
+  <p class="pokrycie">Przeszukano {{ (p.dokumentow or 0) | liczba(0) }} dokumentów ({{ p.zrodla | join(', ') }}),
+    {{ p.kandydatow or 0 }} najbliższych porównano dokładnie, plus {{ p.zgloszen_porownanych or 0 }} wcześniejszych zgłoszeń.
+    {% if p.niedostepne %}<b>Niedostępne teraz: {{ p.niedostepne | join(', ') }}.</b>{% endif %}
+    Czas {{ k.czas_s | liczba }} s, koszt AI {{ '%.4f' | format(k.koszt_usd or 0) }} $.
+    <a href="/api/karta/{{ k.id }}">JSON</a></p>
+</section>
+
+{% if k.rekomendacje %}
+<section>
+  <h2>Ścieżka dalej</h2>
+  <ul class="lista">
+    {% for r in k.rekomendacje %}
+    <li><strong>{{ r.nazwa }}</strong> {% for reg in r.reguly %}<span class="znaczek">{{ reg }}</span>{% endfor %}<br>
+      <span class="maly">{{ r.powod }}</span></li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+{% if k.partnerzy %}
+<section>
+  <h2>Kto już działa w tym temacie</h2>
+  <ul class="lista">
+    {% for p in k.partnerzy %}
+    <li><strong>{{ p.nazwa }}</strong> <span class="maly">· {{ s.ZRODLA.get(p.zrodlo, (p.zrodlo, ''))[0] }}</span><br>
+      <span class="maly">na podstawie: {% set href = p.link | link %}{% if href %}<a href="{{ href }}" rel="noopener" target="_blank">{{ p.dokument }}</a>{% else %}{{ p.dokument }}{% endif %}</span></li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+{% for w in k.wyniki %}
+{% set nazwa, objasnienie = s.FILTRY[w.filtr] %}
+<section class="dowody" id="f-{{ w.filtr }}">
+  <h2>{{ nazwa }} <span class="pasmo {{ w.pasmo }}">{{ s.PASMA[w.pasmo] }}</span></h2>
+  <p class="maly">{{ objasnienie }}</p>
+  {% if w.uwaga %}<p class="uwaga">{{ w.uwaga }}</p>{% endif %}
+
+  {% if w.filtr == 'plagiat' %}
+    {% for d in w.dowody %}
+    <div class="dowod">
+      <p>{{ dokument(d) }} <b>{{ d.procent | liczba }}%</b> tekstu zgłoszenia</p>
+      {% if d.fragmenty %}
+      <div class="obok">
+        <div><h4>Zgłoszenie</h4><div class="tekst">{{ k.opis | podswietl(d.fragmenty) }}</div></div>
+        <div><h4>Dokument źródłowy</h4><div class="tekst">{{ teksty.get(d.dokument_id, '') | podswietl(d.fragmenty) }}</div></div>
+      </div>
+      {% endif %}
+    </div>
+    {% else %}<p class="maly">Nie znaleziono dosłownych powtórzeń 8 słów w żadnym z porównanych dokumentów.</p>
+    {% endfor %}
+
+  {% elif w.filtr in ('kopia', 'patent') %}
+    <ul class="lista">
+    {% for d in w.dowody %}
+      <li>{{ dokument(d) }} <b>{{ d.podobienstwo | liczba }}%</b> podobieństwa
+        {% if d.ocena_ai %}<span class="znaczek ai-{{ d.ocena_ai }}">AI: {{ {'ten_sam': 'ten sam pomysł', 'podobny': 'podobny', 'inny': 'inny pomysł'}.get(d.ocena_ai, d.ocena_ai) }}</span>{% endif %}
+        {% if d.uzasadnienie %}<br><span class="maly">{{ d.uzasadnienie }}</span>{% endif %}</li>
+    {% else %}<li class="maly">Brak podobnych dokumentów.</li>
+    {% endfor %}
+    </ul>
+
+  {% elif w.filtr == 'nowosc' %}
+    <table class="tabela rubryka">
+      <thead><tr><th>Pytanie</th><th>Odpowiedź</th><th>Uzasadnienie i dowód</th></tr></thead>
+      <tbody>
+      {% for o in w.dowody %}
+      <tr><td>{{ o.tresc or o.pytanie }}</td>
+        <td><span class="odp {{ o.odpowiedz }}">{{ {'tak': 'tak', 'nie': 'nie', 'nie_wiadomo': 'nie wiadomo'}.get(o.odpowiedz, o.odpowiedz) }}</span></td>
+        <td>{{ o.uzasadnienie }}{% if o.dokument_id %}<br><span class="maly">dowód: {% set href = o.link | link %}{% if href %}<a href="{{ href }}" rel="noopener" target="_blank">{{ o.tytul or o.dokument_id }}</a>{% else %}{{ o.tytul or o.dokument_id }}{% endif %}</span>{% endif %}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+</section>
+{% endfor %}
+{% endif %}
+
+<section class="opis-zgl">
+  <h2>Opis zgłoszenia</h2>
+  <div class="tekst">{{ k.opis }}</div>
+</section>
+
+<section class="decyzja" id="decyzja">
+  <h2>Decyzja analityka</h2>
+  {% if k.decyzje %}
+  <ul class="lista">
+    {% for d in k.decyzje %}<li><strong>{{ s.DECYZJE.get(d.decyzja, d.decyzja) }}</strong> <span class="maly">· {{ d.kiedy | data }}</span><br>{{ d.powod }}</li>{% endfor %}
+  </ul>
+  {% endif %}
+  <form method="post" action="/karta/{{ k.id }}/decyzja">
+    <fieldset class="wybor">
+      <legend class="maly">Decyzja trafia do dziennika razem z powodem.</legend>
+      {% for kl, v in s.DECYZJE.items() %}
+      <label><input type="radio" name="decyzja" value="{{ kl }}" required {% if loop.first and k.werdykt == 'odrzucone_do_przegladu' %}checked{% endif %}> {{ v }}</label>
+      {% endfor %}
+    </fieldset>
+    <label for="powod">Powód</label>
+    <input id="powod" name="powod" minlength="3" maxlength="1000" required placeholder="np. potwierdzam: tekst skopiowany z projektu …">
+    <button class="przycisk" type="submit">Zapisz decyzję</button>
+  </form>
+</section>
+{% endblock %}

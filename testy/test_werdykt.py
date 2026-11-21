@@ -78,3 +78,14 @@ def test_partnerzy_bez_wlasnej():
     p = werdykt.partnerzy(zgl(), pod)
     assert [x["nazwa"] for x in p] == ["Uniwersytet Rzeszowski"]
     assert p[0]["link"] == "https://b"
+
+
+def test_do_przegladu_zaczyna_od_przegladu():
+    reks = werdykt.sciezka(zgl(), ZIELONE[:3] + [W("nowosc", "zolte", 40)], [], PCI)
+    assert reks[0].reguly == ["PRZEGLAD"] and "nowość" in reks[0].powod.lower()
+
+
+def test_partnerzy_najpierw_lokalni():
+    pod = [Dokument(id="e", zrodlo="epo", typ="patent", tytul="E", opis="", link="https://e", instytucje=["Haier Group"]),
+           Dokument(id="m", zrodlo="mapadotacji", typ="projekt", tytul="M", opis="", link="https://m", instytucje=["Firma z Rzeszowa"])]
+    assert [p["nazwa"] for p in werdykt.partnerzy(zgl(), pod)] == ["Firma z Rzeszowa", "Haier Group"]

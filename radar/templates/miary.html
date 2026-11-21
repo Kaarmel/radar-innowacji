@@ -1,0 +1,44 @@
+{% extends "baza.html" %}
+{% block tytul %}Miary · Radar Innowacji{% endblock %}
+{% block tresc %}
+<h1>Miary</h1>
+<p class="lead">Liczby z tej instancji, liczone na bieżąco. Wynik zestawu testowego pochodzi z ostatniego uruchomienia
+  <code>python -m radar.cli zestaw</code>.</p>
+<div class="siatka4">
+  <div class="kafel liczba-duza"><b>{{ m.gotowych }}</b><span>sprawdzonych zgłoszeń</span></div>
+  <div class="kafel liczba-duza"><b>{{ m.czas_mediana_s | liczba }} s</b><span>mediana czasu sprawdzenia</span></div>
+  <div class="kafel liczba-duza"><b>{{ '%.4f' | format(m.koszt_sredni_usd or 0) }} $</b><span>średni koszt AI na zgłoszenie</span></div>
+  <div class="kafel liczba-duza"><b>{{ m.korpus.values() | sum | liczba(0) }}</b><span>dokumentów w bazie</span></div>
+</div>
+
+<section>
+  <h2>Zestaw testowy</h2>
+  {% if m.zestaw %}
+  <table class="tabela">
+    <thead><tr><th>Miara</th><th class="liczba">Wartość</th></tr></thead>
+    <tbody>{% for kl, v in m.zestaw.get('miary', {}).items() %}<tr><td>{{ kl }}</td><td class="liczba">{{ v }}</td></tr>{% endfor %}</tbody>
+  </table>
+  {% if m.zestaw.get('opis') %}<p class="maly">{{ m.zestaw.opis }}</p>{% endif %}
+  {% else %}<p class="maly">Zestaw testowy jeszcze nie był uruchomiony na tej instancji.</p>{% endif %}
+</section>
+
+<section>
+  <h2>Werdykty i decyzje ludzi</h2>
+  <table class="tabela">
+    <tbody>
+    {% for kl, v in m.werdykty.items() %}<tr><td>{{ s.WERDYKTY[kl] }}</td><td class="liczba">{{ v }}</td></tr>{% endfor %}
+    <tr><td>Decyzji analityków</td><td class="liczba">{{ m.decyzji }}</td></tr>
+    <tr><td>Odrzucenia automatyczne potwierdzone przez człowieka</td><td class="liczba">{{ m.odrzucen_potwierdzonych }} z {{ m.odrzucen_z_decyzja }}</td></tr>
+    <tr><td>Najdłuższe sprawdzenie</td><td class="liczba">{{ m.czas_max_s | liczba }} s</td></tr>
+    <tr><td>Koszt AI razem</td><td class="liczba">{{ '%.4f' | format(m.koszt_razem_usd or 0) }} $</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>Pokrycie źródeł</h2>
+  <table class="tabela">
+    <tbody>{% for kl, v in m.korpus.items() %}<tr><td>{{ s.ZRODLA.get(kl, (kl, ''))[0] }}</td><td class="liczba">{{ v | liczba(0) }}</td></tr>{% endfor %}</tbody>
+  </table>
+</section>
+{% endblock %}

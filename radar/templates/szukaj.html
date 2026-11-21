@@ -1,0 +1,39 @@
+{% extends "baza.html" %}
+{% block tytul %}Szukam rozwiązania · Radar Innowacji{% endblock %}
+{% block tresc %}
+<h1>Szukam rozwiązania</h1>
+<p class="lead">Opisz potrzebę firmy albo instytucji. Pokażemy zgłoszenia z wynikami filtrów oraz projekty, patenty
+  i publikacje z bazy, z instytucjami, z którymi można się skontaktować. Wyszukiwanie nie używa AI.</p>
+<form class="szukaj" method="get" action="/szukaj">
+  <label for="q" class="ukryte">Opis potrzeby</label>
+  <input id="q" name="q" value="{{ q }}" placeholder="np. czujniki jakości powietrza dla szkół" minlength="3" required>
+  <button class="przycisk" type="submit">Szukaj</button>
+</form>
+{% if wynik %}
+<p class="maly">Szukane terminy: {{ wynik.terminy | join(', ') }}</p>
+<section>
+  <h2>Zgłoszenia ({{ wynik.zgloszenia | length }})</h2>
+  <ul class="lista">
+  {% for z in wynik.zgloszenia %}
+    <li><a href="/karta/{{ z.id }}">{{ z.tytul }}</a> <span class="maly">· {{ z.instytucja }} · podobieństwo {{ z.podobienstwo | liczba }}%</span>
+      {% if z.werdykt %}<span class="werdykt {{ z.werdykt }}">{{ s.WERDYKTY.get(z.werdykt) }}</span>{% endif %}
+      <br><span class="maly">{{ z.opis }}…</span></li>
+  {% else %}<li class="maly">Brak podobnych zgłoszeń.</li>{% endfor %}
+  </ul>
+</section>
+{% for typ, nazwa in [('projekt', 'Projekty'), ('patent', 'Patenty'), ('publikacja', 'Publikacje'), ('wpis', 'Wpisy z radaru WWW')] %}
+{% if wynik.dokumenty.get(typ) %}
+<section>
+  <h2>{{ nazwa }} ({{ wynik.dokumenty[typ] | length }})</h2>
+  <ul class="lista">
+  {% for d in wynik.dokumenty[typ] %}
+    <li>{% set href = d.link | link %}{% if href %}<a href="{{ href }}" rel="noopener" target="_blank">{{ d.tytul }}</a>{% else %}{{ d.tytul }}{% endif %}
+      <span class="maly">· {{ s.ZRODLA.get(d.zrodlo, (d.zrodlo, ''))[0] }}{% if d.rok %} · {{ d.rok }}{% endif %}{% if d.instytucje %} · <b>{{ d.instytucje | join(', ') }}</b>{% endif %}</span>
+      <br><span class="maly">{{ d.opis }}…</span></li>
+  {% endfor %}
+  </ul>
+</section>
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endblock %}

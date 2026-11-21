@@ -1,0 +1,49 @@
+{% extends "baza.html" %}
+{% block tytul %}{% if profil %}Kolejka: {{ profil.nazwa }}{% else %}Katalog zgłoszeń{% endif %} · Radar Innowacji{% endblock %}
+{% macro kropki(pasma) %}<span class="kropki">{% for f, (nazwa, _) in s.FILTRY.items() %}{% set p = pasma.get(f, '') %}<span class="kropka {{ p or 'puste' }}" title="{{ nazwa }}: {{ s.PASMA.get(p, 'brak wyniku') }}">{{ nazwa[:1] if f != 'patent' else 'Pa' }}</span>{% endfor %}</span>{% endmacro %}
+{% block tresc %}
+{% if profil %}
+<h1>Kolejka: {{ profil.nazwa }}</h1>
+<p class="lead">{{ profil.opis }} Najpierw pozycje z flagą, bez decyzji. Każdą pozycję z flagą przegląda człowiek.</p>
+<nav class="zakladki" aria-label="Komórki">
+  <a href="?" {% if not filtr.komorka %}aria-current="page"{% endif %}>Wszystkie ({{ licznik.values() | sum }})</a>
+  {% for k, nazwa in profil.nazwy_komorek.items() %}
+  <a href="?komorka={{ k }}" {% if filtr.komorka == k %}aria-current="page"{% endif %}>{{ nazwa }} ({{ licznik.get(k, 0) }})</a>
+  {% endfor %}
+</nav>
+{% else %}
+<h1>Katalog zgłoszeń</h1>
+<p class="lead">Wszystkie zgłoszenia ze wszystkich organizacji. Najpierw pozycje z flagą, bez decyzji.</p>
+{% endif %}
+
+<form class="filtry" method="get">
+  {% if filtr.komorka %}<input type="hidden" name="komorka" value="{{ filtr.komorka }}">{% endif %}
+  <label>Werdykt <select name="werdykt" onchange="this.form.submit()"><option value="">wszystkie</option>
+    {% for k, v in s.WERDYKTY.items() %}<option value="{{ k }}" {% if filtr.werdykt == k %}selected{% endif %}>{{ v }}</option>{% endfor %}</select></label>
+  <label>Wejście <select name="wejscie" onchange="this.form.submit()"><option value="">wszystkie</option>
+    {% for k, v in s.WEJSCIA.items() %}<option value="{{ k }}" {% if filtr.wejscie == k %}selected{% endif %}>{{ v }}</option>{% endfor %}</select></label>
+  <noscript><button class="przycisk drugi">Filtruj</button></noscript>
+</form>
+
+{% if wiersze %}
+<table class="tabela kolejka">
+  <thead><tr><th>Zgłoszenie</th>{% if not profil %}<th>Organizacja</th>{% endif %}<th>Komórka</th><th>Filtry</th><th>Werdykt</th><th>Decyzja</th></tr></thead>
+  <tbody>
+  {% for w in wiersze %}
+  <tr class="{{ 'zdecydowane' if w.decyzja else '' }}">
+    <td><a href="/karta/{{ w.id }}">{{ w.tytul }}</a>
+      <div class="maly">{{ w.instytucja }} · {{ s.WEJSCIA.get(w.wejscie, w.wejscie) }} · {{ w.utworzono_at | data }}</div></td>
+    {% if not profil %}<td class="maly">{{ w.organizacja }}</td>{% endif %}
+    <td class="maly">{{ (profil.nazwy_komorek.get(w.komorka, w.komorka) if profil else w.komorka) or '—' }}</td>
+    <td>{{ kropki(w.pasma) }}</td>
+    <td>{% if w.status == 'gotowe' %}<span class="werdykt {{ w.werdykt }}">{{ s.WERDYKTY.get(w.werdykt, w.werdykt) }}</span>
+        {% else %}<span class="werdykt w_toku">{{ s.STATUSY.get(w.status, w.status) }}</span>{% endif %}</td>
+    <td class="maly">{{ s.DECYZJE.get(w.decyzja, '—') if w.decyzja else '—' }}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p class="pusty">Brak zgłoszeń. <a href="/zglos">Dodaj pierwsze</a>.</p>
+{% endif %}
+{% endblock %}

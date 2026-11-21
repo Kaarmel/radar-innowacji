@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block tytul %}Radar Innowacji{% endblock %}</title>
+<link rel="stylesheet" href="/static/styl.css">
+{% block glowa %}{% endblock %}
+</head>
+<body>
+{% set sciezka = request.url.path %}
+<header class="gora"><div class="w gora-w">
+  <a class="logo" href="/"><span class="logo-znak" aria-hidden="true"></span>Radar Innowacji</a>
+  <nav aria-label="Główne">
+    <a href="/zglos" {% if sciezka.startswith('/zglos') %}aria-current="page"{% endif %}>Zgłoś innowację</a>
+    <a href="/szukaj" {% if sciezka.startswith('/szukaj') %}aria-current="page"{% endif %}>Szukam rozwiązania</a>
+    <a href="/o/pci/kolejka" {% if sciezka.startswith('/o/') %}aria-current="page"{% endif %}>Kolejka PCI</a>
+    <a href="/kolejka" {% if sciezka == '/kolejka' %}aria-current="page"{% endif %}>Katalog</a>
+    <a href="/miary" {% if sciezka.startswith('/miary') %}aria-current="page"{% endif %}>Miary</a>
+    <a href="/docs">API</a>
+  </nav>
+</div></header>
+<main class="w">{% block tresc %}{% endblock %}</main>
+<footer class="w stopka">
+  System flaguje i uzasadnia, a każdą pozycję z flagą przegląda człowiek.
+  Dane: Mapa Dotacji UE, Interreg PL–SK, RAD-on, EPO, OpenAlex, Crossref. Licencja EUPL-1.2.
+</footer>
+</body>
+</html>

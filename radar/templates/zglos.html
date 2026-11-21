@@ -1,0 +1,82 @@
+{% extends "baza.html" %}
+{% block tytul %}Zgłoś innowację · Radar Innowacji{% endblock %}
+{% macro blad(pole) %}{% if bledy.get(pole) %}<p class="blad-pola" role="alert">{{ bledy[pole] }}</p>{% endif %}{% endmacro %}
+{% macro opcje(slownik, wybrane) %}<option value="">wybierz…</option>{% for k, v in slownik.items() %}<option value="{{ k }}" {% if wybrane == k %}selected{% endif %}>{{ v }}</option>{% endfor %}{% endmacro %}
+{% block tresc %}
+<h1>Zgłoś innowację</h1>
+<p class="lead">Wypełnij formularz albo wklej link do strony z opisem, a AI wstępnie uzupełni pola do sprawdzenia.
+  Sprawdzenie trwa zwykle 15–60 sekund.</p>
+
+<form class="z-linku" method="post" action="/zglos/z-linku">
+  <label for="link-zrodlo">Masz link do opisu (aktualność szkoły, uczelni, gminy)?</label>
+  <div class="wiersz">
+    <input id="link-zrodlo" name="link" type="url" placeholder="https://…" value="{{ pola.get('link') or '' }}" required>
+    <input type="hidden" name="organizacja" value="{{ pola.get('organizacja') or 'pci' }}">
+    <button class="przycisk drugi" type="submit">Wypełnij z linku</button>
+  </div>
+</form>
+
+{% if z_linku %}
+<div class="info">Pola uzupełniło AI na podstawie strony. Sprawdź je i popraw przed wysłaniem.
+  {% if cytat %}<br>Dosłowny fragment ze strony: <q>{{ cytat }}</q>{% endif %}</div>
+{% endif %}
+{% if bledy %}<div class="info blad" role="alert">Popraw zaznaczone pola.</div>{% endif %}
+
+<form class="formularz" method="post" action="/zglos" novalidate>
+  <label for="organizacja">Do kogo kierujesz zgłoszenie</label>
+  <select id="organizacja" name="organizacja">
+    {% for o in organizacje() %}<option value="{{ o.slug }}" {% if pola.get('organizacja') == o.slug %}selected{% endif %}>{{ o.nazwa }}</option>{% endfor %}
+  </select>
+  {{ blad('organizacja') }}
+
+  <label for="tytul">Tytuł</label>
+  <input id="tytul" name="tytul" maxlength="200" value="{{ pola.get('tytul') or '' }}" required>
+  {{ blad('tytul') }}
+
+  <label for="opis">Opis: co powstało, dla kogo, czym różni się od istniejących rozwiązań <span class="maly" id="licznik"></span></label>
+  <textarea id="opis" name="opis" rows="10" maxlength="8000" required>{{ pola.get('opis') or '' }}</textarea>
+  <p class="maly">Co najmniej 300 znaków. Bez danych osobowych.</p>
+  {{ blad('opis') }}
+
+  <label for="link">Link do strony z opisem (opcjonalnie)</label>
+  <input id="link" name="link" type="url" value="{{ pola.get('link') or '' }}" placeholder="https://…">
+  {{ blad('link') }}
+
+  <div class="dwie">
+    <div>
+      <label for="instytucja">Instytucja lub firma</label>
+      <input id="instytucja" name="instytucja" maxlength="200" value="{{ pola.get('instytucja') or '' }}" required>
+      {{ blad('instytucja') }}
+    </div>
+    <div>
+      <label for="typ_instytucji">Typ instytucji</label>
+      <select id="typ_instytucji" name="typ_instytucji">{{ opcje(s.TYPY_INSTYTUCJI, pola.get('typ_instytucji')) }}</select>
+      {{ blad('typ_instytucji') }}
+    </div>
+    <div>
+      <label for="typ_innowacji">Typ innowacji</label>
+      <select id="typ_innowacji" name="typ_innowacji">{{ opcje(s.TYPY_INNOWACJI, pola.get('typ_innowacji')) }}</select>
+      {{ blad('typ_innowacji') }}
+    </div>
+    <div>
+      <label for="etap">Etap</label>
+      <select id="etap" name="etap">{{ opcje(s.ETAPY, pola.get('etap')) }}</select>
+      {{ blad('etap') }}
+    </div>
+    <div>
+      <label for="wiek_przedzial">Wiek twórców (deklaracja)</label>
+      <select id="wiek_przedzial" name="wiek_przedzial">{{ opcje(s.WIEK, pola.get('wiek_przedzial')) }}</select>
+      {{ blad('wiek_przedzial') }}
+    </div>
+  </div>
+
+  <p class="info">Opis zgłoszenia jest analizowany przez model AI (DeepSeek przez OpenRouter, bez trenowania na danych).
+    Zgłoszenia w wersji demo są publiczne.</p>
+  <button class="przycisk" type="submit">Wyślij i sprawdź</button>
+</form>
+<script>
+  const o = document.getElementById('opis'), l = document.getElementById('licznik');
+  const pokaz = () => { l.textContent = '(' + o.value.trim().length + ' znaków)'; };
+  o.addEventListener('input', pokaz); pokaz();
+</script>
+{% endblock %}

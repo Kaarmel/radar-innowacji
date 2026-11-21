@@ -36,6 +36,12 @@ def sciezka(z: Zgloszenie, wyniki: list[WynikFiltra], podobne: list[Dokument], p
     nowosc, patent, kopia = _w(wyniki, "nowosc"), _w(wyniki, "patent"), _w(wyniki, "kopia")
     czerwone = any(w.pasmo == "czerwone" for w in wyniki)
     out = []
+    zolte = [w for w in wyniki if w.pasmo == "zolte"]
+    if zolte:
+        nazwy = {"plagiat": "plagiat", "kopia": "kopia", "patent": "patent", "nowosc": "nowość"}
+        opis = ", ".join(f"{nazwy[w.filtr]} {w.procent:.0f}%" if w.procent is not None else nazwy[w.filtr] for w in zolte)
+        out.append(Rekomendacja("Do przeglądu analityka: sprawdź żółte filtry",
+                                f"Żółte: {opis}. Dowody i uzasadnienia są niżej na karcie.", ["PRZEGLAD"]))
     if z.typ_innowacji == "techniczna" and z.etap in {"prototyp", "wdrozone"} and nowosc and nowosc.pasmo == "zielone":
         out.append(Rekomendacja(nazwa("R1"), "Rozwiązanie techniczne na etapie prototypu lub wdrożenia, nowość wysoka.", ["R1"]))
     if nowosc and (nowosc.procent or 0) >= 80 and patent and (patent.pasmo == "zielone" or patent.wlasna_praca):
@@ -52,10 +58,14 @@ def sciezka(z: Zgloszenie, wyniki: list[WynikFiltra], podobne: list[Dokument], p
     return out
 
 
+LOKALNE = {"mapadotacji", "interreg", "radon", "radon_patenty", "www"}
+
+
 def partnerzy(z: Zgloszenie, podobne: list[Dokument], limit: int = 5) -> list[dict]:
-    """Instytucje, które już działają w temacie (z najbardziej podobnych dokumentów), bez własnej instytucji."""
+    """Instytucje, które już działają w temacie (z najbardziej podobnych dokumentów), bez własnej instytucji.
+    Najpierw polskie i regionalne źródła (realny kontakt), potem zagraniczne patenty i publikacje."""
     out, widziane = [], set()
-    for d in podobne:
+    for d in sorted(podobne, key=lambda d: d.zrodlo not in LOKALNE):
         for nazwa in d.instytucje:
             klucz = frozenset(instytucje.normalizuj(nazwa))
             if not klucz or klucz in widziane or instytucje.ta_sama(z.instytucja, [nazwa]):

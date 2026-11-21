@@ -66,6 +66,13 @@ def _uzupelnij_beneficjentow(con: sqlite3.Connection, z: Zgloszenie, ranking: li
         db.zapisz_dokumenty(con, zmienione)
 
 
+def _podobne(ranking: list[tuple[float, Dokument]], czolowka: int = 20, prog_finansowane: float = 0.15) -> list[Dokument]:
+    """Czołówka rankingu + do 3 projektów sfinansowanych spoza niej (żeby ścieżka R4 nie ginęła pod patentami EPO)."""
+    podobne = [d for s, d in ranking[:czolowka] if s > 0]
+    finansowane = [d for s, d in ranking[czolowka:] if d.zrodlo in {"mapadotacji", "interreg"} and s >= prog_finansowane]
+    return podobne + finansowane[:3]
+
+
 def sprawdz(con: sqlite3.Connection, zgl_id: int) -> dict:
     t0 = time.time()
     z = db.zgloszenie(con, zgl_id)
@@ -100,7 +107,7 @@ def sprawdz(con: sqlite3.Connection, zgl_id: int) -> dict:
             filtry.nowosc(z, [d for s, d in obce[:10] if s > 0], koszt=koszt),
         ]
         profil = organizacje.wczytaj(z.organizacja)
-        podobne = [d for s, d in ranking[:20] if s > 0]
+        podobne = _podobne(ranking)
         lokalne_liczby = db.liczba_dokumentow(con)
         pokrycie = {"zrodla": sorted(set(lokalne_liczby) - {"zgloszenie"} | set(ok)),
                     "lokalne": lokalne_liczby, "dokumentow": sum(lokalne_liczby.values()),

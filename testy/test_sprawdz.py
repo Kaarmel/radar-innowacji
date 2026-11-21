@@ -68,3 +68,11 @@ def test_pokrycie_bez_powtorzen(con, monkeypatch):
     sprawdz.sprawdz(con, _zgl(con))
     k = sprawdz.sprawdz(con, _zgl(con, inst="Inna szkoła"))
     assert k["pokrycie"]["zrodla"].count("epo") == 1
+
+
+def test_podobne_dolacza_finansowane_spoza_czolowki():
+    epo = [(0.9 - i * 0.01, Dokument(id=f"epo:{i}", zrodlo="epo", typ="patent", tytul="E", opis="", link="https://e")) for i in range(25)]
+    mapa = (0.2, Dokument(id="mapadotacji:9", zrodlo="mapadotacji", typ="projekt", tytul="M", opis="", link="https://m"))
+    slaby = (0.05, Dokument(id="mapadotacji:8", zrodlo="mapadotacji", typ="projekt", tytul="S", opis="", link="https://s"))
+    ids = [d.id for d in sprawdz._podobne(epo + [mapa, slaby])]
+    assert "mapadotacji:9" in ids and "mapadotacji:8" not in ids and len(ids) == 21
