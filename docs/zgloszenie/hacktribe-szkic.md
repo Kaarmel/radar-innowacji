@@ -29,7 +29,7 @@ na który powołuje się AI, był w wynikach. Jedno sprawdzenie trwa ok. 15–60
 
 **Miary.** 52 przypadki ze znaną prawdą zbudowane z danych: plagiat 9/9, kopia 10/10, patent 5/5, własna praca 5/5,
 duplikat 3/3. Na 20 prawdziwych projektach z etykietami z głosowania 5 niezależnych modeli (nie człowieka) zgodność
-filtra nowości wynosi 0,87 (n=15). Rubrykę poprawialiśmy na tych samych projektach, więc to nie jest niezależny pomiar.
+filtra nowości wynosi 0,78 (n=18). Rubrykę poprawialiśmy na tych samych projektach, więc to nie jest niezależny pomiar.
 
 **Dla kogo.** Zakładki z prostym opisem i demo dla analityka PCI, szkół i młodych (16–30), uczelni, gmin i firm.
 

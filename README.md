@@ -171,19 +171,21 @@ jednogłośnych (`walidacja/etykiety_glosy.csv`); to nie jest ocena człowieka.
 
 Pierwszy pomiar pokazał, że filtr nowości był za surowy dla wdrożeń firm (czerwony w 6 z 9). Poprawiliśmy rubrykę:
 pytanie o rutynę bez podwójnego przeczenia, a „brak nowości” tylko wtedy, gdy dokument opisuje to samo rozwiązanie,
-nie podobny temat. Drugi pomiar (wszystkie 20 sprawdzone w limicie czasu, najdłużej 60 s):
+nie podobny temat. Gdy żaden dokument nie opisuje tego samego, odpowiedź brzmi „tak”. Pomiar obecnej wersji (wszystkie 20
+sprawdzone w limicie czasu, najdłużej 58 s):
 
-| Miara | Przed poprawką | Po poprawce |
+| Miara | Przed poprawką | Obecna wersja |
 |---|---|---|
-| Zgodność filtra nowości z etykietami | 0,56 (n=16) | 0,87 (n=15) |
-| Rutyna: czerwona nowość | 6 z 7 | 8 z 9 |
-| Wdrożenia i B+R: czerwona nowość | 6 z 9 | 1 z 6 |
-| Średni potencjał: nowość / rutyna | 28 / 18 pkt | 42,5 / 7,3 pkt |
+| Zgodność filtra nowości z etykietami | 0,56 (n=16) | 0,78 (n=18) |
+| Rutyna: czerwona nowość | 6 z 7 | 9 z 10 |
+| Wdrożenia i B+R: czerwona nowość | 6 z 9 | 3 z 8 |
+| Projekty bez oceny nowości | 4 z 20 (3 przekroczyły czas) | 2 z 20 |
+| Średni potencjał: nowość / rutyna | 28 / 18 pkt | 48 / 8,7 pkt |
 
-Uczciwie: rubrykę poprawialiśmy na tych samych 20 projektach, więc to nie jest niezależny pomiar. W 5 z 20 projektów AI
-odpowiedziało na mniej niż 3 z 5 pytań i nowość została „nieoceniona” (bez flagi, do decyzji człowieka). Następny krok:
-etykiety analityków PCI na nowych projektach. Każde odrzucenie przegląda człowiek. Opisy projektów OSP często dzielą
-szablonowe zdania, więc filtr plagiatu flaguje je do przeglądu.
+Uczciwie: rubrykę poprawialiśmy na tych samych 20 projektach, więc to nie jest niezależny pomiar. Wyniki wahają się
+między przebiegami (pośrednia wersja dała zgodność 0,87, ale 5 z 20 projektów bez oceny), więc przy 20 projektach
+traktujemy je jako orientacyjne. Następny krok: etykiety analityków PCI na nowych projektach. Każde odrzucenie przegląda
+człowiek. Opisy projektów OSP często dzielą szablonowe zdania, więc filtr plagiatu flaguje je do przeglądu.
 
 ## Uruchomienie
 
