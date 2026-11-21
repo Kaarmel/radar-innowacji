@@ -4,13 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{% block tytul %}Radar Innowacji{% endblock %}</title>
-<link rel="stylesheet" href="/static/styl.css?v=20261121d">
+<link rel="icon" type="image/png" href="/static/logo.png">
+<link rel="apple-touch-icon" href="/static/logo.png">
+<link rel="stylesheet" href="/static/styl.css?v=20261121e">
 {% block glowa %}{% endblock %}
 </head>
 <body>
 {% set sciezka = request.url.path %}
 <header class="gora"><div class="w gora-w">
-  <a class="logo" href="/"><span class="logo-znak" aria-hidden="true"></span>Radar Innowacji</a>
+  <a class="logo" href="/"><img src="/static/logo.svg?v=08" alt="Radar Innowacji" width="235" height="44"></a>
   <nav aria-label="Główne">
     <a href="/dla/analityk" {% if sciezka.startswith('/dla/') %}aria-current="page"{% endif %}>Dla kogo</a>
     <a href="/o/pci/kolejka" {% if sciezka.startswith('/o/') %}aria-current="page"{% endif %}>Wykryte (PCI)</a>

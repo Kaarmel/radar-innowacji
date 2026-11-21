@@ -64,3 +64,13 @@ def test_radar_odrzuca_inwestycje_i_remonty(monkeypatch):
 def test_formularz_to_ocena_projektu_przez_analityka(klient):
     s = klient.get("/zglos").text
     assert "Oceń projekt" in s and "Do kogo kierujesz" not in s and "Profil oceny" in s
+
+
+def test_zatwierdzone_logo_w_naglowku_i_ikonie(klient):
+    """LOGO.md: logo 08 „Wyłoniony moduł” z zatwierdzonych plików, bez zmian znaku i kolorów."""
+    s = klient.get("/").text
+    assert 'src="/static/logo.svg' in s and 'alt="Radar Innowacji"' in s
+    assert 'rel="icon"' in s and "/static/logo.png" in s
+    svg = klient.get("/static/logo.svg")
+    assert svg.status_code == 200 and "#0085CC" in svg.text and "#6BB437" in svg.text
+    assert klient.get("/static/logo.png").status_code == 200

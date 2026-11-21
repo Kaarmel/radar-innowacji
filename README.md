@@ -1,3 +1,5 @@
+<p align="center"><img src="logo2.png" alt="Radar Innowacji" width="560"></p>
+
 # Radar Innowacji
 
 Radar, który **sam wyszukuje istniejące innowacje** na stronach szkół, uczelni i samorządów oraz w publicznych bazach

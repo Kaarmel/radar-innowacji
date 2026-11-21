@@ -19,8 +19,7 @@ code { background: var(--brak-tlo); padding: 0 .3em; border-radius: 4px; }
 .gora { background: var(--biel); border-bottom: 1px solid var(--linia); position: sticky; top: 0; z-index: 5; }
 .gora-w { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 60px; flex-wrap: wrap; }
 .logo { font-weight: 700; color: var(--tusz); text-decoration: none; display: flex; align-items: center; gap: 10px; }
-.logo-znak { width: 22px; height: 22px; border-radius: 50%; border: 3px solid var(--akcent); position: relative; }
-.logo-znak::after { content: ""; position: absolute; inset: 4px; border-radius: 50%; background: var(--akcent); }
+.logo img { display: block; height: 44px; width: auto; }
 nav a { color: var(--szary); text-decoration: none; padding: 6px 10px; border-radius: 8px; font-size: .95rem; }
 nav a:hover, nav a[aria-current="page"] { color: var(--tusz); background: var(--tlo); }
 main { padding-bottom: 48px; }
