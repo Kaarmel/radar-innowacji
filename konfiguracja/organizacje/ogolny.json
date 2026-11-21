@@ -1,0 +1,46 @@
+{
+  "slug": "ogolny",
+  "nazwa": "Katalog ogólny",
+  "opis": "Domyślny profil dla firm i instytucji bez własnej konfiguracji. Nową organizację dodaje się nowym plikiem JSON w tym katalogu.",
+  "komorki": [
+    {
+      "id": "nauka",
+      "nazwa": "Nauka",
+      "gdy": {
+        "typ_instytucji": [
+          "uczelnia",
+          "instytut"
+        ]
+      }
+    },
+    {
+      "id": "sektor_publiczny",
+      "nazwa": "Sektor publiczny",
+      "gdy": {
+        "typ_instytucji": [
+          "jst",
+          "inna_publiczna",
+          "szkola_podstawowa",
+          "szkola_ponadpodstawowa"
+        ]
+      }
+    },
+    {
+      "id": "firmy",
+      "nazwa": "Firmy",
+      "gdy": {
+        "typ_instytucji": [
+          "firma"
+        ]
+      }
+    }
+  ],
+  "komorka_domyslna": "pozostale",
+  "nazwy_komorek": {
+    "nauka": "Nauka",
+    "sektor_publiczny": "Sektor publiczny",
+    "firmy": "Firmy",
+    "pozostale": "Pozostałe"
+  },
+  "sciezki": {}
+}

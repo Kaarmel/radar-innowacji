@@ -1,0 +1,60 @@
+{
+  "slug": "pci",
+  "nazwa": "Podkarpackie Centrum Innowacji",
+  "opis": "Wspiera innowacje i przedsiębiorczość na Podkarpaciu: akceleracja, granty B+R, Protolab dla innowatorów 16–30 lat.",
+  "komorki": [
+    {
+      "id": "mlodzi_16_30",
+      "nazwa": "Młodzi innowatorzy 16–30",
+      "gdy": {
+        "wiek_przedzial": [
+          "16_30"
+        ]
+      }
+    },
+    {
+      "id": "mlodzi_16_30",
+      "nazwa": "Młodzi innowatorzy 16–30",
+      "gdy": {
+        "typ_instytucji": [
+          "szkola_ponadpodstawowa"
+        ]
+      }
+    },
+    {
+      "id": "naukowcy",
+      "nazwa": "Naukowcy",
+      "gdy": {
+        "typ_instytucji": [
+          "uczelnia",
+          "instytut"
+        ]
+      }
+    },
+    {
+      "id": "inni",
+      "nazwa": "Inni (instytucje publiczne)",
+      "gdy": {
+        "typ_instytucji": [
+          "jst",
+          "inna_publiczna",
+          "szkola_podstawowa"
+        ]
+      }
+    }
+  ],
+  "komorka_domyslna": "ogolne",
+  "nazwy_komorek": {
+    "mlodzi_16_30": "Młodzi innowatorzy 16–30",
+    "naukowcy": "Naukowcy",
+    "inni": "Inni (instytucje publiczne)",
+    "ogolne": "Ogólne"
+  },
+  "sciezki": {
+    "R1": "Akceleracja PCI i prototypowanie w Protolab",
+    "R2": "Ochrona: konsultacja z rzecznikiem patentowym, zgłoszenie w UPRP lub licencja",
+    "R3": "Transfer do innych instytucji tego samego typu (sieć partnerów PCI)",
+    "R4": "Finansowanie: programy, z których sfinansowano podobne projekty",
+    "R5": "Współpraca zamiast dublowania: kontakt z autorami podobnego rozwiązania"
+  }
+}
