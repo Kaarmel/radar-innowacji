@@ -70,9 +70,9 @@
     <tr><td>Patent: opis patentu uczelni przepisany</td><td class="num"><b>5 z 5</b></td></tr><tr><td>Własna praca: kontynuacja, bez odrzucenia</td><td class="num"><b>5 z 5</b></td></tr>
     <tr><td>Duplikat zgłoszenia</td><td class="num"><b>3 z 3</b></td></tr></table>
     <p class="small">Mediana czasu 44,3 s (4 sprawdzenia równolegle), średni koszt AI 0,00129 $.</p></div><div>
-    <h3>Czego się nauczyliśmy</h3><p>Na 20 prawdziwych projektach z Mapy Dotacji rutynowe zakupy (wozy OSP, oczyszczalnie) dostawały 62–74 pkt potencjału, prawie tyle co projekty B+R.</p>
-    <p>Dodaliśmy bramkę nowości: rutyna 0–44 pkt, B+R 0–65 pkt, ale mediana w obu grupach to 22. Filtr nowości jest surowy (16 z 20 projektów do przeglądu): kalibrujemy go na etykietach analityków PCI.</p>
-    <p class="small">Pomiar z 21.11 po południu, przed wieczornymi poprawkami filtra nowości. Zestaw mierzy czułość na przypadkach zbudowanych z danych, a nie odsetek fałszywych alarmów. Wspólne szablony opisów (np. OSP) dają flagę plagiatu do przeglądu.</p></div></div></section>
+    <h3>Nowość na 20 prawdziwych projektach</h3><p>Etykiety: głosowanie 5 niezależnych modeli (GPT, Gemini, Claude, Mistral, Antigravity), 19 z 20 jednogłośnie.</p>
+    <p>Filtr nowości: rutyna czerwona w 6 z 7, ale wdrożenia i B+R też w 6 z 9. Zgodność 0,56; średni potencjał 28 vs 18 pkt. Następny krok: kalibracja na etykietach PCI.</p>
+    <p class="small">Zestaw mierzy czułość na przypadkach zbudowanych z danych, a nie odsetek fałszywych alarmów. Każde odrzucenie przegląda człowiek.</p></div></div></section>
 <section><h2>Wdrożenie i skalowanie</h2><div class="cols"><div><h3>Już działa</h3><ul>
     <li>Publiczna strona i REST API (OpenAPI): radar, wyszukiwarka, karta, kolejka, ocena projektu.</li>
     <li>Nowa organizacja = 1 plik JSON: komórki, ścieżki, wagi, specjalizacje. Kolejka pod /o/&lt;nazwa&gt;.</li>

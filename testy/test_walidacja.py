@@ -41,3 +41,10 @@ def test_opis_nie_twierdzi_o_etykietach_gdy_ich_brak(tmp_path, monkeypatch):
     con.execute("CREATE TABLE test(zgl_id INTEGER, rodzaj TEXT, filtr TEXT, oczekiwane TEXT)")
     w = walidacja.raport(con, log=lambda *a: None)
     assert "nadał człowiek" not in w["opis"] and "nie zostały jeszcze" in w["opis"]
+
+
+def test_opis_etykiet_mowi_kto_je_nadal():
+    assert "nadał człowiek" in walidacja.opis_etykiet("człowiek", True)
+    o = walidacja.opis_etykiet("głosowanie 5 modeli (a, b)", True)
+    assert "głosowanie 5 modeli" in o and "nie ocena człowieka" in o and "nadał człowiek" not in o
+    assert "nie zostały jeszcze" in walidacja.opis_etykiet("człowiek", False)

@@ -175,11 +175,24 @@ def zbuduj(con, n: int = 10, ziarno: int = 7, log=print) -> list[int]:
     return [z for z, *_ in wpisy]
 
 
+def opis_etykiet(zrodlo: str, policzone: bool) -> str:
+    """Zdanie raportu o pochodzeniu etykiet: człowiek albo głosowanie modeli (wtedy mówimy to wprost)."""
+    if not policzone:
+        return ". Etykiety „rutyna / nowość” w walidacja/etykiety.csv nie zostały jeszcze wypełnione: zgodność nie jest policzona."
+    if zrodlo == "człowiek":
+        return ". Etykiety „rutyna / nowość” nadał człowiek w walidacja/etykiety.csv."
+    return (f". Etykiety „rutyna / nowość” w walidacja/etykiety.csv to {zrodlo}, nie ocena człowieka;"
+            " głosy każdego modelu: walidacja/etykiety_glosy.csv.")
+
+
 def raport(con, log=print) -> dict:
-    etykiety = {}
+    etykiety, zrodlo = {}, "człowiek"
     if ETYKIETY.exists():
         with open(ETYKIETY, encoding="utf-8") as f:
-            etykiety = {r["zgl_id"]: (r.get("etykieta") or "").strip().lower() for r in csv.DictReader(f)}
+            rows = list(csv.DictReader(f))
+        etykiety = {r["zgl_id"]: (r.get("etykieta") or "").strip().lower() for r in rows}
+        zrodlo = next((r["zrodlo"].strip() for r in rows if (r.get("zrodlo") or "").strip()), "człowiek")
+    kto = "człowiek" if zrodlo == "człowiek" else "głosowanie modeli"
     wiersze = []
     for zid, rodzaj in con.execute("SELECT zgl_id, rodzaj FROM test"):
         k = db.karta(con, zid)
@@ -193,14 +206,13 @@ def raport(con, log=print) -> dict:
             czytelne[opis.split(":")[0] + ": czułość"] = f"{x['trafione']}/{x['wszystkie']} ({x['czulosc']:.2f})"
     if "etykiety" in m:
         e = m["etykiety"]
-        czytelne["Nowość: zgodność z etykietą człowieka"] = f"{e['zgodnosc']:.2f} (n={e['n']})"
-        czytelne["Średni potencjał: nowość / rutyna (człowiek)"] = f"{e['potencjal_nowosc']} / {e['potencjal_rutyna']}"
+        czytelne[f"Nowość: zgodność z etykietą ({kto})"] = f"{e['zgodnosc']:.2f} (n={e['n']})"
+        czytelne[f"Średni potencjał: nowość / rutyna ({kto})"] = f"{e['potencjal_nowosc']} / {e['potencjal_rutyna']}"
     czytelne["Mediana czasu sprawdzenia"] = f"{m['czas_mediana_s']} s"
     czytelne["Średni koszt AI na sprawdzenie"] = f"{m['koszt_sredni_usd']} $"
     wynik = {"kiedy": time.strftime("%Y-%m-%d %H:%M"), "miary": czytelne, "szczegoly": m,
              "opis": "Przypadki ze znaną prawdą zbudowane z dzisiejszych danych (RAD-on, Mapa Dotacji): " + "; ".join(OPISY.values())
-                     + (". Etykiety „rutyna / nowość” nadał człowiek w walidacja/etykiety.csv." if "etykiety" in m else
-                        ". Etykiety „rutyna / nowość” w walidacja/etykiety.csv nie zostały jeszcze wypełnione: zgodność z człowiekiem nie jest policzona.")}
+                     + opis_etykiet(zrodlo, "etykiety" in m)}
     RAPORT_JSON.parent.mkdir(parents=True, exist_ok=True)
     RAPORT_JSON.write_text(json.dumps(wynik, ensure_ascii=False, indent=1), encoding="utf-8")
     KATALOG.mkdir(exist_ok=True)
