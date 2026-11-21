@@ -34,6 +34,24 @@
 </section>
 
 <section>
+  <h2>Zasięg i źródła z zadania, których jeszcze nie pobieramy</h2>
+  <p>RAD-on (projekty i patenty uczelni) oraz EPO, OpenAlex i Crossref obejmują całą Polskę. Mapa Dotacji UE jest
+    pobrana dla Podkarpacia; inne województwo to jeden parametr: <code>python -m radar.cli pobierz mapadotacji --woj &lt;id&gt;</code>.
+    Radar WWW czyta listę stron z pliku <code>konfiguracja/zrodla_www.csv</code>, więc nowy region to nowe wiersze.</p>
+  <table class="tabela">
+    <thead><tr><th>Źródło</th><th>Stan (sprawdzone 21.11.2026)</th><th>Jak je wpiąć</th></tr></thead>
+    <tbody>
+      <tr><td>e-Wyszukiwarka UPRP</td><td>ochrona anty-botowa; nie obchodzimy jej</td><td>patenty polskich uczelni są z RAD-on, a publikacje EP z EPO; pełne dane UPRP przez oficjalny dostęp albo pliki Biuletynu UPRP</td></tr>
+      <tr><td>PBN (publikacje)</td><td>API wymaga tokenu instytucji</td><td>token PCI albo uczelni partnerskiej; moduł jak RAD-on (ok. 1 dzień)</td></tr>
+      <tr><td>CORDIS (projekty UE)</td><td>wyszukiwarka zabroniona w robots.txt</td><td>miesięczne zrzuty z portalu otwartych danych UE, wczytywane jak Interreg</td></tr>
+      <tr><td>NCBR, PARP, NCN</td><td>projekty z funduszy europejskich są już w Mapie Dotacji; projekty uczelni w RAD-on</td><td>listy rankingowe NCBR i NCN (pliki XLSX/PDF) jako kolejny moduł</td></tr>
+      <tr><td>PPM (repozytorium)</td><td>robots.txt zabrania pobierania</td><td>tylko za zgodą właściciela</td></tr>
+      <tr><td>Google Scholar</td><td>brak API, zakaz automatycznego pobierania</td><td>zastąpione przez OpenAlex i Crossref</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
   <h2>Ścieżki AI</h2>
   <p>Teraz działa: <b>{{ ai_teraz.sciezka }}</b>, model <code>{{ ai_teraz.model }}</code>.</p>
   <table class="tabela">

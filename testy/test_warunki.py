@@ -30,7 +30,7 @@ def test_harmonogram_dla_kazdego_zrodla():
 def test_strona_warunki_i_api_zrodla(klient):
     r = klient.get("/warunki")
     assert r.status_code == 200
-    for tekst in ("Harmonogram", "Stan danych", "OPENROUTER_API_KEY", "lokalnie", "Wymagania"):
+    for tekst in ("Harmonogram", "Stan danych", "OPENROUTER_API_KEY", "lokalnie", "Wymagania", "PBN", "CORDIS", "--woj"):
         assert tekst in r.text, tekst
     j = klient.get("/api/zrodla").json()
     radon = next(x for x in j if x["zrodlo"] == "radon_patenty")
