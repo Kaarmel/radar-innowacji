@@ -11,6 +11,10 @@ def main(argv=None) -> int:
     pp = sub.add_parser("pobierz")
     pp.add_argument("zrodlo", choices=["mapadotacji", "interreg", "radon", "radon_patenty"])
     pp.add_argument("--woj", default="327", help="Mapa Dotacji: id województwa (327 = podkarpackie)")
+    pr = sub.add_parser("radar", help="radar WWW: kanały RSS szkół i uczelni → zgłoszenia z wejściem radar")
+    pr.add_argument("--limit", type=int, default=300)
+    pr.add_argument("--dni", type=int, default=180)
+    pr.add_argument("--organizacja", default="pci")
     ps = sub.add_parser("sprawdz", help="sprawdza zgłoszenie o danym id albo nowe z --opis")
     ps.add_argument("id", nargs="?", type=int)
     ps.add_argument("--tytul", default="Zgłoszenie z wiersza poleceń")
@@ -30,6 +34,10 @@ def main(argv=None) -> int:
              "radon": lambda: radon.pobierz_wszystko(con),
              "radon_patenty": lambda: radon_patenty.pobierz_wszystko(con)}[a.zrodlo]()
         print(f"{a.zrodlo}: zapisano {n}; w bazie: {db.liczba_dokumentow(con)}", flush=True)
+    elif a.cmd == "radar":
+        from .zrodla import www
+        stat = www.uruchom(con, a.limit, a.dni, a.organizacja)
+        print({k: v for k, v in stat.items() if k != "bledy"}, flush=True)
     elif a.cmd == "sprawdz":
         import json
 
