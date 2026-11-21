@@ -101,3 +101,11 @@ def test_beneficjenci_tylko_gdy_moga_zmienic_wynik(monkeypatch):
     ranking = [(0.5, md(1, "Inny tekst o filtrach wody.")), (0.2, md(2, "Daleki temat budowy drogi.")), (0.1, md(3, ORYG))]
     sprawdz._uzupelnij_beneficjentow(None, z, ranking)
     assert pytane == ["https://m/3", "https://m/1"]
+
+
+def test_karta_podaje_stan_danych(con, monkeypatch):
+    monkeypatch.setattr(sprawdz, "ZRODLA_NA_ZADANIE", {})
+    k = sprawdz.sprawdz(con, _zgl(con))
+    stan = k["pokrycie"]["stan_danych"]
+    assert set(stan) >= {"mapadotacji", "radon"} and all(len(v) == 10 for v in stan.values())  # RRRR-MM-DD
+    assert k["pokrycie"]["na_zywo"][:4] == "2026" or len(k["pokrycie"]["na_zywo"]) == 16

@@ -11,6 +11,7 @@ def main(argv=None) -> int:
     pp = sub.add_parser("pobierz")
     pp.add_argument("zrodlo", choices=["mapadotacji", "interreg", "radon", "radon_patenty"])
     pp.add_argument("--woj", default="327", help="Mapa Dotacji: id województwa (327 = podkarpackie)")
+    pp.add_argument("--od-nowa", action="store_true", help="cykliczna aktualizacja: pobiera całe źródło od początku (nadpisuje rekordy)")
     pr = sub.add_parser("radar", help="radar WWW: kanały RSS szkół i uczelni → zgłoszenia z wejściem radar")
     pr.add_argument("--limit", type=int, default=300)
     pr.add_argument("--dni", type=int, default=180)
@@ -33,6 +34,10 @@ def main(argv=None) -> int:
     con = db.polacz()
     if a.cmd == "pobierz":
         from .zrodla import interreg, mapadotacji, radon, radon_patenty
+        if a.od_nowa:
+            with con:
+                con.execute("CREATE TABLE IF NOT EXISTS postep(klucz TEXT PRIMARY KEY, wartosc TEXT)")
+                con.execute("DELETE FROM postep WHERE klucz LIKE ?", (f"{a.zrodlo}:%",))
         n = {"mapadotacji": lambda: mapadotacji.pobierz_wszystko(con, a.woj),
              "interreg": lambda: interreg.pobierz_wszystko(con),
              "radon": lambda: radon.pobierz_wszystko(con),

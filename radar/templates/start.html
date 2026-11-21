@@ -30,14 +30,15 @@
 <section>
   <h2>Przeszukiwane źródła</h2>
   <table class="tabela">
-    <thead><tr><th>Źródło</th><th class="liczba">Dokumentów w bazie</th></tr></thead>
+    <thead><tr><th>Źródło</th><th class="liczba">Dokumentów w bazie</th><th>Stan na</th><th>Aktualizacja</th></tr></thead>
     <tbody>
     {% for klucz, (nazwa, adres) in s.ZRODLA.items() if klucz != 'zgloszenie' %}
       <tr><td>{% if adres %}<a href="{{ adres }}" rel="noopener" target="_blank">{{ nazwa }}</a>{% else %}{{ nazwa }}{% endif %}</td>
-          <td class="liczba">{{ liczby.get(klucz, 0) | liczba(0) }}</td></tr>
+          <td class="liczba">{{ liczby.get(klucz, 0) | liczba(0) }}</td>
+          <td>{{ stan[klucz] if klucz in stan else '—' }}</td><td class="maly">{{ s.HARMONOGRAM[klucz].co_ile if klucz in s.HARMONOGRAM else '' }}</td></tr>
     {% endfor %}
     </tbody>
-    <tfoot><tr><td>Razem (bez zgłoszeń: {{ zgloszen }})</td><td class="liczba">{{ razem | liczba(0) }}</td></tr></tfoot>
+    <tfoot><tr><td>Razem (bez zgłoszeń: {{ zgloszen }})</td><td class="liczba">{{ razem | liczba(0) }}</td><td colspan="2"><a href="/warunki">Warunki działania i wymagania</a></td></tr></tfoot>
   </table>
   <p class="maly">Źródła oznaczone „na żądanie” są odpytywane przy każdym sprawdzeniu, a wyniki zostają w bazie.
     Zgłoszenia patentowe są jawne dopiero po 18 miesiącach, więc karta zawsze o tym przypomina.</p>

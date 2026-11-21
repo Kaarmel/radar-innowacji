@@ -1,6 +1,7 @@
 """Aplikacja WWW i API: zgłoszenia, kolejki organizacji, karta z dowodami, decyzje człowieka, wyszukiwarka, miary."""
 import json
 import logging
+import os
 import re
 import statistics
 import threading
@@ -273,7 +274,8 @@ def _zapisz(con, we: ZgloszenieWe, wejscie: str = "formularz") -> int:
 def start(request: Request, con=Depends(polaczenie)):
     liczby = db.liczba_dokumentow(con)
     zgl = con.execute("SELECT count(*) FROM zgloszenie").fetchone()[0]
-    return strona(request, "start.html", liczby=liczby, razem=sum(v for k, v in liczby.items()), zgloszen=zgl)
+    stan = {k: time.strftime("%d.%m.%Y", time.localtime(v["pobrano_do"])) for k, v in db.stan_zrodel(con).items() if v["pobrano_do"]}
+    return strona(request, "start.html", liczby=liczby, razem=sum(v for k, v in liczby.items()), zgloszen=zgl, stan=stan)
 
 
 @app.get("/zglos", response_class=HTMLResponse, include_in_schema=False)
@@ -466,6 +468,36 @@ def _miary(con) -> dict:
             "decyzji": len(decyzje), "odrzucen_z_decyzja": odrzucone, "odrzucen_potwierdzonych": potwierdzone,
             "korpus": db.liczba_dokumentow(con),
             "zestaw": json.loads(raport.read_text(encoding="utf-8")) if raport.exists() else None}
+
+
+def _zrodla_stan(con) -> list[dict]:
+    stan = db.stan_zrodel(con)
+    out = []
+    for klucz, h in slowniki.HARMONOGRAM.items():
+        s = stan.get(klucz) or {}
+        do = s.get("pobrano_do")
+        out.append({"zrodlo": klucz, "nazwa": slowniki.ZRODLA[klucz][0], "adres": slowniki.ZRODLA[klucz][1],
+                    "dokumentow": s.get("dokumentow", 0), "stan_na": time.strftime("%Y-%m-%d %H:%M", time.localtime(do)) if do else None,
+                    "najnowszy_rok": s.get("najnowszy_rok"), **h})
+    return out
+
+
+def _sciezka_ai() -> dict:
+    url = os.environ.get("AI_URL") or ai.URL
+    if "openrouter.ai" in url:
+        return {"sciezka": "A: API (OpenRouter)" if os.environ.get("OPENROUTER_API_KEY") else "C: bez AI (brak klucza)",
+                "model": os.environ.get("MODEL") or config.MODEL}
+    return {"sciezka": "B: model lokalny", "model": os.environ.get("MODEL") or config.MODEL}
+
+
+@app.get("/warunki", response_class=HTMLResponse, include_in_schema=False)
+def warunki(request: Request, con=Depends(polaczenie)):
+    return strona(request, "warunki.html", zrodla=_zrodla_stan(con), ai_teraz=_sciezka_ai())
+
+
+@app.get("/api/zrodla", tags=["źródła"], summary="Źródła: liczba dokumentów, stan danych, harmonogram aktualizacji")
+def api_zrodla(con=Depends(polaczenie)):
+    return _zrodla_stan(con)
 
 
 @app.get("/miary", response_class=HTMLResponse, include_in_schema=False)

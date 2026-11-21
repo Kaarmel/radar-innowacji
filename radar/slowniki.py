@@ -37,6 +37,23 @@ FILTRY = {
 DECYZJE = {"potwierdz_odrzucenie": "Potwierdzam odrzucenie", "przywroc": "Przywracam (flaga nietrafna)",
            "przekaz": "Przekazuję dalej (do komórki lub eksperta)"}
 STATUSY = {"nowe": "w kolejce", "w_toku": "sprawdzanie", "gotowe": "gotowe", "blad": "błąd sprawdzenia"}
+# Harmonogram aktualizacji (realizują go timery systemd z wdrozenie/vm.sh) i świadome opóźnienia samych źródeł.
+HARMONOGRAM = {
+    "mapadotacji": {"tryb": "pobierane (API)", "co_ile": "co tydzień, poniedziałek 03:00",
+                    "uwaga": "Projekty pojawiają się po podpisaniu umowy o dofinansowanie."},
+    "interreg": {"tryb": "pobierane (plik XLSX)", "co_ile": "co miesiąc, 1. dnia 03:30",
+                 "uwaga": "Lista projektów publikowana przez wspólny sekretariat programu."},
+    "radon": {"tryb": "pobierane (API)", "co_ile": "co tydzień, wtorek 03:00",
+              "uwaga": "Projekty naukowe wpisywane przez uczelnie i instytuty do RAD-on."},
+    "radon_patenty": {"tryb": "pobierane (API)", "co_ile": "co tydzień, środa 03:00",
+                      "uwaga": "Patenty i wzory udzielone polskim uczelniom. Zgłoszenia są jawne dopiero po 18 miesiącach."},
+    "epo": {"tryb": "na żywo", "co_ile": "przy każdym sprawdzeniu (EPO publikuje nowe dokumenty co tydzień, w środy)",
+            "uwaga": "Zgłoszenia patentowe są jawne dopiero po 18 miesiącach od daty pierwszeństwa: najnowszych nie widzi żadna baza."},
+    "openalex": {"tryb": "na żywo", "co_ile": "przy każdym sprawdzeniu", "uwaga": "Publikacje z abstraktami; darmowy klucz."},
+    "crossref": {"tryb": "na żywo", "co_ile": "przy każdym sprawdzeniu", "uwaga": "Metadane publikacji (DOI)."},
+    "www": {"tryb": "kanały RSS", "co_ile": "codziennie 06:00, wpisy z ostatnich 180 dni",
+            "uwaga": "172 strony szkół, uczelni, PCI i samorządów (konfiguracja/zrodla_www.csv)."},
+}
 ZRODLA = {
     "mapadotacji": ("Mapa Dotacji UE: projekty z Podkarpacia", "https://mapadotacji.gov.pl"),
     "interreg": ("Interreg Polska–Słowacja", "https://pl-sk.eu"),

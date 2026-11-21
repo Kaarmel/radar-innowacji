@@ -42,7 +42,37 @@ radar-innowacji.skroban.tech, radar.46.60.21.253.sslip.io {
 }
 EOF
 fi
+# Harmonogram aktualizacji źródeł (ten sam co w radar/slowniki.py: HARMONOGRAM i na stronie /warunki)
+chmod +x /home/eouser/radar/wdrozenie/aktualizuj.sh
+sudo tee /etc/systemd/system/radar-aktualizacja@.service > /dev/null <<'EOF'
+[Unit]
+Description=Radar Innowacji: aktualizacja źródła %i
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=eouser
+Nice=10
+ExecStart=/home/eouser/radar/wdrozenie/aktualizuj.sh %i
+EOF
+for wpis in "mapadotacji|Mon *-*-* 03:00" "radon|Tue *-*-* 03:00" "radon_patenty|Wed *-*-* 03:00" "interreg|*-*-01 03:30" "radar|*-*-* 06:00"; do
+  zr="${wpis%%|*}"; kiedy="${wpis#*|}"
+  sudo tee /etc/systemd/system/radar-aktualizacja-$zr.timer > /dev/null <<EOF
+[Unit]
+Description=Radar Innowacji: harmonogram $zr
+
+[Timer]
+OnCalendar=$kiedy
+Persistent=true
+Unit=radar-aktualizacja@$zr.service
+
+[Install]
+WantedBy=timers.target
+EOF
+  sudo systemctl enable radar-aktualizacja-$zr.timer
+done
 sudo systemctl daemon-reload
+for zr in mapadotacji radon radon_patenty interreg radar; do sudo systemctl start radar-aktualizacja-$zr.timer; done
 sudo systemctl enable --now radar-innowacji
 sudo systemctl restart radar-innowacji
 sudo caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile 2>&1 | tail -1

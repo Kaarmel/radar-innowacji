@@ -110,6 +110,18 @@ def dokument(con: sqlite3.Connection, id: str) -> Dokument | None:
     return _do_dokumentu(r) if r else None
 
 
+def stan_zrodel(con: sqlite3.Connection) -> dict[str, dict]:
+    """Aktualność danych: ile dokumentów, kiedy pobrane (od–do), najnowszy rok w danych; radar WWW z radar_widziane."""
+    con.execute("CREATE INDEX IF NOT EXISTS dokument_stan ON dokument(zrodlo, pobrano_at, rok)")
+    out = {r[0]: {"dokumentow": r[1], "pobrano_od": r[2] or 0.0, "pobrano_do": r[3] or 0.0, "najnowszy_rok": r[4]}
+           for r in con.execute("SELECT zrodlo, count(*), min(pobrano_at), max(pobrano_at), max(rok) FROM dokument GROUP BY zrodlo")}
+    if con.execute("SELECT 1 FROM sqlite_master WHERE name='radar_widziane'").fetchone():
+        n, od, do = con.execute("SELECT count(*), min(kiedy), max(kiedy) FROM radar_widziane").fetchone()
+        if n:
+            out["www"] = {"dokumentow": n, "pobrano_od": od, "pobrano_do": do, "najnowszy_rok": None}
+    return out
+
+
 def liczba_dokumentow(con: sqlite3.Connection) -> dict[str, int]:
     return {r[0]: r[1] for r in con.execute("SELECT zrodlo, count(*) FROM dokument GROUP BY zrodlo")}
 

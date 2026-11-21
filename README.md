@@ -82,6 +82,37 @@ Pobieranie: `python -m radar.cli pobierz mapadotacji|interreg|radon|radon_patent
 Zawsze respektujemy robots.txt, a zabezpieczeń anty-botowych nie obchodzimy. Dlatego e-Wyszukiwarka UPRP (Incapsula)
 jest tylko linkowana, a wyszukiwarka CORDIS (`Disallow: /search`) pominięta.
 
+## Warunki działania: aktualność danych, harmonogram, AI, wymagania
+
+Na żywo: strona [/warunki](https://radar-innowacji.skroban.tech/warunki) i `GET /api/zrodla`. Każda karta innowacji
+podaje stan danych, na których ją oceniono, i godzinę zapytań na żywo.
+
+| Źródło | Tryb | Aktualizacja | Opóźnienie po stronie źródła |
+|---|---|---|---|
+| Mapa Dotacji UE | kopia lokalna (API) | co tydzień, pon. 03:00 | projekty pojawiają się po podpisaniu umowy |
+| Interreg PL–SK | kopia lokalna (XLSX) | co miesiąc, 1. dnia 03:30 | lista publikowana przez sekretariat programu |
+| RAD-on: projekty | kopia lokalna (API) | co tydzień, wt. 03:00 | wpisy uczelni i instytutów |
+| RAD-on: patenty uczelni | kopia lokalna (API) | co tydzień, śr. 03:00 | tylko udzielone; zgłoszenia jawne po 18 mies. |
+| EPO (patenty EP) | na żywo | przy każdym sprawdzeniu | EPO publikuje co tydzień (środa); zgłoszenia jawne po 18 mies. od pierwszeństwa |
+| OpenAlex, Crossref | na żywo | przy każdym sprawdzeniu | |
+| Radar WWW (RSS) | kanały RSS | codziennie 06:00, wpisy z 180 dni | zależnie od tego, kiedy szkoła opublikuje wpis |
+
+Harmonogram realizują timery systemd instalowane przez `wdrozenie/vm.sh`
+(`wdrozenie/aktualizuj.sh <źródło>` → `python -m radar.cli pobierz <źródło> --od-nowa` albo `radar`).
+Dane z 21.11.2026 to pierwsze pełne pobranie.
+
+**Ścieżki AI**
+
+| Ścieżka | Ustawienia | Wymagania i koszt | Dane |
+|---|---|---|---|
+| A: API w chmurze (domyślna) | `OPENROUTER_API_KEY`, `deepseek/deepseek-v4.1-flash`, temperatura 0 | ok. 0,001 $ na sprawdzenie, bez GPU | opis trafia do dostawcy; `data_collection: deny` |
+| B: lokalnie, własny model | `AI_URL` (API zgodne z OpenAI: Ollama, vLLM, LM Studio), `MODEL`, opcjonalnie `AI_API_KEY` | model 7–12 mld parametrów: ok. 8–12 GB GPU albo 16 GB RAM | nic nie opuszcza serwera; jakości nie mierzyliśmy |
+| C: bez AI | brak klucza | brak | działa wyszukiwanie, plagiat, podobieństwo, patenty; kopia i patent najwyżej żółte; nowość i potencjał: brak danych |
+
+**Wymagania:** Linux albo macOS, Python 3.12+ (albo Docker), 2 vCPU, 4 GB RAM, 2 GB dysku (baza ok. 0,6 GB),
+wyjście HTTPS do źródeł, reverse proxy z HTTPS. Klucze: `OPENROUTER_API_KEY` (ścieżka A), `OPENALEX_API_KEY`
+(darmowy, opcjonalny); EPO i RAD-on bez klucza. Jedno sprawdzenie trwa 15–45 s.
+
 ## Ograniczenia (świadome)
 
 - **Zgłoszenia patentowe są jawne dopiero po 18 miesiącach.** Karta zawsze to przypomina. Polskie zgłoszenia w toku

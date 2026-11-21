@@ -8,7 +8,7 @@ import httpx
 
 from . import config
 
-URL = "https://openrouter.ai/api/v1/chat/completions"
+URL = "https://openrouter.ai/api/v1/chat/completions"  # ścieżka A (API); AI_URL zmienia na model lokalny (ścieżka B)
 SYSTEM = ("Jesteś analitykiem innowacji w sektorze publicznym i firmach. Odpowiadasz wyłącznie poprawnym obiektem JSON "
           "o podanej strukturze. Opierasz się tylko na podanych tekstach; nie wymyślasz dokumentów, liczb ani faktów.")
 TYPY_INNOWACJI = {"techniczna", "organizacyjna", "edukacyjna", "spoleczna", "procesowa"}
@@ -43,18 +43,20 @@ def _loguj_blad(opis: str) -> None:
 
 
 def _czat_json(system: str, user: str) -> tuple[dict, float]:
-    klucz = os.environ.get("OPENROUTER_API_KEY")
-    if not klucz:
-        return {}, 0.0
-    body = {"model": config.MODEL, "temperature": 0, "max_tokens": 3000,
-            "response_format": {"type": "json_object"}, "provider": {"data_collection": "deny"},
-            "usage": {"include": True},
-            # bez rozumowania: inaczej model zużywa cały limit na "myślenie" i zwraca pustą treść (finish=length)
-            "reasoning": {"enabled": False},
+    url = os.environ.get("AI_URL") or URL
+    openrouter = "openrouter.ai" in url
+    klucz = os.environ.get("OPENROUTER_API_KEY") if openrouter else os.environ.get("AI_API_KEY")
+    if openrouter and not klucz:
+        return {}, 0.0  # ścieżka C: bez AI
+    body = {"model": os.environ.get("MODEL") or config.MODEL, "temperature": 0, "max_tokens": 3000,
+            "response_format": {"type": "json_object"},
             "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]}
+    if openrouter:
+        # bez rozumowania: inaczej model zużywa cały limit na "myślenie" i zwraca pustą treść (finish=length)
+        body |= {"provider": {"data_collection": "deny"}, "usage": {"include": True}, "reasoning": {"enabled": False}}
     try:
-        r = httpx.post(URL, json=body, timeout=120,
-                       headers={"Authorization": f"Bearer {klucz}", "X-Title": "Radar Innowacji"})
+        r = httpx.post(url, json=body, timeout=300 if not openrouter else 120,
+                       headers={"X-Title": "Radar Innowacji"} | ({"Authorization": f"Bearer {klucz}"} if klucz else {}))
         d = r.json()
         tresc = d["choices"][0]["message"].get("content") or ""
         koszt = float((d.get("usage") or {}).get("cost") or 0.0)

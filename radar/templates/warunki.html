@@ -1,0 +1,69 @@
+{% extends "baza.html" %}
+{% block tytul %}Warunki działania · Radar Innowacji{% endblock %}
+{% block tresc %}
+<h1>Warunki działania</h1>
+<p class="wstep">Skąd są dane, jak bardzo są aktualne, co ile je odświeżamy, gdzie działa AI i czego system wymaga.
+  Te same dane w formacie JSON: <a href="/api/zrodla">/api/zrodla</a>.</p>
+
+<section>
+  <h2>Stan danych i harmonogram aktualizacji</h2>
+  <table class="tabela">
+    <thead><tr><th>Źródło</th><th class="liczba">Dokumentów</th><th>Stan na</th><th class="liczba">Najnowszy rok</th><th>Tryb</th><th>Aktualizacja</th></tr></thead>
+    <tbody>
+    {% for z in zrodla %}
+      <tr><td>{% if z.adres %}<a href="{{ z.adres }}" rel="noopener" target="_blank">{{ z.nazwa }}</a>{% else %}{{ z.nazwa }}{% endif %}
+            <br><span class="maly">{{ z.uwaga }}</span></td>
+          <td class="liczba">{{ z.dokumentow | liczba(0) }}</td>
+          <td>{{ z.stan_na or '—' }}{% if z.tryb == 'na żywo' %}<br><span class="maly">ostatnie zapytanie; przy sprawdzeniu zawsze świeże</span>{% endif %}</td>
+          <td class="liczba">{{ z.najnowszy_rok or '—' }}</td>
+          <td>{{ z.tryb }}</td><td>{{ z.co_ile }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <p class="maly">„Stan na” to chwila ostatniego pobrania danych ze źródła. Każda karta innowacji podaje stan danych,
+    na których ją oceniono, i godzinę zapytań na żywo.</p>
+</section>
+
+<section>
+  <h2>Patenty: co i kiedy sprawdzamy</h2>
+  <ul class="lista">
+    <li><b>Patenty europejskie (EPO):</b> na żywo przy każdym sprawdzeniu (tytuły, zgłaszający, udzielone i zgłoszenia, abstrakty 5 najbliższych).</li>
+    <li><b>Patenty i wzory polskich uczelni (RAD-on):</b> pełna kopia odświeżana co tydzień (środa 03:00).</li>
+    <li><b>Urząd Patentowy RP:</b> wyszukiwarka jest chroniona przed automatami, więc karta daje tylko link do ręcznego sprawdzenia.</li>
+    <li><b>18 miesięcy:</b> zgłoszenie patentowe jest jawne dopiero 18 miesięcy po dacie pierwszeństwa. Patent „w trakcie wyrabiania” może istnieć, a żadna baza go jeszcze nie pokazuje. Karta zawsze o tym przypomina.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Ścieżki AI</h2>
+  <p>Teraz działa: <b>{{ ai_teraz.sciezka }}</b>, model <code>{{ ai_teraz.model }}</code>.</p>
+  <table class="tabela">
+    <thead><tr><th>Ścieżka</th><th>Ustawienia</th><th>Wymagania i koszt</th><th>Dane</th></tr></thead>
+    <tbody>
+      <tr><td><b>A: API w chmurze</b> (domyślna)</td><td><code>OPENROUTER_API_KEY</code>, model <code>deepseek/deepseek-v4.1-flash</code>, temperatura 0</td>
+          <td>ok. 0,001 $ na sprawdzenie; bez GPU</td><td>opis zgłoszenia i fragmenty dokumentów trafiają do dostawcy modelu; zakaz trenowania na danych (<code>data_collection: deny</code>)</td></tr>
+      <tr><td><b>B: lokalnie, własny model</b></td><td><code>AI_URL</code> (API zgodne z OpenAI: Ollama, vLLM, LM Studio), <code>MODEL</code>, opcjonalnie <code>AI_API_KEY</code></td>
+          <td>model 7–12 mld parametrów: ok. 8–12 GB pamięci GPU albo 16 GB RAM (CPU, wolniej); brak opłat za zapytania</td><td>nic nie opuszcza serwera. Jakości modeli lokalnych nie mierzyliśmy.</td></tr>
+      <tr><td><b>C: bez AI</b></td><td>brak klucza i <code>AI_URL</code></td>
+          <td>brak</td><td>działa wyszukiwanie, plagiat, podobieństwo i patenty (kod); kopia i patent bez potwierdzenia AI (najwyżej żółte); nowość i potencjał: brak danych</td></tr>
+    </tbody>
+  </table>
+  <p class="maly">AI wykonuje tylko: tłumaczenie zapytania na angielski, potwierdzenie „ten sam pomysł”, rubrykę nowości i kartę ze strony WWW.
+    Kod odrzuca odpowiedź wskazującą dokument spoza wyników i każdy cytat, którego nie ma w tekście.</p>
+</section>
+
+<section>
+  <h2>Wymagania</h2>
+  <table class="tabela">
+    <tbody>
+      <tr><td>System</td><td>Linux albo macOS, Python 3.12+ (albo Docker), uruchomienie: <code>uvicorn radar.app:app</code> za reverse proxy z HTTPS (np. Caddy)</td></tr>
+      <tr><td>Sprzęt (bez modelu lokalnego)</td><td>2 vCPU, 4 GB RAM, 2 GB dysku (baza SQLite z indeksem pełnotekstowym ok. 0,6 GB)</td></tr>
+      <tr><td>Sieć</td><td>wyjście HTTPS do źródeł; pobieranie z poszanowaniem robots.txt, 1 zapytanie na sekundę na serwis</td></tr>
+      <tr><td>Klucze</td><td><code>OPENROUTER_API_KEY</code> (ścieżka A), <code>OPENALEX_API_KEY</code> (darmowy, opcjonalny); EPO i RAD-on bez klucza</td></tr>
+      <tr><td>Harmonogram</td><td>timery systemd instalowane przez <code>wdrozenie/vm.sh</code> (albo cron): <code>python -m radar.cli pobierz &lt;źródło&gt; --od-nowa</code>, <code>python -m radar.cli radar</code></td></tr>
+      <tr><td>Wydajność</td><td>jedno sprawdzenie 15–45 s; 3 sprawdzenia równolegle; limit publicznej wersji: 20 sprawdzeń na adres IP na godzinę</td></tr>
+      <tr><td>Dane osobowe</td><td>z baz nie zapisujemy nazwisk (twórców, kierowników projektów); w zgłoszeniu tylko nazwa instytucji</td></tr>
+    </tbody>
+  </table>
+</section>
+{% endblock %}

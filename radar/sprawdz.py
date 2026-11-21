@@ -3,7 +3,7 @@ import sqlite3
 import time
 from concurrent.futures import ThreadPoolExecutor
 
-from . import ai, config, db, filtry, instytucje, organizacje, potencjal, tekst, werdykt
+from . import ai, config, db, filtry, instytucje, organizacje, potencjal, slowniki, tekst, werdykt
 from .model import Dokument, Zgloszenie
 from .zrodla import BrakDostepu, crossref, epo, mapadotacji, openalex
 
@@ -114,7 +114,11 @@ def sprawdz(con: sqlite3.Connection, zgl_id: int) -> dict:
         lokalne_liczby = db.liczba_dokumentow(con)
         pokrycie = {"zrodla": sorted(set(lokalne_liczby) - {"zgloszenie"} | set(ok)),
                     "lokalne": lokalne_liczby, "dokumentow": sum(lokalne_liczby.values()),
-                    "kandydatow": len(kandydaci), "zgloszen_porownanych": len(poprzednie), "niedostepne": niedostepne}
+                    "kandydatow": len(kandydaci), "zgloszen_porownanych": len(poprzednie), "niedostepne": niedostepne,
+                    "stan_danych": {k: time.strftime("%Y-%m-%d", time.localtime(v["pobrano_do"]))
+                                    for k, v in db.stan_zrodel(con).items() if v["pobrano_do"] and k in slowniki.HARMONOGRAM
+                                    and slowniki.HARMONOGRAM[k]["tryb"] != "na żywo"},
+                    "na_zywo": time.strftime("%Y-%m-%d %H:%M")}
         db.zapisz_wyniki(con, zgl_id, wyniki, werdykt.werdykt(wyniki), werdykt.komorka(z, profil),
                          werdykt.sciezka(z, wyniki, podobne, profil), werdykt.partnerzy(z, podobne),
                          round(time.time() - t0, 1), round(sum(koszt), 5), pokrycie=pokrycie)
