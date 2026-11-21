@@ -78,3 +78,15 @@ def test_zestaw_kontrolny_pomija_projekty_juz_uzyte(tmp_path, monkeypatch):
     assert len(ids) == 5 and "mapadotacji:1" not in zrodla
     assert {r for (r,) in con.execute("SELECT rodzaj FROM test WHERE zgl_id IN (%s)" % ",".join(map(str, ids)))} == {"kontrolny"}
     assert (tmp_path / "kontrolne.csv").read_text(encoding="utf-8").count("\n") == 6
+
+
+
+def test_kontrolny_auc_potencjalu_i_werdykty():
+    """Miara bez progu: jak często projekt z etykietą „nowość” ma wyższy potencjał niż „rutyna” (AUC); do tego decyzje lejka."""
+    def kw(pot, werdykt, nowosc="zolte"):
+        return k(nowosc=nowosc, potencjal=pot) | {"werdykt": werdykt}
+    wiersze = [("kontrolny:1", kw(80, "dalej")), ("kontrolny:2", kw(30, "do_przegladu")),
+               ("kontrolny:3", kw(20, "odrzucone_do_przegladu", "czerwone")), ("kontrolny:4", kw(30, "odrzucone_do_przegladu"))]
+    m = walidacja.miary(wiersze, etykiety={}, kontrolne={"1": "nowosc", "2": "nowosc", "3": "rutyna", "4": "rutyna"})
+    assert m["kontrolny"]["auc_potencjalu"] == 0.88  # (1 + 1 + 1 + 0.5) / 4
+    assert m["kontrolny"]["werdykty"] == {"nowosc": {"dalej": 1, "do_przegladu": 1}, "rutyna": {"odrzucone_do_przegladu": 2}}

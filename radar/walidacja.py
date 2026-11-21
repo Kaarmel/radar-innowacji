@@ -47,7 +47,7 @@ def trafione(rodzaj: str, k: dict) -> bool:
 
 
 def _zgodnosc(wiersze: list[tuple[str, dict]], przedrostek: str, etykiety: dict[str, str]) -> dict | None:
-    zgodne, pot = [], {"nowosc": [], "rutyna": []}
+    zgodne, pot, werdykty = [], {"nowosc": [], "rutyna": []}, {"nowosc": {}, "rutyna": {}}
     for r, k in wiersze:
         if not r.startswith(przedrostek + ":") or etykiety.get(r.split(":", 1)[1]) not in ("nowosc", "rutyna"):
             continue
@@ -57,9 +57,14 @@ def _zgodnosc(wiersze: list[tuple[str, dict]], przedrostek: str, etykiety: dict[
             zgodne.append(("nowosc" if pasmo in ("zielone", "zolte") else "rutyna") == czlowiek)
         if (k.get("potencjal") or {}).get("wynik") is not None:
             pot[czlowiek].append(k["potencjal"]["wynik"])
+        if k.get("werdykt"):
+            werdykty[czlowiek][k["werdykt"]] = werdykty[czlowiek].get(k["werdykt"], 0) + 1
     if not zgodne:
         return None
+    pary = [(a > b) + 0.5 * (a == b) for a in pot["nowosc"] for b in pot["rutyna"]]
     return {"n": len(zgodne), "zgodnosc": round(sum(zgodne) / len(zgodne), 2),
+            "auc_potencjalu": round(sum(pary) / len(pary), 2) if pary else None,
+            "werdykty": {e: w for e, w in werdykty.items() if w},
             "potencjal_nowosc": round(statistics.mean(pot["nowosc"]), 1) if pot["nowosc"] else None,
             "potencjal_rutyna": round(statistics.mean(pot["rutyna"]), 1) if pot["rutyna"] else None}
 
@@ -265,6 +270,13 @@ def raport(con, log=print) -> dict:
         e = m["kontrolny"]
         czytelne[f"Zestaw kontrolny, niezależny pomiar: zgodność nowości ({kto_k})"] = f"{e['zgodnosc']:.2f} (n={e['n']})"
         czytelne[f"Zestaw kontrolny: średni potencjał nowość / rutyna ({kto_k})"] = f"{e['potencjal_nowosc']} / {e['potencjal_rutyna']}"
+        if e.get("auc_potencjalu") is not None:
+            czytelne["Zestaw kontrolny: potencjał nowości wyżej niż rutyny (AUC, bez progu)"] = f"{e['auc_potencjalu']:.2f}"
+        wn, wr = e["werdykty"].get("nowosc", {}), e["werdykty"].get("rutyna", {})
+        if wn or wr:
+            czytelne["Zestaw kontrolny: nowości odrzucone przez lejek"] = f"{wn.get('odrzucone_do_przegladu', 0)}/{sum(wn.values())}"
+            czytelne["Zestaw kontrolny: rutyny zatrzymane (odrzucone lub do przeglądu)"] = (
+                f"{wr.get('odrzucone_do_przegladu', 0) + wr.get('do_przegladu', 0)}/{sum(wr.values())}")
     czytelne["Mediana czasu sprawdzenia"] = f"{m['czas_mediana_s']} s"
     czytelne["Średni koszt AI na sprawdzenie"] = f"{m['koszt_sredni_usd']} $"
     wynik = {"kiedy": time.strftime("%Y-%m-%d %H:%M"), "miary": czytelne, "szczegoly": m,
