@@ -10,7 +10,7 @@ def main(argv=None) -> int:
     p = argparse.ArgumentParser(prog="radar")
     sub = p.add_subparsers(dest="cmd", required=True)
     pp = sub.add_parser("pobierz")
-    pp.add_argument("zrodlo", choices=["mapadotacji", "interreg", "radon", "radon_patenty"])
+    pp.add_argument("zrodlo", choices=["mapadotacji", "interreg", "radon", "radon_patenty", "uprp"])
     pp.add_argument("--woj", default="pl", help="Mapa Dotacji: pl = cała Polska (domyślnie) albo id województwa (327 = podkarpackie)")
     pp.add_argument("--od-nowa", action="store_true", help="cykliczna aktualizacja: pobiera całe źródło od początku (nadpisuje rekordy)")
     pr = sub.add_parser("radar", help="radar WWW: kanały RSS szkół i uczelni → zgłoszenia z wejściem radar")
@@ -37,7 +37,7 @@ def main(argv=None) -> int:
     a = p.parse_args(argv)
     con = db.polacz()
     if a.cmd == "pobierz":
-        from .zrodla import interreg, mapadotacji, radon, radon_patenty
+        from .zrodla import interreg, mapadotacji, radon, radon_patenty, uprp
         if a.od_nowa:
             with con:
                 con.execute("CREATE TABLE IF NOT EXISTS postep(klucz TEXT PRIMARY KEY, wartosc TEXT)")
@@ -45,7 +45,8 @@ def main(argv=None) -> int:
         n = {"mapadotacji": lambda: mapadotacji.pobierz_wszystko(con, a.woj),
              "interreg": lambda: interreg.pobierz_wszystko(con),
              "radon": lambda: radon.pobierz_wszystko(con),
-             "radon_patenty": lambda: radon_patenty.pobierz_wszystko(con)}[a.zrodlo]()
+             "radon_patenty": lambda: radon_patenty.pobierz_wszystko(con),
+             "uprp": lambda: uprp.pobierz_wszystko(con)}[a.zrodlo]()
         mapadotacji._postep(con, f"{a.zrodlo}:pelne", str(time.time()))
         print(f"{a.zrodlo}: zapisano {n}; w bazie: {db.liczba_dokumentow(con)}", flush=True)
     elif a.cmd == "radar":

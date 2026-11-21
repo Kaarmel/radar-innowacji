@@ -92,16 +92,17 @@ każdą odpowiedź, która powołuje się na dokument spoza wyników, i każdy �
 
 | Źródło | Tryb | Zakres | Uwagi |
 |---|---|---|---|
-| [Mapa Dotacji UE](https://mapadotacji.gov.pl) | pobierane (API WordPress) | 20 069 projektów z Podkarpacia | beneficjent tylko ze strony projektu, dociągany na żądanie |
+| [Mapa Dotacji UE](https://mapadotacji.gov.pl) | pobierane (API WordPress) | projekty z całej Polski (pobieranie trwa; Podkarpacie: 20 069) | beneficjent tylko ze strony projektu, dociągany na żądanie; filtr województwa |
 | [Interreg Polska–Słowacja](https://pl-sk.eu) | pobierane (XLSX) | 258 projektów | |
 | [RAD-on](https://radon.nauka.gov.pl): projekty | pobierane (API) | 48 817 projektów naukowych | bez nazwisk kierowników |
 | RAD-on: patenty | pobierane (API) | 19 004 patentów i wzorów polskich uczelni | bez nazwisk twórców |
+| [Biuletyn Urzędu Patentowego](https://uprp.gov.pl/pl/publikacje/biuletyn-i-wiadomosci-uprp) | pobierane (PDF, 52 ostatnie numery) | zgłoszenia wynalazków i wzorów użytkowych | bez twórców (72) i zgłaszających osób fizycznych; jawne po 18 miesiącach |
 | [EPO Linked Data](https://data.epo.org/linked-data/) + European Publication Server | na żądanie | tytuły EP, zgłaszający, A/B, abstrakty 5 najlepszych | bez klucza |
 | [OpenAlex](https://openalex.org) | na żądanie | publikacje z abstraktami | darmowy klucz |
 | [Crossref](https://www.crossref.org) | na żądanie | metadane publikacji | |
 | Radar WWW | kanały RSS | `konfiguracja/zrodla_www.csv` | robots.txt, 1 zapytanie/s na host |
 
-Pobieranie: `python -m radar.cli pobierz mapadotacji|interreg|radon|radon_patenty` (wznawialne).
+Pobieranie: `python -m radar.cli pobierz mapadotacji|interreg|radon|radon_patenty|uprp` (wznawialne; `uprp` wymaga `pdftotext` z poppler-utils).
 Zawsze respektujemy robots.txt, a zabezpieczeń anty-botowych nie obchodzimy. Dlatego e-Wyszukiwarka UPRP (Incapsula)
 jest tylko linkowana, a wyszukiwarka CORDIS (`Disallow: /search`) pominięta.
 

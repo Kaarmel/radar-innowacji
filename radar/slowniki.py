@@ -61,6 +61,9 @@ HARMONOGRAM = {
               "uwaga": "Projekty naukowe wpisywane przez uczelnie i instytuty do RAD-on."},
     "radon_patenty": {"tryb": "pobierane (API)", "co_ile": "co tydzień, środa 03:00",
                       "uwaga": "Patenty i wzory udzielone polskim uczelniom. Zgłoszenia są jawne dopiero po 18 miesiącach."},
+    "uprp": {"tryb": "pobierane (PDF Biuletynu)", "co_ile": "co tydzień, czwartek 03:00 (52 ostatnie numery)",
+             "uwaga": "Biuletyn Urzędu Patentowego: zgłoszenia wynalazków i wzorów użytkowych, jawne 18 miesięcy od daty"
+                      " pierwszeństwa. Bez twórców i zgłaszających osób fizycznych."},
     "epo": {"tryb": "na żywo", "co_ile": "przy każdym sprawdzeniu (EPO publikuje nowe dokumenty co tydzień, w środy)",
             "uwaga": "Zgłoszenia patentowe są jawne dopiero po 18 miesiącach od daty pierwszeństwa: najnowszych nie widzi żadna baza."},
     "openalex": {"tryb": "na żywo", "co_ile": "przy każdym sprawdzeniu", "uwaga": "Publikacje z abstraktami; darmowy klucz."},
@@ -69,10 +72,11 @@ HARMONOGRAM = {
             "uwaga": "172 strony szkół, uczelni, PCI i samorządów (konfiguracja/zrodla_www.csv)."},
 }
 ZRODLA = {
-    "mapadotacji": ("Mapa Dotacji UE: projekty z Podkarpacia", "https://mapadotacji.gov.pl"),
+    "mapadotacji": ("Mapa Dotacji UE: projekty z całej Polski", "https://mapadotacji.gov.pl"),
     "interreg": ("Interreg Polska–Słowacja", "https://pl-sk.eu"),
     "radon": ("RAD-on: projekty naukowe", "https://radon.nauka.gov.pl"),
     "radon_patenty": ("RAD-on: patenty i wzory polskich uczelni", "https://radon.nauka.gov.pl"),
+    "uprp": ("UPRP: zgłoszenia z Biuletynu Urzędu Patentowego", "https://uprp.gov.pl/pl/publikacje/biuletyn-i-wiadomosci-uprp"),
     "epo": ("EPO: patenty europejskie (na żądanie)", "https://data.epo.org/linked-data/"),
     "openalex": ("OpenAlex: publikacje naukowe (na żądanie)", "https://openalex.org"),
     "crossref": ("Crossref: publikacje (na żądanie)", "https://www.crossref.org"),

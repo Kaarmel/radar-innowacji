@@ -57,7 +57,7 @@ def _dojrzalosc(z, wyniki, ranking, profil):
 def _zapotrzebowanie(z, wyniki, ranking, profil):
     prog_kopii = config.PROGI["kopia"]["czerwone"]
     dowody, widziane = [], set()
-    lokalne = {"mapadotacji", "interreg", "radon", "radon_patenty", "www"}
+    lokalne = {"mapadotacji", "interreg", "radon", "radon_patenty", "uprp", "www"}
     for s, d in sorted(ranking, key=lambda x: x[1].zrodlo not in lokalne):  # najpierw polskie instytucje (realny transfer)
         if not (PROG_PODOBNY <= s < prog_kopii) or d.zrodlo == "zgloszenie":
             continue

@@ -58,7 +58,7 @@ def sciezka(z: Zgloszenie, wyniki: list[WynikFiltra], podobne: list[Dokument], p
     return out
 
 
-LOKALNE = {"mapadotacji", "interreg", "radon", "radon_patenty", "www"}
+LOKALNE = {"mapadotacji", "interreg", "radon", "radon_patenty", "uprp", "www"}
 
 
 def partnerzy(z: Zgloszenie, podobne: list[Dokument], limit: int = 5) -> list[dict]:
