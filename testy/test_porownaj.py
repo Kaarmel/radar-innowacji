@@ -49,3 +49,16 @@ def test_szukaj_filtr_zrodla_i_roku(klient):
     assert ids(rok_od=2020) == ["mapadotacji:2"]
     s = klient.get("/szukaj", params={"q": "filtr wody", "zrodlo": "radon"}).text
     assert 'name="zrodlo"' in s and 'name="rok_od"' in s
+
+
+def test_szukaj_filtr_wojewodztwa(klient):
+    """Produkt dla całej Polski: projekty z województwa (Mapa Dotacji podaje je dla każdego projektu) i ogólnopolskie."""
+    con = db.polacz()
+    docs = [("mapadotacji:1", "podkarpackie"), ("mapadotacji:2", "śląskie"), ("mapadotacji:3", "ogólnopolski"),
+            ("mapadotacji:4", "podkarpackie, śląskie"), ("radon:5", None)]
+    db.zapisz_dokumenty(con, [Dokument(id=i, zrodlo=i.split(":")[0], typ="projekt", tytul="Filtr wody mikroplastik", opis=OPIS,
+                                       link=f"https://x/{i}", wojewodztwo=w) for i, w in docs])
+    w = klient.get("/api/szukaj", params={"q": "filtr wody mikroplastik", "woj": "śląskie"}).json()
+    assert sorted(d["id"] for docs in w["dokumenty"].values() for d in docs) == ["mapadotacji:2", "mapadotacji:3", "mapadotacji:4"]
+    s = klient.get("/szukaj", params={"q": "filtr wody", "woj": "śląskie"}).text
+    assert 'name="woj"' in s and '<option value="śląskie" selected' in s

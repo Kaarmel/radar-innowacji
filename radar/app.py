@@ -457,16 +457,28 @@ def ponow(request: Request, zid: int, tlo: BackgroundTasks, con=Depends(polaczen
     return RedirectResponse(f"/karta/{zid}", status_code=303)
 
 
-def wyszukaj(con, q: str, zrodlo: str = "", rok_od: int | None = None) -> dict:
+WOJEWODZTWA = ("dolnośląskie", "kujawsko-pomorskie", "lubelskie", "lubuskie", "łódzkie", "małopolskie", "mazowieckie", "opolskie",
+                "podkarpackie", "podlaskie", "pomorskie", "śląskie", "świętokrzyskie", "warmińsko-mazurskie", "wielkopolskie",
+                "zachodniopomorskie")
+
+
+def _w_wojewodztwie(d, woj: str) -> bool:
+    regiony = [r.strip() for r in (d.wojewodztwo or "").split(",")]
+    return woj in regiony or "ogólnopolski" in regiony
+
+
+def wyszukaj(con, q: str, zrodlo: str = "", rok_od: int | None = None, woj: str = "") -> dict:
     df, n = db.funkcja_df(con)
     terminy = tekst.terminy(q, n=12, df=df, N=n)
     dokumenty: dict[str, list] = defaultdict(list)
-    filtr = bool(zrodlo or rok_od)
+    filtr = bool(zrodlo or rok_od or woj)
     trafienia = [(d, w) for d, w in db.szukaj(con, terminy, limit=400 if filtr else 40)
-                 if (not zrodlo or d.zrodlo == zrodlo) and (not rok_od or (d.rok or 0) >= rok_od)][:40]
+                 if (not zrodlo or d.zrodlo == zrodlo) and (not rok_od or (d.rok or 0) >= rok_od)
+                 and (not woj or _w_wojewodztwie(d, woj))][:40]
     for d, wynik in trafienia:
         dokumenty[d.typ].append({"id": d.id, "tytul": d.tytul, "opis": d.opis[:300], "link": d.link, "zrodlo": d.zrodlo,
-                                 "rok": d.rok, "instytucje": d.instytucje[:3], "status": d.status, "wynik": round(wynik, 2)})
+                                 "rok": d.rok, "instytucje": d.instytucje[:3], "status": d.status, "wynik": round(wynik, 2),
+                                 "wojewodztwo": d.wojewodztwo})
     zgl = []
     for r in con.execute("""SELECT z.id, z.tytul, z.opis, z.instytucja, z.werdykt, z.komorka, z.organizacja, z.status,
                             (SELECT group_concat(filtr || ':' || pasmo) FROM wynik w WHERE w.zgl_id = z.id) AS pasma
@@ -478,14 +490,15 @@ def wyszukaj(con, q: str, zrodlo: str = "", rok_od: int | None = None) -> dict:
                         "pasma": dict(p.split(":", 1) for p in (r["pasma"] or "").split(",") if ":" in p),
                         "link": f"/karta/{r['id']}"})
     zgl.sort(key=lambda x: -x["podobienstwo"])
-    return {"zapytanie": q, "terminy": terminy, "filtry": {"zrodlo": zrodlo, "rok_od": rok_od}, "zgloszenia": zgl[:15],
+    return {"zapytanie": q, "terminy": terminy, "filtry": {"zrodlo": zrodlo, "rok_od": rok_od, "woj": woj}, "zgloszenia": zgl[:15],
             "dokumenty": dict(dokumenty)}
 
 
 @app.get("/szukaj", response_class=HTMLResponse, include_in_schema=False)
-def szukaj_strona(request: Request, q: str = "", zrodlo: str = "", rok_od: int | None = None, con=Depends(polaczenie)):
-    wynik = wyszukaj(con, q, zrodlo, rok_od) if len(q.strip()) >= 3 else None
-    return strona(request, "szukaj.html", q=q, wynik=wynik, zrodlo=zrodlo, rok_od=rok_od)
+def szukaj_strona(request: Request, q: str = "", zrodlo: str = "", rok_od: int | None = None, woj: str = "",
+                  con=Depends(polaczenie)):
+    wynik = wyszukaj(con, q, zrodlo, rok_od, woj) if len(q.strip()) >= 3 else None
+    return strona(request, "szukaj.html", q=q, wynik=wynik, zrodlo=zrodlo, rok_od=rok_od, woj=woj, wojewodztwa=WOJEWODZTWA)
 
 
 def _miary(con) -> dict:
@@ -570,10 +583,10 @@ def api_karta(zid: int, con=Depends(polaczenie)):
 
 
 @app.get("/api/szukaj", tags=["wyszukiwanie"], summary="Szukam rozwiązania: zgłoszenia i dokumenty z korpusu (bez AI)")
-def api_szukaj(q: str, zrodlo: str = "", rok_od: int | None = None, con=Depends(polaczenie)):
+def api_szukaj(q: str, zrodlo: str = "", rok_od: int | None = None, woj: str = "", con=Depends(polaczenie)):
     if len(q.strip()) < 3:
         raise HTTPException(422, "Zapytanie musi mieć co najmniej 3 znaki.")
-    return wyszukaj(con, q, zrodlo, rok_od)
+    return wyszukaj(con, q, zrodlo, rok_od, woj)
 
 
 @app.get("/api/miary", tags=["miary"], summary="Miary: czas, koszt, werdykty, decyzje, korpus, zestaw testowy")

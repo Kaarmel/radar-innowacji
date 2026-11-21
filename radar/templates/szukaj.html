@@ -11,6 +11,8 @@
   <div class="filtry">
     <label>Źródło <select name="zrodlo"><option value="">wszystkie</option>
       {% for k, (nazwa, _) in s.ZRODLA.items() if k != 'zgloszenie' %}<option value="{{ k }}" {% if zrodlo == k %}selected{% endif %}>{{ nazwa }}</option>{% endfor %}</select></label>
+    <label>Województwo <select name="woj"><option value="">cała Polska</option>
+      {% for w in wojewodztwa %}<option value="{{ w }}" {% if woj == w %}selected{% endif %}>{{ w }}</option>{% endfor %}</select></label>
     <label>Od roku <input type="number" name="rok_od" min="1990" max="2100" value="{{ rok_od or '' }}" class="rok"></label>
   </div>
 </form>
@@ -36,7 +38,7 @@
   <ul class="lista">
   {% for d in wynik.dokumenty[typ] %}
     <li>{% set href = d.link | link %}{% if href %}<a href="{{ href }}" rel="noopener" target="_blank">{{ d.tytul }}</a>{% else %}{{ d.tytul }}{% endif %}
-      <span class="maly">· {{ s.ZRODLA.get(d.zrodlo, (d.zrodlo, ''))[0] }}{% if d.rok %} · {{ d.rok }}{% endif %}{% if d.instytucje %} · <b>{{ d.instytucje | join(', ') }}</b>{% endif %}</span>
+      <span class="maly">· {{ s.ZRODLA.get(d.zrodlo, (d.zrodlo, ''))[0] }}{% if d.rok %} · {{ d.rok }}{% endif %}{% if d.wojewodztwo %} · {{ d.wojewodztwo }}{% endif %}{% if d.instytucje %} · <b>{{ d.instytucje | join(', ') }}</b>{% endif %}</span>
       <br><span class="maly">{{ d.opis }}…</span>
       <br><a class="maly" href="/zglos?z_dokumentu={{ d.id | urlencode }}">Oceń ten projekt →</a></li>
   {% endfor %}
