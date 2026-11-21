@@ -1,0 +1,28 @@
+{% extends "baza.html" %}
+{% block tytul %}{{ r.nazwa }} · Radar Innowacji{% endblock %}
+{% block tresc %}
+<nav class="zakladki" aria-label="Dla kogo">
+  {% for k, x in s.ROLE.items() %}<a href="/dla/{{ k }}" {% if k == slug %}aria-current="page"{% endif %}>{{ x.nazwa }}</a>{% endfor %}
+</nav>
+<section class="hero">
+  <p class="maly">{{ r.kto }}</p>
+  <h1>{{ r.korzysc }}</h1>
+  <div class="akcje">
+    {% for etykieta, href in r.demo %}<a class="przycisk{% if not loop.first %} drugi{% endif %}" href="{{ href }}">{{ etykieta }}</a>{% endfor %}
+  </div>
+</section>
+<section>
+  <h2>Jak to działa dla Ciebie</h2>
+  <ol class="kroki">{% for k in r.kroki %}<li>{{ k }}</li>{% endfor %}</ol>
+</section>
+<section>
+  <h2>Co zobaczysz</h2>
+  <div class="siatka3">{% for t in r.zobaczysz %}<article class="kafel"><p>{{ t }}</p></article>{% endfor %}</div>
+</section>
+<details class="technicznie">
+  <summary>Dla zespołu technicznego</summary>
+  <p>Filtry i ocena potencjału to jawne reguły w kodzie; AI odpowiada tylko na pytania o nowość i potwierdza podobieństwo,
+    a kod sprawdza każdy wskazany dokument. Źródła, aktualność danych, harmonogram i wymagania: <a href="/warunki">Warunki</a>.
+    Skuteczność na zestawie testowym: <a href="/miary">Miary</a>. Integracja: <a href="/docs">API</a>.</p>
+</details>
+{% endblock %}

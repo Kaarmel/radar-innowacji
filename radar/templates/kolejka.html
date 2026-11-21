@@ -1,5 +1,5 @@
 {% extends "baza.html" %}
-{% block tytul %}{% if profil %}Kolejka: {{ profil.nazwa }}{% else %}Katalog zgłoszeń{% endif %} · Radar Innowacji{% endblock %}
+{% block tytul %}{% if profil %}Kolejka: {{ profil.nazwa }}{% else %}Katalog ocenionych projektów{% endif %} · Radar Innowacji{% endblock %}
 {% macro kropki(pasma) %}<span class="kropki">{% for f, (nazwa, _) in s.FILTRY.items() %}{% set p = pasma.get(f, '') %}<span class="kropka {{ p or 'puste' }}" title="{{ nazwa }}: {{ s.PASMA.get(p, 'brak wyniku') }}">{{ nazwa[:1] if f != 'patent' else 'Pa' }}</span>{% endfor %}</span>{% endmacro %}
 {% block tresc %}
 {% if profil %}
@@ -12,7 +12,7 @@
   {% endfor %}
 </nav>
 {% else %}
-<h1>Katalog zgłoszeń</h1>
+<h1>Katalog ocenionych projektów</h1>
 <p class="lead">Wszystkie zgłoszenia ze wszystkich organizacji. Najpierw pozycje z flagą, bez decyzji.</p>
 {% endif %}
 
@@ -45,6 +45,6 @@
   </tbody>
 </table>
 {% else %}
-<p class="pusty">Brak zgłoszeń. <a href="/zglos">Dodaj pierwsze</a>.</p>
+<p class="pusty">Brak projektów. <a href="/zglos">Oceń pierwszy</a>.</p>
 {% endif %}
 {% endblock %}

@@ -11,6 +11,8 @@ dane_przygotowane/
 # macOS i dokumenty organizatora (poza repo)
 .DS_Store
 PCI -*.pdf
+Radar Innowacji FAQ.pdf
+AGENTS.md
 
 # Środowisko
 .venv/

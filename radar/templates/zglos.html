@@ -1,10 +1,11 @@
 {% extends "baza.html" %}
-{% block tytul %}Zgłoś innowację · Radar Innowacji{% endblock %}
+{% block tytul %}Oceń projekt · Radar Innowacji{% endblock %}
 {% macro blad(pole) %}{% if bledy.get(pole) %}<p class="blad-pola" role="alert">{{ bledy[pole] }}</p>{% endif %}{% endmacro %}
 {% macro opcje(slownik, wybrane) %}<option value="">wybierz…</option>{% for k, v in slownik.items() %}<option value="{{ k }}" {% if wybrane == k %}selected{% endif %}>{{ v }}</option>{% endfor %}{% endmacro %}
 {% block tresc %}
-<h1>Zgłoś innowację</h1>
-<p class="lead">Wypełnij formularz albo wklej link do strony z opisem, a AI wstępnie uzupełni pola do sprawdzenia.
+<h1>Oceń projekt</h1>
+<p class="lead">Radar sam wyszukuje projekty w sieci i w bazach. Tutaj analityk ocenia projekt znaleziony inną drogą:
+  z wizyty w szkole, z maila albo z linku. Wklej link, a AI wstępnie uzupełni pola, albo wypełnij je ręcznie.
   Sprawdzenie trwa zwykle 15–60 sekund.</p>
 
 <form class="z-linku" method="post" action="/zglos/z-linku">
@@ -29,7 +30,7 @@
 
 <form class="formularz" method="post" action="/zglos" novalidate>
   <input type="hidden" name="zrodlo_dok" value="{{ pola.get('zrodlo_dok') or '' }}">
-  <label for="organizacja">Do kogo kierujesz zgłoszenie</label>
+  <label for="organizacja">Profil oceny (czyje kryteria)</label>
   <select id="organizacja" name="organizacja">
     {% for o in organizacje() %}<option value="{{ o.slug }}" {% if pola.get('organizacja') == o.slug %}selected{% endif %}>{{ o.nazwa }}</option>{% endfor %}
   </select>
@@ -70,7 +71,7 @@
       {{ blad('etap') }}
     </div>
     <div>
-      <label for="wiek_przedzial">Wiek twórców (deklaracja)</label>
+      <label for="wiek_przedzial">Wiek twórców, jeśli wiadomo (komórka PCI)</label>
       <select id="wiek_przedzial" name="wiek_przedzial">{{ opcje(s.WIEK, pola.get('wiek_przedzial')) }}</select>
       {{ blad('wiek_przedzial') }}
     </div>

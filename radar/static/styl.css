@@ -146,3 +146,11 @@ mark { background: #ffe08a; color: inherit; padding: 0 1px; border-radius: 2px; 
   .hero h1 { font-size: 1.8rem; }
   .tabela.kolejka th:nth-child(n+3), .tabela.kolejka td:nth-child(n+3) { display: none; }
 }
+
+.kroki { counter-reset: k; list-style: none; padding: 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.kroki li { counter-increment: k; background: var(--biel); border: 1px solid var(--linia); border-radius: var(--r); padding: 14px 16px; }
+.kroki li::before { content: counter(k); display: inline-grid; place-items: center; width: 26px; height: 26px; margin-right: 8px; border-radius: 50%; background: var(--akcent); color: #fff; font-weight: 700; font-size: .9rem; }
+.technicznie { margin: 24px 0; border-top: 1px solid var(--linia); padding-top: 12px; }
+.technicznie summary { cursor: pointer; color: var(--akcent); }
+.wykryte { list-style: none; padding: 0; display: grid; gap: 8px; }
+.wykryte li { background: var(--biel); border: 1px solid var(--linia); border-radius: var(--r); padding: 10px 14px; }

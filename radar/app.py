@@ -275,7 +275,20 @@ def start(request: Request, con=Depends(polaczenie)):
     liczby = db.liczba_dokumentow(con)
     zgl = con.execute("SELECT count(*) FROM zgloszenie").fetchone()[0]
     stan = {k: slowniki.czas_pl(slowniki.stan_na(k, v), "%d.%m.%Y") for k, v in db.stan_zrodel(con).items() if v["pobrano_do"]}
-    return strona(request, "start.html", liczby=liczby, razem=sum(v for k, v in liczby.items()), zgloszen=zgl, stan=stan)
+    wykryte = [dict(r) for r in con.execute("""SELECT id, tytul, instytucja, werdykt, utworzono_at FROM zgloszenie
+                                                WHERE wejscie='radar' ORDER BY id DESC LIMIT 4""")]
+    plik = config.DANE / "radar_statystyki.json"
+    radar = json.loads(plik.read_text(encoding="utf-8")) if plik.exists() else {}
+    radar["wykryc"] = con.execute("SELECT count(*) FROM zgloszenie WHERE wejscie='radar'").fetchone()[0]
+    return strona(request, "start.html", liczby=liczby, razem=sum(v for k, v in liczby.items()), zgloszen=zgl, stan=stan,
+                  wykryte=wykryte, radar=radar)
+
+
+@app.get("/dla/{slug}", response_class=HTMLResponse, include_in_schema=False)
+def dla(request: Request, slug: str):
+    if slug not in slowniki.ROLE:
+        raise HTTPException(404, "Nie ma takiej zakładki")
+    return strona(request, "dla.html", slug=slug, r=slowniki.ROLE[slug])
 
 
 @app.get("/zglos", response_class=HTMLResponse, include_in_schema=False)

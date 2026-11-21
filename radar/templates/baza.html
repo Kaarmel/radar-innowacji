@@ -12,10 +12,11 @@
 <header class="gora"><div class="w gora-w">
   <a class="logo" href="/"><span class="logo-znak" aria-hidden="true"></span>Radar Innowacji</a>
   <nav aria-label="Główne">
-    <a href="/zglos" {% if sciezka.startswith('/zglos') %}aria-current="page"{% endif %}>Zgłoś innowację</a>
+    <a href="/dla/analityk" {% if sciezka.startswith('/dla/') %}aria-current="page"{% endif %}>Dla kogo</a>
+    <a href="/o/pci/kolejka" {% if sciezka.startswith('/o/') %}aria-current="page"{% endif %}>Wykryte (PCI)</a>
     <a href="/szukaj" {% if sciezka.startswith('/szukaj') %}aria-current="page"{% endif %}>Szukam rozwiązania</a>
-    <a href="/o/pci/kolejka" {% if sciezka.startswith('/o/') %}aria-current="page"{% endif %}>Kolejka PCI</a>
     <a href="/kolejka" {% if sciezka == '/kolejka' %}aria-current="page"{% endif %}>Katalog</a>
+    <a href="/zglos" {% if sciezka.startswith('/zglos') %}aria-current="page"{% endif %}>Oceń projekt</a>
     <a href="/miary" {% if sciezka.startswith('/miary') %}aria-current="page"{% endif %}>Miary</a>
     <a href="/warunki" {% if sciezka.startswith('/warunki') %}aria-current="page"{% endif %}>Warunki</a>
     <a href="/docs">API</a>

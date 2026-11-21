@@ -1,15 +1,33 @@
 {% extends "baza.html" %}
 {% block tresc %}
 <section class="hero">
-  <h1>Wyszukiwanie i ocena innowacji z dowodami</h1>
-  <p class="lead">Dla firm i instytucji, które szukają nowych rozwiązań albo oceniają zgłoszenia, na przykład Podkarpackiego
-    Centrum Innowacji. Każde zgłoszenie przechodzi przez cztery filtry odrzucenia. Każdy wynik ma procent i linki do
-    dokumentów, na których się opiera. Decyzję podejmuje człowiek.</p>
+  <h1>Radar sam wyszukuje innowacje w regionie i ocenia je z dowodami</h1>
+  <p class="lead">Czyta strony szkół, uczelni i gmin oraz bazy projektów z dotacją, projektów badawczych i patentów.
+    Każdy znaleziony projekt przechodzi przez cztery filtry odrzucenia i dostaje ocenę potencjału. Każdy wynik ma procent
+    i link do dokumentu, na którym się opiera. Decyzję podejmuje człowiek.</p>
   <div class="akcje">
-    <a class="przycisk" href="/zglos">Zgłoś innowację</a>
+    <a class="przycisk" href="/o/pci/kolejka">Przejrzyj wykryte innowacje</a>
     <a class="przycisk drugi" href="/szukaj">Szukam rozwiązania</a>
-    <a class="przycisk drugi" href="/o/pci/kolejka">Kolejka analityka PCI</a>
+    <a class="przycisk drugi" href="/zglos">Oceń projekt</a>
   </div>
+  <nav class="zakladki" aria-label="Dla kogo">
+    <span class="maly">Zobacz, co radar daje:</span>
+    {% for k, x in s.ROLE.items() %}<a href="/dla/{{ k }}">{{ x.nazwa }}</a>{% endfor %}
+  </nav>
+</section>
+
+<section>
+  <h2>Ostatnio wykryte przez radar</h2>
+  {% if wykryte %}
+  <ul class="wykryte">
+    {% for w in wykryte %}
+    <li><a href="/karta/{{ w.id }}"><b>{{ w.tytul }}</b></a> · {{ w.instytucja or 'instytucja nieustalona' }}
+      · <span class="maly">{{ s.WERDYKTY.get(w.werdykt, w.werdykt) if w.werdykt else 'w trakcie sprawdzania' }}</span></li>
+    {% endfor %}
+  </ul>
+  {% else %}<p class="pusty">Radar jeszcze niczego nie wykrył.</p>{% endif %}
+  {% if radar.get('wpisow') %}<p class="maly">Ostatni przebieg: {{ radar.get('kanalow', 0) }} kanałów RSS, {{ radar.wpisow }} wpisów przejrzanych,
+    {{ radar.get('do_ai', 0) }} sprawdzonych przez AI. Wszystkich wykryć: {{ radar.wykryc }}.</p>{% endif %}
 </section>
 
 <section>
@@ -34,7 +52,7 @@
     <tbody>
     {% for klucz, (nazwa, adres) in s.ZRODLA.items() if klucz != 'zgloszenie' %}
       <tr><td>{% if adres %}<a href="{{ adres }}" rel="noopener" target="_blank">{{ nazwa }}</a>{% else %}{{ nazwa }}{% endif %}</td>
-          <td class="liczba">{{ liczby.get(klucz, 0) | liczba(0) }}</td>
+          <td class="liczba">{% if klucz == 'www' %}{{ radar.wykryc }} wykryć{% else %}{{ liczby.get(klucz, 0) | liczba(0) }}{% endif %}</td>
           <td>{{ stan[klucz] if klucz in stan else '—' }}</td><td class="maly">{{ s.HARMONOGRAM[klucz].co_ile if klucz in s.HARMONOGRAM else '' }}</td></tr>
     {% endfor %}
     </tbody>
@@ -47,10 +65,11 @@
 <section>
   <h2>Dla kogo</h2>
   <div class="siatka3">
-    {% for o in organizacje() %}
-    <article class="kafel"><h3><a href="/o/{{ o.slug }}/kolejka">{{ o.nazwa }}</a></h3><p>{{ o.opis }}</p></article>
+    {% for k, x in s.ROLE.items() %}
+    <article class="kafel"><h3><a href="/dla/{{ k }}">{{ x.nazwa }}</a></h3><p>{{ x.korzysc }}</p></article>
     {% endfor %}
-    <article class="kafel"><h3>Twoja organizacja</h3><p>Nowy profil to jeden plik JSON z komórkami i ścieżkami.
+    <article class="kafel"><h3>Twoja organizacja</h3><p>Własne kryteria oceny to jeden plik JSON z komórkami i ścieżkami
+      (profile: {% for o in organizacje() %}<a href="/o/{{ o.slug }}/kolejka">{{ o.nazwa }}</a>{% if not loop.last %}, {% endif %}{% endfor %}).
       Integracja przez <a href="/docs">API</a>.</p></article>
   </div>
 </section>
