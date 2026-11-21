@@ -10,6 +10,7 @@ KONFIGURACJA = KORZEN / "konfiguracja"
 
 USER_AGENT = "radar-innowacji-hackathon/0.1 (+https://github.com/; projekt HackNation 2026)"
 MODEL = os.environ.get("MODEL", "deepseek/deepseek-v4.1-flash")  # przypięta wersja, nie "latest"
+MODEL_ZAPASOWY = os.environ.get("MODEL_ZAPASOWY", "google/gemini-3.8-flash")  # ostatnia próba, gdy dostawcy DeepSeek zawodzą
 
 # Progi pasm (spec §6.5). Jedno miejsce; zmiany po kalibracji zapisywać w walidacja/raport.md.
 PROGI = {

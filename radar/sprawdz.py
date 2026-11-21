@@ -100,6 +100,7 @@ def sprawdz(con: sqlite3.Connection, zgl_id: int) -> dict:
     db.ustaw_status(con, zgl_id, "w_toku")
     koszt: list[float] = []
     termin.ustaw(config.LIMIT_SPRAWDZENIA_S)
+    ai.zacznij_rejestr()
     try:
         tl, k = ai.tlumacz_zapytanie(z.opis)
         koszt.append(k)
@@ -137,7 +138,8 @@ def sprawdz(con: sqlite3.Connection, zgl_id: int) -> dict:
                     "stan_danych": {k: slowniki.czas_pl(slowniki.stan_na(k, v), "%Y-%m-%d")
                                     for k, v in db.stan_zrodel(con).items() if v["pobrano_do"] and k in slowniki.HARMONOGRAM
                                     and slowniki.HARMONOGRAM[k]["tryb"] != "na żywo"},
-                    "na_zywo": slowniki.czas_pl(time.time()), "limit_czasu": termin.przekroczenia()}
+                    "na_zywo": slowniki.czas_pl(time.time()), "limit_czasu": termin.przekroczenia(),
+                    "ai": ai.rejestr()}
         db.zapisz_wyniki(con, zgl_id, wyniki, werdykt.werdykt(wyniki), werdykt.komorka(z, profil),
                          werdykt.sciezka(z, wyniki, podobne, profil), werdykt.partnerzy(z, podobne),
                          round(time.time() - t0, 1), round(sum(koszt), 5), pokrycie=pokrycie)

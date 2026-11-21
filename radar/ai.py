@@ -3,6 +3,7 @@ i nigdy nie rzuca wyjątku z powodu złej odpowiedzi modelu. ID dokumentów i cy
 import json
 import os
 import re
+import threading
 
 import httpx
 
@@ -22,17 +23,36 @@ RUBRYKA = [
 ]
 
 
+_rej = threading.local()
+
+
+def zacznij_rejestr() -> None:
+    """Początek sprawdzenia: od teraz zapisujemy, które modele i którzy dostawcy odpowiedzieli."""
+    _rej.uzyte, _rej.ostatni = [], None
+
+
+def rejestr() -> list[str]:
+    return list(dict.fromkeys(getattr(_rej, "uzyte", [])))
+
+
 def czat_json(system: str, user: str) -> tuple[dict, float]:
-    """Jedno ponowienie przy błędzie sieci lub pustej odpowiedzi (dostawcy OpenRouter bywają niestabilni)."""
-    wynik, koszt = {}, 0.0
-    for _ in range(3):
+    """Dostawcy OpenRouter bywają niestabilni (pusta treść, finish=length): każde ponowienie omija dostawcę, który zawiódł,
+    a ostatnia próba idzie do modelu zapasowego innej rodziny."""
+    wynik, koszt, ignoruj = {}, 0.0, []
+    for proba in range(3):
         if termin.zostalo() < 8:
             termin.notuj("część odpowiedzi AI")
             break
-        wynik, k = _czat_json(system, user)
+        _rej.ostatni = None
+        wynik, k = _czat_json(system, user, ignoruj=list(ignoruj), model=config.MODEL_ZAPASOWY if proba == 2 else None)
         koszt += k
+        ostatni = getattr(_rej, "ostatni", None)
         if wynik:
+            if ostatni and hasattr(_rej, "uzyte"):
+                _rej.uzyte.append(f"{ostatni[0]} ({ostatni[1]})")
             break
+        if ostatni and ostatni[1]:
+            ignoruj.append(ostatni[1])
     return wynik, koszt
 
 
@@ -45,24 +65,26 @@ def _loguj_blad(opis: str) -> None:
         pass
 
 
-def _czat_json(system: str, user: str) -> tuple[dict, float]:
+def _czat_json(system: str, user: str, ignoruj: list[str] | None = None, model: str | None = None) -> tuple[dict, float]:
     url = os.environ.get("AI_URL") or URL
     openrouter = "openrouter.ai" in url
     klucz = os.environ.get("OPENROUTER_API_KEY") if openrouter else os.environ.get("AI_API_KEY")
     if openrouter and not klucz:
         return {}, 0.0  # ścieżka C: bez AI
-    body = {"model": os.environ.get("MODEL") or config.MODEL, "temperature": 0, "max_tokens": 3000,
+    body = {"model": (model if openrouter else None) or os.environ.get("MODEL") or config.MODEL, "temperature": 0, "max_tokens": 3000,
             "response_format": {"type": "json_object"},
             "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]}
     if openrouter:
         # bez rozumowania: inaczej model zużywa cały limit na "myślenie" i zwraca pustą treść (finish=length)
-        body |= {"provider": {"data_collection": "deny"}, "usage": {"include": True}, "reasoning": {"enabled": False}}
+        body |= {"provider": {"data_collection": "deny"} | ({"ignore": ignoruj} if ignoruj else {}),
+                 "usage": {"include": True}, "reasoning": {"enabled": False}}
     try:
         r = httpx.post(url, json=body, timeout=max(5.0, min(300 if not openrouter else 120, termin.zostalo() - 3)),
                        headers={"X-Title": "Radar Innowacji"} | ({"Authorization": f"Bearer {klucz}"} if klucz else {}))
         d = r.json()
         tresc = d["choices"][0]["message"].get("content") or ""
         koszt = float((d.get("usage") or {}).get("cost") or 0.0)
+        _rej.ostatni = (d.get("model") or body["model"], d.get("provider") or "")
     except Exception as e:
         _loguj_blad(f"wyjątek {type(e).__name__}: {e} | {getattr(locals().get('r'), 'text', '')[:300]}")
         return {}, 0.0

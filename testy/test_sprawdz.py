@@ -40,6 +40,7 @@ def test_przeplyw_odrzucenia(con, monkeypatch):
     plagiat = next(w for w in k["wyniki"] if w["filtr"] == "plagiat")
     assert plagiat["pasmo"] == "czerwone" and plagiat["dowody"][0]["link"] == "https://mapadotacji.gov.pl/projekty/1/"
     assert k["komorka"] == "mlodzi_16_30" and k["status"] == "gotowe"
+    assert k["pokrycie"]["ai"] == []  # AI podmienione w teście: żaden model nie odpowiadał
     assert k["koszt_usd"] > 0 and k["czas_s"] >= 0
 
 
@@ -127,7 +128,7 @@ def test_zawieszone_ai_nie_blokuje_karty(con, monkeypatch):
     from radar import config
     for n, f in PRAWDZIWE.items():
         monkeypatch.setattr(ai, n, f)
-    monkeypatch.setattr(ai, "_czat_json", lambda s, u: (__import__("time").sleep(0.5), ({}, 0.0))[1])
+    monkeypatch.setattr(ai, "_czat_json", lambda s, u, **kw: (__import__("time").sleep(0.5), ({}, 0.0))[1])
     monkeypatch.setattr(sprawdz, "ZRODLA_NA_ZADANIE", {})
     monkeypatch.setattr(config, "LIMIT_SPRAWDZENIA_S", 1.0)
     import time

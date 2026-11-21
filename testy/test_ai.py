@@ -126,3 +126,37 @@ def test_rubryka_mowi_kiedy_tak_a_kiedy_nie_wiadomo(monkeypatch):
     ai.rubryka_nowosci("opis", [])
     assert "żaden znaleziony dokument nie opisuje tego samego rozwiązania" in wyslane["u"]
     assert "zbyt ogólne" in wyslane["u"]
+
+
+
+def test_pusta_odpowiedz_omija_dostawce_a_na_koncu_zmienia_model(monkeypatch):
+    """Dostawcy OpenRouter (Novita, Wafer, DeepInfra) oddawali pustą treść: ponowienie omija tego dostawcę,
+    ostatnia próba idzie do modelu zapasowego; karta zapisuje, kto odpowiedział."""
+    import httpx
+    from radar import config
+    wyslane = []
+
+    class Odp:
+        text = ""
+
+        def __init__(self, d):
+            self.d = d
+
+        def json(self):
+            return self.d
+
+    def post(url, json=None, **kw):
+        wyslane.append(json)
+        n = len(wyslane)
+        tresc = '{"ok": 1}' if n == 3 else ""
+        return Odp({"provider": f"P{n}", "model": json["model"], "usage": {"cost": 0},
+                    "choices": [{"message": {"content": tresc}, "finish_reason": "stop" if tresc else "length"}]})
+    monkeypatch.setenv("OPENROUTER_API_KEY", "x")
+    monkeypatch.delenv("AI_URL", raising=False)
+    monkeypatch.setattr(httpx, "post", post)
+    ai.zacznij_rejestr()
+    assert ai.czat_json("s", "u")[0] == {"ok": 1}
+    assert not wyslane[0]["provider"].get("ignore")
+    assert wyslane[1]["provider"]["ignore"] == ["P1"] and wyslane[1]["model"] == config.MODEL
+    assert wyslane[2]["provider"]["ignore"] == ["P1", "P2"] and wyslane[2]["model"] == config.MODEL_ZAPASOWY
+    assert ai.rejestr() == [f"{config.MODEL_ZAPASOWY} (P3)"]
