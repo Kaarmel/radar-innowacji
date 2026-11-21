@@ -90,7 +90,8 @@ def zapisz_dokumenty(con: sqlite3.Connection, docs: list[Dokument]) -> int:
     return len(docs)
 
 
-def szukaj(con: sqlite3.Connection, terminy: list[str], limit: int = 50, typ: str | None = None) -> list[tuple[Dokument, float]]:
+def szukaj(con: sqlite3.Connection, terminy: list[str], limit: int = 50, typ: str | None = None, zrodlo: str | None = None,
+           woj: str | None = None, rok_od: int | None = None) -> list[tuple[Dokument, float]]:
     """BM25 po tytule i opisie; terminy to rdzenie, dopasowanie prefiksowe. Wynik: (dokument, wynik > 0)."""
     czyste = [t for t in (tokeny(" ".join(terminy))) if t]
     if not czyste:
@@ -102,6 +103,15 @@ def szukaj(con: sqlite3.Connection, terminy: list[str], limit: int = 50, typ: st
     if typ:
         sql += " AND d.typ = ?"
         args.append(typ)
+    if zrodlo:
+        sql += " AND d.zrodlo = ?"
+        args.append(zrodlo)
+    if rok_od:
+        sql += " AND d.rok >= ?"
+        args.append(rok_od)
+    if woj:  # województwo projektu albo projekt ogólnopolski (pole: nazwy rozdzielone przecinkami)
+        sql += " AND (',' || replace(d.wojewodztwo, ', ', ',') || ',' LIKE ? OR d.wojewodztwo LIKE '%ogólnopolski%')"
+        args.append(f"%,{woj},%")
     sql += " ORDER BY bm25(dokument_fts, 3.0, 1.0) LIMIT ?"
     args.append(limit)
     return [(_do_dokumentu(r), r["wynik"]) for r in con.execute(sql, args)]

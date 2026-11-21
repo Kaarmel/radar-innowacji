@@ -462,19 +462,11 @@ WOJEWODZTWA = ("dolnośląskie", "kujawsko-pomorskie", "lubelskie", "lubuskie", 
                 "zachodniopomorskie")
 
 
-def _w_wojewodztwie(d, woj: str) -> bool:
-    regiony = [r.strip() for r in (d.wojewodztwo or "").split(",")]
-    return woj in regiony or "ogólnopolski" in regiony
-
-
 def wyszukaj(con, q: str, zrodlo: str = "", rok_od: int | None = None, woj: str = "") -> dict:
     df, n = db.funkcja_df(con)
     terminy = tekst.terminy(q, n=12, df=df, N=n)
     dokumenty: dict[str, list] = defaultdict(list)
-    filtr = bool(zrodlo or rok_od or woj)
-    trafienia = [(d, w) for d, w in db.szukaj(con, terminy, limit=400 if filtr else 40)
-                 if (not zrodlo or d.zrodlo == zrodlo) and (not rok_od or (d.rok or 0) >= rok_od)
-                 and (not woj or _w_wojewodztwie(d, woj))][:40]
+    trafienia = db.szukaj(con, terminy, limit=40, zrodlo=zrodlo or None, woj=woj or None, rok_od=rok_od)
     for d, wynik in trafienia:
         dokumenty[d.typ].append({"id": d.id, "tytul": d.tytul, "opis": d.opis[:300], "link": d.link, "zrodlo": d.zrodlo,
                                  "rok": d.rok, "instytucje": d.instytucje[:3], "status": d.status, "wynik": round(wynik, 2),

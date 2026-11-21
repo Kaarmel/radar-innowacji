@@ -74,3 +74,19 @@ def test_aktualizacja_nie_kasuje_pobranych_instytucji(tmp_path):
     db.zapisz_dokumenty(con, [Dokument(**{**d.__dict__, "instytucje": ["Gmina Czarna"]})])
     db.zapisz_dokumenty(con, [d])
     assert db.dokument(con, "mapadotacji:1").instytucje == ["Gmina Czarna"]
+
+
+
+def test_szukaj_filtruje_w_bazie_a_nie_po_limicie(tmp_path):
+    """Przy 340 tys. projektów filtr regionu po pobraniu czołówki gubiłby wyniki: filtr musi być w zapytaniu."""
+    from radar import db
+    from radar.model import Dokument
+    con = db.polacz(tmp_path / "t.sqlite")
+    docs = [Dokument(id=f"mapadotacji:{i}", zrodlo="mapadotacji", typ="projekt", tytul="Magazyn energii magazyn energii",
+                     opis="Magazyn energii w gminie.", link=f"https://m/{i}", wojewodztwo="podkarpackie", rok=2020) for i in range(30)]
+    docs.append(Dokument(id="mapadotacji:99", zrodlo="mapadotacji", typ="projekt", tytul="Projekt", opis="Magazyn energii przy szkole.",
+                         link="https://m/99", wojewodztwo="śląskie", rok=2024))
+    db.zapisz_dokumenty(con, docs)
+    assert [d.id for d, _ in db.szukaj(con, ["magazyn", "energi"], limit=5, woj="śląskie")] == ["mapadotacji:99"]
+    assert [d.id for d, _ in db.szukaj(con, ["magazyn", "energi"], limit=5, rok_od=2023)] == ["mapadotacji:99"]
+    assert len(db.szukaj(con, ["magazyn", "energi"], limit=5, zrodlo="radon")) == 0
