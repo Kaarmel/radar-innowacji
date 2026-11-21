@@ -14,21 +14,21 @@
   .crop{overflow:hidden;border:1px solid #e5e7eb;border-radius:10px;box-shadow:0 4px 20px rgba(0,0,0,.08)}.crop img{display:block}
   .b{font-size:15px;padding:2px 8px;border-radius:10px;font-weight:600}.ai{background:#f3e8ff;color:#7e22ce}.fo{background:#f3f4f6;color:#4b5563}.kod{background:#e0f2fe;color:#0369a1}
   </style></head><body><section class="title"><img class="logo2" src="../../logo2.png" alt="Radar Innowacji">
-    <h1>Wyszukiwanie i ocena projektów innowacyjnych<br>z dowodami przy każdej liczbie</h1>
-    <p class="lead">Dla firm i instytucji. Podkarpackie Centrum Innowacji jest pierwszym użytkownikiem: własna kolejka, komórki, ścieżki i wagi oceny.</p>
+    <h1>Radar sam wyszukuje istniejące innowacje<br>i ocenia je z dowodami przy każdej liczbie</h1>
+    <p class="lead">Strony szkół, uczelni i gmin oraz publiczne bazy projektów i patentów → karta innowacji z procentami i linkami do dowodów → decyzja człowieka. Podkarpackie Centrum Innowacji jest pierwszym profilem.</p>
     <div class="links"><div><b>Demo</b> radar-innowacji.skroban.tech</div><div><b>Kod</b> github.com/Kaarmel/radar-innowacji</div></div>
     <p class="foot">HackNation 2026 · zadanie „Radar innowacji” · licencja EUPL-1.2</p></section>
 <section><h2>Problem</h2><div class="cols"><div>
     <h3>Dziś</h3><ul><li>Analityk szuka projektów ręcznie: bazy, strony szkół i uczelni, telefony do naukowców.</li>
     <li>Każdy projekt trzeba sprawdzić: czy jest nowy, czy nie jest kopią albo plagiatem, czy nie jest już opatentowany (także zgłoszenie w toku).</li>
     <li>Ocena zależy od osoby, a powody decyzji nie są zapisane.</li></ul></div><div>
-    <h3>Czego chcą mentorzy PCI</h3><ul><li>Szukać i <b>oceniać</b> projekty, a nie tylko je zbierać.</li>
+    <h3>Czego chcą mentorzy PCI</h3><ul><li><b>Odkrywać</b> innowacje, które już istnieją, i je <b>oceniać</b>; to nie platforma do zgłaszania pomysłów.</li>
     <li>Cztery powody odrzucenia: brak innowacyjności, kopia, plagiat, patent.</li>
     <li>Procenty i linki do dowodów, żeby od razu wykluczyć albo przepuścić.</li>
     <li>Nie „AI wrapper”: kod tam, gdzie się da; AI tylko do oceny nowości.</li>
     <li>Komórki: młodzi 16–30, naukowcy, inni, ogólne.</li></ul></div></div></section>
-<section><h2>Jak działa</h2><div class="flow"><div class="step"><div class="n">1</div><h3>Wejście</h3><p>formularz · strona z linku · projekt z bazy · radar WWW: 172 strony szkół, uczelni i samorządów</p></div><div class="arrow">→</div><div class="step"><div class="n">2</div><h3>Wyszukiwanie</h3><p>88 tys. dokumentów: Mapa Dotacji, Interreg, RAD-on, patenty uczelni; EPO i publikacje na żądanie. Kod: BM25.</p></div><div class="arrow">→</div><div class="step"><div class="n">3</div><h3>Bramka</h3><p>4 filtry odrzucenia: procent, pasmo, link do dowodu</p></div><div class="arrow">→</div><div class="step"><div class="n">4</div><h3>Potencjał 0–100</h3><p>7 kryteriów, jawny wzór, wagi z profilu organizacji</p></div><div class="arrow">→</div><div class="step"><div class="n">5</div><h3>Człowiek</h3><p>kolejka, decyzja z powodem, dziennik</p></div></div>
-    <p class="lead2">Jedno sprawdzenie trwa 15–45 s i kosztuje około 0,001 $. System flaguje i uzasadnia, a każdą pozycję z flagą przegląda człowiek.</p></section>
+<section><h2>Jak działa</h2><div class="flow"><div class="step"><div class="n">1</div><h3>Odkrywanie</h3><p>radar WWW: 172 strony szkół, uczelni, PCI i gmin (codziennie) · bazy projektów i patentów (co tydzień) · analityk: projekt z bazy lub z linku</p></div><div class="arrow">→</div><div class="step"><div class="n">2</div><h3>Wyszukiwanie</h3><p>88 tys. dokumentów: Mapa Dotacji, Interreg, RAD-on, patenty uczelni; EPO i publikacje na żądanie. Kod: BM25.</p></div><div class="arrow">→</div><div class="step"><div class="n">3</div><h3>Bramka</h3><p>4 filtry odrzucenia: procent, pasmo, link do dowodu</p></div><div class="arrow">→</div><div class="step"><div class="n">4</div><h3>Potencjał 0–100</h3><p>7 kryteriów, jawny wzór, wagi z profilu organizacji</p></div><div class="arrow">→</div><div class="step"><div class="n">5</div><h3>Człowiek</h3><p>kolejka, decyzja z powodem, dziennik</p></div></div>
+    <p class="lead2">AI przepuszcza z WWW tylko wpisy z konkretnym rozwiązaniem (Oslo Manual 2018), bez nazwisk. Jedno sprawdzenie trwa 15–45 s i kosztuje około 0,001 $. Każdą pozycję z flagą przegląda człowiek.</p></section>
 <section><h2>Bramka: cztery filtry odrzucenia</h2><div class="cols2"><div style="width:640px">
     <table class="t"><tr><th>Filtr</th><th>Co mierzy</th><th>Kto</th></tr>
     <tr><td><b>Plagiat</b></td><td>część 8-wyrazowych ciągów występująca dosłownie gdzie indziej</td><td>kod</td></tr>
@@ -37,8 +37,8 @@
     <tr><td><b>Nowość</b></td><td>5 pytań rubryki; każda odpowiedź wskazuje dokument z wyników, kod to sprawdza</td><td>AI, kod sprawdza</td></tr></table>
     <p class="small">Wcześniejsza praca tej samej instytucji nie odrzuca: jest oznaczona jako kontynuacja.</p></div>
     <div><div class="crop" style="width:780px;height:353px"><img src="../zrzuty/karta-plagiat.png" style="width:960px;max-width:none;margin-top:-53px;margin-left:-90px"></div><p class="cap">Przepisany projekt z Mapy Dotacji: plagiat 65,9%, kopia 64,9% → odrzucone, do przeglądu.</p></div></div></section>
-<section><h2>Dowód zamiast opinii</h2><div class="crop" style="width:1440px;height:775px"><img src="../zrzuty/karta-plagiat.png" style="width:1772px;max-width:none;margin-top:-2735px;margin-left:-166px"></div>
-    <p class="cap">Fragmenty obok siebie z podświetleniem, link do źródła i nazwa instytucji. Analityk od razu widzi, skąd jest flaga.</p></section>
+<section><h2>Karta innowacji: fakty oddzielone od szacunków</h2><div class="crop" style="width:1440px;height:650px"><img src="../zrzuty/karta-innowacji.png" style="width:1772px;max-width:none;margin-top:-284px;margin-left:-166px"></div>
+    <p class="cap">Wykryte przez radar na stronie technikum: obszar, źródło z cytatem, status wdrożenia (5 poziomów), TRL, potencjał, wiarygodność liczona kodem. Każde pole: fakt z danych, deklaracja, szacunek AI albo reguła.</p></section>
 <section><h2>Ocena potencjału 0–100</h2><div class="cols2"><div><div class="crop" style="width:700px;height:673px"><img src="../zrzuty/karta-potencjal.png" style="width:862px;max-width:none;margin-top:-363px;margin-left:-81px"></div></div><div>
     <p><b>Wzór:</b> 100 × Σ punktów / Σ maksimów kryteriów z danymi.</p>
     <ul><li><span class="b ai">AI</span> nowość wobec znalezionych dokumentów, mierzalna przewaga</li>
@@ -46,30 +46,37 @@
     <li><span class="b kod">kod</span> zapotrzebowanie (inne instytucje z podobnym problemem), możliwość ochrony, precedens finansowania, specjalizacje organizacji</li></ul>
     <p><b>Bramka nowości:</b> kryteria „kod” i dojrzałość mnożymy przez udział punktów nowości. Rutynowy zakup bywa dojrzały i sfinansowany, ale nie jest innowacją.</p>
     <p class="small">Wagi i specjalizacje są w profilu organizacji (PCI: lotnictwo i kosmos, motoryzacja, ICT, jakość życia). Przykład: filtr mikroplastiku ze szkoły w Jaśle → 47/100, ścieżka R1.</p></div></div></section>
-<section><h2>Kolejka i decyzja człowieka</h2><div class="crop" style="width:1440px;height:367px"><img src="../zrzuty/kolejka-pci.png" style="width:1772px;max-width:none;margin-top:-478px;margin-left:-166px"></div>
-    <div class="cols" style="margin-top:28px"><ul><li>Najpierw pozycje z flagą, w obrębie werdyktu sortowanie po potencjale.</li><li>Komórki PCI i ścieżki z nazwaną regułą: R1 akceleracja i Protolab, R2 ochrona, R3 transfer, R4 finansowanie, R5 współpraca.</li></ul>
-    <ul><li>Decyzja: potwierdź, przywróć albo przekaż, zawsze z powodem; trafia do dziennika.</li><li>„Kto już działa w temacie”: instytucje do kontaktu, z linkiem do projektu.</li></ul></div></section>
-<section><h2>Dane i podział pracy: kod a AI</h2><div class="cols2"><div style="width:700px">
-    <table class="t"><tr><th>Źródło</th><th class="num">Dokumenty</th></tr>
-    <tr><td>Mapa Dotacji UE (Podkarpacie)</td><td class="num">20 069</td></tr><tr><td>Interreg Polska–Słowacja</td><td class="num">258</td></tr>
-    <tr><td>RAD-on: projekty naukowe</td><td class="num">48 817</td></tr><tr><td>RAD-on: patenty polskich uczelni</td><td class="num">19 004</td></tr>
-    <tr><td>EPO, OpenAlex, Crossref</td><td class="num">na żądanie</td></tr><tr><td>Radar WWW: RSS 172 szkół, uczelni, PCI, samorządów</td><td class="num">cyklicznie</td></tr></table>
-    <p class="small">robots.txt i limit 1 zapytania na sekundę. Zabezpieczeń anty-botowych nie obchodzimy. Bez nazwisk z baz.</p></div><div>
-    <h3>Kod (deterministycznie)</h3><p>wyszukiwanie, plagiat, podobieństwo, reguły ścieżek, wzór potencjału, kolejka</p>
-    <h3>AI (DeepSeek, temperatura 0)</h3><p>tłumaczenie zapytania, potwierdzenie kopii, rubryka nowości, karta ze strony WWW</p>
-    <p class="small">Kod odrzuca odpowiedź AI, która wskazuje dokument spoza wyników, i cytat, którego nie ma w tekście.</p></div></div></section>
+<section><h2>Dla kogo: ta sama karta, prosty język</h2><div class="cols2"><div><div class="crop" style="width:820px;height:526px"><img src="../zrzuty/dla-mlodzi.png" style="width:990px;max-width:none;margin-top:-46px;margin-left:-85px"></div><p class="cap">Zakładka dla szkół i młodych: korzyść, 3 kroki i przyciski do prawdziwych kart.</p></div><div>
+    <ul><li><b>Analityk PCI:</b> radar znajduje, analityk przegląda tylko flagi; decyzja z powodem trafia do dziennika.</li>
+    <li><b>Szkoła i młodzi 16–30:</b> projekt z aktualności szkoły zostaje zauważony bez zgłaszania.</li>
+    <li><b>Uczelnia:</b> nowość na tle patentów i publikacji przed ochroną.</li>
+    <li><b>Gmina:</b> kto już wdrożył podobne rozwiązanie z dotacją.</li>
+    <li><b>Firma:</b> kto w regionie pracuje nad jej problemem.</li></ul>
+    <p class="small">Komórki PCI i ścieżki z nazwaną regułą: R1 akceleracja i Protolab, R2 ochrona, R3 transfer, R4 finansowanie, R5 współpraca.</p></div></div></section>
+<section><h2>Dane, aktualność, AI i wymagania</h2><div class="cols2"><div style="width:760px">
+    <table class="t"><tr><th>Źródło</th><th class="num">Dokumenty</th><th>Aktualizacja</th></tr>
+    <tr><td>Mapa Dotacji UE (Podkarpacie)</td><td class="num">20 069</td><td>co tydzień (pon.)</td></tr>
+    <tr><td>RAD-on: projekty naukowe</td><td class="num">48 817</td><td>co tydzień (wt.)</td></tr>
+    <tr><td>RAD-on: patenty polskich uczelni</td><td class="num">19 004</td><td>co tydzień (śr.)</td></tr>
+    <tr><td>Interreg Polska–Słowacja</td><td class="num">258</td><td>co miesiąc</td></tr>
+    <tr><td>EPO, OpenAlex, Crossref</td><td class="num">na żywo</td><td>przy każdym sprawdzeniu</td></tr>
+    <tr><td>Radar WWW: RSS 172 stron</td><td class="num">wykrycia</td><td>codziennie 06:00</td></tr></table>
+    <p class="small">Stan każdego źródła i harmonogram: strona /warunki. Zgłoszenia patentowe są jawne po 18 miesiącach; karta o tym przypomina. robots.txt, 1 zapytanie/s, bez obchodzenia zabezpieczeń.</p></div><div>
+    <h3>Ścieżki AI</h3><p><b>A</b> API (DeepSeek, ~0,001 $/sprawdzenie, bez trenowania na danych) · <b>B</b> model lokalny przez AI_URL (Ollama, vLLM; nic nie opuszcza serwera) · <b>C</b> bez AI: filtry kodu działają, nowość „brak danych”</p>
+    <h3>Wymagania</h3><p>2 vCPU, 4 GB RAM, 2 GB dysku; Python 3.12 albo Docker. Model lokalny: 8–12 GB GPU albo 16 GB RAM.</p>
+    <p class="small">Kod: wyszukiwanie, plagiat, podobieństwo, reguły, wzór potencjału. AI: tłumaczenie, potwierdzenie kopii, rubryka nowości, karta ze strony. Kod odrzuca dowód spoza wyników i cytat spoza tekstu.</p></div></div></section>
 <section><h2>Miary: 52 sprawdzeń ze znaną prawdą</h2><div class="cols"><div><table class="t">
     <tr><td>Plagiat: połowa zdań z dwóch projektów</td><td class="num"><b>9 z 9</b></td></tr><tr><td>Kopia: projekt przepisany przez AI</td><td class="num"><b>10 z 10</b></td></tr>
     <tr><td>Patent: opis patentu uczelni przepisany</td><td class="num"><b>5 z 5</b></td></tr><tr><td>Własna praca: kontynuacja, bez odrzucenia</td><td class="num"><b>5 z 5</b></td></tr>
     <tr><td>Duplikat zgłoszenia</td><td class="num"><b>3 z 3</b></td></tr></table>
     <p class="small">Mediana czasu 44,3 s (4 sprawdzenia równolegle), średni koszt AI 0,00129 $.</p></div><div>
     <h3>Czego się nauczyliśmy</h3><p>Na 20 prawdziwych projektach z Mapy Dotacji rutynowe zakupy (wozy OSP, oczyszczalnie) dostawały 62–74 pkt potencjału, prawie tyle co projekty B+R.</p>
-    <p>Dodaliśmy bramkę nowości: rutyna 0–44 pkt, B+R do 65 pkt.</p>
+    <p>Dodaliśmy bramkę nowości: rutyna 0–44 pkt, B+R 0–65 pkt, ale mediana w obu grupach to 22. Filtr nowości jest surowy (16 z 20 projektów do przeglądu): kalibrujemy go na etykietach analityków PCI.</p>
     <p class="small">Zestaw mierzy czułość na przypadkach zbudowanych z danych, a nie odsetek fałszywych alarmów. Wspólne szablony opisów (np. OSP) dają flagę plagiatu do przeglądu.</p></div></div></section>
 <section><h2>Wdrożenie i skalowanie</h2><div class="cols"><div><h3>Już działa</h3><ul>
-    <li>Publiczna strona z formularzem i REST API (OpenAPI): zgłoszenie, karta, kolejka, wyszukiwanie.</li>
+    <li>Publiczna strona i REST API (OpenAPI): radar, wyszukiwarka, karta, kolejka, ocena projektu.</li>
     <li>Nowa organizacja = 1 plik JSON: komórki, ścieżki, wagi, specjalizacje. Kolejka pod /o/&lt;nazwa&gt;.</li>
     <li>SQLite + FTS5 na jednej maszynie; Docker albo systemd + Caddy z HTTPS.</li>
     <li>Ochrona przed SSRF, escapowanie, limit sprawdzeń na IP.</li></ul></div><div><h3>Następne kroki</h3><ul>
-    <li>Biuletyn UPRP: polskie zgłoszenia patentowe w toku.</li><li>Logowanie i role dla analityków.</li>
+    <li>Biuletyn UPRP, PBN (token), zrzuty CORDIS.</li><li>Logowanie i role dla analityków.</li>
     <li>Kalibracja wag i progów na podstawie decyzji z dziennika.</li><li>Inne województwa: parametr źródeł i lista stron.</li></ul></div></div></section></body></html>
