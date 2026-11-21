@@ -73,3 +73,27 @@ def test_mapadotacji_stronicowanie_stabilne(tmp_path, monkeypatch):
     mapadotacji.pobierz_wszystko(db.polacz(tmp_path / "t.sqlite"), log=lambda *a: None)
     strony = [p for p in wywolania if p.get("per_page") == 100]
     assert len(strony) == 2 and all(p.get("orderby") == "id" and p.get("order") == "asc" for p in strony)
+
+
+def test_mapadotacji_wojewodztwo_z_danych():
+    """Cała Polska: województwo każdego projektu z taksonomii wojewodztwa_projekty, nie z parametru pobierania."""
+    p = json.loads((D / "mapadotacji_1.json").read_text(encoding="utf-8"))[0]
+    docs = mapadotacji.parsuj([{**p, "id": 1, "wojewodztwa_projekty": [392]}, {**p, "id": 2, "wojewodztwa_projekty": [724]},
+                               {**p, "id": 3, "wojewodztwa_projekty": [327, 392]}, {**p, "id": 4, "wojewodztwa_projekty": [99999]}])
+    assert [d.wojewodztwo for d in docs] == ["śląskie", "ogólnopolski", "podkarpackie, śląskie", None]
+    assert len(mapadotacji.WOJ) == 17
+
+
+def test_mapadotacji_cala_polska_bez_filtra(tmp_path, monkeypatch):
+    from radar import db
+    wywolania = []
+
+    class Odp:
+        status_code = 200
+        headers = {"X-WP-Total": "150"}
+        text = "[]"
+    monkeypatch.setattr(siec, "pobierz", lambda url, params=None, **kw: (wywolania.append(params or {}), Odp())[1])
+    con = db.polacz(tmp_path / "t.sqlite")
+    mapadotacji.pobierz_wszystko(con, log=lambda *a: None)
+    assert wywolania and all("wojewodztwa_projekty" not in p for p in wywolania)
+    assert mapadotacji._postep(con, "mapadotacji:pl") == "2"

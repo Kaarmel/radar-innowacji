@@ -10,10 +10,20 @@ from ..model import Dokument
 from ..tekst import bez_html
 
 API = "https://mapadotacji.gov.pl/wp-json/wp/v2/projekty"
-WOJ = {"327": "podkarpackie"}
+# taksonomia wojewodztwa_projekty (GET /wp-json/wp/v2/wojewodztwa_projekty, 21.11.2026)
+WOJ = {"128": "dolnośląskie", "159": "kujawsko-pomorskie", "183": "lubelskie", "208": "lubuskie", "223": "łódzkie",
+       "248": "małopolskie", "271": "mazowieckie", "314": "opolskie", "327": "podkarpackie", "353": "podlaskie",
+       "371": "pomorskie", "392": "śląskie", "429": "świętokrzyskie", "444": "warmińsko-mazurskie", "466": "wielkopolskie",
+       "502": "zachodniopomorskie", "724": "ogólnopolski"}
+CALA_POLSKA = "pl"
 
 
-def parsuj(surowe: list[dict], wojewodztwo: str | None = "podkarpackie") -> list[Dokument]:
+def _wojewodztwo(p: dict) -> str | None:
+    nazwy = [WOJ[str(i)] for i in (p.get("wojewodztwa_projekty") or []) if str(i) in WOJ]
+    return ", ".join(dict.fromkeys(nazwy)) or None
+
+
+def parsuj(surowe: list[dict]) -> list[Dokument]:
     out = []
     for p in surowe:
         tytul = bez_html(htmlmod.unescape((p.get("title") or {}).get("rendered", "")))
@@ -21,7 +31,7 @@ def parsuj(surowe: list[dict], wojewodztwo: str | None = "podkarpackie") -> list
         if not tytul:
             continue
         out.append(Dokument(id=f"mapadotacji:{p['id']}", zrodlo="mapadotacji", typ="projekt", tytul=tytul, opis=opis,
-                            link=p.get("link") or f"https://mapadotacji.gov.pl/projekty/{p['id']}/", wojewodztwo=wojewodztwo))
+                            link=p.get("link") or f"https://mapadotacji.gov.pl/projekty/{p['id']}/", wojewodztwo=_wojewodztwo(p)))
     return out
 
 
@@ -48,21 +58,21 @@ def _postep(con: sqlite3.Connection, klucz: str, wartosc: str | None = None) -> 
     return r[0] if r else None
 
 
-def pobierz_wszystko(con: sqlite3.Connection, woj: str = "327", log=print) -> int:
-    """Wznawialne: pamięta ostatnią pobraną stronę w tabeli postep."""
-    r = siec.pobierz(API, params={"wojewodztwa_projekty": woj, "per_page": 1})
+def pobierz_wszystko(con: sqlite3.Connection, woj: str = CALA_POLSKA, log=print) -> int:
+    """Wznawialne: pamięta ostatnią pobraną stronę w tabeli postep. woj="pl": cała Polska, inaczej id województwa."""
+    filtr = {} if woj == CALA_POLSKA else {"wojewodztwa_projekty": woj}
+    r = siec.pobierz(API, params={**filtr, "per_page": 1})
     stron = math.ceil(int(r.headers.get("X-WP-Total", "0")) / 100)
     klucz = f"mapadotacji:{woj}"
     start = int(_postep(con, klucz) or 0) + 1
     razem = 0
     for strona in range(start, stron + 1):
         # stałe sortowanie po id: domyślne (po dacie, z remisami) gubi i dubluje wpisy między stronami
-        r = siec.pobierz(API, params={"wojewodztwa_projekty": woj, "per_page": 100, "page": strona, "orderby": "id",
-                                      "order": "asc"}, timeout=60)
+        r = siec.pobierz(API, params={**filtr, "per_page": 100, "page": strona, "orderby": "id", "order": "asc"}, timeout=60)
         if r.status_code != 200:
             log(f"mapadotacji: strona {strona} → HTTP {r.status_code}, przerywam (ponowne uruchomienie wznowi)")
             break
-        razem += db.zapisz_dokumenty(con, parsuj(json.loads(r.text), WOJ.get(woj)))
+        razem += db.zapisz_dokumenty(con, parsuj(json.loads(r.text)))
         _postep(con, klucz, str(strona))
         if strona % 20 == 0:
             log(f"mapadotacji: {strona}/{stron}")

@@ -11,7 +11,7 @@ def main(argv=None) -> int:
     sub = p.add_subparsers(dest="cmd", required=True)
     pp = sub.add_parser("pobierz")
     pp.add_argument("zrodlo", choices=["mapadotacji", "interreg", "radon", "radon_patenty"])
-    pp.add_argument("--woj", default="327", help="Mapa Dotacji: id województwa (327 = podkarpackie)")
+    pp.add_argument("--woj", default="pl", help="Mapa Dotacji: pl = cała Polska (domyślnie) albo id województwa (327 = podkarpackie)")
     pp.add_argument("--od-nowa", action="store_true", help="cykliczna aktualizacja: pobiera całe źródło od początku (nadpisuje rekordy)")
     pr = sub.add_parser("radar", help="radar WWW: kanały RSS szkół i uczelni → zgłoszenia z wejściem radar")
     pr.add_argument("--limit", type=int, default=300)

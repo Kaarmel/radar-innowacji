@@ -63,3 +63,14 @@ def test_ocena_w_karcie(tmp_path):
     db.zapisz_ocene(con, zid, {"wynik": 64, "kryteria": []})
     k = db.karta(con, zid)
     assert k["potencjal"]["wynik"] == 64 and k["zrodlo_dok"] == "radon:1"
+
+
+def test_aktualizacja_nie_kasuje_pobranych_instytucji(tmp_path):
+    """Mapa Dotacji podaje beneficjenta tylko na stronie projektu: ponowne pobranie listy nie może go wymazać."""
+    from radar import db
+    from radar.model import Dokument
+    con = db.polacz(tmp_path / "t.sqlite")
+    d = Dokument(id="mapadotacji:1", zrodlo="mapadotacji", typ="projekt", tytul="Filtr", opis="Filtr wody", link="https://m/1")
+    db.zapisz_dokumenty(con, [Dokument(**{**d.__dict__, "instytucje": ["Gmina Czarna"]})])
+    db.zapisz_dokumenty(con, [d])
+    assert db.dokument(con, "mapadotacji:1").instytucje == ["Gmina Czarna"]

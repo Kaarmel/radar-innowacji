@@ -65,8 +65,10 @@ def zapisz_dokumenty(con: sqlite3.Connection, docs: list[Dokument]) -> int:
     teraz = time.time()
     with con:
         for d in docs:
-            stary = con.execute("SELECT rowid, tytul, opis FROM dokument WHERE id=?", (d.id,)).fetchone()
+            stary = con.execute("SELECT rowid, tytul, opis, instytucje FROM dokument WHERE id=?", (d.id,)).fetchone()
             if stary:
+                if not d.instytucje and stary["instytucje"]:  # beneficjent dociągnięty ze strony projektu zostaje
+                    d.instytucje = json.loads(stary["instytucje"])
                 for t in _rdzenie(stary["tytul"], stary["opis"]):
                     con.execute("UPDATE df SET liczba=liczba-1 WHERE termin=?", (t,))
                 con.execute("DELETE FROM dokument_fts WHERE rowid=?", (stary["rowid"],))
