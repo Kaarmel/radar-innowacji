@@ -8,18 +8,26 @@
   <label for="q" class="ukryte">Opis potrzeby</label>
   <input id="q" name="q" value="{{ q }}" placeholder="np. czujniki jakości powietrza dla szkół" minlength="3" required>
   <button class="przycisk" type="submit">Szukaj</button>
+  <div class="filtry">
+    <label>Źródło <select name="zrodlo"><option value="">wszystkie</option>
+      {% for k, (nazwa, _) in s.ZRODLA.items() if k != 'zgloszenie' %}<option value="{{ k }}" {% if zrodlo == k %}selected{% endif %}>{{ nazwa }}</option>{% endfor %}</select></label>
+    <label>Od roku <input type="number" name="rok_od" min="1990" max="2100" value="{{ rok_od or '' }}" class="rok"></label>
+  </div>
 </form>
 {% if wynik %}
 <p class="maly">Szukane terminy: {{ wynik.terminy | join(', ') }}</p>
 <section>
-  <h2>Zgłoszenia ({{ wynik.zgloszenia | length }})</h2>
+  <h2>Ocenione projekty ({{ wynik.zgloszenia | length }})</h2>
+  <form method="get" action="/porownaj">
+  {% if wynik.zgloszenia | length > 1 %}<p class="maly">Zaznacz 2–4 i <button class="przycisk drugi maly-przycisk" type="submit">porównaj zaznaczone</button></p>{% endif %}
   <ul class="lista">
   {% for z in wynik.zgloszenia %}
-    <li><a href="/karta/{{ z.id }}">{{ z.tytul }}</a> <span class="maly">· {{ z.instytucja }} · podobieństwo {{ z.podobienstwo | liczba }}%</span>
+    <li><input type="checkbox" name="id" value="{{ z.id }}" aria-label="Porównaj: {{ z.tytul }}"> <a href="/karta/{{ z.id }}">{{ z.tytul }}</a> <span class="maly">· {{ z.instytucja }} · podobieństwo {{ z.podobienstwo | liczba }}%</span>
       {% if z.werdykt %}<span class="werdykt {{ z.werdykt }}">{{ s.WERDYKTY.get(z.werdykt) }}</span>{% endif %}
       <br><span class="maly">{{ z.opis }}…</span></li>
   {% else %}<li class="maly">Brak podobnych zgłoszeń.</li>{% endfor %}
   </ul>
+  </form>
 </section>
 {% for typ, nazwa in [('projekt', 'Projekty'), ('patent', 'Patenty'), ('publikacja', 'Publikacje'), ('wpis', 'Wpisy z radaru WWW')] %}
 {% if wynik.dokumenty.get(typ) %}

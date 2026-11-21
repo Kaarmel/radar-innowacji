@@ -22,17 +22,22 @@
     {% for k, v in s.WERDYKTY.items() %}<option value="{{ k }}" {% if filtr.werdykt == k %}selected{% endif %}>{{ v }}</option>{% endfor %}</select></label>
   <label>Wejście <select name="wejscie" onchange="this.form.submit()"><option value="">wszystkie</option>
     {% for k, v in s.WEJSCIA.items() %}<option value="{{ k }}" {% if filtr.wejscie == k %}selected{% endif %}>{{ v }}</option>{% endfor %}</select></label>
+  <label>Obszar <select name="obszar" onchange="this.form.submit()"><option value="">wszystkie</option>
+    {% for o in obszary %}<option value="{{ o }}" {% if filtr.obszar == o %}selected{% endif %}>{{ o }}</option>{% endfor %}</select></label>
   <noscript><button class="przycisk drugi">Filtruj</button></noscript>
 </form>
 
 {% if wiersze %}
+<form method="get" action="/porownaj" class="porownaj-form">
+<p class="maly">Zaznacz 2–4 projekty i <button class="przycisk drugi maly-przycisk" type="submit">porównaj zaznaczone</button></p>
 <table class="tabela kolejka">
-  <thead><tr><th>Zgłoszenie</th>{% if not profil %}<th>Organizacja</th>{% endif %}<th>Komórka</th><th>Filtry</th><th>Werdykt</th><th class="liczba">Potencjał</th><th>Decyzja</th></tr></thead>
+  <thead><tr><th><span class="ukryte">Porównaj</span></th><th>Zgłoszenie</th>{% if not profil %}<th>Organizacja</th>{% endif %}<th>Komórka</th><th>Filtry</th><th>Werdykt</th><th class="liczba">Potencjał</th><th>Decyzja</th></tr></thead>
   <tbody>
   {% for w in wiersze %}
   <tr class="{{ 'zdecydowane' if w.decyzja else '' }}">
+    <td><input type="checkbox" name="id" value="{{ w.id }}" aria-label="Porównaj: {{ w.tytul }}"></td>
     <td><a href="/karta/{{ w.id }}">{{ w.tytul }}</a>
-      <div class="maly">{{ w.instytucja }} · {{ s.WEJSCIA.get(w.wejscie, w.wejscie) }} · {{ w.utworzono_at | data }}</div></td>
+      <div class="maly">{{ w.instytucja }} · {{ s.WEJSCIA.get(w.wejscie, w.wejscie) }} · {{ w.obszar }} · {{ w.utworzono_at | data }}</div></td>
     {% if not profil %}<td class="maly">{{ w.organizacja }}</td>{% endif %}
     <td class="maly">{{ (profil.nazwy_komorek.get(w.komorka, w.komorka) if profil else w.komorka) or '—' }}</td>
     <td>{{ kropki(w.pasma) }}</td>
@@ -44,6 +49,7 @@
   {% endfor %}
   </tbody>
 </table>
+</form>
 {% else %}
 <p class="pusty">Brak projektów. <a href="/zglos">Oceń pierwszy</a>.</p>
 {% endif %}

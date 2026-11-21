@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Literal
 
 import httpx
-from fastapi import BackgroundTasks, Depends, FastAPI, Form, HTTPException, Request
+from fastapi import BackgroundTasks, Depends, FastAPI, Form, HTTPException, Query, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
@@ -22,6 +22,7 @@ from markupsafe import Markup, escape
 from pydantic import BaseModel, Field, ValidationError, field_validator
 
 from . import ai, config, db, organizacje, siec, slowniki, tekst
+from .klasyfikacja import _obszar
 from .model import Zgloszenie
 from .sprawdz import sprawdz
 
@@ -345,8 +346,12 @@ def zglos_z_linku(request: Request, link: str = Form(...), organizacja: str = Fo
     return strona(request, "zglos.html", pola=pola, bledy={}, z_linku=True, cytat=karta.get("cytat"))
 
 
-def _kolejka(con, organizacja=None, werdykt=None, komorka=None, wejscie=None) -> list[dict]:
+OBSZARY = ("technologiczny", "edukacyjny", "administracyjny")
+
+
+def _kolejka(con, organizacja=None, werdykt=None, komorka=None, wejscie=None, obszar=None) -> list[dict]:
     sql = """SELECT z.id, z.tytul, z.instytucja, z.komorka, z.wejscie, z.werdykt, z.status, z.organizacja, z.utworzono_at, z.demo,
+                    z.typ_innowacji, z.typ_instytucji,
                     z.czas_s, (SELECT group_concat(filtr || ':' || pasmo) FROM wynik w WHERE w.zgl_id = z.id) AS pasma,
                     (SELECT wynik FROM ocena o WHERE o.zgl_id = z.id) AS potencjal,
                     (SELECT decyzja FROM decyzja d WHERE d.zgl_id = z.id ORDER BY kiedy DESC LIMIT 1) AS decyzja
@@ -362,20 +367,23 @@ def _kolejka(con, organizacja=None, werdykt=None, komorka=None, wejscie=None) ->
     for r in con.execute(sql, args):
         d = dict(r)
         d["pasma"] = dict(p.split(":", 1) for p in (d["pasma"] or "").split(",") if ":" in p)
-        out.append(d)
+        d["obszar"] = _obszar(d["typ_innowacji"] or "", d["typ_instytucji"] or "")
+        if not obszar or d["obszar"] == obszar:
+            out.append(d)
     return out
 
 
 @app.get("/kolejka", response_class=HTMLResponse, include_in_schema=False)
-def kolejka(request: Request, werdykt: str = "", komorka: str = "", wejscie: str = "", con=Depends(polaczenie)):
-    wiersze = _kolejka(con, None, werdykt, komorka, wejscie)
-    return strona(request, "kolejka.html", wiersze=wiersze, profil=None, filtr={"werdykt": werdykt, "komorka": komorka,
-                                                                               "wejscie": wejscie})
+def kolejka(request: Request, werdykt: str = "", komorka: str = "", wejscie: str = "", obszar: str = "",
+            con=Depends(polaczenie)):
+    wiersze = _kolejka(con, None, werdykt, komorka, wejscie, obszar)
+    return strona(request, "kolejka.html", wiersze=wiersze, profil=None, obszary=OBSZARY,
+                  filtr={"werdykt": werdykt, "komorka": komorka, "wejscie": wejscie, "obszar": obszar})
 
 
 @app.get("/o/{slug}/kolejka", response_class=HTMLResponse, include_in_schema=False)
 def kolejka_organizacji(request: Request, slug: str, werdykt: str = "", komorka: str = "", wejscie: str = "",
-                        con=Depends(polaczenie)):
+                        obszar: str = "", con=Depends(polaczenie)):
     if slug not in {o["slug"] for o in organizacje.lista()}:
         raise HTTPException(404, "Nie ma takiej organizacji.")
     profil = organizacje.wczytaj(slug)
@@ -383,9 +391,20 @@ def kolejka_organizacji(request: Request, slug: str, werdykt: str = "", komorka:
     licznik = defaultdict(int)
     for w in wszystkie:
         licznik[w["komorka"]] += 1
-    wiersze = _kolejka(con, slug, werdykt, komorka, wejscie)
-    return strona(request, "kolejka.html", wiersze=wiersze, profil=profil, licznik=licznik,
-                  filtr={"werdykt": werdykt, "komorka": komorka, "wejscie": wejscie})
+    wiersze = _kolejka(con, slug, werdykt, komorka, wejscie, obszar)
+    return strona(request, "kolejka.html", wiersze=wiersze, profil=profil, licznik=licznik, obszary=OBSZARY,
+                  filtr={"werdykt": werdykt, "komorka": komorka, "wejscie": wejscie, "obszar": obszar})
+
+
+@app.get("/porownaj", response_class=HTMLResponse, include_in_schema=False)
+def porownaj(request: Request, id: list[int] = Query(default=[]), con=Depends(polaczenie)):
+    ids = list(dict.fromkeys(id))
+    if not 2 <= len(ids) <= 4:
+        raise HTTPException(400, "Zaznacz od 2 do 4 projektów do porównania.")
+    karty = [db.karta(con, i) for i in ids]
+    if any(k is None for k in karty):
+        raise HTTPException(404, "Nie ma takiego zgłoszenia.")
+    return strona(request, "porownaj.html", karty=karty)
 
 
 def _teksty_dowodow(con, k: dict) -> dict[str, str]:
@@ -435,11 +454,14 @@ def ponow(request: Request, zid: int, tlo: BackgroundTasks, con=Depends(polaczen
     return RedirectResponse(f"/karta/{zid}", status_code=303)
 
 
-def wyszukaj(con, q: str) -> dict:
+def wyszukaj(con, q: str, zrodlo: str = "", rok_od: int | None = None) -> dict:
     df, n = db.funkcja_df(con)
     terminy = tekst.terminy(q, n=12, df=df, N=n)
     dokumenty: dict[str, list] = defaultdict(list)
-    for d, wynik in db.szukaj(con, terminy, limit=40):
+    filtr = bool(zrodlo or rok_od)
+    trafienia = [(d, w) for d, w in db.szukaj(con, terminy, limit=400 if filtr else 40)
+                 if (not zrodlo or d.zrodlo == zrodlo) and (not rok_od or (d.rok or 0) >= rok_od)][:40]
+    for d, wynik in trafienia:
         dokumenty[d.typ].append({"id": d.id, "tytul": d.tytul, "opis": d.opis[:300], "link": d.link, "zrodlo": d.zrodlo,
                                  "rok": d.rok, "instytucje": d.instytucje[:3], "status": d.status, "wynik": round(wynik, 2)})
     zgl = []
@@ -453,13 +475,14 @@ def wyszukaj(con, q: str) -> dict:
                         "pasma": dict(p.split(":", 1) for p in (r["pasma"] or "").split(",") if ":" in p),
                         "link": f"/karta/{r['id']}"})
     zgl.sort(key=lambda x: -x["podobienstwo"])
-    return {"zapytanie": q, "terminy": terminy, "zgloszenia": zgl[:15], "dokumenty": dict(dokumenty)}
+    return {"zapytanie": q, "terminy": terminy, "filtry": {"zrodlo": zrodlo, "rok_od": rok_od}, "zgloszenia": zgl[:15],
+            "dokumenty": dict(dokumenty)}
 
 
 @app.get("/szukaj", response_class=HTMLResponse, include_in_schema=False)
-def szukaj_strona(request: Request, q: str = "", con=Depends(polaczenie)):
-    wynik = wyszukaj(con, q) if len(q.strip()) >= 3 else None
-    return strona(request, "szukaj.html", q=q, wynik=wynik)
+def szukaj_strona(request: Request, q: str = "", zrodlo: str = "", rok_od: int | None = None, con=Depends(polaczenie)):
+    wynik = wyszukaj(con, q, zrodlo, rok_od) if len(q.strip()) >= 3 else None
+    return strona(request, "szukaj.html", q=q, wynik=wynik, zrodlo=zrodlo, rok_od=rok_od)
 
 
 def _miary(con) -> dict:
@@ -544,10 +567,10 @@ def api_karta(zid: int, con=Depends(polaczenie)):
 
 
 @app.get("/api/szukaj", tags=["wyszukiwanie"], summary="Szukam rozwiązania: zgłoszenia i dokumenty z korpusu (bez AI)")
-def api_szukaj(q: str, con=Depends(polaczenie)):
+def api_szukaj(q: str, zrodlo: str = "", rok_od: int | None = None, con=Depends(polaczenie)):
     if len(q.strip()) < 3:
         raise HTTPException(422, "Zapytanie musi mieć co najmniej 3 znaki.")
-    return wyszukaj(con, q)
+    return wyszukaj(con, q, zrodlo, rok_od)
 
 
 @app.get("/api/miary", tags=["miary"], summary="Miary: czas, koszt, werdykty, decyzje, korpus, zestaw testowy")
