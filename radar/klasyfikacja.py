@@ -54,6 +54,21 @@ def _wiarygodnosc(k: dict) -> dict:
             "pochodzenie": "regula"}
 
 
+def _zasieg(k: dict) -> dict:
+    """Oslo 2018: innowacja nowa dla instytucji albo dla rynku; z odpowiedzi rubryki (Q1–Q3: inne niż w bazach, Q5: nie rutyna)."""
+    w = next((x for x in k.get("wyniki") or [] if x.get("filtr") == "nowosc"), None)
+    odp = {o.get("pytanie"): o.get("odpowiedz") for o in (w or {}).get("dowody") or []}
+    if not w or odp.get("Q5") not in ("tak", "nie"):
+        wartosc = None
+    elif odp["Q5"] == "nie":
+        wartosc = "rutyna, nie innowacja"
+    elif sum(odp.get(q) == "tak" for q in ("Q1", "Q2", "Q3")) >= 2:
+        wartosc = "nowe dla rynku (w przeszukanych bazach)"
+    else:
+        wartosc = "nowe dla instytucji"
+    return {"wartosc": wartosc, "pochodzenie": "szacunek_ai"}
+
+
 def profil(k: dict) -> dict:
     etap = k.get("etap") or ""
     od, do = ETAP_KROKI.get(etap, (None, None))
@@ -68,5 +83,6 @@ def profil(k: dict) -> dict:
                 "uwaga": "szacunek z etapu" if techniczna else "nie dotyczy (innowacja nietechniczna)"},
         "potencjal": {"wartosc": potencjal, "pochodzenie": "regula"},
         "wiarygodnosc": _wiarygodnosc(k),
+        "zasieg": _zasieg(k),
         "pochodzenie_opisu": poch,
     }

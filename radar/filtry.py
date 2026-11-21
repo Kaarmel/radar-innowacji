@@ -98,5 +98,10 @@ def nowosc(z: Zgloszenie, kandydaci: list[Dokument], koszt: list | None = None) 
         return WynikFiltra("nowosc", None, "brak_danych", dowody, uwaga="AI odpowiedziało na mniej niż 3 z 5 pytań: nowość nieoceniona.")
     tak = sum(o["odpowiedz"] == "tak" for o in odpowiedzi)
     pasmo = "czerwone" if tak <= p["czerwone_max_tak"] else "zolte" if tak <= p["zolte_max_tak"] else "zielone"
-    return WynikFiltra("nowosc", 100.0 * tak / 5, pasmo, dowody,
-                       uwaga=f"Porównano z {len(kandydaci)} najbliższymi dokumentami.")
+    uwaga = f"Porównano z {len(kandydaci)} najbliższymi dokumentami."
+    wlasne = any(o["pytanie"] == "Q5" and o["odpowiedz"] == "tak" for o in odpowiedzi)
+    if pasmo == "czerwone" and wlasne:
+        pasmo = "zolte"
+        uwaga += (" Własne nowe lub ulepszone rozwiązanie (Q5), choć podobne istnieją: według Oslo Manual 2018 to innowacja"
+                  " co najmniej na poziomie instytucji, więc do sprawdzenia, a nie powód odrzucenia.")
+    return WynikFiltra("nowosc", 100.0 * tak / 5, pasmo, dowody, uwaga=uwaga)

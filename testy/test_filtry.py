@@ -97,3 +97,18 @@ def test_nowosc_za_malo_odpowiedzi_to_brak_danych(monkeypatch):
     z = Zgloszenie(id=1, wejscie="formularz", tytul="T", opis="o" * 100, link=None, instytucja="A", typ_instytucji="firma",
                    typ_innowacji="techniczna", etap="prototyp", wiek_przedzial="16_30")
     assert filtry.nowosc(z, []).pasmo == "brak_danych"
+
+
+
+def _odp(q):
+    return lambda o, d: ([{"pytanie": f"Q{i}", "odpowiedz": q.get(i, "nie"), "dokument_id": None, "uzasadnienie": ""}
+                          for i in range(1, 6)], 0.0)
+
+
+def test_wlasne_nowe_rozwiazanie_najwyzej_zolte(monkeypatch):
+    """Oslo 2018: nowe dla firmy to też innowacja. Własne rozwiązanie (Q5 = tak) bez przewagi nad bazą: żółte, nie czerwone."""
+    monkeypatch.setattr(ai, "rubryka_nowosci", _odp({5: "tak"}))
+    w = filtry.nowosc(zgl(ORYG), [])
+    assert w.pasmo == "zolte" and "Oslo" in w.uwaga
+    monkeypatch.setattr(ai, "rubryka_nowosci", _odp({3: "tak"}))  # rutyna (Q5 = nie): dalej czerwone
+    assert filtry.nowosc(zgl(ORYG), []).pasmo == "czerwone"

@@ -28,6 +28,7 @@
     <dt>Źródło informacji</dt><dd>{{ s.WEJSCIA.get(k.wejscie, k.wejscie) }}{% set href = k.link | link %}{% if href %} · <a href="{{ href }}" rel="noopener" target="_blank">{{ href[:70] }}</a>{% endif %}
       {% if k.cytat %}<br><span class="maly">Cytat ze źródła: <q>{{ k.cytat }}</q></span>{% endif %}</dd>
     <dt>Status wdrożenia</dt><dd><ol class="skala">{% for x in kl.wdrozenie.kroki %}<li {% if x.zaznaczony %}class="tak"{% endif %}>{{ x.nazwa }}</li>{% endfor %}</ol> {{ skad(kl.wdrozenie.pochodzenie) }}</dd>
+    {% if kl.zasieg.wartosc %}<dt>Zasięg nowości (Oslo 2018)</dt><dd>{{ kl.zasieg.wartosc }} {{ skad(kl.zasieg.pochodzenie) }}</dd>{% endif %}
     <dt>Poziom gotowości (TRL 1–9)</dt><dd>{% if kl.trl.wartosc %}TRL {{ kl.trl.wartosc }} ({{ kl.trl.uwaga }}){% else %}{{ kl.trl.uwaga }}{% endif %} {{ skad('regula') }}</dd>
     <dt>Ocena potencjału</dt><dd>{% if kl.potencjal.wartosc is not none %}<a href="#potencjal">{{ kl.potencjal.wartosc | liczba(0) }}/100</a>{% else %}—{% endif %} {{ skad('regula') }}</dd>
     <dt>Wiarygodność</dt><dd><b>{{ kl.wiarygodnosc.poziom }}</b> ({{ kl.wiarygodnosc.spelnione }}/5) {{ skad('regula') }}

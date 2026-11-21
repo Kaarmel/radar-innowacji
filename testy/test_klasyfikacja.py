@@ -54,3 +54,17 @@ def test_karta_pokazuje_karte_innowacji(klient):
         assert tekst in r.text, tekst
     zid = int(str(r.url).rsplit("/", 1)[1])
     assert klient.get(f"/api/karta/{zid}").json()["klasyfikacja"]["obszar"]["wartosc"] == "technologiczny"
+
+
+
+def _nowosc(odp):
+    return [{"filtr": "nowosc", "pasmo": "zolte", "procent": 20.0, "uwaga": "",
+             "dowody": [{"pytanie": f"Q{i}", "odpowiedz": odp.get(i, "nie")} for i in range(1, 6)]}]
+
+
+def test_zasieg_nowosci_wg_oslo():
+    assert K.profil(_k(wyniki=_nowosc({5: "tak"})))["zasieg"]["wartosc"] == "nowe dla instytucji"
+    assert K.profil(_k(wyniki=_nowosc({1: "tak", 2: "tak", 5: "tak"})))["zasieg"]["wartosc"] == "nowe dla rynku (w przeszukanych bazach)"
+    assert K.profil(_k(wyniki=_nowosc({1: "tak"})))["zasieg"]["wartosc"] == "rutyna, nie innowacja"
+    assert K.profil(_k())["zasieg"]["wartosc"] is None
+    assert K.profil(_k(wyniki=_nowosc({5: "tak"})))["zasieg"]["pochodzenie"] == "szacunek_ai"
