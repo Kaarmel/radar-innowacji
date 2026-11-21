@@ -13,6 +13,7 @@ ETAP_TRL = {"pomysl": "1–3", "prototyp": "4–6", "zakonczone": "6–9", "wdro
 PUBLICZNE = {"jst", "inna_publiczna"}
 EDUKACJA = {"szkola_podstawowa", "szkola_ponadpodstawowa", "uczelnia"}
 REJESTRY_ZAKONCZONYCH = ("mapadotacji:", "interreg:")
+REJESTRY_FINANSOWANIA = ("mapadotacji:", "interreg:", "radon:")  # projekty z przyznanym finansowaniem
 
 
 def _obszar(typ_innowacji: str, typ_instytucji: str) -> str:
@@ -37,14 +38,16 @@ def _pochodzenie_pol(k: dict) -> str:
 
 
 def _wiarygodnosc(k: dict) -> dict:
-    dowody = sum(1 for w in k.get("wyniki") or [] if w.get("dowody"))
-    pokrycie = k.get("pokrycie") or {}
+    """Wiarygodność informacji o innowacji (FAQ §5: dokumentacja, potwierdzenie wdrożenia, wiarygodne źródła)."""
+    zrodlo_dok = k.get("zrodlo_dok") or ""
+    z_rejestru = k.get("wejscie") == "baza" and bool(zrodlo_dok)
+    drugi_zapis = any(d.get("wlasna") for w in k.get("wyniki") or [] for d in w.get("dowody") or [])
     kryteria = [
-        {"nazwa": "Opis z publicznego rejestru (Mapa Dotacji, Interreg, RAD-on)", "spelnione": k.get("wejscie") == "baza" and bool(k.get("zrodlo_dok"))},
+        {"nazwa": "Opis z publicznego rejestru (Mapa Dotacji, Interreg, RAD-on)", "spelnione": z_rejestru},
+        {"nazwa": "Finansowanie albo zakończenie potwierdzone w rejestrze", "spelnione": z_rejestru and zrodlo_dok.startswith(REJESTRY_FINANSOWANIA)},
         {"nazwa": "Link do źródła informacji", "spelnione": (k.get("link") or "").startswith(("http://", "https://"))},
         {"nazwa": "Dosłowny cytat ze źródła sprawdzony przez kod", "spelnione": bool(k.get("cytat"))},
-        {"nazwa": "Filtry oparte na dokumentach-dowodach", "spelnione": dowody >= 1},
-        {"nazwa": "Wszystkie źródła dostępne w czasie sprawdzenia", "spelnione": bool(pokrycie) and not pokrycie.get("niedostepne")},
+        {"nazwa": "Drugi, niezależny zapis tej samej instytucji w bazach", "spelnione": drugi_zapis},
     ]
     n = sum(x["spelnione"] for x in kryteria)
     return {"poziom": "wysoka" if n >= 4 else "średnia" if n >= 2 else "niska", "spelnione": n, "kryteria": kryteria,

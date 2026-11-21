@@ -35,12 +35,17 @@ def test_pochodzenie_fakt_deklaracja_szacunek():
 
 
 def test_wiarygodnosc_liczy_kod():
-    dowod = [{"filtr": "kopia", "dowody": [{"dokument_id": "radon:1"}]}]
-    mocna = K.profil(_k(wejscie="baza", zrodlo_dok="mapadotacji:1", link="https://mapadotacji.gov.pl/p/1",
-                        cytat="Prototyp przetestowano w laboratorium", wyniki=dowod, pokrycie={"niedostepne": []}))
-    slaba = K.profil(_k(pokrycie={"niedostepne": ["epo"]}))
-    assert mocna["wiarygodnosc"]["poziom"] == "wysoka" and slaba["wiarygodnosc"]["poziom"] == "niska"
-    assert len(mocna["wiarygodnosc"]["kryteria"]) == 5 and all("spelnione" in x for x in mocna["wiarygodnosc"]["kryteria"])
+    wlasna = [{"filtr": "kopia", "dowody": [{"dokument_id": "radon:1", "wlasna": True}]}]
+    obca = [{"filtr": "kopia", "dowody": [{"dokument_id": "radon:2"}]}]
+    mocna = K.profil(_k(wejscie="baza", zrodlo_dok="mapadotacji:1", etap="zakonczone", link="https://mapadotacji.gov.pl/p/1",
+                        cytat="Prototyp przetestowano w laboratorium", wyniki=wlasna, pokrycie={"niedostepne": []}))
+    slaba = K.profil(_k(wyniki=obca, pokrycie={"niedostepne": []}))
+    # wpis z WWW z linkiem i cytatem, ale bez potwierdzenia w rejestrze: średnia, nie wysoka
+    radar = K.profil(_k(wejscie="radar", link="https://szkola.pl/x", cytat="Uczniowie zbudowali robota", wyniki=obca,
+                        pokrycie={"niedostepne": []}))
+    assert mocna["wiarygodnosc"]["poziom"] == "wysoka" and mocna["wiarygodnosc"]["spelnione"] == 5
+    assert slaba["wiarygodnosc"]["poziom"] == "niska" and radar["wiarygodnosc"]["poziom"] == "średnia"
+    assert len(mocna["wiarygodnosc"]["kryteria"]) == 5
 
 
 def test_karta_pokazuje_karte_innowacji(klient):

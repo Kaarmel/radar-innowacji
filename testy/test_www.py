@@ -68,11 +68,11 @@ def test_radar_nie_zapisuje_surowego_tekstu(tmp_path, monkeypatch):
                                                             "instytucja": "", "typ_innowacji": "techniczna", "etap": "prototyp",
                                                             "cytat": "Jan Kowalski zbudował robota"}, 0.0))
     monkeypatch.setattr(www, "sprawdz", lambda c, zid: None)
-    wpis = {"tytul": "Robot", "link": "https://szkola.pl/r", "data": None,
+    wpis = {"tytul": "Jan Kowalski i Anna Nowak zbudowali robota", "link": "https://szkola.pl/r", "data": None,
             "tekst": "Jan Kowalski i Anna Nowak z klasy 3B zbudowali robota sortującego odpady. Opiekun: Piotr Zieliński. " * 3}
     www.przetworz_wpisy(con, {"nazwa": "ZST", "typ": "szkola_ponadpodstawowa", "url": "https://szkola.pl/"}, [wpis])
     z = db.zgloszenie(con, 1)
-    calosc = f"{z.opis} {z.cytat or ''}"
+    calosc = f"{z.tytul} {z.opis} {z.cytat or ''}"
     assert "Kowalski" not in calosc and "Nowak" not in calosc and "Zieliński" not in calosc
     assert "robota sortującego" in z.opis and len(z.opis) < 600
 

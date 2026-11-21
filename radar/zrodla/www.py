@@ -164,7 +164,7 @@ def przetworz_wpisy(con: sqlite3.Connection, zrodlo: dict, wpisy: list[dict], dn
         # tylko streszczenie AI (polecenie: bez nazwisk) przepuszczone przez bez_osob; surowy tekst zostaje na stronie źródła
         opis = bez_osob((karta.get("opis") or karta.get("co") or w["tytul"]).strip())[:1500]
         zid = db.zapisz_zgloszenie(con, Zgloszenie(
-            id=None, wejscie="radar", tytul=w["tytul"][:200], opis=opis, link=w["link"], instytucja=zrodlo["nazwa"],
+            id=None, wejscie="radar", tytul=bez_osob(w["tytul"])[:200], opis=opis, link=w["link"], instytucja=zrodlo["nazwa"],
             typ_instytucji=typ_inst, typ_innowacji=karta.get("typ_innowacji") or "techniczna",
             etap=karta.get("etap") or "pomysl", wiek_przedzial=wiek, cytat=bez_osob(karta.get("cytat") or ocena.get("cytat") or "") or None,
             organizacja=organizacja))
