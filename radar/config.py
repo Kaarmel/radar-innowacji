@@ -8,7 +8,7 @@ BAZA = DANE / "radar.sqlite"
 KONFIGURACJA = KORZEN / "konfiguracja"
 
 USER_AGENT = "radar-innowacji-hackathon/0.1 (+https://github.com/; projekt HackNation 2026)"
-MODEL = os.environ.get("MODEL", "deepseek/deepseek-chat-v3.1")
+MODEL = os.environ.get("MODEL", "deepseek/deepseek-v4.1-flash")  # przypięta wersja, nie "latest"
 
 # Progi pasm (spec §6.5). Jedno miejsce; zmiany po kalibracji zapisywać w walidacja/raport.md.
 PROGI = {
