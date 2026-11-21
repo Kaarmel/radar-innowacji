@@ -48,3 +48,7 @@ def test_link_juz_byl_nie_tworzy_drugiego_zgloszenia(tmp_path, monkeypatch):
     assert len(sprawdzone) == 1
     z = db.zgloszenie(con, sprawdzone[0])
     assert z.wejscie == "radar" and z.link == "https://szkola.pl/robot" and z.instytucja == "ZST" and z.wiek_przedzial == "16_30"
+
+
+def test_kanal_ze_spacjami_przed_deklaracja():
+    assert www.wpisy_z_kanalu("\n  " + RSS)[0]["link"] == "https://szkola.pl/robot"

@@ -60,6 +60,7 @@ def wpisy_z_kanalu(xml: str) -> list[dict]:
     """RSS 2.0 i Atom. XML z deklaracjami encji odrzucany (ochrona przed „billion laughs”)."""
     if not xml or "<!ENTITY" in xml.upper():
         return []
+    xml = xml.lstrip("\ufeff \t\r\n")  # część stron szkół wysyła puste linie przed <?xml
     try:
         root = ET.fromstring(xml.encode("utf-8") if isinstance(xml, str) else xml)
     except ET.ParseError:

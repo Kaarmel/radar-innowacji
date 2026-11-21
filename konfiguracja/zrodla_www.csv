@@ -1,0 +1,173 @@
+nazwa,typ,url,kanal
+Politechnika Rzeszowska im. Ignacego Łukasiewicza,uczelnia,https://prz.edu.pl/,https://prz.edu.pl/rss/pl/4.xml?ver=9.73
+Uniwersytet Rzeszowski,uczelnia,https://www.ur.edu.pl/pl/strona-glowna,
+Państwowa Akademia Nauk Stosowanych w Krośnie,uczelnia,https://pans.krosno.pl/,https://pans.krosno.pl/feed/
+Państwowa Akademia Nauk Stosowanych w Przemyślu,uczelnia,https://pansp.pl/,https://pansp.pl/feed/
+Państwowa Akademia Nauk Stosowanych im. ks. Bronisława Markiewicza w Jarosławiu,uczelnia,https://www.pwste.edu.pl/,https://www.pwste.edu.pl/feed/
+Wyższa Szkoła Informatyki i Zarządzania z siedzibą w Rzeszowie,uczelnia,https://wsiz.edu.pl/,https://wsiz.edu.pl/aktualnosci/feed/
+Państwowa Akademia Nauk Stosowanych im. prof. Stanisława Tarnowskiego w Tarnobrzegu,uczelnia,https://pans.tarnobrzeg.pl/,
+Uczelnia Państwowa im. Jana Grodka w Sanoku,uczelnia,https://up-sanok.edu.pl/,https://up-sanok.edu.pl/rss/pl/27.xml
+Podkarpackie Centrum Innowacji,instytucja,https://pcinn.org/,https://pcinn.org/feed/
+Miasto Krosno,jst,https://www.krosno.pl/,https://www.krosno.pl/rss
+Miasto Mielec,jst,https://www.mielec.pl/,https://www.mielec.pl/feed/
+Miasto Stalowa Wola,jst,https://www.stalowawola.pl/pl/,https://www.stalowawola.pl/pl/rss/aktualnosci.xml
+Miasto Dębica,jst,https://debica.pl/,https://debica.pl/feed/
+Miasto Jasło,jst,https://um.jaslo.pl/pl/,https://um.jaslo.pl/pl/feed/
+Miasto Sanok,jst,"https://www.sanok.pl/asp/start,0",https://www.sanok.pl/asp/_private/rss.xml
+Miasto Łańcut,jst,https://www.lancut.pl/asp/pl_start.asp?typ=14&menu=320&strona=1,https://www.lancut.pl/asp/_private/rss.xml
+Powiat bieszczadzki,jst,https://www.bieszczadzki.pl/,https://www.bieszczadzki.pl/aktualnosci.xml
+Powiat brzozowski,jst,https://powiatbrzozow.pl/,https://powiatbrzozow.pl/feed/
+Powiat krośnieński,jst,https://www.powiat.krosno.pl/,https://www.powiat.krosno.pl/aktualnosci.xml
+Powiat leski,jst,https://powiat-leski.pl/,https://powiat-leski.pl/aktualnosci.xml
+Powiat leżajski,jst,https://www.starostwo.lezajsk.pl/,https://www.starostwo.lezajsk.pl/feed/
+Powiat lubaczowski,jst,https://powiatlubaczowski.pl/,https://powiatlubaczowski.pl/feed/
+Powiat mielecki,jst,https://powiat-mielecki.pl/,https://powiat-mielecki.pl/rss/pl/2.xml
+Powiat niżański,jst,https://www.powiatnizanski.pl/,https://www.powiatnizanski.pl/?format=feed&type=rss
+Powiat przemyski,jst,https://powiat.przemysl.pl/,https://powiat.przemysl.pl/feed/
+Powiat rzeszowski,jst,https://powiat.rzeszowski.pl/,https://powiat.rzeszowski.pl/feed/
+Powiat sanocki,jst,https://www.powiat-sanok.pl/,https://www.powiat-sanok.pl/aktualnosci.xml
+Powiat strzyżowski,jst,https://strzyzowski.pl/,https://strzyzowski.pl/rss/aktualnosci.xml?all=true
+ZESPÓŁ SZKÓŁ LICEALNYCH IM. BOLESŁAWA CHROBREGO W LEŻAJSKU,szkola_ponadpodstawowa,https://zslchrobry.lezajsk.pl/,https://zslchrobry.lezajsk.pl/feed/
+ZESPÓŁ SZKÓŁ TECHNICZNYCH W MIELCU,szkola_ponadpodstawowa,https://www.zstmielec.pl/,https://www.zstmielec.pl/index.php?format=feed&type=rss
+ZESPÓŁ SZKÓŁ TECHNICZNYCH IM. TADEUSZA KOŚCIUSZKI W LEŻAJSKU,szkola_ponadpodstawowa,https://zst.lezajsk.pl/,https://zst.lezajsk.pl/feed/
+ZESPÓŁ SZKÓŁ ELEKTRYCZNYCH I OGÓLNOKSZTAŁCĄCYCH W KROŚNIE,szkola_ponadpodstawowa,https://elektryk.krosno.pl/,https://elektryk.krosno.pl/feed
+ZESPÓŁ SZKÓŁ ZAWODOWYCH NR 1 IM. JANA PAWŁA II W DĘBICY,szkola_ponadpodstawowa,https://mechanikdebica.edu.pl/zsz/index.php/pl/,https://mechanikdebica.edu.pl/zsz/index.php/pl/?format=feed&type=rss
+ZESPÓŁ SZKÓŁ NR 2 IM. EUGENIUSZA KWIATKOWSKIEGO W DĘBICY,szkola_ponadpodstawowa,https://kwiatek.edu.pl/,https://kwiatek.edu.pl/?feed=rss2
+ZESPÓŁ SZKÓŁ NAFTOWO - GAZOWNICZYCH IM. IGNACEGO ŁUKASIEWICZA W KROŚNIE,szkola_ponadpodstawowa,https://naftowka.pl/,https://naftowka.pl/feed/
+ZESPÓŁ SZKÓŁ TECHNICZNYCH IM. BOHATERÓW WRZEŚNIA W JAŚLE,szkola_ponadpodstawowa,https://www.zstjaslo.pl/,https://www.zstjaslo.pl/feed/
+MIEJSKI ZESPÓŁ SZKÓŁ NR 4 W KROŚNIE,szkola_ponadpodstawowa,https://2lokrosno.edupage.org/,https://2lokrosno.edupage.org/rss/news
+ZESPÓŁ SZKÓŁ ZAWODOWYCH IM. KRÓLA JANA III SOBIESKIEGO W PRZEWORSKU,szkola_ponadpodstawowa,https://zsz.przeworsk.pl/,https://zsz.przeworsk.pl/feed/
+ZESPÓŁ SZKÓŁ IM.GEN.JÓZEFA KUSTRONIA W LUBACZOWIE,szkola_ponadpodstawowa,https://zs-lubaczow.com/,https://zs-lubaczow.com/feed/
+ZESPÓŁ SZKÓŁ NR 1 IM. GEN. WŁADYSŁAWA SIKORSKIEGO W STALOWEJ WOLI,szkola_ponadpodstawowa,https://zs1sikorski.stalowowolski.pl/,https://zs1sikorski.stalowowolski.pl/feed/
+I LICEUM OGÓLNOKSZTAŁCĄCE IM. MIKOŁAJA KOPERNIKA W JAROSŁAWIU,szkola_ponadpodstawowa,https://www.lo.kopernik.jaroslaw.pl/,https://www.lo.kopernik.jaroslaw.pl/feed/
+ZESPÓŁ SZKÓŁ NR 2 IM. TADEUSZA REJTANA (Rzeszów),szkola_ponadpodstawowa,https://zs2.rzeszow.pl/,https://zs2.rzeszow.pl/feed/
+ZESPÓŁ SZKÓŁ SAMOCHODOWYCH IM. OBROŃCÓW WESTERPLATTE (Rzeszów),szkola_ponadpodstawowa,https://samochodowka.rzeszow.pl/,https://samochodowka.rzeszow.pl/feed/
+I LICEUM OGÓLNOKSZTAŁCĄCE IM. STANISŁAWA KONARSKIEGO W MIELCU,szkola_ponadpodstawowa,https://konarski.mielec.pl/,https://konarski.mielec.pl/feed/
+ZESPÓŁ SZKÓŁ MECHANICZNYCH IM. STANISŁAWA STASZICA W KROŚNIE,szkola_ponadpodstawowa,https://www.zsm.krosno.pl/,https://www.zsm.krosno.pl/index.php?format=feed&type=rss
+I LICEUM OGÓLNOKSZTAŁCĄCE IM. KOMISJI EDUKACJI NARODOWEJ W SANOKU,szkola_ponadpodstawowa,https://1losanok.edu.pl/,https://1losanok.edu.pl/feed/
+I LICEUM OGÓLNOKSZTAŁCĄCE IM. JULIUSZA SŁOWACKIEGO W PRZEMYŚLU,szkola_ponadpodstawowa,https://1loprzemysl.pl/,https://1loprzemysl.pl/feed/
+I LICEUM OGÓLNOKSZTAŁCĄCE Z ODDZIAŁAMI DWUJĘZYCZNYMI IM. MIKOŁAJA KOPERNIKA W KROŚNIE,szkola_ponadpodstawowa,https://lo1krosno.info.pl/,https://lo1krosno.info.pl/feed/
+ZESPÓŁ SZKÓŁ NR 1 IM. JANUSZA KORCZAKA W ŁAŃCUCIE,szkola_ponadpodstawowa,https://2lo.zs1lancut.pl/,https://2lo.zs1lancut.pl/feed/
+ZESPÓŁ SZKÓŁ DROGOWO-GEODEZYJNYCH I LICEALNYCH IM. AUGUSTA WITKOWSKIEGO W JAROSŁAWIU,szkola_ponadpodstawowa,https://tdgjar.edu.pl/,https://tdgjar.edu.pl/feed/
+ZESPÓŁ SZKÓŁ PONADPODSTAWOWYCH NR 1 IM. JANA SZCZEPANIKA W KROŚNIE,szkola_ponadpodstawowa,https://zspg1.krosno.pl/,https://zspg1.krosno.pl/feed/
+ZESPÓŁ SZKÓŁ TECHNICZNYCH W STRZYŻOWIE,szkola_ponadpodstawowa,https://zst.strzyzowski.pl/,https://zst.strzyzowski.pl/rss/aktualnosci_pl.xml
+ZESPÓŁ SZKÓŁ BUDOWLANYCH I OGÓLNOKSZTAŁCĄCYCH IM. KRÓLA KAZIMIERZA WIELKIEGO W JAROSŁAWIU,szkola_ponadpodstawowa,https://zsbiojaroslaw.edu.pl/,https://zsbiojaroslaw.edu.pl/feed/
+ZESPÓŁ SZKÓŁ EKONOMICZNYCH IM. KOMISJI EDUKACJI NARODOWEJ (Brzozów),szkola_ponadpodstawowa,https://zsebrzozow.edupage.org/,https://zsebrzozow.edupage.org/rss/news
+ZESPÓŁ SZKÓŁ EKONOMICZNYCH I OGÓLNOKSZTAŁCĄCYCH IM. MARII DĄBROWSKIEJ W JAROSŁAWIU,szkola_ponadpodstawowa,https://ekonomikjaroslaw.pl/,https://ekonomikjaroslaw.pl/feed
+CENTRUM EDUKACJI ZAWODOWEJ W STALOWEJ WOLI,szkola_ponadpodstawowa,https://cezstalowawola.pl/,https://cezstalowawola.pl/index.php?format=feed&type=rss
+ZESPÓŁ SZKÓŁ NR 3 IM. STANISŁAWA PAWŁOWSKIEGO W JAŚLE,szkola_ponadpodstawowa,https://zs3jaslo.pl/,https://zs3jaslo.pl/feed/
+I LICEUM OGÓLNOKSZTAŁCĄCE IM. KRÓLA KAZIMIERZA WIELKIEGO W BRZOZOWIE,szkola_ponadpodstawowa,https://lobrzozow.edupage.org/,https://lobrzozow.edupage.org/rss/news
+ZESPÓŁ SZKÓŁ TECHNICZNYCH (Kolbuszowa),szkola_ponadpodstawowa,https://www.zstkolbuszowa.pl/,https://www.zstkolbuszowa.pl/index.php?format=feed&type=rss
+ZESPÓŁ SZKÓŁ IM. PROF. J. GROSZKOWSKIEGO W MIELCU,szkola_ponadpodstawowa,https://www.zs.mielec.pl/,https://www.zs.mielec.pl/index.php?format=feed&type=rss
+ZESPÓŁ SZKÓŁ TECHNICZNO-WETERYNARYJNYCH IM. BOHATERÓW WESTERPLATTE W TRZCIANIE,szkola_ponadpodstawowa,https://www.zstw.pl/,https://www.zstw.pl/rss.xml
+LICEUM OGÓLNOKSZTAŁCĄCE W KOLBUSZOWEJ,szkola_ponadpodstawowa,https://lokolbuszowa.edupage.eu/,https://lokolbuszowa.edupage.eu/rss/news
+I LICEUM OGÓLNOKSZTAŁCĄCE IM. KRÓLA WŁADYSŁAWA JAGIEŁŁY W PRZEWORSKU,szkola_ponadpodstawowa,https://loprzeworsk.pl/,https://loprzeworsk.pl/feed/
+II LICEUM OGÓLNOKSZTAŁCĄCE IM. KSIĘDZA JANA TWARDOWSKIEGO (Dębica),szkola_ponadpodstawowa,https://twardowski.edu.pl/,https://twardowski.edu.pl/feed/
+ZESPÓŁ SZKÓŁ NR 3 W TARNOBRZEGU,szkola_ponadpodstawowa,https://budowlanka.tbg.net.pl/,https://budowlanka.tbg.net.pl/feed/
+ZESPÓŁ SZKÓŁ NR 2 IM. JANA KOCHANOWSKIEGO W ŁAŃCUCIE,szkola_ponadpodstawowa,https://zs2lancut.pl/,https://zs2lancut.pl/feed/
+ZESPÓŁ SZKÓŁ PUBLICZNYCH W RYMANOWIE,szkola_ponadpodstawowa,https://zsprymanow.pl/,https://zsprymanow.pl/index.php?format=feed&type=rss
+ZESPÓŁ SZKÓŁ NR 3 IM MIKOŁAJA KOPERNIKA W ŁAŃCUCIE,szkola_ponadpodstawowa,https://zs3lancut.pl/,https://zs3lancut.pl/feed/
+ZESPÓŁ SZKÓŁ IM. WINCENTEGO WITOSA W ZARZECZU,szkola_ponadpodstawowa,https://zszarzecze.com/,https://zszarzecze.com/rss/news
+ZESPÓŁ SZKÓŁ ZAWODOWYCH W DYNOWIE,szkola_ponadpodstawowa,https://zsz-dynow.powiat.rzeszowski.pl/,https://zsz-dynow.powiat.rzeszowski.pl/feed/
+ZESPÓŁ SZKÓŁ NR 4 IM. MIKOŁAJA KOPERNIKA W DĘBICY,szkola_ponadpodstawowa,https://www.zsnr4.edu.pl/,https://www.zsnr4.edu.pl/index.php?format=feed&type=rss
+ZESPÓŁ SZKÓŁ NR 2 IM. GRZEGORZA Z SANOKA W SANOKU,szkola_ponadpodstawowa,https://zs2.sanok.pl/,https://zs2.sanok.pl/feed/
+ZESPÓŁ SZKÓŁ PONADPODSTAWOWYCH NR 2 IM. KS. STANISŁAWA SZPETNARA W KROŚNIE,szkola_ponadpodstawowa,https://www.zsp2krosno.pl/,https://www.zsp2krosno.pl/rss/news
+LICEUM OGÓLNOKSZTAŁCĄCE IM. STEFANA CZARNIECKIEGO (Nisko),szkola_ponadpodstawowa,https://www.lo.nisko.pl/,https://www.lo.nisko.pl/index.php?format=feed&type=rss
+ZESPÓŁ SZKÓŁ W SOKOŁOWIE MŁP.,szkola_ponadpodstawowa,https://zssokolow.edu.pl/,https://zssokolow.edu.pl/feed/
+ZESPÓŁ SZKÓŁ IM. POR. JÓZEFA SARNY W GORZYCACH,szkola_ponadpodstawowa,https://zsgorzyce.pl/,https://zsgorzyce.pl/feed/
+ZESPÓŁ SZKÓŁ W IWONICZU,szkola_ponadpodstawowa,https://www.zs.iwonicz.pl/,https://www.zs.iwonicz.pl/?format=feed&type=rss
+ZESPÓŁ SZKÓŁ NR 2 W TARNOBRZEGU,szkola_ponadpodstawowa,https://zs2tarnobrzeg.pl/,https://zs2tarnobrzeg.pl/rss/news
+LICEUM OGÓLNOKSZTAŁCĄCE IM. KOMISJI EDUKACJI NARODOWEJ W DYNOWIE,szkola_ponadpodstawowa,https://www.lodynow.pl/,https://www.lodynow.pl/rss/news
+ZESPÓŁ SZKÓŁ TECHNICZNYCH I ARTYSTYCZNYCH W LESKU,szkola_ponadpodstawowa,https://zstia.lesko.pl/,https://zstia.lesko.pl/zst_wp/feed/
+ZESPÓŁ SZKÓŁ AGROTECHNICZNO-EKONOMICZNYCH W WERYNI,szkola_ponadpodstawowa,https://zswerynia.pl/,https://zswerynia.pl/rss/news
+ZESPÓŁ SZKÓŁ NR 2 IM. EUGENIUSZA KWIATKOWSKIEGO W NOWEJ DĘBIE (Nowa Dęba),szkola_ponadpodstawowa,https://zs2nd.pl/,https://zs2nd.pl/feed/
+PUBLICZNE AKADEMICKIE LICEUM OGÓLNOKSZTAŁCĄCE Z ODDZIAŁAMI DWUJĘZYCZNYMI W RZESZOWIE,szkola_ponadpodstawowa,https://alo.rzeszow.pl/,https://alo.rzeszow.pl/feed/
+LICEUM OGÓLNOKSZTAŁCĄCE IM. MARII KONOPNICKIEJ (Jedlicze),szkola_ponadpodstawowa,https://lojedlicze.pl/,https://lojedlicze.pl/rss
+ZESPÓŁ SZKÓŁ GASTRONOMICZNO-HOTELARSKICH W IWONICZU-ZDROJU,szkola_ponadpodstawowa,https://zsgh.pl/,https://zsgh.pl/feed/
+ZESPÓŁ SZKÓŁ LEŚNYCH W LESKU,szkola_ponadpodstawowa,https://zsllesko.pl/,https://zsllesko.pl/feed/
+ZESPÓŁ SZKÓŁ W KAŃCZUDZE,szkola_ponadpodstawowa,https://zskanczuga.pl/,https://zskanczuga.pl/feed/
+LICEUM OGÓLNOKSZTAŁCĄCE IM. IGNACEGO KRASICKIEGO W DUBIECKU,szkola_ponadpodstawowa,https://lodubiecko.pl/,https://lodubiecko.pl/?feed=rss2
+ZESPÓŁ SZKÓŁ KSZTAŁCENIA USTAWICZNEGO W KROŚNIE,szkola_ponadpodstawowa,https://cku.krosno.pl,https://cku.krosno.pl/feed/
+ZESPÓŁ SZKÓŁ IM. A FREDRY W NIENADOWEJ,szkola_ponadpodstawowa,https://www.zsnienadowa.rzeszow.pl/,https://www.zsnienadowa.rzeszow.pl/index.php/feed/
+ZESPÓŁ SZKÓŁ SALEZJAŃSKICH W PRZEMYŚLU,szkola_ponadpodstawowa,https://www.zssalez.pl/,https://www.zssalez.pl/?format=feed&type=rss
+ZESPÓŁ SZKÓŁ W CZUDCU,szkola_ponadpodstawowa,https://www.zsczudec.pl/,https://www.zsczudec.pl/?feed=rss2
+ZESPÓŁ SZKÓŁ W RADOMYŚLU WIELKIM,szkola_ponadpodstawowa,https://zsradomysl.pl/,https://zsradomysl.pl/feed/
+LICEUM OGÓLNOKSZTAŁCĄCE IM. SEBASTIANA PETRYCEGO W PILŹNIE,szkola_ponadpodstawowa,https://petrycy.pl/,https://petrycy.pl/feed/
+LICEUM OGÓLNOKSZTAŁCĄCE IM. MIKOŁAJA KOPERNIKA W NOWYM ŻMIGRODZIE,szkola_ponadpodstawowa,https://www.lonowyzmigrod.pl/,https://www.lonowyzmigrod.pl/index.php?format=feed&type=rss
+ZESPÓŁ SZKÓŁ IM. TADEUSZA KOŚCIUSZKI W WYSOKIEJ,szkola_ponadpodstawowa,https://zswysoka.pl/,https://zswysoka.pl/feed/
+ZESPÓŁ SZKÓŁ ZAWODOWYCH IM. MARII SKŁODOWSKIEJ-CURIE W PUSTKOWIE-OSIEDLU,szkola_ponadpodstawowa,https://zszpustkow.edu.pl/,https://zszpustkow.edu.pl/feed/
+ZESPÓŁ SZKÓŁ IM. ARMII KRAJOWEJ W JEDLICZU,szkola_ponadpodstawowa,https://zsjedlicze.pl/,https://zsjedlicze.pl/rss
+ZESPÓŁ SZKÓŁ OGÓLNOKSZTAŁCĄCYCH IM. PROF. STANISŁAWA BĄKA W GRĘBOWIE,szkola_ponadpodstawowa,https://zsogrebow.pl/,https://zsogrebow.pl/feed/
+SPECJALNY OŚRODEK SZKOLNO-WYCHOWAWCZY IM. JANA PAWŁA II W JAROSŁAWIU,szkola_ponadpodstawowa,https://soswjaroslaw.pl/,https://soswjaroslaw.pl/feed/
+SPECJALNY OŚRODEK SZKOLNO-WYCHOWAWCZY IM. MARII GRZEGORZEWSKIEJ (Krosno),szkola_ponadpodstawowa,https://soswkrosno.szkolnastrona.pl/,https://soswkrosno.szkolnastrona.pl/rss
+SPECJALNY OŚRODEK SZKOLNO - WYCHOWAWCZY IM. ŚW. JANA PAWŁA II W LEŻAJSKU,szkola_ponadpodstawowa,https://sosw.lezajsk.pl/,https://sosw.lezajsk.pl/feed/
+SPECJALNY OŚRODEK SZKOLNO - WYCHOWAWCZY IM. TERESY I SEWERYNA DOLAŃSKICH W GRĘBOWIE,szkola_ponadpodstawowa,https://soswgrebow.pl/,https://soswgrebow.pl/feed/
+POWIATOWE CENTRUM KSZTAŁCENIA ZAWODOWEGO IM. FELICJANA DZIERŻANOWSKIEGO W ŁAŃCUCIE,szkola_ponadpodstawowa,https://pckz.pl/,https://pckz.pl/feed/
+CENTRUM KSZTAŁCENIA PRAKTYCZNEGO I DOSKONALENIA NAUCZYCIELI W MIELCU,szkola_ponadpodstawowa,https://www.ckp.edu.pl/,https://www.ckp.edu.pl/index.php?format=feed&type=rss
+REGIONALNE CENTRUM ROZWOJU EDUKACJI W SANOKU,szkola_ponadpodstawowa,https://rcre.pl/,https://rcre.pl/feed/
+CENTRUM KSZTAŁCENIA ZAWODOWEGO I USTAWICZNEGO W STALOWEJ WOLI,szkola_ponadpodstawowa,https://ckustalowawola.pl/,https://ckustalowawola.pl/feed/
+KATOLICKIE LICEUM OGÓLNOKSZTAŁCĄCE IMIENIA BŁOGOSŁAWIONEGO KSIĘDZA JERZEGO POPIEŁUSZKI W STALOWEJ WOLI,szkola_ponadpodstawowa,https://www.skst.pl/,https://www.skst.pl/feed/
+CENTRUM KSZTAŁCENIA ZAWODOWEGO W DOBRZECHOWIE,szkola_ponadpodstawowa,https://ckz.strzyzowski.pl,https://ckz.strzyzowski.pl/rss/aktualnosci_pl.xml
+ZESPÓŁ SZKÓŁ I PLACÓWEK W BARANOWIE SANDOMIERSKIM,szkola_ponadpodstawowa,https://zsip.pl/,https://zsip.pl/feed/
+ZESPÓŁ SZKÓŁ PRZY KLINICZNYM SZPITALU WOJEWÓDZKIM NR 2 IM. ŚW. JADWIGI KRÓLOWEJ W RZESZOWIE,szkola_ponadpodstawowa,https://szkolaszpitalna.rzeszow.pl/strona/,https://szkolaszpitalna.rzeszow.pl/strona/feed/
+ZESPÓŁ SZKÓŁ TECHNICZNYCH W ŁAŃCUCIE,szkola_ponadpodstawowa,https://www.zstlancut.pl/,https://www.zstlancut.pl/index.php?format=feed&type=rss
+ZESPÓŁ SZKÓŁ W TYCZYNIE,szkola_ponadpodstawowa,https://www.zstyczyn.pl/,https://www.zstyczyn.pl/index.php?format=feed&type=rss
+ZESPÓŁ SZKÓŁ OGÓLNOKSZTAŁCĄCYCH W GŁOGOWIE MAŁOPOLSKIM,szkola_ponadpodstawowa,https://slo.edu.pl/,https://slo.edu.pl/pl/1835/0/rss.html
+LICEUM OGÓLNOKSZTAŁCĄCE IM. ŚW. JANA Z DUKLI W DUKLI,szkola_ponadpodstawowa,https://liceum.dukla.pl/,https://liceum.dukla.pl/index.php/feed/
+CENTRUM KSZTAŁCENIA ZAWODOWEGO W KOLBUSZOWEJ,szkola_ponadpodstawowa,https://www.ckp.kolbuszowa.pl/,https://www.ckp.kolbuszowa.pl/index.php?format=feed&type=rss
+ZESPÓŁ SZKÓŁ NR 6 SPECJALNYCH W STALOWEJ WOLI,szkola_ponadpodstawowa,https://www.zss6stalowa-wola.pl/,https://www.zss6stalowa-wola.pl/feed/
+ZESPÓŁ SZKÓŁ IM. KS. DRA JANA ZWIERZA W ROPCZYCACH,szkola_ponadpodstawowa,https://zsropczyce.edu.pl/,
+ZESPÓŁ SZKÓŁ ELEKTRONICZNYCH (Rzeszów),szkola_ponadpodstawowa,https://www.elektronik.rzeszow.pl/,
+MICHALICKI ZESPÓŁ SZKÓŁ PONADPODSTAWOWYCH IM. KS. BR. MARKIEWICZA W MIEJSCU PIASTOWYM,szkola_ponadpodstawowa,https://mzsp.pl/start.php,
+ZESPÓŁ SZKÓŁ NR 3 IM. WALENTEGO LIPIŃSKIEGO I MATEUSZA BEKSIŃSKIEGO W SANOKU,szkola_ponadpodstawowa,https://www.zs3.sanok.pl/,
+ZESPÓŁ SZKÓŁ TECHNICZNYCH I OGÓLNOKSZTAŁCĄCYCH W JAROSŁAWIU,szkola_ponadpodstawowa,https://zstiojar.edu.pl/,
+ZESPÓŁ SZKÓŁ INNOWACYJNYCH W JAROSŁAWIU,szkola_ponadpodstawowa,https://www.zsiedu.pl/,
+I LICEUM OGÓLNOKSZTAŁCĄCE IM. KOMISJI EDUKACJI NARODOWEJ W STALOWEJ WOLI,szkola_ponadpodstawowa,https://loken.pl/,
+SAMORZĄDOWE LICEUM OGÓLNOKSZTAŁCĄCE IM. CYPRIANA KAMILA NORWIDA W STALOWEJ WOLI,szkola_ponadpodstawowa,https://slosw.pl/,
+II LICEUM OGÓLNOKSZTAŁCĄCE IM. MIKOŁAJA KOPERNIKA W MIELCU,szkola_ponadpodstawowa,https://kopernik.mielec.pl/,
+ZESPÓŁ SZKÓŁ NR 2 IM. TADEUSZA KOŚCIUSZKI W STALOWEJ WOLI,szkola_ponadpodstawowa,https://www.zsnr2.stalowa-wola.pl/,
+ZESPÓŁ SZKÓŁ ELEKTRONICZNYCH I OGÓLNOKSZTAŁCĄCYCH IM. PROF. JANUSZA GROSZKOWSKIEGO W PRZEMYŚLU,szkola_ponadpodstawowa,https://zseio.przemysl.edu.pl/,
+ZESPÓŁ SZKÓŁ KSZTAŁCENIA USTAWICZNEGO (Rzeszów),szkola_ponadpodstawowa,https://zsku.rzeszow.pl/,
+ZESPÓŁ SZKÓŁ NR 4 W JAŚLE,szkola_ponadpodstawowa,https://www.ekonomik.org.pl/,
+LICEUM OGÓLNOKSZTAŁCĄCE IM. TADEUSZA KOŚCIUSZKI W LUBACZOWIE,szkola_ponadpodstawowa,https://www.lo-lubaczow.pl/,
+CENTRUM KSZTAŁCENIA ZAWODOWEGO I USTAWICZNEGO NR 1 W PRZEMYŚLU,szkola_ponadpodstawowa,https://ckziu1.przemysl.edu.pl/,
+ZESPÓŁ SZKÓŁ NR 3 IM. KRÓLA JANA III SOBIESKIEGO W STALOWEJ WOLI,szkola_ponadpodstawowa,"https://zs3.stalowowolski.pl/asp/start,0",
+I LICEUM OGÓLNOKSZTAŁCĄCE IM. HENRYKA SIENKIEWICZA W ŁAŃCUCIE,szkola_ponadpodstawowa,https://1lolancut.pl/,
+I LICEUM OGÓLNOKSZTAŁCĄCE IM. KRÓLA STANISŁAWA LESZCZYŃSKIEGO W JAŚLE,szkola_ponadpodstawowa,https://samorzad.gov.pl/web/i-lo-jaslo,
+ZESPÓŁ SZKÓŁ ZAKŁADU DOSKONALENIA ZAWODOWEGO IM. TADEUSZA KOŚCIUSZKI W RZESZOWIE,szkola_ponadpodstawowa,https://zszdz.rzeszow.pl/,
+LICEUM OGÓLNOKSZTAŁCĄCE IM. KS. PIOTRA SKARGI W SĘDZISZOWIE MAŁOPOLSKIM,szkola_ponadpodstawowa,https://www.losedziszow.edu.pl/,
+ZESPÓŁ SZKÓŁ BUDOWLANYCH IM. ŻOŁNIERZY ARMII KRAJOWEJ W MIELCU,szkola_ponadpodstawowa,https://zsb.mielec.pl/home/index.php,
+II LICEUM OGÓLNOKSZTAŁCĄCE IM. PPŁK JÓZEFA MODRZEJEWSKIEGO W JAŚLE,szkola_ponadpodstawowa,https://www.2lojaslo.pl/,
+ZESPÓŁ SZKÓŁ NR 1 W SANOKU IM. KAROLA ADAMIECKIEGO,szkola_ponadpodstawowa,https://zs1sanok.pl/,
+ZESPÓŁ SZKÓŁ USŁUGOWO-HOTELARSKICH I GASTRONOMICZNYCH W PRZEMYŚLU,szkola_ponadpodstawowa,https://school.zsu-hig.edu.pl/,
+ZESPÓŁ SZKÓŁ AGRO-TECHNICZNYCH IM. WINCENTEGO WITOSA W ROPCZYCACH,szkola_ponadpodstawowa,https://zsat-ropczyce.pl/,
+ZESPÓŁ SZKÓŁ CENTRUM KSZTAŁCENIA ROLNICZEGO IM. II CZECHOSŁOWACKIEJ BRYGADY SPADOCHRONOWEJ W NOWOSIELCACH,szkola_ponadpodstawowa,https://zsckr-nowosielce.pl/,
+LICEUM OGÓLNOKSZTAŁCĄCE IM. ADAMA MICKIEWICZA W STRZYŻOWIE,szkola_ponadpodstawowa,https://lo-strzyzow.pl/,
+ZESPÓŁ SZKÓŁ BUDOWLANYCH IM. KRÓLA KAZIMIERZA WIELKIEGO W JAŚLE,szkola_ponadpodstawowa,https://zsb.jaslo.pl/,
+ZESPÓŁ SZKÓŁ BUDOWLANYCH IM. TADEUSZA KOŚCIUSZKI (Brzozów),szkola_ponadpodstawowa,https://www.zsbbrzozow.pl/,
+ZESPÓŁ SZKÓŁ ARCHITEKTONICZNO-BUDOWLANYCH W KROŚNIE,szkola_ponadpodstawowa,https://www.budowlankakrosno.pl/,
+LICEUM OGÓLNOKSZTAŁCĄCE IM. MARII SKŁODOWSKIEJ-CURIE W KOŁACZYCACH,szkola_ponadpodstawowa,https://www.lo-kolaczyce.pl/,
+ZESPÓŁ SZKÓŁ NR 5 IM. IGNACEGO ŁUKASIEWICZA W SANOKU,szkola_ponadpodstawowa,https://www.zs5sanok.pl/,
+ZESPÓŁ SZKÓŁ LICEALNYCH IM. JÓZEFA PIŁSUDSKIEGO (Ustrzyki Dolne),szkola_ponadpodstawowa,https://www.loustrzyki.edu.pl/,
+LICEUM OGÓLNOKSZTAŁCĄCE W LESKU,szkola_ponadpodstawowa,https://www.lo.lesko.pl/aktualnosci/,https://www.lo.lesko.pl/aktualnosci/rss
+ZESPÓŁ SZKÓŁ CENTRUM KSZTAŁCENIA ROLNICZEGO IM. ADAMA MICKIEWICZA W RADYMNIE,szkola_ponadpodstawowa,https://www.gov.pl/web/zsckr-w-radymnie,
+PAŃSTWOWE LICEUM SZTUK PLASTYCZNYCH IM. STANISŁAWA WYSPIAŃSKIEGO W JAROSŁAWIU,szkola_ponadpodstawowa,https://www.gov.pl/web/plastykjaroslaw,
+LICEUM OGÓLNOKSZTAŁCĄCE Z ODDZIAŁAMI DWUJĘZYCZNYMI W BOGUCHWALE,szkola_ponadpodstawowa,https://liceum.boguchwala.pl/,
+ZESPÓŁ SZKÓŁ SIÓSTR PIJAREK IM. PAULI MONTAL W RZESZOWIE,szkola_ponadpodstawowa,https://psp.rzeszow.pijarki.pl/,
+ZESPÓŁ SZKÓŁ IM. GEN. WŁADYSŁAWA SIKORSKIEGO (Rudnik nad Sanem),szkola_ponadpodstawowa,https://zsrudnik.edu.pl/,
+ZESPÓŁ SZKÓŁ STOWARZYSZENIA ABSOLWENTÓW SZKÓŁ ROLNICZYCH IM.PROF. DR HAB. TEODORA MARCHLEWSKIEGO W TRZCINICY,szkola_ponadpodstawowa,https://www.zstrzcinica.pl/,
+ZESPÓŁ SZKÓŁ CENTRUM KSZTAŁCENIA ROLNICZEGO W OLESZYCACH,szkola_ponadpodstawowa,https://zsckroleszyce.pl/,
+PUBLICZNE KATOLICKIE LICEUM OGÓLNOKSZTAŁCĄCE IM. ANNY JENKE W JAROSŁAWIU,szkola_ponadpodstawowa,https://katolik-jaroslaw.pl/,
+ZESPÓŁ SZKÓŁ W JEŻOWEM IM. KS. STANISŁAWA STASZICA,szkola_ponadpodstawowa,https://zsjezowe.pl/,
+ZESPÓŁ SZKÓŁ NR 1 W NOWEJ DĘBIE (Nowa Dęba),szkola_ponadpodstawowa,https://www.zsnowadeba.com/,
+ZESPÓŁ SZKÓŁ OGÓLNOKSZTAŁCACYCH NR 2 IM. MARKIANA SZASZKEWICZA W PRZEMYŚLU,szkola_ponadpodstawowa,https://www.szaszk.edu.pl/,
+ZESPÓŁ SZKÓŁ OGÓLNOKSZTAŁCĄCYCH W ZAKLIKOWIE,szkola_ponadpodstawowa,https://zsozaklikow.szkolna.net/,
+SPECJALNY OŚRODEK SZKOLNO-WYCHOWAWCZY NR 2 IM. DRA JANUSZA KORCZAKA W PRZEMYŚLU,szkola_ponadpodstawowa,https://sosw2.przemysl.edu.pl/,
+SPECJALNY OŚRODEK SZKOLNO-WYCHOWAWCZY NR 1 IM. MARII GRZEGORZEWSKIEJ W PRZEMYŚLU,szkola_ponadpodstawowa,https://sosw1.przemysl.edu.pl/,
+ZESPÓŁ PLACÓWEK IM. JANA PAWŁA II SPECJALNY OŚRODEK SZKOLNO-WYCHOWAWCZY W LUBACZOWIE,szkola_ponadpodstawowa,https://sosw.zplubaczow.com/,
+CENTRUM KSZTAŁCENIA ZAWODOWEGO NR 1 W DĘBICY,szkola_ponadpodstawowa,https://www.ckznr1.debica.pl/,
+CENTRUM KSZTAŁCENIA ZAWODOWEGO I USTAWICZNEGO W JAROSŁAWIU,szkola_ponadpodstawowa,https://www.ckziujaroslaw.pl/,
+ZESPÓŁ SZKÓŁ SPECJALNYCH W RYMANOWIE ZDROJU,szkola_ponadpodstawowa,https://zss-rymanow.pl/asp/pl_licznik.asp,
+BRANŻOWE CENTRUM UMIEJĘTNOŚCI W DZIEDZINIE ENERGETYKI W NISKU,szkola_ponadpodstawowa,https://bcunisko.pl/,
+MEDYCZNO-SPOŁECZNE CENTRUM KSZTAŁCENIA ZAWODOWEGO I USTAWICZNEGO W PRZEMYŚLU,szkola_ponadpodstawowa,https://medyk-przemysl.pl/,
+CENTRUM KSZTAŁCENIA ZAWODOWEGO W TARNOBRZEGU,szkola_ponadpodstawowa,https://ckp.tbg.net.pl/,
