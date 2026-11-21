@@ -52,3 +52,24 @@ def test_robots_zakaz():
     siec.ustaw_robots("przyklad.test", "User-agent: *\nDisallow: /")
     with pytest.raises(siec.Zablokowane):
         siec.pobierz("https://przyklad.test/strona")
+
+
+def test_mapadotacji_stronicowanie_stabilne(tmp_path, monkeypatch):
+    """WP REST bez stałego sortowania zwraca duplikaty między stronami (20 069 pobranych → 14 791 unikalnych)."""
+    from radar import db, siec
+    from radar.zrodla import mapadotacji
+
+    wywolania = []
+
+    class Odp:
+        status_code = 200
+        headers = {"X-WP-Total": "150"}
+        text = "[]"
+
+    def pobierz(url, params=None, **kw):
+        wywolania.append(params)
+        return Odp()
+    monkeypatch.setattr(siec, "pobierz", pobierz)
+    mapadotacji.pobierz_wszystko(db.polacz(tmp_path / "t.sqlite"), log=lambda *a: None)
+    strony = [p for p in wywolania if p.get("per_page") == 100]
+    assert len(strony) == 2 and all(p.get("orderby") == "id" and p.get("order") == "asc" for p in strony)

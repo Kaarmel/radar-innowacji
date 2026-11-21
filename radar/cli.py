@@ -11,6 +11,16 @@ def main(argv=None) -> int:
     pp = sub.add_parser("pobierz")
     pp.add_argument("zrodlo", choices=["mapadotacji", "interreg", "radon", "radon_patenty"])
     pp.add_argument("--woj", default="327", help="Mapa Dotacji: id województwa (327 = podkarpackie)")
+    ps = sub.add_parser("sprawdz", help="sprawdza zgłoszenie o danym id albo nowe z --opis")
+    ps.add_argument("id", nargs="?", type=int)
+    ps.add_argument("--tytul", default="Zgłoszenie z wiersza poleceń")
+    ps.add_argument("--opis")
+    ps.add_argument("--instytucja", default="")
+    ps.add_argument("--typ-instytucji", default="inna_publiczna")
+    ps.add_argument("--typ-innowacji", default="techniczna")
+    ps.add_argument("--etap", default="prototyp")
+    ps.add_argument("--wiek", default="powyzej_30")
+    ps.add_argument("--organizacja", default="ogolny")
     a = p.parse_args(argv)
     con = db.polacz()
     if a.cmd == "pobierz":
@@ -20,6 +30,27 @@ def main(argv=None) -> int:
              "radon": lambda: radon.pobierz_wszystko(con),
              "radon_patenty": lambda: radon_patenty.pobierz_wszystko(con)}[a.zrodlo]()
         print(f"{a.zrodlo}: zapisano {n}; w bazie: {db.liczba_dokumentow(con)}", flush=True)
+    elif a.cmd == "sprawdz":
+        import json
+
+        from .model import Zgloszenie
+        from .sprawdz import sprawdz
+        zid = a.id
+        if zid is None:
+            if not a.opis:
+                p.error("podaj id albo --opis")
+            zid = db.zapisz_zgloszenie(con, Zgloszenie(id=None, wejscie="formularz", tytul=a.tytul, opis=a.opis, link=None,
+                                                       instytucja=a.instytucja, typ_instytucji=a.typ_instytucji,
+                                                       typ_innowacji=a.typ_innowacji, etap=a.etap, wiek_przedzial=a.wiek,
+                                                       organizacja=a.organizacja))
+        k = sprawdz(con, zid)
+        print(json.dumps({"id": zid, "werdykt": k["werdykt"], "komorka": k["komorka"], "czas_s": k["czas_s"],
+                          "koszt_usd": k["koszt_usd"], "pokrycie": k["pokrycie"],
+                          "wyniki": [{x: w[x] for x in ("filtr", "procent", "pasmo", "uwaga")} | {"dowody": [
+                              {d: v for d, v in dw.items() if d in ("dokument_id", "tytul", "link", "procent", "podobienstwo",
+                                                                     "ocena_ai", "odpowiedz", "pytanie", "wlasna")}
+                              for dw in w["dowody"][:3]]} for w in k["wyniki"]],
+                          "rekomendacje": k["rekomendacje"], "partnerzy": k["partnerzy"]}, ensure_ascii=False, indent=1))
     return 0
 
 

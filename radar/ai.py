@@ -49,6 +49,8 @@ def _czat_json(system: str, user: str) -> tuple[dict, float]:
     body = {"model": config.MODEL, "temperature": 0, "max_tokens": 3000,
             "response_format": {"type": "json_object"}, "provider": {"data_collection": "deny"},
             "usage": {"include": True},
+            # bez rozumowania: inaczej model zużywa cały limit na "myślenie" i zwraca pustą treść (finish=length)
+            "reasoning": {"enabled": False},
             "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]}
     try:
         r = httpx.post(URL, json=body, timeout=120,

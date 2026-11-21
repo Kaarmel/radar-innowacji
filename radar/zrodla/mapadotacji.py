@@ -56,7 +56,9 @@ def pobierz_wszystko(con: sqlite3.Connection, woj: str = "327", log=print) -> in
     start = int(_postep(con, klucz) or 0) + 1
     razem = 0
     for strona in range(start, stron + 1):
-        r = siec.pobierz(API, params={"wojewodztwa_projekty": woj, "per_page": 100, "page": strona}, timeout=60)
+        # stałe sortowanie po id: domyślne (po dacie, z remisami) gubi i dubluje wpisy między stronami
+        r = siec.pobierz(API, params={"wojewodztwa_projekty": woj, "per_page": 100, "page": strona, "orderby": "id",
+                                      "order": "asc"}, timeout=60)
         if r.status_code != 200:
             log(f"mapadotacji: strona {strona} → HTTP {r.status_code}, przerywam (ponowne uruchomienie wznowi)")
             break

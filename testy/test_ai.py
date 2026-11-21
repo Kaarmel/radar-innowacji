@@ -61,3 +61,23 @@ def test_tlumaczenie_na_zywo():
     wynik, koszt = ai.tlumacz_zapytanie("Filtr mikroplastiku inspirowany skrzelami ryb, bez wymiennych wkładów")
     assert wynik["terminy_en"] and wynik["opis_en"]
     assert koszt >= 0
+
+
+def test_rozumowanie_wylaczone(monkeypatch):
+    """DeepSeek v4.1 domyślnie rozumuje i zużywał cały limit tokenów (finish=length, pusta treść)."""
+    import httpx
+    wyslane = {}
+
+    class Odp:
+        text = ""
+
+        def json(self):
+            return {"choices": [{"message": {"content": "{}"}, "finish_reason": "stop"}], "usage": {"cost": 0}}
+
+    def post(url, json=None, **kw):
+        wyslane.update(json)
+        return Odp()
+    monkeypatch.setenv("OPENROUTER_API_KEY", "x")
+    monkeypatch.setattr(httpx, "post", post)
+    ai._czat_json("s", "u")
+    assert wyslane["reasoning"] == {"enabled": False}

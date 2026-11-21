@@ -43,7 +43,8 @@ def plagiat(z: Zgloszenie, kandydaci: list[Dokument]) -> WynikFiltra:
     return WynikFiltra("plagiat", round(najlepszy, 1), pasmo, dowody, uwaga=uwaga, wlasna_praca=wlasna)
 
 
-def _podobne(z: Zgloszenie, kandydaci: list[Dokument], df, N) -> list[tuple[float, Dokument]]:
+def ranking(z: Zgloszenie, kandydaci: list[Dokument], df, N) -> list[tuple[float, Dokument]]:
+    """Kandydaci według podobieństwa TF-IDF; dokumenty angielskie porównywane z tłumaczeniem zgłoszenia."""
     out = []
     for d in kandydaci:
         zrodlowy = (z.opis_en or z.opis) if d.jezyk == "en" else z.opis
@@ -53,9 +54,9 @@ def _podobne(z: Zgloszenie, kandydaci: list[Dokument], df, N) -> list[tuple[floa
 
 def _porownanie(nazwa: str, z: Zgloszenie, kandydaci: list[Dokument], df, N, koszt: list | None, uwaga_stala: str = "") -> WynikFiltra:
     p = config.PROGI[nazwa]
-    ranking = _podobne(z, kandydaci, df, N)
-    obce = [(s, d) for s, d in ranking if not _wlasny(z, d)]
-    wlasne = [(s, d) for s, d in ranking if _wlasny(z, d) and s >= p["zolte"]]
+    lista = ranking(z, kandydaci, df, N)
+    obce = [(s, d) for s, d in lista if not _wlasny(z, d)]
+    wlasne = [(s, d) for s, d in lista if _wlasny(z, d) and s >= p["zolte"]]
     do_ai = [d for s, d in obce[:3] if s >= p["zolte"]]
     oceny, k = ai.ten_sam_pomysl(z.opis, do_ai) if do_ai else ({}, 0.0)
     if koszt is not None and k:
