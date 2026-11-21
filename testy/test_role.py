@@ -36,6 +36,31 @@ def test_start_prowadzi_od_odkrywania(klient):
     assert "Zgłoś innowację" not in s and 'href="/dla/analityk"' in s
 
 
+def test_start_pokazuje_tylko_wykrycia_po_bramce(klient):
+    """Rutyna wykryta przez radar (np. przebudowa drogi) zostaje w kolejce do przeglądu, ale nie na stronie głównej."""
+    con = db.polacz()
+    ids = {}
+    for tytul, werdykt in (("Aplikacja RescuePet", "dalej"), ("Przebudowa nawierzchni drogi", "odrzucone_do_przegladu")):
+        ids[tytul] = db.zapisz_zgloszenie(con, Zgloszenie(id=None, wejscie="radar", tytul=tytul, opis="Opis.", link=f"https://x.pl/{len(ids)}",
+                                                          instytucja="ZST", typ_instytucji="szkola_ponadpodstawowa", typ_innowacji="techniczna",
+                                                          etap="prototyp", wiek_przedzial="16_30", organizacja="pci"))
+        with con:
+            con.execute("UPDATE zgloszenie SET werdykt=?, status='gotowe' WHERE id=?", (werdykt, ids[tytul]))
+    s = klient.get("/").text
+    s = s[s.index("<main"):]
+    assert "Aplikacja RescuePet" in s and "Przebudowa nawierzchni drogi" not in s
+    assert "1 odrzuciła bramka" in s
+
+
+def test_radar_odrzuca_inwestycje_i_remonty(monkeypatch):
+    from radar import ai
+    wyslane = {}
+    monkeypatch.setattr(ai, "czat_json", lambda s, u: (wyslane.update(u=u), ({}, 0.0))[1])
+    ai.czy_innowacja("t", "x")
+    for slowo in ("przebudowa", "remont", "wyposażenie pracowni", "inwestycja"):
+        assert slowo in wyslane["u"], slowo
+
+
 def test_formularz_to_ocena_projektu_przez_analityka(klient):
     s = klient.get("/zglos").text
     assert "Oceń projekt" in s and "Do kogo kierujesz" not in s and "Profil oceny" in s
