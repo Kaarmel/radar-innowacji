@@ -193,10 +193,9 @@ Docker: `docker build -t radar-innowacji . && docker run -p 8090:8090 -v "$PWD/d
 - Bezpieczeństwo: klucze tylko w `.env`, escapowanie całego tekstu z zewnątrz, linki tylko http(s), ochrona przed SSRF
   przy pobieraniu strony z linku, XML z encjami odrzucany, brak danych osobowych z baz (bez nazwisk twórców i kierowników).
 
-## Historia repozytorium
+## Autorzy
 
-Pierwszy commit (`394f34c`) zawiera wcześniejszy, porzucony prototyp. Został usunięty w `5dd8d88`, a obecne
-rozwiązanie powstało od nowa w trakcie hackathonu (21–22.11.2026). Projekt, plan i dziennik decyzji: `docs/`.
+Karol Skroban. Projekt, plan i dziennik decyzji: `docs/`.
 
 ## Licencja
 

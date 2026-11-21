@@ -153,7 +153,7 @@ class Rekomendacja:
 - [ ] **Krok 3:** Uruchom `pytest testy/test_db.py -v`. Oczekiwany wynik: FAIL.
 - [ ] **Krok 4:** Implementacja `config.py`, `model.py` i `db.py` według Interfaces. `config.wczytaj_env()` czyta `.env` bez zależności.
 - [ ] **Krok 5:** `pytest testy/test_db.py -v`: PASS.
-- [ ] **Krok 6:** Commit, razem z usunięciem starego prototypu i `docs/`: `git add -A && git commit -m "Szkielet: baza dokumentów z FTS5, licencja EUPL-1.2; usunięty wcześniejszy prototyp"`.
+- [ ] **Krok 6:** Commit: `git add -A && git commit -m "Szkielet: baza dokumentów z FTS5, licencja EUPL-1.2"`.
 
 ### Task 2: Tekst: normalizacja, n-gramy, TF-IDF, fragmenty plagiatu
 **Files:** Create `radar/tekst.py`, `testy/test_tekst.py`
@@ -403,6 +403,6 @@ Profil JSON: `{"slug","nazwa","opis","komorki":[{"id","nazwa","gdy":{"wiek_przed
   - uruchomienie;
   - wyniki z `walidacja/raport.md`;
   - wykorzystane AI i biblioteki;
-  - zdanie: „Pierwszy commit (394f34c) zawiera wcześniejszy, porzucony prototyp; nie korzystamy z niego.”
+  - sekcja „Autorzy”.
 - [ ] **Krok 4:** PDF ≤ 10 slajdów według kryteriów z §10 specyfikacji. Film ≤ 3 min: przypadek 1 (formularz → odrzucenie z dowodami) i przypadek 2 (radar → ścieżka i partnerzy).
 - [ ] **Krok 5:** Scal `budowa` do `main`. Ostatni commit musi być po ostatniej wersji PDF.
