@@ -15,6 +15,9 @@ def main(argv=None) -> int:
     pr.add_argument("--limit", type=int, default=300)
     pr.add_argument("--dni", type=int, default=180)
     pr.add_argument("--organizacja", default="pci")
+    pz = sub.add_parser("zestaw", help="buduje i sprawdza zestaw testowy (najlepiej na kopii bazy: RADAR_BAZA=...)")
+    pz.add_argument("--n", type=int, default=10)
+    sub.add_parser("raport", help="liczy miary zestawu testowego → walidacja/raport.md i dane/zestaw_raport.json")
     ps = sub.add_parser("sprawdz", help="sprawdza zgłoszenie o danym id albo nowe z --opis")
     ps.add_argument("id", nargs="?", type=int)
     ps.add_argument("--tytul", default="Zgłoszenie z wiersza poleceń")
@@ -38,6 +41,13 @@ def main(argv=None) -> int:
         from .zrodla import www
         stat = www.uruchom(con, a.limit, a.dni, a.organizacja)
         print({k: v for k, v in stat.items() if k != "bledy"}, flush=True)
+    elif a.cmd == "zestaw":
+        from . import walidacja
+        walidacja.zbuduj(con, a.n)
+        walidacja.raport(con)
+    elif a.cmd == "raport":
+        from . import walidacja
+        walidacja.raport(con)
     elif a.cmd == "sprawdz":
         import json
 

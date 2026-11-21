@@ -4,7 +4,7 @@ from pathlib import Path
 
 KORZEN = Path(__file__).resolve().parent.parent
 DANE = KORZEN / "dane"
-BAZA = DANE / "radar.sqlite"
+BAZA = Path(os.environ.get("RADAR_BAZA") or DANE / "radar.sqlite")  # RADAR_BAZA: osobna kopia np. dla zestawu testowego
 KONFIGURACJA = KORZEN / "konfiguracja"
 
 USER_AGENT = "radar-innowacji-hackathon/0.1 (+https://github.com/; projekt HackNation 2026)"
