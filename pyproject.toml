@@ -1,0 +1,16 @@
+[project]
+name = "radar-innowacji"
+version = "0.1.0"
+description = "Wyszukiwanie i ocena innowacji z instytucji publicznych: plagiat, kopia, patent, nowość, z dowodami."
+license = "EUPL-1.2"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi", "uvicorn", "jinja2", "python-multipart", "httpx", "openpyxl",
+]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[tool.pytest.ini_options]
+testpaths = ["testy"]
+markers = ["zywe: testy wywołujące prawdziwe API (pomijane bez kluczy)"]

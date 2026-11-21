@@ -8,6 +8,13 @@
 dane/
 dane_przygotowane/
 
+# macOS i dokumenty organizatora (poza repo)
+.DS_Store
+PCI -*.pdf
+
+# Środowisko
+.venv/
+
 # Generated caches
 __pycache__/
 *.py[cod]
