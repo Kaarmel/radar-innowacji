@@ -109,6 +109,7 @@ pytest                                                     # testy (te z prawdzi
 ```
 
 Wdrożenie na Ubuntu: `wdrozenie/vm.sh` (uvicorn jako usługa systemd, Caddy z HTTPS, osobny blok hosta).
+Docker: `docker build -t radar-innowacji . && docker run -p 8090:8090 -v "$PWD/dane:/app/dane" --env-file .env radar-innowacji`.
 
 ## Integracja i skalowanie
 

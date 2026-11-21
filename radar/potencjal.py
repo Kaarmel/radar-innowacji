@@ -69,7 +69,7 @@ def _zapotrzebowanie(z, wyniki, ranking, profil):
             dowody.append({"instytucja": nazwa, "tytul": d.tytul, "link": d.link, "zrodlo": d.zrodlo,
                            "podobienstwo": round(s * 100, 1)})
     n = len(dowody)
-    return min(n, 5) / 5, (f"{n} innych instytucji ma podobne (ale nie skopiowane) projekty: jest problem do rozwiązania "
+    return min(n, 5) / 5, (f"{_instytucje(n)} podobne (ale nie skopiowane) projekty: jest problem do rozwiązania "
                            f"i odbiorcy transferu. Pełne punkty od 5." if n else "Nie znaleziono innych instytucji z podobnym problemem."), dowody[:5], "kod"
 
 
@@ -83,9 +83,17 @@ def _ochrona(z, wyniki, ranking, profil):
     return u, f"Filtr patentowy: {w.pasmo} (najbliższy patent {w.procent or 0:.0f}% podobieństwa).", [], "kod"
 
 
+def _instytucje(n: int) -> str:
+    if n == 1:
+        return "1 inna instytucja ma"
+    if n % 10 in (2, 3, 4) and n % 100 not in (12, 13, 14):
+        return f"{n} inne instytucje mają"
+    return f"{n} innych instytucji ma"
+
+
 def _finansowanie(z, wyniki, ranking, profil):
     dowody = [{"tytul": d.tytul, "link": d.link, "zrodlo": d.zrodlo, "podobienstwo": round(s * 100, 1)}
-              for s, d in ranking if d.zrodlo in FINANSOWANE and s >= PROG_PODOBNY][:3]
+              for s, d in ranking if d.zrodlo in FINANSOWANE and PROG_PODOBNY <= s < config.PROGI["kopia"]["czerwone"]][:3]
     n = len(dowody)
     return min(n, 2) / 2, (f"{n} podobnych projektów dostało dofinansowanie publiczne: są programy, które to finansują."
                            if n else "Brak podobnych projektów sfinansowanych w bazie (Mapa Dotacji, Interreg)."), dowody, "kod"

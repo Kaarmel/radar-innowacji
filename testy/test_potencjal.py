@@ -67,3 +67,14 @@ def test_finansowanie_z_linkiem():
     ranking = [(0.3, dok(1, "Firma", zrodlo="mapadotacji"))]
     k = kryt(potencjal.ocen(zgl(), wyniki(), ranking, PCI), "finansowanie")
     assert k["punkty"] > 0 and k["dowody"][0]["link"] == "https://d/1"
+
+
+def test_finansowanie_pomija_kopie():
+    ranking = [(0.65, dok(1, "Kopiowany", zrodlo="mapadotacji")), (0.3, dok(2, "Firma", zrodlo="mapadotacji"))]
+    k = kryt(potencjal.ocen(zgl(), wyniki(), ranking, PCI), "finansowanie")
+    assert [d["link"] for d in k["dowody"]] == ["https://d/2"]
+
+
+def test_liczebnik_jednej_instytucji():
+    k = kryt(potencjal.ocen(zgl(), wyniki(), [(0.3, dok(1, "Gmina X"))], PCI), "zapotrzebowanie")
+    assert k["uzasadnienie"].startswith("1 inna instytucja ma")

@@ -1,0 +1,11 @@
+.venv
+.env
+.env.*
+dane
+.git
+.superpowers
+__pycache__
+*.pyc
+.pytest_cache
+docs
+walidacja
