@@ -117,3 +117,12 @@ def test_rubryka_bez_podwojnego_przeczenia_i_z_definicja_tego_samego(monkeypatch
     monkeypatch.setattr(ai, "czat_json", lambda s, u: (wyslane.update(u=u), ({}, 0.0))[1])
     ai.rubryka_nowosci("opis", [])
     assert "TO SAMO rozwiązanie" in wyslane["u"] and "podobny temat" in wyslane["u"]
+
+
+def test_rubryka_mowi_kiedy_tak_a_kiedy_nie_wiadomo(monkeypatch):
+    """Model odpowiadał „nie_wiadomo”, gdy dokumenty opisywały coś innego (a to znaczy „tak”): nowość nieoceniona."""
+    wyslane = {}
+    monkeypatch.setattr(ai, "czat_json", lambda s, u: (wyslane.update(u=u), ({}, 0.0))[1])
+    ai.rubryka_nowosci("opis", [])
+    assert "żaden znaleziony dokument nie opisuje tego samego rozwiązania" in wyslane["u"]
+    assert "zbyt ogólne" in wyslane["u"]

@@ -152,6 +152,8 @@ def rubryka_nowosci(zgl_opis: str, dokumenty: list) -> tuple[list[dict], float]:
     odp, koszt = czat_json(SYSTEM, f"""Oceń nowość zgłoszenia względem ZNALEZIONYCH DOKUMENTÓW (to wszystko, co wiesz o stanie techniki).
 Na każde pytanie odpowiedz "tak", "nie" albo "nie_wiadomo". Odpowiedź "nie" w Q1–Q3 tylko wtedy, gdy dokument opisuje
 TO SAMO rozwiązanie (ten sam problem rozwiązany tą samą metodą); podobny temat albo ta sama branża to jeszcze nie brak nowości.
+Gdy żaden znaleziony dokument nie opisuje tego samego rozwiązania, odpowiedź na Q1–Q3 to "tak". "nie_wiadomo" tylko wtedy,
+gdy samo zgłoszenie jest zbyt ogólne, by powiedzieć, co robi.
 W dokument_id podaj id dokumentu z nawiasu kwadratowego,
 na którym opierasz odpowiedź (albo null, gdy opierasz się tylko na zgłoszeniu). JSON:
 {{"odpowiedzi": [{{"pytanie": "Q1", "odpowiedz": "tak|nie|nie_wiadomo", "dokument_id": null, "uzasadnienie": "jedno zdanie"}}]}}

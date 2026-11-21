@@ -11,7 +11,8 @@ czy pomysł nie jest kopią, plagiatem albo czy nie jest już opatentowany. Brak
    wpisy z konkretnym rozwiązaniem, wg Oslo Manual 2018; bez nazwisk), a co tydzień odświeża bazy projektów i patentów.
    Analityk może też ocenić projekt z wyszukiwarki („Oceń ten projekt”) albo z linku. To nie jest platforma do zgłaszania pomysłów;
 2. przeszukuje ok. 88 tys. dokumentów: Mapa Dotacji UE (Podkarpacie), Interreg PL–SK, RAD-on (projekty i patenty
-   polskich uczelni), a na żądanie patenty EPO, OpenAlex i Crossref;
+   polskich uczelni), a na żądanie patenty EPO, OpenAlex i Crossref. Wyszukiwarkę filtruje się po źródle i roku, katalog
+   po werdykcie, wejściu i obszarze, a 2–4 projekty można porównać obok siebie;
 3. przepuszcza zgłoszenie przez cztery filtry odrzucenia (plagiat, kopia pomysłu, patent, nowość). Każdy filtr ma procent,
    pasmo i link do dokumentu-dowodu, a przy plagiacie fragmenty obok siebie;
 4. liczy **ocenę potencjału 0–100 według jawnego wzoru** (nowość, dojrzałość, mierzalna przewaga, zapotrzebowanie i transfer,
@@ -24,7 +25,11 @@ czy pomysł nie jest kopią, plagiatem albo czy nie jest już opatentowany. Brak
 
 **Nie „AI wrapper”.** Wyszukiwanie, plagiat, podobieństwo, reguły ścieżek i wzór potencjału liczy kod. AI (DeepSeek przez
 OpenRouter) tłumaczy zapytanie, potwierdza kopie i odpowiada na 5 pytań rubryki nowości. Kod sprawdza, że każdy dokument,
-na który powołuje się AI, był w wynikach. Jedno sprawdzenie trwa ok. 15–60 s i kosztuje ok. 0,001 $.
+na który powołuje się AI, był w wynikach. Jedno sprawdzenie trwa ok. 15–60 s (limit 150 s) i kosztuje ok. 0,001 $.
+
+**Miary.** 52 przypadki ze znaną prawdą zbudowane z danych: plagiat 9/9, kopia 10/10, patent 5/5, własna praca 5/5,
+duplikat 3/3. Na 20 prawdziwych projektach z etykietami z głosowania 5 niezależnych modeli (nie człowieka) zgodność
+filtra nowości wynosi 0,87 (n=15). Rubrykę poprawialiśmy na tych samych projektach, więc to nie jest niezależny pomiar.
 
 **Dla kogo.** Zakładki z prostym opisem i demo dla analityka PCI, szkół i młodych (16–30), uczelni, gmin i firm.
 
