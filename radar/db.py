@@ -35,6 +35,7 @@ def polacz(sciezka: Path | None = None) -> sqlite3.Connection:
     con = sqlite3.connect(sciezka, check_same_thread=False)
     con.row_factory = sqlite3.Row
     con.execute("PRAGMA journal_mode=WAL")
+    con.execute("PRAGMA busy_timeout=60000")  # kilka procesów pobierania naraz
     con.executescript(SCHEMAT)
     return con
 
