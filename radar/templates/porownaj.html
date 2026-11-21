@@ -16,7 +16,7 @@
   <tr><th scope="row">Potencjał</th>{% for k in karty %}<td>{% if k.potencjal %}<b>{{ k.potencjal.wynik | int }}</b><span class="maly">/100</span>{% else %}—{% endif %}</td>{% endfor %}</tr>
   <tr><th scope="row">Wiarygodność</th>{% for k in karty %}{% set w = k.klasyfikacja.wiarygodnosc %}<td><b>{{ w.poziom }}</b> ({{ w.spelnione }}/5)</td>{% endfor %}</tr>
   {% for f, (nazwa, _) in s.FILTRY.items() %}
-  <tr><th scope="row">{{ nazwa }}</th>{% for k in karty %}{% set w = k.wyniki | selectattr('filtr', 'equalto', f) | first %}<td>{% if w %}<span class="kropka {{ w.pasmo }}"></span> {{ s.PASMA.get(w.pasmo, w.pasmo) }}{% if w.procent is not none %} <span class="maly">({{ w.procent | liczba }}%)</span>{% endif %}{% else %}—{% endif %}</td>{% endfor %}</tr>
+  <tr><th scope="row">{{ nazwa }}</th>{% for k in karty %}{% set w = k.wyniki | selectattr('filtr', 'equalto', f) | first %}<td>{% if w %}<span class="kropki"><span class="kropka {{ w.pasmo }}">{{ nazwa[:1] if f != 'patent' else 'Pa' }}</span></span> {{ s.PASMA.get(w.pasmo, w.pasmo) }}{% if w.procent is not none %} <span class="maly">({{ w.procent | liczba }}%)</span>{% endif %}{% else %}—{% endif %}</td>{% endfor %}</tr>
   {% endfor %}
   <tr><th scope="row">Werdykt</th>{% for k in karty %}<td>{% if k.werdykt %}<span class="werdykt {{ k.werdykt }}">{{ s.WERDYKTY.get(k.werdykt, k.werdykt) }}</span>{% else %}{{ s.STATUSY.get(k.status, k.status) }}{% endif %}</td>{% endfor %}</tr>
   <tr><th scope="row">Decyzja analityka</th>{% for k in karty %}<td>{{ s.DECYZJE.get(k.decyzje[-1].decyzja, '—') if k.decyzje else '—' }}</td>{% endfor %}</tr>
