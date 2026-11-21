@@ -127,8 +127,9 @@ wyjście HTTPS do źródeł, reverse proxy z HTTPS. Klucze: `OPENROUTER_API_KEY`
 ## Miary
 
 Zestaw testowy (`python -m radar.cli zestaw`, na osobnej kopii bazy) buduje przypadki ze znaną prawdą z dzisiejszych
-danych: plagiat dwóch projektów, parafrazę AI, przepisany patent, własną pracę i duplikat. Do tego 20 projektów z bazy
-z ręczną etykietą „rutyna / nowość”. Wyniki: `walidacja/raport.md` i strona `/miary`.
+danych: plagiat dwóch projektów, parafrazę AI, przepisany patent, własną pracę i duplikat. Do tego 20 prawdziwych
+projektów z bazy wybranych zapytaniem po słowach kluczowych (10 rutynowych zakupów, 10 projektów B+R). Ręczne etykiety
+„rutyna / nowość” (`walidacja/etykiety.csv`) czekają na analityków PCI. Wyniki: `walidacja/raport.md` i strona `/miary`.
 
 | Przypadek (21.11.2026, 52 sprawdzenia) | Wykryte |
 |---|---|
@@ -141,7 +142,10 @@ z ręczną etykietą „rutyna / nowość”. Wyniki: `walidacja/raport.md` i st
 Mediana czasu sprawdzenia 44 s (4 równolegle), średni koszt AI 0,0013 $. Zestaw mierzy czułość na przypadkach
 zbudowanych, a nie odsetek fałszywych alarmów. Na 20 prawdziwych projektach z Mapy Dotacji pierwszy przebieg pokazał,
 że rutynowe zakupy (wozy OSP, oczyszczalnie) dostawały 62–74 pkt potencjału, prawie tyle co projekty B+R. Dlatego
-dodaliśmy bramkę nowości i przeliczyliśmy oceny (`python -m radar.cli przelicz`): rutyna 0–44, B+R do 65.
+dodaliśmy bramkę nowości i przeliczyliśmy oceny (`python -m radar.cli przelicz`): rutyna 0–44 pkt, B+R 0–65 pkt,
+ale mediana w obu grupach to 22 pkt. Filtr nowości jest surowy: oznaczył na czerwono 8 z 10 rutynowych i 6 z 10
+projektów B+R, więc 16 z 20 prawdziwych projektów trafiło do kolejki „odrzucone, do przeglądu”. Grupy nie są jeszcze
+dobrze rozdzielone; to pierwsza rzecz do kalibracji na etykietach PCI. Każde odrzucenie i tak przegląda człowiek.
 Opisy projektów OSP często dzielą szablonowe zdania, więc filtr plagiatu flaguje je do przeglądu: decyzję podejmuje człowiek.
 
 ## Uruchomienie

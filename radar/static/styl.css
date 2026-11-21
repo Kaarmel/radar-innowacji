@@ -154,3 +154,18 @@ mark { background: #ffe08a; color: inherit; padding: 0 1px; border-radius: 2px; 
 .technicznie summary { cursor: pointer; color: var(--akcent); }
 .wykryte { list-style: none; padding: 0; display: grid; gap: 8px; }
 .wykryte li { background: var(--biel); border: 1px solid var(--linia); border-radius: var(--r); padding: 10px 14px; }
+
+.karta-innowacji { background: var(--biel); border: 1px solid var(--linia); border-radius: var(--r); padding: 14px 18px; margin: 14px 0; }
+.karta-innowacji h2 { margin-top: 0; }
+.karta-innowacji dl { display: grid; grid-template-columns: 200px 1fr; gap: 8px 16px; margin: 0 0 8px; }
+.karta-innowacji dt { font-weight: 600; }
+.karta-innowacji dd { margin: 0; }
+.skala { display: inline-flex; flex-wrap: wrap; gap: 4px; list-style: none; padding: 0; margin: 0; }
+.skala li { padding: 2px 8px; border-radius: 999px; border: 1px solid var(--linia); font-size: .85rem; color: #6b7280; }
+.skala li.tak { background: var(--akcent); border-color: var(--akcent); color: #fff; font-weight: 600; }
+.skad { display: inline-block; font-size: .72rem; padding: 1px 7px; border-radius: 999px; border: 1px solid var(--linia); color: #4b5563; vertical-align: middle; }
+.skad.fakt { border-color: #16a34a; color: #15803d; }
+.skad.szacunek_ai { border-color: #d97706; color: #b45309; }
+.skad.deklaracja { border-color: #2563eb; color: #1d4ed8; }
+.lista-wiar { list-style: none; padding: 0; margin: 4px 0 0; columns: 2; }
+@media (max-width: 700px) { .karta-innowacji dl { grid-template-columns: 1fr; } .lista-wiar { columns: 1; } }

@@ -18,6 +18,8 @@ TYPY_INNOWACJI = {
     "spoleczna": "Społeczna (usługa dla mieszkańców, włączenie)",
     "procesowa": "Procesowa (usprawnienie procesu, cyfryzacja)",
 }
+from .klasyfikacja import OSLO, POCHODZENIE  # noqa: E402,F401  (dla szablonów: s.OSLO, s.POCHODZENIE)
+
 ETAPY = {"pomysl": "Pomysł", "prototyp": "Prototyp lub pilotaż", "wdrozone": "Wdrożone", "zakonczone": "Zakończone"}
 WIEK = {"ponizej_16": "Poniżej 16 lat", "16_30": "16–30 lat", "powyzej_30": "Powyżej 30 lat", "mieszany": "Zespół mieszany"}
 WEJSCIA = {"formularz": "Formularz", "baza": "Projekt z bazy (ocena analityka)", "radar": "Radar (wykryte automatycznie)"}

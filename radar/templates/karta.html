@@ -18,6 +18,25 @@
     {% set href = k.link | link %}{% if href %} · <a href="{{ href }}" rel="noopener" target="_blank">źródło</a>{% endif %}</p>
 </header>
 
+{% set kl = k.klasyfikacja %}
+{% macro skad(p) %}<span class="skad {{ p }}">{{ s.POCHODZENIE[p] }}</span>{% endmacro %}
+<section class="karta-innowacji" aria-label="Karta innowacji">
+  <h2>Karta innowacji</h2>
+  <dl>
+    <dt>Opis rozwiązania</dt><dd>{{ k.opis[:320] }}{% if k.opis | length > 320 %}… <a href="#opis">całość</a>{% endif %} {{ skad(kl.pochodzenie_opisu) }}</dd>
+    <dt>Obszar zastosowania</dt><dd>{{ kl.obszar.wartosc }} {{ skad('regula') }}</dd>
+    <dt>Źródło informacji</dt><dd>{{ s.WEJSCIA.get(k.wejscie, k.wejscie) }}{% set href = k.link | link %}{% if href %} · <a href="{{ href }}" rel="noopener" target="_blank">{{ href[:70] }}</a>{% endif %}
+      {% if k.cytat %}<br><span class="maly">Cytat ze źródła: <q>{{ k.cytat }}</q></span>{% endif %}</dd>
+    <dt>Status wdrożenia</dt><dd><ol class="skala">{% for x in kl.wdrozenie.kroki %}<li {% if x.zaznaczony %}class="tak"{% endif %}>{{ x.nazwa }}</li>{% endfor %}</ol> {{ skad(kl.wdrozenie.pochodzenie) }}</dd>
+    <dt>Poziom gotowości (TRL 1–9)</dt><dd>{% if kl.trl.wartosc %}TRL {{ kl.trl.wartosc }} ({{ kl.trl.uwaga }}){% else %}{{ kl.trl.uwaga }}{% endif %} {{ skad('regula') }}</dd>
+    <dt>Ocena potencjału</dt><dd>{% if kl.potencjal.wartosc is not none %}<a href="#potencjal">{{ kl.potencjal.wartosc | liczba(0) }}/100</a>{% else %}—{% endif %} {{ skad('regula') }}</dd>
+    <dt>Wiarygodność</dt><dd><b>{{ kl.wiarygodnosc.poziom }}</b> ({{ kl.wiarygodnosc.spelnione }}/5) {{ skad('regula') }}
+      <ul class="maly lista-wiar">{% for x in kl.wiarygodnosc.kryteria %}<li>{{ '✓' if x.spelnione else '✗' }} {{ x.nazwa }}</li>{% endfor %}</ul></dd>
+  </dl>
+  <p class="maly">{{ s.OSLO }} Oznaczenia: <b>fakt z danych</b> pochodzi z publicznego rejestru, <b>deklaracja</b> z formularza,
+    <b>szacunek AI</b> ze strony źródłowej (z cytatem), <b>reguła w kodzie</b> jest wyliczona z pól powyżej.</p>
+</section>
+
 {% if k.status in ('nowe', 'w_toku') %}
 <div class="werdykt-pasek w_toku" role="status">
   <strong>Sprawdzam…</strong> Tłumaczenie, wyszukiwanie w bazie, patenty EPO i publikacje, cztery filtry.
@@ -157,7 +176,7 @@
 {% endfor %}
 {% endif %}
 
-<section class="opis-zgl">
+<section class="opis-zgl" id="opis">
   <h2>Opis zgłoszenia</h2>
   <div class="tekst">{{ k.opis }}</div>
 </section>

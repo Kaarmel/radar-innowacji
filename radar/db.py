@@ -197,6 +197,8 @@ def karta(con: sqlite3.Connection, zgl_id: int) -> dict | None:
     o = con.execute("SELECT dane FROM ocena WHERE zgl_id=?", (zgl_id,)).fetchone()
     k["potencjal"] = json.loads(o["dane"]) if o else None
     k["decyzje"] = [dict(d) for d in con.execute("SELECT decyzja, powod, kiedy FROM decyzja WHERE zgl_id=? ORDER BY kiedy", (zgl_id,))]
+    from .klasyfikacja import profil
+    k["klasyfikacja"] = profil(k)
     return k
 
 
