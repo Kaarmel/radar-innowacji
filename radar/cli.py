@@ -19,6 +19,9 @@ def main(argv=None) -> int:
     pr.add_argument("--organizacja", default="pci")
     pz = sub.add_parser("zestaw", help="buduje i sprawdza zestaw testowy (najlepiej na kopii bazy: RADAR_BAZA=...)")
     pz.add_argument("--n", type=int, default=10)
+    pk = sub.add_parser("kontrolny", help="buduje zestaw kontrolny (projekty niewidziane przy kalibracji) → walidacja/kontrolne.csv")
+    pk.add_argument("--n-losowe", type=int, default=30)
+    pk.add_argument("--n-br", type=int, default=20)
     sub.add_parser("raport", help="liczy miary zestawu testowego → walidacja/raport.md i dane/zestaw_raport.json")
     sub.add_parser("przelicz", help="przelicza zapisane oceny potencjału po zmianie wzoru")
     ps = sub.add_parser("sprawdz", help="sprawdza zgłoszenie o danym id albo nowe z --opis")
@@ -53,6 +56,9 @@ def main(argv=None) -> int:
         from . import walidacja
         walidacja.zbuduj(con, a.n)
         walidacja.raport(con)
+    elif a.cmd == "kontrolny":
+        from . import walidacja
+        print(walidacja.zbuduj_kontrolny(con, a.n_losowe, a.n_br), flush=True)
     elif a.cmd == "przelicz":
         from . import potencjal
         print(f"przeliczono ocen: {potencjal.przelicz_zapisane(con)}", flush=True)

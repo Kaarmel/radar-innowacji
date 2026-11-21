@@ -48,3 +48,33 @@ def test_opis_etykiet_mowi_kto_je_nadal():
     o = walidacja.opis_etykiet("głosowanie 5 modeli (a, b)", True)
     assert "głosowanie 5 modeli" in o and "nie ocena człowieka" in o and "nadał człowiek" not in o
     assert "nie zostały jeszcze" in walidacja.opis_etykiet("człowiek", False)
+
+
+
+def test_zestaw_kontrolny_liczony_osobno():
+    """Zestaw kontrolny: projekty, których nie widziała żadna poprawka rubryki; zgodność liczona oddzielnie."""
+    wiersze = [("etykieta:1", k(nowosc="zolte")), ("kontrolny:2", k(nowosc="zolte", potencjal=60)),
+               ("kontrolny:3", k(nowosc="czerwone", potencjal=10)), ("kontrolny:4", k(nowosc="czerwone"))]
+    m = walidacja.miary(wiersze, etykiety={"1": "rutyna"}, kontrolne={"2": "nowosc", "3": "rutyna", "4": "nowosc"})
+    assert m["etykiety"]["n"] == 1 and m["etykiety"]["zgodnosc"] == 0.0
+    assert m["kontrolny"]["n"] == 3 and m["kontrolny"]["zgodnosc"] == 0.67
+
+
+def test_zestaw_kontrolny_pomija_projekty_juz_uzyte(tmp_path, monkeypatch):
+    from radar import db
+    from radar.model import Dokument
+    monkeypatch.setattr(walidacja, "KONTROLNE", tmp_path / "kontrolne.csv")
+    monkeypatch.setattr(walidacja, "KATALOG", tmp_path)
+    con = db.polacz(tmp_path / "t.sqlite")
+    opis = "Projekt obejmuje prace B+R i wdrożenie nowej technologii produkcji w przedsiębiorstwie. " * 8
+    db.zapisz_dokumenty(con, [Dokument(id=f"mapadotacji:{i}", zrodlo="mapadotacji", typ="projekt", tytul=f"Projekt {i}",
+                                       opis=opis, link=f"https://m/{i}", instytucje=["Firma"]) for i in range(1, 7)])
+    uzyty = walidacja._zgl(con, "Projekt 1", opis, "Firma", zrodlo_dok="mapadotacji:1")
+    with con:
+        con.execute("CREATE TABLE IF NOT EXISTS test(zgl_id INTEGER, rodzaj TEXT, filtr TEXT, oczekiwane TEXT)")
+        con.execute("INSERT INTO test VALUES(?,?,?,?)", (uzyty, "etykieta", "nowosc", "etykieta"))
+    ids = walidacja.zbuduj_kontrolny(con, n_losowe=3, n_br=2, log=lambda *a: None)
+    zrodla = {db.karta(con, z)["zrodlo_dok"] for z in ids}
+    assert len(ids) == 5 and "mapadotacji:1" not in zrodla
+    assert {r for (r,) in con.execute("SELECT rodzaj FROM test WHERE zgl_id IN (%s)" % ",".join(map(str, ids)))} == {"kontrolny"}
+    assert (tmp_path / "kontrolne.csv").read_text(encoding="utf-8").count("\n") == 6

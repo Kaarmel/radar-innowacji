@@ -14,6 +14,7 @@ from .sprawdz import sprawdz
 
 KATALOG = config.KORZEN / "walidacja"
 ETYKIETY = KATALOG / "etykiety.csv"
+KONTROLNE = KATALOG / "kontrolne.csv"  # zestaw kontrolny: projekty, których nie widziała żadna poprawka rubryki
 RAPORT_MD = KATALOG / "raport.md"
 RAPORT_JSON = config.DANE / "zestaw_raport.json"
 OPISY = {
@@ -45,16 +46,10 @@ def trafione(rodzaj: str, k: dict) -> bool:
     raise ValueError(rodzaj)
 
 
-def miary(wiersze: list[tuple[str, dict]], etykiety: dict[str, str]) -> dict:
-    out: dict = {}
-    for rodzaj in OPISY:
-        karty = [k for r, k in wiersze if r == rodzaj]
-        if karty:
-            t = sum(trafione(rodzaj, k) for k in karty)
-            out[rodzaj] = {"trafione": t, "wszystkie": len(karty), "czulosc": round(t / len(karty), 2)}
+def _zgodnosc(wiersze: list[tuple[str, dict]], przedrostek: str, etykiety: dict[str, str]) -> dict | None:
     zgodne, pot = [], {"nowosc": [], "rutyna": []}
     for r, k in wiersze:
-        if not r.startswith("etykieta:") or etykiety.get(r.split(":", 1)[1]) not in ("nowosc", "rutyna"):
+        if not r.startswith(przedrostek + ":") or etykiety.get(r.split(":", 1)[1]) not in ("nowosc", "rutyna"):
             continue
         czlowiek = etykiety[r.split(":", 1)[1]]
         pasmo = _w(k, "nowosc").get("pasmo")
@@ -62,10 +57,24 @@ def miary(wiersze: list[tuple[str, dict]], etykiety: dict[str, str]) -> dict:
             zgodne.append(("nowosc" if pasmo in ("zielone", "zolte") else "rutyna") == czlowiek)
         if (k.get("potencjal") or {}).get("wynik") is not None:
             pot[czlowiek].append(k["potencjal"]["wynik"])
-    if zgodne:
-        out["etykiety"] = {"n": len(zgodne), "zgodnosc": round(sum(zgodne) / len(zgodne), 2),
-                           "potencjal_nowosc": round(statistics.mean(pot["nowosc"]), 1) if pot["nowosc"] else None,
-                           "potencjal_rutyna": round(statistics.mean(pot["rutyna"]), 1) if pot["rutyna"] else None}
+    if not zgodne:
+        return None
+    return {"n": len(zgodne), "zgodnosc": round(sum(zgodne) / len(zgodne), 2),
+            "potencjal_nowosc": round(statistics.mean(pot["nowosc"]), 1) if pot["nowosc"] else None,
+            "potencjal_rutyna": round(statistics.mean(pot["rutyna"]), 1) if pot["rutyna"] else None}
+
+
+def miary(wiersze: list[tuple[str, dict]], etykiety: dict[str, str], kontrolne: dict[str, str] | None = None) -> dict:
+    out: dict = {}
+    for rodzaj in OPISY:
+        karty = [k for r, k in wiersze if r == rodzaj]
+        if karty:
+            t = sum(trafione(rodzaj, k) for k in karty)
+            out[rodzaj] = {"trafione": t, "wszystkie": len(karty), "czulosc": round(t / len(karty), 2)}
+    for klucz, przedrostek, et in (("etykiety", "etykieta", etykiety), ("kontrolny", "kontrolny", kontrolne or {})):
+        z = _zgodnosc(wiersze, przedrostek, et)
+        if z:
+            out[klucz] = z
     czasy = [k["czas_s"] for _, k in wiersze if k.get("czas_s") is not None]
     koszty = [k.get("koszt_usd") or 0 for _, k in wiersze]
     out["czas_mediana_s"] = round(statistics.median(czasy), 1) if czasy else None
@@ -175,6 +184,53 @@ def zbuduj(con, n: int = 10, ziarno: int = 7, log=print) -> list[int]:
     return [z for z, *_ in wpisy]
 
 
+def zbuduj_kontrolny(con, n_losowe: int = 30, n_br: int = 20, ziarno: int = 11, log=print) -> list[int]:
+    """Zestaw kontrolny: losowe projekty Mapy Dotacji (n_losowe) + losowe ze słowami B+R / innowacja / technologia (n_br),
+    z pominięciem projektów użytych wcześniej. Etykiety nadaje się po budowie (walidacja/kontrolne.csv), rubryki już się nie zmienia."""
+    with con:
+        con.execute("CREATE TABLE IF NOT EXISTS test(zgl_id INTEGER, rodzaj TEXT, filtr TEXT, oczekiwane TEXT)")
+    uzyte = {r[0] for r in con.execute("SELECT z.zrodlo_dok FROM zgloszenie z WHERE z.zrodlo_dok IS NOT NULL")}
+    los = random.Random(ziarno)
+    wszystkie = [r[0] for r in con.execute("SELECT id FROM dokument WHERE zrodlo='mapadotacji' AND length(opis) > 300 ORDER BY id")]
+    br = [r[0] for r in con.execute("""SELECT id FROM dokument WHERE zrodlo='mapadotacji' AND length(opis) > 300 AND
+                                       (opis LIKE '%B+R%' OR opis LIKE '%badawczo-rozwojow%' OR tytul LIKE '%innowac%'
+                                        OR tytul LIKE '%technologi%' OR tytul LIKE '%wdroż%') ORDER BY id""")]
+    los.shuffle(wszystkie)
+    los.shuffle(br)
+    wybrane: list[tuple[str, str]] = []
+    for pula, ile, wybor in ((wszystkie, n_losowe, "losowy"), (br, n_br, "losowy ze słowami B+R, innowacja, technologia")):
+        for did in pula:
+            if sum(w == wybor for _, w in wybrane) >= ile:
+                break
+            if did not in uzyte and did not in {d for d, _ in wybrane}:
+                wybrane.append((did, wybor))
+    wiersze, ids = [], []
+    for did, wybor in wybrane:
+        d = db.dokument(con, did)
+        zid = _zgl(con, d.tytul, d.opis, (d.instytucje or ["Beneficjent projektu"])[0], typ_inst="firma", zrodlo_dok=d.id,
+                   etap="zakonczone")
+        ids.append(zid)
+        wiersze.append({"zgl_id": zid, "etykieta": "", "tytul": d.tytul, "link": d.link, "wybor": wybor, "zrodlo": ""})
+    with con:
+        con.executemany("INSERT INTO test VALUES(?,?,?,?)", [(z, "kontrolny", "nowosc", "etykieta") for z in ids])
+    KATALOG.mkdir(exist_ok=True)
+    with open(KONTROLNE, "w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=["zgl_id", "etykieta", "tytul", "link", "wybor", "zrodlo"])
+        w.writeheader()
+        w.writerows(wiersze)
+    log(f"zestaw kontrolny: {len(ids)} projektów → {KONTROLNE}")
+    return ids
+
+
+def _czytaj_etykiety(plik) -> tuple[dict[str, str], str]:
+    if not plik.exists():
+        return {}, "człowiek"
+    with open(plik, encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    return ({r["zgl_id"]: (r.get("etykieta") or "").strip().lower() for r in rows},
+            next((r["zrodlo"].strip() for r in rows if (r.get("zrodlo") or "").strip()), "człowiek"))
+
+
 def opis_etykiet(zrodlo: str, policzone: bool) -> str:
     """Zdanie raportu o pochodzeniu etykiet: człowiek albo głosowanie modeli (wtedy mówimy to wprost)."""
     if not policzone:
@@ -186,19 +242,16 @@ def opis_etykiet(zrodlo: str, policzone: bool) -> str:
 
 
 def raport(con, log=print) -> dict:
-    etykiety, zrodlo = {}, "człowiek"
-    if ETYKIETY.exists():
-        with open(ETYKIETY, encoding="utf-8") as f:
-            rows = list(csv.DictReader(f))
-        etykiety = {r["zgl_id"]: (r.get("etykieta") or "").strip().lower() for r in rows}
-        zrodlo = next((r["zrodlo"].strip() for r in rows if (r.get("zrodlo") or "").strip()), "człowiek")
+    etykiety, zrodlo = _czytaj_etykiety(ETYKIETY)
+    kontrolne, zrodlo_k = _czytaj_etykiety(KONTROLNE)
     kto = "człowiek" if zrodlo == "człowiek" else "głosowanie modeli"
+    kto_k = "człowiek" if zrodlo_k == "człowiek" else "głosowanie modeli"
     wiersze = []
     for zid, rodzaj in con.execute("SELECT zgl_id, rodzaj FROM test"):
         k = db.karta(con, zid)
         if k and k["status"] == "gotowe":
-            wiersze.append((f"etykieta:{zid}" if rodzaj == "etykieta" else rodzaj, k))
-    m = miary(wiersze, etykiety)
+            wiersze.append((f"{rodzaj}:{zid}" if rodzaj in ("etykieta", "kontrolny") else rodzaj, k))
+    m = miary(wiersze, etykiety, kontrolne)
     czytelne = {}
     for rodzaj, opis in OPISY.items():
         if rodzaj in m:
@@ -208,11 +261,17 @@ def raport(con, log=print) -> dict:
         e = m["etykiety"]
         czytelne[f"Nowość: zgodność z etykietą ({kto})"] = f"{e['zgodnosc']:.2f} (n={e['n']})"
         czytelne[f"Średni potencjał: nowość / rutyna ({kto})"] = f"{e['potencjal_nowosc']} / {e['potencjal_rutyna']}"
+    if "kontrolny" in m:
+        e = m["kontrolny"]
+        czytelne[f"Zestaw kontrolny, niezależny pomiar: zgodność nowości ({kto_k})"] = f"{e['zgodnosc']:.2f} (n={e['n']})"
+        czytelne[f"Zestaw kontrolny: średni potencjał nowość / rutyna ({kto_k})"] = f"{e['potencjal_nowosc']} / {e['potencjal_rutyna']}"
     czytelne["Mediana czasu sprawdzenia"] = f"{m['czas_mediana_s']} s"
     czytelne["Średni koszt AI na sprawdzenie"] = f"{m['koszt_sredni_usd']} $"
     wynik = {"kiedy": time.strftime("%Y-%m-%d %H:%M"), "miary": czytelne, "szczegoly": m,
              "opis": "Przypadki ze znaną prawdą zbudowane z dzisiejszych danych (RAD-on, Mapa Dotacji): " + "; ".join(OPISY.values())
-                     + opis_etykiet(zrodlo, "etykiety" in m)}
+                     + opis_etykiet(zrodlo, "etykiety" in m)
+                     + (f" Zestaw kontrolny (walidacja/kontrolne.csv): projekty wylosowane po zamrożeniu rubryki, etykiety: {zrodlo_k}."
+                        if "kontrolny" in m else "")}
     RAPORT_JSON.parent.mkdir(parents=True, exist_ok=True)
     RAPORT_JSON.write_text(json.dumps(wynik, ensure_ascii=False, indent=1), encoding="utf-8")
     KATALOG.mkdir(exist_ok=True)
