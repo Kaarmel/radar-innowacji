@@ -42,5 +42,16 @@
     "firmy": "Firmy",
     "pozostale": "Pozostałe"
   },
-  "sciezki": {}
+  "sciezki": {},
+  "potencjal": {
+    "wagi": {
+      "nowosc": 30,
+      "dojrzalosc": 15,
+      "przewaga": 15,
+      "zapotrzebowanie": 15,
+      "ochrona": 15,
+      "finansowanie": 10
+    },
+    "specjalizacje": {}
+  }
 }

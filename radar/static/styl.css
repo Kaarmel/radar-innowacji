@@ -122,6 +122,15 @@ mark { background: #ffe08a; color: inherit; padding: 0 1px; border-radius: 2px; 
 .odp.nie { color: var(--czer); background: var(--czer-tlo); }
 .odp.nie_wiadomo { color: var(--brak); background: var(--brak-tlo); }
 .opis-zgl, .decyzja { margin-top: 16px; }
+.potencjal { background: var(--biel); border: 1px solid var(--linia); border-radius: var(--r); padding: 4px 16px 14px; margin-top: 16px; }
+.potencjal-gora { display: flex; justify-content: space-between; align-items: center; }
+.potencjal-wynik b { font-size: 2.2rem; color: var(--akcent); font-variant-numeric: tabular-nums; }
+.potencjal-wynik span { color: var(--szary); margin-left: 2px; }
+.maly-pasek { height: 6px; margin-top: 6px; max-width: 220px; }
+.kryteria td:first-child { width: 30%; }
+.znaczek.zr-AI { background: #f1e8ff; color: #5b21b6; }
+.znaczek.zr-kod { background: #e8f1ff; color: var(--akcent-ciemny); }
+.znaczek.zr-formularz { background: var(--brak-tlo); color: var(--szary); }
 .wybor { border: 0; padding: 0; margin: 0; }
 .wybor label { font-weight: 400; margin: 6px 0; display: flex; gap: 8px; align-items: center; }
 .wybor input { width: auto; }

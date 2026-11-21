@@ -56,5 +56,81 @@
     "R3": "Transfer do innych instytucji tego samego typu (sieć partnerów PCI)",
     "R4": "Finansowanie: programy, z których sfinansowano podobne projekty",
     "R5": "Współpraca zamiast dublowania: kontakt z autorami podobnego rozwiązania"
+  },
+  "potencjal": {
+    "wagi": {
+      "nowosc": 25,
+      "dojrzalosc": 15,
+      "przewaga": 10,
+      "zapotrzebowanie": 15,
+      "ochrona": 10,
+      "finansowanie": 10,
+      "specjalizacje": 15
+    },
+    "specjalizacje": {
+      "Lotnictwo i kosmos": [
+        "lotnic",
+        "samolot",
+        "dron",
+        "bezzalog",
+        "kosmicz",
+        "satelit",
+        "awionik",
+        "aerospace",
+        "aircraft",
+        "aviation",
+        "drone",
+        "uav",
+        "satellite",
+        "spacecraft"
+      ],
+      "Motoryzacja": [
+        "motoryz",
+        "samochod",
+        "pojazd",
+        "elektromobil",
+        "ladowark",
+        "automotive",
+        "vehicle",
+        "electromobility"
+      ],
+      "ICT": [
+        "oprogramow",
+        "aplikac",
+        "algorytm",
+        "sztuczn",
+        "cyfrow",
+        "internet",
+        "chmur",
+        "cyberbezp",
+        "software",
+        "algorithm",
+        "artificial",
+        "digital",
+        "cloud",
+        "iot"
+      ],
+      "Jakość życia": [
+        "zdrow",
+        "medycz",
+        "senior",
+        "rehabilit",
+        "zywnos",
+        "srodowisk",
+        "ekolog",
+        "powietrz",
+        "mikroplast",
+        "recykl",
+        "energooszcz",
+        "health",
+        "medical",
+        "elderly",
+        "food",
+        "environment",
+        "water",
+        "pollution",
+        "recycling"
+      ]
+    }
   }
 }

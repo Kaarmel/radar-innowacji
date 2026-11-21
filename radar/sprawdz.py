@@ -3,7 +3,7 @@ import sqlite3
 import time
 from concurrent.futures import ThreadPoolExecutor
 
-from . import ai, db, filtry, instytucje, organizacje, tekst, werdykt
+from . import ai, config, db, filtry, instytucje, organizacje, potencjal, tekst, werdykt
 from .model import Dokument, Zgloszenie
 from .zrodla import BrakDostepu, crossref, epo, mapadotacji, openalex
 
@@ -50,9 +50,10 @@ def _lokalne(con: sqlite3.Connection, z: Zgloszenie, terminy_en: list[str], df, 
 
 def _uzupelnij_beneficjentow(con: sqlite3.Connection, z: Zgloszenie, ranking: list[tuple[float, Dokument]]) -> None:
     """Mapa Dotacji podaje beneficjenta tylko na stronie projektu: pobieramy go dla kilku najbliższych (reguła własnej pracy)."""
-    bez = [d for s, d in ranking if d.zrodlo == "mapadotacji" and not d.instytucje]
-    trafienia = [d for d in bez if tekst.pokrycie_ngramow(z.opis, f"{d.tytul}. {d.opis}")[0] > 0]
-    brakujace = trafienia + [d for d in bez[:8] if d not in trafienia]
+    bez = [(s, d) for s, d in ranking if d.zrodlo == "mapadotacji" and not d.instytucje]
+    trafienia = [d for s, d in bez if tekst.pokrycie_ngramow(z.opis, f"{d.tytul}. {d.opis}")[0] > 0]
+    prog = config.PROGI["kopia"]["zolte"]  # poniżej progu kopii instytucja nie zmienia wyniku filtrów
+    brakujace = trafienia + [d for s, d in bez if s >= prog and d not in trafienia][:3]
     zmienione = []
     for d in brakujace[:MAX_BENEFICJENTOW]:
         try:
@@ -62,7 +63,7 @@ def _uzupelnij_beneficjentow(con: sqlite3.Connection, z: Zgloszenie, ranking: li
         if nazwa:
             d.instytucje = [nazwa]
             zmienione.append(d)
-    if zmienione:
+    if zmienione and con is not None:
         db.zapisz_dokumenty(con, zmienione)
 
 
@@ -92,7 +93,8 @@ def sprawdz(con: sqlite3.Connection, zgl_id: int) -> dict:
         zewnetrzne, ok, niedostepne = _na_zadanie(terminy_en)
         if zewnetrzne:
             db.zapisz_dokumenty(con, zewnetrzne)  # pamięć podręczna: dowody i radar zostają w bazie
-        kandydaci = list({d.id: d for d in lokalne + zewnetrzne}.values())
+        # ocena projektu z bazy: dokument źródłowy to ten sam projekt, nie dowód przeciwko niemu
+        kandydaci = [d for d in {d.id: d for d in lokalne + zewnetrzne}.values() if d.id != z.zrodlo_dok]
         poprzednie = _poprzednie_zgloszenia(con, zgl_id)
 
         ranking = filtry.ranking(z, kandydaci, df, N)
@@ -107,6 +109,7 @@ def sprawdz(con: sqlite3.Connection, zgl_id: int) -> dict:
             filtry.nowosc(z, [d for s, d in obce[:10] if s > 0], koszt=koszt),
         ]
         profil = organizacje.wczytaj(z.organizacja)
+        db.zapisz_ocene(con, zgl_id, potencjal.ocen(z, wyniki, ranking, profil))
         podobne = _podobne(ranking)
         lokalne_liczby = db.liczba_dokumentow(con)
         pokrycie = {"zrodla": sorted(set(lokalne_liczby) - {"zgloszenie"} | set(ok)),

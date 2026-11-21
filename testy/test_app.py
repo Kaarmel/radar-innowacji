@@ -14,6 +14,9 @@ POLA = dict(tytul="Filtr mikroplastiku", opis=OPIS, link="", instytucja="Zespó�
 
 
 def _udawane_sprawdzenie(con, zid):
+    db.zapisz_ocene(con, zid, {"wynik": 71, "kryteria": [{"id": "dojrzalosc", "nazwa": "Dojrzałość (etap)", "max": 15, "punkty": 9.0,
+                                                         "zrodlo": "formularz", "uzasadnienie": "Etap prototyp", "dowody": []}],
+                               "uwaga": "", "formula": "wzór"})
     db.zapisz_wyniki(con, zid, [WynikFiltra("plagiat", 0.0, "zielone", []),
                                 WynikFiltra("kopia", 45.0, "zolte", [{"dokument_id": "x", "tytul": "Inny", "link": "javascript:alert(1)",
                                                                        "podobienstwo": 45.0, "zrodlo": "radon"},
@@ -125,3 +128,23 @@ def test_strony_dzialaja(klient):
 ])
 def test_adres_publiczny(url, ok):
     assert siec.adres_publiczny(url) is ok
+
+
+def test_ocena_potencjalu_na_karcie_i_w_kolejce(klient):
+    r = klient.post("/zglos", data=POLA)
+    assert "Ocena potencjału" in r.text and "71" in r.text and "Dojrzałość (etap)" in r.text
+    assert "71" in klient.get("/o/pci/kolejka").text
+
+
+def test_ocen_projekt_z_bazy(klient):
+    from radar.model import Dokument
+    con = db.polacz()
+    db.zapisz_dokumenty(con, [Dokument(id="radon:abc", zrodlo="radon", typ="projekt", tytul="Projekt z bazy RAD-on",
+                                       opis=OPIS, link="https://radon.nauka.gov.pl/x", instytucje=["Politechnika Rzeszowska"])])
+    f = klient.get("/zglos", params={"z_dokumentu": "radon:abc"}).text
+    assert "Projekt z bazy RAD-on" in f and 'value="radon:abc"' in f and "Politechnika Rzeszowska" in f
+    r = klient.post("/zglos", data={**POLA, "zrodlo_dok": "radon:abc"}, follow_redirects=False)
+    zid = int(r.headers["location"].rsplit("/", 1)[1])
+    k = db.karta(db.polacz(), zid)
+    assert k["wejscie"] == "baza" and k["zrodlo_dok"] == "radon:abc"
+    assert "Oceń ten projekt" in klient.get("/szukaj", params={"q": "filtr mikroplastiku skrzela"}).text

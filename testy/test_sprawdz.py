@@ -76,3 +76,28 @@ def test_podobne_dolacza_finansowane_spoza_czolowki():
     slaby = (0.05, Dokument(id="mapadotacji:8", zrodlo="mapadotacji", typ="projekt", tytul="S", opis="", link="https://s"))
     ids = [d.id for d in sprawdz._podobne(epo + [mapa, slaby])]
     assert "mapadotacji:9" in ids and "mapadotacji:8" not in ids and len(ids) == 21
+
+
+def test_dokument_zrodlowy_wykluczony_i_ocena_potencjalu(con, monkeypatch):
+    """Ocena projektu znalezionego w bazie: nie może porównać się sam ze sobą (100% plagiatu)."""
+    monkeypatch.setattr(sprawdz, "ZRODLA_NA_ZADANIE", {})
+    zid = db.zapisz_zgloszenie(con, Zgloszenie(id=None, wejscie="baza", tytul="Filtr wody ze skrzelami", opis=ORYG, link=None,
+                                               instytucja="Fundacja Czysta Woda", typ_instytucji="ngo", typ_innowacji="techniczna",
+                                               etap="prototyp", wiek_przedzial="mieszany", organizacja="pci", zrodlo_dok="mapadotacji:1"))
+    k = sprawdz.sprawdz(con, zid)
+    plagiat = next(w for w in k["wyniki"] if w["filtr"] == "plagiat")
+    assert plagiat["pasmo"] == "zielone"
+    assert all(d["dokument_id"] != "mapadotacji:1" for w in k["wyniki"] for d in w["dowody"] if "dokument_id" in d)
+    assert 0 <= k["potencjal"]["wynik"] <= 100 and k["potencjal"]["kryteria"]
+
+
+def test_beneficjenci_tylko_gdy_moga_zmienic_wynik(monkeypatch):
+    """Strona projektu Mapy Dotacji ładuje się kilka sekund: pobieramy beneficjenta tylko dla trafień plagiatu i kandydatów na kopię."""
+    pytane = []
+    monkeypatch.setattr(mapadotacji, "beneficjent", lambda link: pytane.append(link) or None)
+    z = Zgloszenie(id=1, wejscie="formularz", tytul="T", opis=ORYG, link=None, instytucja="X", typ_instytucji="firma",
+                   typ_innowacji="techniczna", etap="pomysl", wiek_przedzial="powyzej_30")
+    md = lambda i, opis: Dokument(id=f"mapadotacji:{i}", zrodlo="mapadotacji", typ="projekt", tytul="P", opis=opis, link=f"https://m/{i}")
+    ranking = [(0.5, md(1, "Inny tekst o filtrach wody.")), (0.2, md(2, "Daleki temat budowy drogi.")), (0.1, md(3, ORYG))]
+    sprawdz._uzupelnij_beneficjentow(None, z, ranking)
+    assert pytane == ["https://m/3", "https://m/1"]

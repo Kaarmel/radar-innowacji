@@ -37,3 +37,29 @@ def test_funkcja_df(tmp_path):
     df, n = db.funkcja_df(con)
     assert n == 3
     assert df("filtr") == 1 and df("niema") == 0
+
+
+def test_migracja_starej_bazy(tmp_path):
+    import sqlite3
+    stara = sqlite3.connect(tmp_path / "s.sqlite")
+    stara.execute("CREATE TABLE zgloszenie(id INTEGER PRIMARY KEY AUTOINCREMENT, wejscie TEXT, tytul TEXT, opis TEXT, link TEXT, "
+                  "instytucja TEXT, typ_instytucji TEXT, typ_innowacji TEXT, etap TEXT, wiek_przedzial TEXT, opis_en TEXT, cytat TEXT, "
+                  "demo INTEGER, organizacja TEXT, utworzono_at REAL, status TEXT DEFAULT 'nowe', werdykt TEXT, komorka TEXT, "
+                  "rekomendacje TEXT, partnerzy TEXT, pokrycie TEXT, czas_s REAL, koszt_usd REAL)")
+    stara.commit()
+    stara.close()
+    con = db.polacz(tmp_path / "s.sqlite")
+    assert "zrodlo_dok" in {r[1] for r in con.execute("PRAGMA table_info(zgloszenie)")}
+    db.polacz(tmp_path / "s.sqlite")  # drugi raz bez błędu
+
+
+def test_ocena_w_karcie(tmp_path):
+    from radar.model import Zgloszenie
+    con = db.polacz(tmp_path / "t.sqlite")
+    zid = db.zapisz_zgloszenie(con, Zgloszenie(id=None, wejscie="baza", tytul="T", opis="O", link=None, instytucja="I",
+                                               typ_instytucji="firma", typ_innowacji="techniczna", etap="pomysl",
+                                               wiek_przedzial="powyzej_30", zrodlo_dok="radon:1"))
+    assert db.karta(con, zid)["potencjal"] is None
+    db.zapisz_ocene(con, zid, {"wynik": 64, "kryteria": []})
+    k = db.karta(con, zid)
+    assert k["potencjal"]["wynik"] == 64 and k["zrodlo_dok"] == "radon:1"

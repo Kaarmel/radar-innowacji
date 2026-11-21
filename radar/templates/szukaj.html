@@ -29,7 +29,8 @@
   {% for d in wynik.dokumenty[typ] %}
     <li>{% set href = d.link | link %}{% if href %}<a href="{{ href }}" rel="noopener" target="_blank">{{ d.tytul }}</a>{% else %}{{ d.tytul }}{% endif %}
       <span class="maly">· {{ s.ZRODLA.get(d.zrodlo, (d.zrodlo, ''))[0] }}{% if d.rok %} · {{ d.rok }}{% endif %}{% if d.instytucje %} · <b>{{ d.instytucje | join(', ') }}</b>{% endif %}</span>
-      <br><span class="maly">{{ d.opis }}…</span></li>
+      <br><span class="maly">{{ d.opis }}…</span>
+      <br><a class="maly" href="/zglos?z_dokumentu={{ d.id | urlencode }}">Oceń ten projekt →</a></li>
   {% endfor %}
   </ul>
 </section>

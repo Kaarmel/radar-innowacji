@@ -8,7 +8,8 @@
   {% if d.wlasna %}<span class="znaczek wlasna">własna praca instytucji</span>{% endif %}
 {% endmacro %}
 {% block tresc %}
-<p class="okruszki"><a href="/o/{{ k.organizacja }}/kolejka">← kolejka: {{ profil.nazwa }}</a></p>
+<p class="okruszki"><a href="/o/{{ k.organizacja }}/kolejka">← kolejka: {{ profil.nazwa }}</a>
+  {% if k.zrodlo_dok %} · ocena projektu z bazy ({{ k.zrodlo_dok }}){% endif %}</p>
 <header class="karta-gora">
   <h1>{{ k.tytul }}</h1>
   <p class="maly">{{ k.instytucja }} · {{ s.TYPY_INSTYTUCJI.get(k.typ_instytucji, k.typ_instytucji) }} ·
@@ -52,6 +53,36 @@
     Czas {{ k.czas_s | liczba }} s, koszt AI {{ '%.4f' | format(k.koszt_usd or 0) }} $.
     <a href="/api/karta/{{ k.id }}">JSON</a></p>
 </section>
+
+{% set o = k.potencjal %}
+{% if o %}
+<section class="potencjal" id="potencjal">
+  <div class="potencjal-gora">
+    <h2>Ocena potencjału</h2>
+    <div class="potencjal-wynik"><b>{{ o.wynik if o.wynik is not none else '—' }}</b><span>/100</span></div>
+  </div>
+  <p class="maly">Wzór: {{ o.formula }}. Kryteria i wagi: profil „{{ profil.nazwa }}”.
+    {% if o.uwaga %}<b>{{ o.uwaga }}</b>{% endif %}
+    {% if k.werdykt == 'odrzucone_do_przegladu' %}<b>Uwaga: zgłoszenie ma flagę odrzucenia; ocena potencjału nie znosi flagi.</b>{% endif %}</p>
+  <table class="tabela kryteria">
+    <thead><tr><th>Kryterium</th><th class="liczba">Punkty</th><th>Źródło</th><th>Uzasadnienie i dowody</th></tr></thead>
+    <tbody>
+    {% for kr in o.kryteria %}
+      <tr>
+        <td><b>{{ kr.nazwa }}</b>
+          <div class="pasek maly-pasek"><div class="pasek-wypelnienie zielone" style="width: {{ (100 * (kr.punkty or 0) / kr.max) | round }}%"></div></div></td>
+        <td class="liczba">{% if kr.punkty is none %}brak danych{% else %}{{ kr.punkty | liczba }} / {{ kr.max }}{% endif %}</td>
+        <td><span class="znaczek zr-{{ kr.zrodlo }}">{{ kr.zrodlo }}</span></td>
+        <td>{{ kr.uzasadnienie }}
+          {% for d in kr.dowody if d.link %}{% set href = d.link | link %}
+            <br><span class="maly">{% if d.instytucja %}<b>{{ d.instytucja }}</b>: {% endif %}{% if href %}<a href="{{ href }}" rel="noopener" target="_blank">{{ d.tytul or d.pytanie }}</a>{% else %}{{ d.tytul }}{% endif %}{% if d.podobienstwo %} ({{ d.podobienstwo | liczba }}%){% endif %}</span>
+          {% endfor %}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endif %}
 
 {% if k.rekomendacje %}
 <section>

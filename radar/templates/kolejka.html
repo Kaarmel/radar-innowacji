@@ -27,7 +27,7 @@
 
 {% if wiersze %}
 <table class="tabela kolejka">
-  <thead><tr><th>Zgłoszenie</th>{% if not profil %}<th>Organizacja</th>{% endif %}<th>Komórka</th><th>Filtry</th><th>Werdykt</th><th>Decyzja</th></tr></thead>
+  <thead><tr><th>Zgłoszenie</th>{% if not profil %}<th>Organizacja</th>{% endif %}<th>Komórka</th><th>Filtry</th><th>Werdykt</th><th class="liczba">Potencjał</th><th>Decyzja</th></tr></thead>
   <tbody>
   {% for w in wiersze %}
   <tr class="{{ 'zdecydowane' if w.decyzja else '' }}">
@@ -38,6 +38,7 @@
     <td>{{ kropki(w.pasma) }}</td>
     <td>{% if w.status == 'gotowe' %}<span class="werdykt {{ w.werdykt }}">{{ s.WERDYKTY.get(w.werdykt, w.werdykt) }}</span>
         {% else %}<span class="werdykt w_toku">{{ s.STATUSY.get(w.status, w.status) }}</span>{% endif %}</td>
+    <td class="liczba">{% if w.potencjal is not none %}<b>{{ w.potencjal | int }}</b><span class="maly">/100</span>{% else %}—{% endif %}</td>
     <td class="maly">{{ s.DECYZJE.get(w.decyzja, '—') if w.decyzja else '—' }}</td>
   </tr>
   {% endfor %}

@@ -143,6 +143,24 @@ Narzędzie nie jest wyłącznie dla PCI. Służy **firmom i instytucjom**, a PCI
    - **Partnerzy** = instytucje z najbardziej podobnych dokumentów: beneficjenci projektów, jednostki naukowe z RAD-on, zgłaszający patenty. To ci, którzy już działają w tym temacie.
 9. **Uzasadnienie (e):** przy każdej rekomendacji lista reguł, które zadziałały, i dowodów. Strona „miary” pokazuje trafność filtrów na zestawie testowym, czas i koszt jednego sprawdzenia oraz pokrycie źródeł (liczba dokumentów, daty pobrania).
 
+## 6b. Ocena potencjału (dodane 21.11 po uwadze użytkownika: „całe zadanie opiera się na ocenie projektów”)
+
+Filtry odrzucenia to bramka. Zgłoszenie (także to z flagą) dostaje dodatkowo **ocenę potencjału 0–100** według jawnego wzoru:
+`100 × Σ punkty / Σ maksimów kryteriów z danymi`. Kryteria i wagi są w profilu organizacji (`potencjal.wagi`):
+
+| Kryterium | Źródło | Jak liczone |
+|---|---|---|
+| Nowość | AI (rubryka) | liczba „tak” w Q1–Q3 i Q5, z dokumentem-dowodem |
+| Dojrzałość | formularz | etap: pomysł 25%, prototyp 60%, zakończone 80%, wdrożone 100% |
+| Mierzalna przewaga | AI (rubryka) | Q4 „tak” |
+| Zapotrzebowanie i transfer | kod | liczba innych instytucji z podobnym (0,15–0,6), ale nie skopiowanym projektem; pełne punkty od 5 |
+| Możliwość ochrony | kod (+AI) | pasmo filtra patentowego; własne patenty = kontynuacja |
+| Precedens finansowania | kod | podobne projekty z Mapy Dotacji / Interreg (≥ 0,15); pełne punkty od 2 |
+| Specjalizacje organizacji | kod | słowa kluczowe z profilu (PCI: lotnictwo i kosmos, motoryzacja, ICT, jakość życia) |
+
+Kryterium bez danych nie obniża wyniku (wypada z mianownika, karta to pokazuje). Kolejka sortuje po werdykcie, potem po potencjale.
+Analityk może ocenić także projekt znaleziony w bazie (`/szukaj` → „Oceń ten projekt”); dokument źródłowy nie jest wtedy porównywany sam ze sobą.
+
 ## 7. Ekrany
 ```text
 /zglos     formularz: tytuł, opis (min. ~300 znaków), link (opcjonalnie), instytucja + typ instytucji,

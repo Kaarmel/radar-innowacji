@@ -187,8 +187,9 @@ async def _blad_http(request: Request, exc: HTTPException):
 
 # ---------- zgłoszenie: walidacja wspólna dla formularza i API ----------
 class ZgloszenieWe(BaseModel):
+    zrodlo_dok: str | None = Field(None, max_length=200, description="Ocena projektu z bazy: id dokumentu (np. radon:…)")
     tytul: str = Field(min_length=5, max_length=200, description="Tytuł, 5–200 znaków")
-    opis: str = Field(min_length=300, max_length=8000, description="Opis, 300–8000 znaków")
+    opis: str = Field(min_length=80, max_length=8000, description="Opis, 300–8000 znaków (80 dla projektu z bazy)")
     link: str | None = Field(None, description="Strona z opisem (opcjonalnie), tylko http(s)")
     instytucja: str = Field(min_length=2, max_length=200)
     typ_instytucji: Literal[tuple(slowniki.TYPY_INSTYTUCJI)]
@@ -201,6 +202,23 @@ class ZgloszenieWe(BaseModel):
     @classmethod
     def _przytnij(cls, v):
         return v.strip() if isinstance(v, str) else v
+
+    @field_validator("zrodlo_dok", mode="before")
+    @classmethod
+    def _zrodlo(cls, v):
+        v = (v or "").strip()
+        if not v:
+            return None
+        if not re.fullmatch(r"[a-z_]+:\S{1,150}", v):
+            raise ValueError("nieprawidłowy identyfikator dokumentu")
+        return v
+
+    @field_validator("opis")
+    @classmethod
+    def _opis_min(cls, v, info):
+        if len(v) < 300 and not info.data.get("zrodlo_dok"):
+            raise ValueError("za krótki (min. 300 znaków)")
+        return v
 
     @field_validator("link", mode="before")
     @classmethod
@@ -228,7 +246,9 @@ def _bledy_po_polsku(e: ValidationError) -> dict[str, str]:
     out = {}
     for b in e.errors():
         pole = str(b["loc"][-1]) if b["loc"] else "?"
-        if b["type"] == "string_too_short":
+        if b["type"] == "string_too_short" and pole == "opis":
+            out[pole] = "Opis: za krótki (min. 300 znaków; 80 dla projektu z bazy)."
+        elif b["type"] == "string_too_short":
             out[pole] = f"{NAZWY_POL.get(pole, pole)}: za krótkie (min. {b['ctx']['min_length']} znaków)."
         elif b["type"] == "string_too_long":
             out[pole] = f"{NAZWY_POL.get(pole, pole)}: za długie (maks. {b['ctx']['max_length']} znaków)."
@@ -240,7 +260,9 @@ def _bledy_po_polsku(e: ValidationError) -> dict[str, str]:
 
 
 def _zapisz(con, we: ZgloszenieWe, wejscie: str = "formularz") -> int:
-    return db.zapisz_zgloszenie(con, Zgloszenie(id=None, wejscie=wejscie, tytul=we.tytul, opis=we.opis, link=we.link,
+    zrodlo = we.zrodlo_dok if we.zrodlo_dok and db.dokument(con, we.zrodlo_dok) else None
+    wejscie = "baza" if zrodlo else wejscie
+    return db.zapisz_zgloszenie(con, Zgloszenie(id=None, wejscie=wejscie, zrodlo_dok=zrodlo, tytul=we.tytul, opis=we.opis, link=we.link,
                                                 instytucja=we.instytucja, typ_instytucji=we.typ_instytucji,
                                                 typ_innowacji=we.typ_innowacji, etap=we.etap,
                                                 wiek_przedzial=we.wiek_przedzial, organizacja=we.organizacja))
@@ -255,8 +277,21 @@ def start(request: Request, con=Depends(polaczenie)):
 
 
 @app.get("/zglos", response_class=HTMLResponse, include_in_schema=False)
-def zglos_formularz(request: Request, organizacja: str = "pci"):
-    return strona(request, "zglos.html", pola={"organizacja": organizacja}, bledy={})
+def zglos_formularz(request: Request, organizacja: str = "pci", z_dokumentu: str = "", con=Depends(polaczenie)):
+    """Pusty formularz albo wypełniony projektem z bazy (analityk ocenia znaleziony projekt)."""
+    pola = {"organizacja": organizacja}
+    dok = db.dokument(con, z_dokumentu) if z_dokumentu else None
+    if dok:
+        instytucja = dok.instytucje[0] if dok.instytucje else ""
+        if not instytucja and dok.zrodlo == "mapadotacji":
+            from .zrodla import mapadotacji
+            try:
+                instytucja = mapadotacji.beneficjent(dok.link) or ""
+            except Exception:
+                instytucja = ""
+        pola.update(tytul=dok.tytul[:200], opis=dok.opis[:8000], link=bezpieczny_link(dok.link) or "", instytucja=instytucja[:200],
+                    zrodlo_dok=dok.id, etap="zakonczone" if dok.zrodlo in {"mapadotacji", "interreg"} else "")
+    return strona(request, "zglos.html", pola=pola, bledy={}, dokument=dok)
 
 
 @app.post("/zglos", include_in_schema=False)
@@ -298,6 +333,7 @@ def zglos_z_linku(request: Request, link: str = Form(...), organizacja: str = Fo
 def _kolejka(con, organizacja=None, werdykt=None, komorka=None, wejscie=None) -> list[dict]:
     sql = """SELECT z.id, z.tytul, z.instytucja, z.komorka, z.wejscie, z.werdykt, z.status, z.organizacja, z.utworzono_at, z.demo,
                     z.czas_s, (SELECT group_concat(filtr || ':' || pasmo) FROM wynik w WHERE w.zgl_id = z.id) AS pasma,
+                    (SELECT wynik FROM ocena o WHERE o.zgl_id = z.id) AS potencjal,
                     (SELECT decyzja FROM decyzja d WHERE d.zgl_id = z.id ORDER BY kiedy DESC LIMIT 1) AS decyzja
              FROM zgloszenie z WHERE 1=1"""
     args = []
@@ -306,7 +342,7 @@ def _kolejka(con, organizacja=None, werdykt=None, komorka=None, wejscie=None) ->
             sql += f" AND z.{pole} = ?"
             args.append(wartosc)
     sql += """ ORDER BY (decyzja IS NOT NULL), CASE z.werdykt WHEN 'odrzucone_do_przegladu' THEN 0 WHEN 'do_przegladu' THEN 1
-              WHEN 'dalej' THEN 2 ELSE 3 END, z.id DESC LIMIT 500"""
+              WHEN 'dalej' THEN 2 ELSE 3 END, potencjal DESC NULLS LAST, z.id DESC LIMIT 500"""
     out = []
     for r in con.execute(sql, args):
         d = dict(r)

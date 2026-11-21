@@ -20,7 +20,8 @@ CREATE TABLE IF NOT EXISTS zgloszenie(
   id INTEGER PRIMARY KEY AUTOINCREMENT, wejscie TEXT, tytul TEXT, opis TEXT, link TEXT, instytucja TEXT,
   typ_instytucji TEXT, typ_innowacji TEXT, etap TEXT, wiek_przedzial TEXT, opis_en TEXT, cytat TEXT,
   demo INTEGER, organizacja TEXT, utworzono_at REAL, status TEXT DEFAULT 'nowe',
-  werdykt TEXT, komorka TEXT, rekomendacje TEXT, partnerzy TEXT, pokrycie TEXT, czas_s REAL, koszt_usd REAL);
+  werdykt TEXT, komorka TEXT, rekomendacje TEXT, partnerzy TEXT, pokrycie TEXT, czas_s REAL, koszt_usd REAL, zrodlo_dok TEXT);
+CREATE TABLE IF NOT EXISTS ocena(zgl_id INTEGER PRIMARY KEY, wynik REAL, dane TEXT);
 CREATE TABLE IF NOT EXISTS wynik(
   zgl_id INTEGER, filtr TEXT, procent REAL, pasmo TEXT, dowody TEXT, uwaga TEXT, wlasna_praca INTEGER,
   PRIMARY KEY(zgl_id, filtr));
@@ -37,7 +38,16 @@ def polacz(sciezka: Path | None = None) -> sqlite3.Connection:
     con.execute("PRAGMA journal_mode=WAL")
     con.execute("PRAGMA busy_timeout=60000")  # kilka procesów pobierania naraz
     con.executescript(SCHEMAT)
+    _migruj(con)
     return con
+
+
+def _migruj(con: sqlite3.Connection) -> None:
+    """Kolumny dodane po pierwszym wdrożeniu (CREATE TABLE IF NOT EXISTS ich nie doda do istniejącej tabeli)."""
+    kolumny = {r[1] for r in con.execute("PRAGMA table_info(zgloszenie)")}
+    if "zrodlo_dok" not in kolumny:
+        with con:
+            con.execute("ALTER TABLE zgloszenie ADD COLUMN zrodlo_dok TEXT")
 
 
 def _rdzenie(tytul: str, opis: str) -> set[str]:
@@ -117,7 +127,7 @@ def funkcja_df(con: sqlite3.Connection) -> tuple[Callable[[str], int], int]:
 
 
 _POLA_ZGL = ["wejscie", "tytul", "opis", "link", "instytucja", "typ_instytucji", "typ_innowacji", "etap",
-             "wiek_przedzial", "opis_en", "cytat", "demo", "organizacja"]
+             "wiek_przedzial", "opis_en", "cytat", "demo", "organizacja", "zrodlo_dok"]
 
 
 def zapisz_zgloszenie(con: sqlite3.Connection, z: Zgloszenie) -> int:
@@ -167,8 +177,15 @@ def karta(con: sqlite3.Connection, zgl_id: int) -> dict | None:
     k["wyniki"] = [dict(filtr=w["filtr"], procent=w["procent"], pasmo=w["pasmo"], dowody=json.loads(w["dowody"]),
                         uwaga=w["uwaga"], wlasna_praca=bool(w["wlasna_praca"]))
                    for w in con.execute("SELECT * FROM wynik WHERE zgl_id=? ORDER BY CASE filtr WHEN 'plagiat' THEN 1 WHEN 'kopia' THEN 2 WHEN 'patent' THEN 3 ELSE 4 END", (zgl_id,))]
+    o = con.execute("SELECT dane FROM ocena WHERE zgl_id=?", (zgl_id,)).fetchone()
+    k["potencjal"] = json.loads(o["dane"]) if o else None
     k["decyzje"] = [dict(d) for d in con.execute("SELECT decyzja, powod, kiedy FROM decyzja WHERE zgl_id=? ORDER BY kiedy", (zgl_id,))]
     return k
+
+
+def zapisz_ocene(con: sqlite3.Connection, zgl_id: int, ocena: dict) -> None:
+    with con:
+        con.execute("INSERT OR REPLACE INTO ocena VALUES(?,?,?)", (zgl_id, ocena.get("wynik"), json.dumps(ocena, ensure_ascii=False)))
 
 
 def zapisz_decyzje(con: sqlite3.Connection, zgl_id: int, decyzja: str, powod: str) -> None:

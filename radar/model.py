@@ -33,6 +33,7 @@ class Zgloszenie:
     cytat: str | None = None
     demo: bool = False
     organizacja: str = "ogolny"
+    zrodlo_dok: str | None = None   # ocena projektu z bazy: id dokumentu, z którego powstało zgłoszenie
 
 
 @dataclass

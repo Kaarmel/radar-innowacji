@@ -20,7 +20,7 @@ TYPY_INNOWACJI = {
 }
 ETAPY = {"pomysl": "Pomysł", "prototyp": "Prototyp lub pilotaż", "wdrozone": "Wdrożone", "zakonczone": "Zakończone"}
 WIEK = {"ponizej_16": "Poniżej 16 lat", "16_30": "16–30 lat", "powyzej_30": "Powyżej 30 lat", "mieszany": "Zespół mieszany"}
-WEJSCIA = {"formularz": "Formularz", "radar": "Radar (wykryte automatycznie)"}
+WEJSCIA = {"formularz": "Formularz", "baza": "Projekt z bazy (ocena analityka)", "radar": "Radar (wykryte automatycznie)"}
 
 WERDYKTY = {
     "odrzucone_do_przegladu": "Odrzucone automatycznie, do przeglądu",
