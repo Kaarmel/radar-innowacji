@@ -81,3 +81,29 @@ def test_rozumowanie_wylaczone(monkeypatch):
     monkeypatch.setattr(httpx, "post", post)
     ai._czat_json("s", "u")
     assert wyslane["reasoning"] == {"enabled": False}
+
+
+def test_odpowiedzi_zlego_typu_nie_wywracaja(monkeypatch):
+    """Model potrafi oddać listę albo obiekt tam, gdzie oczekujemy tekstu (przegląd końcowy, pkt 2)."""
+    from radar.model import Dokument
+    d = Dokument(id="radon:1", zrodlo="radon", typ="projekt", tytul="T", opis="o", link="https://r/1")
+    odpowiedzi = {
+        "rubryka": {"odpowiedzi": [{"pytanie": ["Q1"], "odpowiedz": ["tak"], "dokument_id": ["radon:1", "x"]},
+                                   {"pytanie": "Q2", "odpowiedz": "tak", "dokument_id": {"id": "radon:1"}}]},
+        "kopia": {"oceny": [{"dokument_id": ["radon:1"], "ocena": "ten_sam"}, {"dokument_id": "radon:1", "ocena": ["ten_sam"]}]},
+        "czy": {"czy": ["tak"], "cytat": ["a"]},
+        "karta": {"co": ["x"], "typ_innowacji": ["techniczna"], "etap": {"a": 1}, "cytat": 5, "opis": ["y"]},
+    }
+    for klucz, odp in odpowiedzi.items():
+        monkeypatch.setattr(ai, "czat_json", lambda s, u, odp=odp: (odp, 0.0))
+        if klucz == "rubryka":
+            w, _ = ai.rubryka_nowosci("opis", [d])
+            assert all(x["odpowiedz"] == "nie_wiadomo" or x["pytanie"] == "Q2" for x in w)
+            assert next(x for x in w if x["pytanie"] == "Q2")["dokument_id"] is None
+        elif klucz == "kopia":
+            assert ai.ten_sam_pomysl("opis", [d])[0] == {}
+        elif klucz == "czy":
+            assert ai.czy_innowacja("t", "tekst")[0] == {"czy": "niepewne", "cytat": None}
+        else:
+            k, _ = ai.karta_z_tekstu("t", "tekst")
+            assert k["typ_innowacji"] == "" and k["etap"] == "" and k["cytat"] is None and isinstance(k["co"], str)

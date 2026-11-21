@@ -13,7 +13,7 @@ MAX_BENEFICJENTOW = 5  # strona projektu Mapy Dotacji ładuje się kilka sekund
 
 
 def _poprzednie_zgloszenia(con: sqlite3.Connection, zgl_id: int, limit: int = 2000) -> list[Dokument]:
-    wiersze = con.execute("SELECT id, tytul, opis, instytucja, utworzono_at FROM zgloszenie WHERE id != ? ORDER BY id DESC LIMIT ?",
+    wiersze = con.execute("SELECT id, tytul, opis, instytucja, utworzono_at FROM zgloszenie WHERE id < ? ORDER BY id DESC LIMIT ?",
                           (zgl_id, limit))
     return [Dokument(id=f"zgloszenie:{r['id']}", zrodlo="zgloszenie", typ="zgloszenie", tytul=r["tytul"] or "", opis=r["opis"] or "",
                      link=f"/karta/{r['id']}", rok=time.localtime(r["utworzono_at"] or 0).tm_year,

@@ -72,6 +72,15 @@ def _czat_json(system: str, user: str) -> tuple[dict, float]:
         return {}, koszt
 
 
+def _z(x, dozwolone) -> str | None:
+    """Wartość z dozwolonego zbioru albo None; odporne na listy i obiekty zamiast tekstu."""
+    return x if isinstance(x, str) and x in dozwolone else None
+
+
+def _tekst(x) -> str:
+    return x if isinstance(x, str) else ""
+
+
 def _norm(s: str) -> str:
     return re.sub(r"\W+", " ", (s or "").lower()).strip()
 
@@ -86,17 +95,19 @@ def _dokumenty_txt(dokumenty, dl: int) -> str:
 
 
 def karta_z_tekstu(tytul: str, tekst: str) -> tuple[dict, float]:
-    odp, koszt = czat_json(SYSTEM, f"""Z tekstu wyciągnij kartę innowacji. JSON:
-{{"co": "jedno zdanie: co powstało", "instytucja": "nazwa instytucji (bez imion i nazwisk osób)",
+    odp, koszt = czat_json(SYSTEM, f"""Z tekstu wyciągnij kartę innowacji. NIE podawaj imion ani nazwisk osób: zastąp je rolą
+(uczniowie, nauczyciel, zespół). JSON:
+{{"co": "jedno zdanie: co powstało", "opis": "3-4 zdania: jaki problem, jakie rozwiązanie, jak działa, na jakim jest etapie",
+ "instytucja": "nazwa instytucji",
  "typ_innowacji": "techniczna|organizacyjna|edukacyjna|spoleczna|procesowa", "etap": "pomysl|prototyp|wdrozone|zakonczone",
  "cytat": "dosłowny fragment tekstu (do 200 znaków) będący dowodem, bez imion i nazwisk"}}
 
 Tytuł: {tytul}
 Tekst:
 {tekst[:4000]}""")
-    return {"co": str(odp.get("co") or ""), "instytucja": str(odp.get("instytucja") or ""),
-            "typ_innowacji": odp.get("typ_innowacji") if odp.get("typ_innowacji") in TYPY_INNOWACJI else "",
-            "etap": odp.get("etap") if odp.get("etap") in ETAPY else "",
+    return {"co": _tekst(odp.get("co")), "opis": _tekst(odp.get("opis")), "instytucja": _tekst(odp.get("instytucja")),
+            "typ_innowacji": _z(odp.get("typ_innowacji"), TYPY_INNOWACJI) or "",
+            "etap": _z(odp.get("etap"), ETAPY) or "",
             "cytat": _cytat_ok(odp.get("cytat"), f"{tytul} {tekst}")}, koszt
 
 
@@ -127,8 +138,8 @@ DOKUMENTY:
     dozwolone = {d.id for d in dokumenty}
     wynik = {}
     for o in odp.get("oceny") or []:
-        if isinstance(o, dict) and o.get("dokument_id") in dozwolone and o.get("ocena") in {"ten_sam", "czesciowo", "inny"}:
-            wynik[o["dokument_id"]] = {"ocena": o["ocena"], "uzasadnienie": str(o.get("uzasadnienie") or "")}
+        if isinstance(o, dict) and _z(o.get("dokument_id"), dozwolone) and _z(o.get("ocena"), {"ten_sam", "czesciowo", "inny"}):
+            wynik[o["dokument_id"]] = {"ocena": o["ocena"], "uzasadnienie": _tekst(o.get("uzasadnienie"))}
     return wynik, koszt
 
 
@@ -148,29 +159,33 @@ ZGŁOSZENIE:
 ZNALEZIONE DOKUMENTY:
 {_dokumenty_txt(dokumenty, 1200) or "(brak)"}""")
     dozwolone = {d.id for d in dokumenty}
-    z_modelu = {o.get("pytanie"): o for o in odp.get("odpowiedzi") or [] if isinstance(o, dict)}
+    z_modelu = {o["pytanie"]: o for o in odp.get("odpowiedzi") or [] if isinstance(o, dict) and isinstance(o.get("pytanie"), str)}
     wynik = []
     for k, p in RUBRYKA:
         o = z_modelu.get(k) or {}
-        odpowiedz = o.get("odpowiedz") if o.get("odpowiedz") in {"tak", "nie", "nie_wiadomo"} else "nie_wiadomo"
+        odpowiedz = _z(o.get("odpowiedz"), {"tak", "nie", "nie_wiadomo"}) or "nie_wiadomo"
         dok = o.get("dokument_id") or None
-        if dok is not None and dok not in dozwolone:
+        if dok is not None and not isinstance(dok, str):
+            dok = None  # lista/obiekt zamiast id: odpowiedź bez wskazanego dokumentu
+        elif dok is not None and dok not in dozwolone:
             odpowiedz, dok = "nie_wiadomo", None
         wynik.append({"pytanie": k, "tresc": p, "odpowiedz": odpowiedz, "dokument_id": dok,
-                      "uzasadnienie": str(o.get("uzasadnienie") or "")})
+                      "uzasadnienie": _tekst(o.get("uzasadnienie"))})
     return wynik, koszt
 
 
 def czy_innowacja(tytul: str, tekst: str) -> tuple[dict, float]:
-    odp, koszt = czat_json(SYSTEM, f"""Czy ten wpis opisuje NOWE rozwiązanie stworzone w instytucji (urządzenie, aplikację,
-metodę, program, usługę, sposób organizacji pracy)? NIE: wydarzenie, wycieczka, uroczystość, zakup sprzętu, udział
-w konkursie bez własnego rozwiązania, ogłoszenie, rekrutacja. JSON:
-{{"czy": "tak|nie|niepewne", "cytat": "dosłowny fragment tekstu (do 200 znaków) będący dowodem"}}
+    odp, koszt = czat_json(SYSTEM, f"""Czy ten wpis opisuje konkretne NOWE lub ulepszone rozwiązanie stworzone w tej instytucji
+(urządzenie, aplikację, metodę nauczania, program, usługę, sposób organizacji pracy), które działa albo zostało przetestowane
+lub udostępnione (definicja innowacji wg Oslo Manual 2018)? Odpowiedz "tak" TYLKO wtedy, gdy tekst mówi konkretnie, CO
+zbudowano lub opracowano i JAK to działa albo do czego służy. NIE: wydarzenie, warsztaty, hackathon, wycieczka, uroczystość,
+zakup sprzętu, nabór, rekrutacja, ogłoszenie, wynik w konkursie bez opisu działania rozwiązania. JSON:
+{{"czy": "tak|nie|niepewne", "cytat": "dosłowny fragment tekstu (do 200 znaków) opisujący działanie rozwiązania, bez imion i nazwisk"}}
 
 Tytuł: {tytul}
 Tekst:
 {tekst[:3500]}""")
-    czy = odp.get("czy") if odp.get("czy") in {"tak", "nie", "niepewne"} else "niepewne"
+    czy = _z(odp.get("czy"), {"tak", "nie", "niepewne"}) or "niepewne"
     return {"czy": czy, "cytat": _cytat_ok(odp.get("cytat"), f"{tytul} {tekst}")}, koszt
 
 

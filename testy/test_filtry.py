@@ -86,3 +86,14 @@ def test_ta_sama_instytucja():
     assert not instytucje.ta_sama("Szkoła Podstawowa nr 5 w Rzeszowie", ["Szkoła Podstawowa"])
     assert not instytucje.ta_sama("Gmina Czarna", ["Gmina Biała"])
     assert not instytucje.ta_sama("", ["Gmina Biała"])
+
+
+def test_nowosc_za_malo_odpowiedzi_to_brak_danych(monkeypatch):
+    from radar import ai, filtry
+    from radar.model import Zgloszenie
+    odp = [{"pytanie": "Q1", "odpowiedz": "tak", "dokument_id": None, "uzasadnienie": ""}] + \
+          [{"pytanie": f"Q{i}", "odpowiedz": "nie_wiadomo", "dokument_id": None, "uzasadnienie": ""} for i in range(2, 6)]
+    monkeypatch.setattr(ai, "rubryka_nowosci", lambda o, d: (odp, 0.0))
+    z = Zgloszenie(id=1, wejscie="formularz", tytul="T", opis="o" * 100, link=None, instytucja="A", typ_instytucji="firma",
+                   typ_innowacji="techniczna", etap="prototyp", wiek_przedzial="16_30")
+    assert filtry.nowosc(z, []).pasmo == "brak_danych"

@@ -116,9 +116,14 @@ def stan_zrodel(con: sqlite3.Connection) -> dict[str, dict]:
     out = {r[0]: {"dokumentow": r[1], "pobrano_od": r[2] or 0.0, "pobrano_do": r[3] or 0.0, "najnowszy_rok": r[4]}
            for r in con.execute("SELECT zrodlo, count(*), min(pobrano_at), max(pobrano_at), max(rok) FROM dokument GROUP BY zrodlo")}
     if con.execute("SELECT 1 FROM sqlite_master WHERE name='radar_widziane'").fetchone():
-        n, od, do = con.execute("SELECT count(*), min(kiedy), max(kiedy) FROM radar_widziane").fetchone()
-        if n:
-            out["www"] = {"dokumentow": n, "pobrano_od": od, "pobrano_do": do, "najnowszy_rok": None}
+        n, do = con.execute("SELECT count(*), max(kiedy) FROM radar_widziane").fetchone()
+        if n:  # stan radaru = ostatni przebieg (tabela tylko rośnie, więc min() zamarzłby na pierwszym dniu)
+            out["www"] = {"dokumentow": n, "pobrano_od": do, "pobrano_do": do, "najnowszy_rok": None}
+    if con.execute("SELECT 1 FROM sqlite_master WHERE name='postep'").fetchone():
+        for klucz, wartosc in con.execute("SELECT klucz, wartosc FROM postep WHERE klucz LIKE '%:pelne'"):
+            z = klucz.rsplit(":", 1)[0]
+            if z in out:  # znacznik ukończonego pełnego pobrania (pobierz --od-nowa) zamiast najstarszego rekordu
+                out[z]["pobrano_od"] = float(wartosc)
     return out
 
 

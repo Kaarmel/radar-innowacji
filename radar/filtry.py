@@ -94,8 +94,8 @@ def nowosc(z: Zgloszenie, kandydaci: list[Dokument], koszt: list | None = None) 
     linki = {d.id: d for d in kandydaci}
     dowody = [{**o, "link": linki[o["dokument_id"]].link if o.get("dokument_id") in linki else None,
                "tytul": linki[o["dokument_id"]].tytul if o.get("dokument_id") in linki else None} for o in odpowiedzi]
-    if not odpowiedzi or all(o["odpowiedz"] == "nie_wiadomo" for o in odpowiedzi):
-        return WynikFiltra("nowosc", None, "brak_danych", dowody, uwaga="AI nie oceniło nowości.")
+    if sum(o["odpowiedz"] in ("tak", "nie") for o in odpowiedzi) < 3:
+        return WynikFiltra("nowosc", None, "brak_danych", dowody, uwaga="AI odpowiedziało na mniej niż 3 z 5 pytań: nowość nieoceniona.")
     tak = sum(o["odpowiedz"] == "tak" for o in odpowiedzi)
     pasmo = "czerwone" if tak <= p["czerwone_max_tak"] else "zolte" if tak <= p["zolte_max_tak"] else "zielone"
     return WynikFiltra("nowosc", 100.0 * tak / 5, pasmo, dowody,

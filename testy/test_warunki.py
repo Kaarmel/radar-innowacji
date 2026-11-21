@@ -79,3 +79,17 @@ def test_stan_kopii_lokalnej_to_najstarszy_rekord_w_czasie_polskim(klient):
         con.execute("UPDATE dokument SET pobrano_at=1795262400 WHERE id='radon:1'")  # 2026-11-21 12:00 UTC = 13:00 w Polsce
     radon = next(x for x in klient.get("/api/zrodla").json() if x["zrodlo"] == "radon")
     assert radon["stan_na"] == "2026-11-21 13:00"
+
+
+def test_stan_radaru_to_ostatni_przebieg_a_kopii_ostatnie_pelne_pobranie(tmp_path):
+    from radar.zrodla import mapadotacji, www
+    con = db.polacz(tmp_path / "t.sqlite")
+    www._widziane(con)
+    with con:
+        con.executemany("INSERT INTO radar_widziane VALUES(?,?,?,?)", [("a", 0, None, 100.0), ("b", 0, None, 500.0)])
+    db.zapisz_dokumenty(con, [Dokument(id="radon:1", zrodlo="radon", typ="projekt", tytul="A", opis="a", link="https://r/1")])
+    with con:
+        con.execute("UPDATE dokument SET pobrano_at=50")
+    mapadotacji._postep(con, "radon:pelne", "900")
+    s = db.stan_zrodel(con)
+    assert s["www"]["pobrano_od"] == 500.0 and s["radon"]["pobrano_od"] == 900.0

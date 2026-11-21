@@ -109,3 +109,13 @@ def test_karta_podaje_stan_danych(con, monkeypatch):
     stan = k["pokrycie"]["stan_danych"]
     assert set(stan) >= {"mapadotacji", "radon"} and all(len(v) == 10 for v in stan.values())  # RRRR-MM-DD
     assert k["pokrycie"]["na_zywo"][:4] == "2026" or len(k["pokrycie"]["na_zywo"]) == 16
+
+
+def test_podwojny_klik_tylko_drugie_to_duplikat(con, monkeypatch):
+    monkeypatch.setattr(sprawdz, "ZRODLA_NA_ZADANIE", {})
+    opis = "Nasza gmina uruchomiła cyfrowy rejestr zgłoszeń awarii oświetlenia ulicznego z mapą i automatycznym przydziałem ekip serwisowych."
+    pierwsze, drugie = _zgl(con, opis=opis, inst="Gmina Biała"), _zgl(con, opis=opis, inst="Gmina Biała")
+    k1 = sprawdz.sprawdz(con, pierwsze)
+    k2 = sprawdz.sprawdz(con, drugie)
+    uwaga = lambda k: next(w for w in k["wyniki"] if w["filtr"] == "plagiat")["uwaga"]
+    assert uwaga(k1) != "duplikat zgłoszenia" and uwaga(k2) == "duplikat zgłoszenia"

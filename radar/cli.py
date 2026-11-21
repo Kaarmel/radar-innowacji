@@ -1,6 +1,7 @@
 """Polecenia: python -m radar.cli pobierz <mapadotacji|interreg|radon> | sprawdz <id> | radar | zestaw | raport"""
 import argparse
 import sys
+import time
 
 from . import db
 
@@ -42,6 +43,7 @@ def main(argv=None) -> int:
              "interreg": lambda: interreg.pobierz_wszystko(con),
              "radon": lambda: radon.pobierz_wszystko(con),
              "radon_patenty": lambda: radon_patenty.pobierz_wszystko(con)}[a.zrodlo]()
+        mapadotacji._postep(con, f"{a.zrodlo}:pelne", str(time.time()))
         print(f"{a.zrodlo}: zapisano {n}; w bazie: {db.liczba_dokumentow(con)}", flush=True)
     elif a.cmd == "radar":
         from .zrodla import www

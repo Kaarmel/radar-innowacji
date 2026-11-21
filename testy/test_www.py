@@ -52,3 +52,38 @@ def test_link_juz_byl_nie_tworzy_drugiego_zgloszenia(tmp_path, monkeypatch):
 
 def test_kanal_ze_spacjami_przed_deklaracja():
     assert www.wpisy_z_kanalu("\n  " + RSS)[0]["link"] == "https://szkola.pl/robot"
+
+
+def test_bez_osob_usuwa_imiona_i_nazwiska():
+    t = www.bez_osob("Projekt przygotowali Jan Kowalski i Anna Nowak pod opieką p. Marka Wiśniewskiego z Zespołu Szkół Technicznych.")
+    assert "Kowalski" not in t and "Nowak" not in t and "Wiśniewskiego" not in t
+    assert "Zespołu Szkół Technicznych" in t
+
+
+def test_radar_nie_zapisuje_surowego_tekstu(tmp_path, monkeypatch):
+    from radar import ai, db
+    con = db.polacz(tmp_path / "t.sqlite")
+    monkeypatch.setattr(ai, "czy_innowacja", lambda t, x: ({"czy": "tak", "cytat": "zbudowali robota, Jan Kowalski"}, 0.0))
+    monkeypatch.setattr(ai, "karta_z_tekstu", lambda t, x: ({"co": "Robot sortujący odpady.", "opis": "Uczniowie (Jan Kowalski) zbudowali robota sortującego odpady.",
+                                                            "instytucja": "", "typ_innowacji": "techniczna", "etap": "prototyp",
+                                                            "cytat": "Jan Kowalski zbudował robota"}, 0.0))
+    monkeypatch.setattr(www, "sprawdz", lambda c, zid: None)
+    wpis = {"tytul": "Robot", "link": "https://szkola.pl/r", "data": None,
+            "tekst": "Jan Kowalski i Anna Nowak z klasy 3B zbudowali robota sortującego odpady. Opiekun: Piotr Zieliński. " * 3}
+    www.przetworz_wpisy(con, {"nazwa": "ZST", "typ": "szkola_ponadpodstawowa", "url": "https://szkola.pl/"}, [wpis])
+    z = db.zgloszenie(con, 1)
+    calosc = f"{z.opis} {z.cytat or ''}"
+    assert "Kowalski" not in calosc and "Nowak" not in calosc and "Zieliński" not in calosc
+    assert "robota sortującego" in z.opis and len(z.opis) < 600
+
+
+def test_nieocenione_wpisy_wracaja_w_nastepnym_przebiegu(tmp_path, monkeypatch):
+    from radar import ai, db
+    con = db.polacz(tmp_path / "t.sqlite")
+    monkeypatch.setattr(ai, "czy_innowacja", lambda t, x: ({"czy": "niepewne", "cytat": None}, 0.0))
+    monkeypatch.setattr(www, "MAX_AI", 1)
+    wpisy = [{"tytul": f"Uczniowie zbudowali robota {i}", "link": f"https://s.pl/{i}", "data": None,
+              "tekst": "Uczniowie zbudowali robota i aplikację, prototyp działa."} for i in range(3)]
+    www.przetworz_wpisy(con, {"nazwa": "ZST", "typ": "szkola_ponadpodstawowa", "url": "https://s.pl/"}, wpisy)
+    zapisane = {r[0] for r in con.execute("SELECT link FROM radar_widziane")}
+    assert zapisane == set()  # „niepewne” (np. awaria AI) i ponad limit: bez wyroku, wrócą w następnym przebiegu
