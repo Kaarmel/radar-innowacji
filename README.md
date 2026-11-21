@@ -41,8 +41,9 @@ Ta sama aplikacja ma zakładki opisane językiem konkretnej osoby, z przyciskami
    i wyniki konkursów bez opisu rozwiązania odpadają. Z wpisu zostaje streszczenie bez nazwisk i dosłowny cytat-dowód.
    Bazy projektów i patentów odświeżają się co tydzień. Analityk może też ocenić projekt znaleziony w wyszukiwarce
    („Oceń ten projekt”) albo z linku lub opisu („Oceń projekt”). Radar nie jest platformą do zgłaszania pomysłów.
-2. **Wyszukiwanie.** Tylko kod: indeks pełnotekstowy z wagami BM25. Opis zgłoszenia jest tłumaczony na angielski
-   (DeepSeek), żeby szukać w patentach EPO i publikacjach.
+2. **Wyszukiwanie, filtrowanie, porównanie.** Tylko kod: indeks pełnotekstowy z wagami BM25. Opis zgłoszenia jest
+   tłumaczony na angielski (DeepSeek), żeby szukać w patentach EPO i publikacjach. Wyszukiwarkę filtruje się po źródle
+   i roku, katalog po werdykcie, wejściu i obszarze, a 2–4 projekty można porównać obok siebie (`/porownaj`).
 3. **Bramka: cztery filtry odrzucenia.** Kryteria podali mentorzy PCI:
 
 | Filtr | Co znaczy procent | Kto liczy | Czerwone, gdy |
@@ -141,6 +142,8 @@ wyjście HTTPS do źródeł, reverse proxy z HTTPS. Klucze: `OPENROUTER_API_KEY`
 - Podobieństwo TF-IDF łapie przepisany tekst, ale nie ten sam pomysł opisany zupełnie innymi słowami. Dlatego czerwone
   pasmo kopii wymaga potwierdzenia AI, a nowość ocenia rubryka.
 - Wagi potencjału i progi są eksperckie. Dziennik decyzji analityków służy do ich kalibracji.
+- Jedno sprawdzenie ma limit 150 s: źródło albo dostawca AI, który nie odpowiada, zostaje pominięty, a karta mówi, co
+  pominięto.
 - Wersja demo jest publiczna, bez logowania; decyzje może wpisać każdy. Limit: 20 sprawdzeń na adres IP na godzinę
   i 200 na dobę.
 
@@ -164,19 +167,23 @@ zbudowanych, a nie odsetek fałszywych alarmów.
 **Nowość na prawdziwych projektach.** 20 projektów z Mapy Dotacji (10 rutynowych zakupów i inwestycji, 10 wdrożeń i B+R).
 Etykiety „rutyna / nowość” nadało głosowanie 5 niezależnych modeli: GPT-5.4-mini, Gemini 3.8 Flash, Claude Haiku 5.5,
 Mistral Small (przez OpenRouter) i Antigravity. Nie głosował DeepSeek, który ocenia w radarze. 19 z 20 etykiet jest
-jednogłośnych (`walidacja/etykiety_glosy.csv`); to nie jest ocena człowieka. Po wieczornych poprawkach sprawdziliśmy
-projekty ponownie (17 z 20; 3 przekroczyły limit czasu dostawcy AI):
+jednogłośnych (`walidacja/etykiety_glosy.csv`); to nie jest ocena człowieka.
 
-| Miara | Wynik |
-|---|---|
-| Zgodność filtra nowości z etykietami (n=16) | 0,56 |
-| Rutyna: czerwona nowość | 6 z 7 |
-| Wdrożenia i B+R: czerwona nowość | 6 z 9 |
-| Średni potencjał: nowość / rutyna | 28 / 18 pkt |
+Pierwszy pomiar pokazał, że filtr nowości był za surowy dla wdrożeń firm (czerwony w 6 z 9). Poprawiliśmy rubrykę:
+pytanie o rutynę bez podwójnego przeczenia, a „brak nowości” tylko wtedy, gdy dokument opisuje to samo rozwiązanie,
+nie podobny temat. Drugi pomiar (wszystkie 20 sprawdzone w limicie czasu, najdłużej 60 s):
 
-Filtr nowości dobrze odsiewa rutynę, ale jest za surowy dla wdrożeń firm: nowość „na skalę firmy” przegrywa
-z podobnymi projektami, które już dostały dotację. To pierwsza rzecz do kalibracji. Każde odrzucenie przegląda człowiek.
-Opisy projektów OSP często dzielą szablonowe zdania, więc filtr plagiatu flaguje je do przeglądu.
+| Miara | Przed poprawką | Po poprawce |
+|---|---|---|
+| Zgodność filtra nowości z etykietami | 0,56 (n=16) | 0,87 (n=15) |
+| Rutyna: czerwona nowość | 6 z 7 | 8 z 9 |
+| Wdrożenia i B+R: czerwona nowość | 6 z 9 | 1 z 6 |
+| Średni potencjał: nowość / rutyna | 28 / 18 pkt | 42,5 / 7,3 pkt |
+
+Uczciwie: rubrykę poprawialiśmy na tych samych 20 projektach, więc to nie jest niezależny pomiar. W 5 z 20 projektów AI
+odpowiedziało na mniej niż 3 z 5 pytań i nowość została „nieoceniona” (bez flagi, do decyzji człowieka). Następny krok:
+etykiety analityków PCI na nowych projektach. Każde odrzucenie przegląda człowiek. Opisy projektów OSP często dzielą
+szablonowe zdania, więc filtr plagiatu flaguje je do przeglądu.
 
 ## Uruchomienie
 
@@ -195,7 +202,7 @@ Docker: `docker build -t radar-innowacji . && docker run -p 8090:8090 -v "$PWD/d
 
 ## Integracja i skalowanie
 
-- REST API z OpenAPI: `POST /api/zgloszenia`, `GET /api/karta/{id}`, `GET /api/zgloszenia`, `GET /api/szukaj?q=`,
+- REST API z OpenAPI: `POST /api/zgloszenia`, `GET /api/karta/{id}`, `GET /api/zgloszenia`, `GET /api/szukaj?q=&zrodlo=&rok_od=`,
   `GET /api/miary`, `GET /api/organizacje`.
 - Nowa organizacja (inkubator, centrum transferu technologii uczelni, samorząd): plik `konfiguracja/organizacje/<slug>.json`
   z komórkami, ścieżkami, wagami potencjału i specjalizacjami. Kolejka pod `/o/<slug>/kolejka`.
