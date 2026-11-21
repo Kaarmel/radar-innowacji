@@ -24,11 +24,22 @@ RUBRYKA = [
 
 def czat_json(system: str, user: str) -> tuple[dict, float]:
     """Jedno ponowienie przy błędzie sieci lub pustej odpowiedzi (dostawcy OpenRouter bywają niestabilni)."""
-    wynik, koszt = _czat_json(system, user)
-    if not wynik:
-        wynik, k2 = _czat_json(system, user)
-        koszt += k2
+    wynik, koszt = {}, 0.0
+    for _ in range(3):
+        wynik, k = _czat_json(system, user)
+        koszt += k
+        if wynik:
+            break
     return wynik, koszt
+
+
+def _loguj_blad(opis: str) -> None:
+    try:
+        config.DANE.mkdir(parents=True, exist_ok=True)
+        with open(config.DANE / "ai_bledy.log", "a", encoding="utf-8") as f:
+            f.write(opis[:600].replace("\n", " ") + "\n")
+    except OSError:
+        pass
 
 
 def _czat_json(system: str, user: str) -> tuple[dict, float]:
@@ -45,8 +56,11 @@ def _czat_json(system: str, user: str) -> tuple[dict, float]:
         d = r.json()
         tresc = d["choices"][0]["message"].get("content") or ""
         koszt = float((d.get("usage") or {}).get("cost") or 0.0)
-    except Exception:
+    except Exception as e:
+        _loguj_blad(f"wyjątek {type(e).__name__}: {e} | {getattr(locals().get('r'), 'text', '')[:300]}")
         return {}, 0.0
+    if not tresc:
+        _loguj_blad(f"pusta treść | provider={d.get('provider')} finish={d['choices'][0].get('finish_reason')}")
     m = re.search(r"\{.*\}", tresc, re.S)
     try:
         return (json.loads(m.group(0)) if m else {}), koszt
