@@ -1,7 +1,8 @@
 # Radar Innowacji
 
-Wyszukiwanie i **ocena projektów innowacyjnych** dla firm i instytucji, z dowodami przy każdej liczbie.
-Rozwiązanie zadania „Radar innowacji” Podkarpackiego Centrum Innowacji (HackNation 2026). PCI jest jednym z użytkowników:
+Radar, który **sam wyszukuje istniejące innowacje** na stronach szkół, uczelni i samorządów oraz w publicznych bazach
+projektów i patentów, a potem **ocenia je według jawnych kryteriów**, z dowodem przy każdej liczbie.
+Rozwiązanie zadania „Radar innowacji” Podkarpackiego Centrum Innowacji (HackNation 2026). PCI jest pierwszym profilem:
 nowa organizacja to jeden plik JSON.
 
 **Demo:** https://radar-innowacji.skroban.tech/ · **API:** https://radar-innowacji.skroban.tech/docs
@@ -12,19 +13,34 @@ Wartościowe pomysły ze szkół, uczelni i samorządów zostają tam, gdzie pow
 (bazy, strony, telefony do naukowców) i ręcznie sprawdza, czy projekt nie jest kopią, plagiatem albo czy nie jest już
 opatentowany. Brakuje powtarzalnego procesu oceny z jawnymi kryteriami.
 
+## Dla kogo
+
+Ta sama aplikacja ma zakładki opisane językiem konkretnej osoby, z przyciskami do działającego demo (`/dla/...`):
+
+| Zakładka | Co dostaje |
+|---|---|
+| [Analityk PCI](https://radar-innowacji.skroban.tech/dla/analityk) | radar sam znajduje projekty; analityk przegląda tylko karty z flagą i decyduje |
+| [Szkoła i młodzi twórcy (16–30)](https://radar-innowacji.skroban.tech/dla/mlodzi) | projekt opisany w aktualnościach szkoły może zostać zauważony bez żadnego zgłoszenia |
+| [Uczelnia i naukowcy](https://radar-innowacji.skroban.tech/dla/naukowcy) | czy wynik jest nowy na tle patentów i publikacji, zanim zacznie się go chronić |
+| [Gmina i urząd](https://radar-innowacji.skroban.tech/dla/gmina) | które gminy wdrożyły już podobne rozwiązanie z dotacją i kogo zapytać |
+| [Firma szukająca rozwiązania](https://radar-innowacji.skroban.tech/dla/firma) | kto w regionie pracuje już nad danym problemem |
+
 ## Jak działa
 
 ```text
  wejście                      wyszukiwanie (kod)                     ocena                                 człowiek
  ─────────                    ──────────────────                     ─────                                 ────────
- formularz ─┐                 SQLite FTS5 (BM25) po ~88 tys.         bramka: 4 filtry odrzucenia           kolejka organizacji
- z linku   ─┼─► karta ──────► dokumentów + źródła na żądanie ──────► (procent, pasmo, dowód)       ──────► decyzja z powodem
- z bazy    ─┤   zgłoszenia    (EPO, OpenAlex, Crossref) +            potencjał 0–100 (jawny wzór)          (potwierdź / przywróć /
- radar WWW ─┘                 wcześniejsze zgłoszenia                komórka, ścieżka, partnerzy           przekaż) → dziennik
+ radar WWW ─┐                 SQLite FTS5 (BM25) po ~88 tys.         bramka: 4 filtry odrzucenia           kolejka organizacji
+ z bazy    ─┼─► karta ──────► dokumentów + źródła na żądanie ──────► (procent, pasmo, dowód)       ──────► decyzja z powodem
+ z linku   ─┤   innowacji     (EPO, OpenAlex, Crossref) +            potencjał 0–100 (jawny wzór)          (potwierdź / przywróć /
+ opis      ─┘                 wcześniej ocenione projekty            komórka, ścieżka, partnerzy           przekaż) → dziennik
 ```
 
-1. **Wejście.** Formularz; strona z linku (AI wypełnia pola, człowiek poprawia); projekt znaleziony w bazie
-   (przycisk „Oceń ten projekt” w wyszukiwarce); radar WWW, który czyta kanały RSS szkół, uczelni i instytucji.
+1. **Odkrywanie.** Radar WWW codziennie czyta kanały RSS 172 stron szkół, uczelni, PCI i samorządów. AI przepuszcza tylko
+   wpisy, które mówią konkretnie, co zbudowano i jak działa (definicja innowacji z Oslo Manual 2018); wydarzenia, warsztaty
+   i wyniki konkursów bez opisu rozwiązania odpadają. Z wpisu zostaje streszczenie bez nazwisk i dosłowny cytat-dowód.
+   Bazy projektów i patentów odświeżają się co tydzień. Analityk może też ocenić projekt znaleziony w wyszukiwarce
+   („Oceń ten projekt”) albo z linku lub opisu („Oceń projekt”). Radar nie jest platformą do zgłaszania pomysłów.
 2. **Wyszukiwanie.** Tylko kod: indeks pełnotekstowy z wagami BM25. Opis zgłoszenia jest tłumaczony na angielski
    (DeepSeek), żeby szukać w patentach EPO i publikacjach.
 3. **Bramka: cztery filtry odrzucenia.** Kryteria podali mentorzy PCI:
@@ -54,10 +70,14 @@ opatentowany. Brakuje powtarzalnego procesu oceny z jawnymi kryteriami.
 | Precedens finansowania | kod | podobne projekty z dofinansowaniem (Mapa Dotacji, Interreg) |
 | Specjalizacje organizacji | kod | słowa kluczowe z profilu; dla PCI: lotnictwo i kosmos, motoryzacja, ICT, jakość życia |
 
-5. **Dalej.** Werdykt (`odrzucone, do przeglądu` / `do przeglądu` / `bez flag`), komórka organizacji
+5. **Karta innowacji (FAQ §5).** Opis, obszar (technologiczny, edukacyjny, administracyjny), źródło z cytatem, status
+   wdrożenia w 5 poziomach (koncepcja → rozwiązanie stosowane), TRL 1–9 (zakres z etapu), ocena potencjału i wiarygodność
+   (5 kryteriów liczonych kodem: rejestr publiczny, link, sprawdzony cytat, dowody filtrów, dostępność źródeł). Każde pole
+   ma oznaczenie: **fakt z danych**, **deklaracja**, **szacunek AI** albo **reguła w kodzie**.
+6. **Dalej.** Werdykt (`odrzucone, do przeglądu` / `do przeglądu` / `bez flag`), komórka organizacji
    (PCI: młodzi 16–30, naukowcy, inni, ogólne), ścieżka z nazwaną regułą (R1 akceleracja i Protolab, R2 ochrona,
    R3 transfer, R4 finansowanie, R5 współpraca) i instytucje, które już działają w temacie.
-6. **Człowiek decyduje.** Kolejka pokazuje najpierw pozycje z flagą, a w obrębie werdyktu sortuje po potencjale.
+7. **Człowiek decyduje.** Kolejka pokazuje najpierw pozycje z flagą, a w obrębie werdyktu sortuje po potencjale.
    Decyzja i jej powód trafiają do dziennika.
 
 **Dlaczego to nie jest „AI wrapper”.** Wyszukiwanie, plagiat, podobieństwo, reguły ścieżek i wzór potencjału liczy kod.

@@ -1,13 +1,15 @@
 # Szkic zgłoszenia (HackTribe)
 
-**Tytuł:** Radar Innowacji: wyszukiwanie i ocena innowacji z dowodami
+**Tytuł:** Radar Innowacji: sam wyszukuje istniejące innowacje i ocenia je z dowodami
 
 **Problem.** Wartościowe pomysły ze szkół, uczelni i samorządów zostają w miejscu powstania. Instytucje takie jak
 Podkarpackie Centrum Innowacji szukają ich dziś ręcznie (bazy, strony, telefony do naukowców) i ręcznie sprawdzają,
 czy pomysł nie jest kopią, plagiatem albo czy nie jest już opatentowany. Brakuje powtarzalnego procesu oceny z jasnymi kryteriami.
 
-**Rozwiązanie.** System dla firm i instytucji (PCI jest jednym z profili), który:
-1. przyjmuje zgłoszenie formularzem, z linku albo z bazy projektów (analityk klika „Oceń ten projekt”);
+**Rozwiązanie.** Radar dla instytucji takich jak PCI (pierwszy profil), który:
+1. sam wyszukuje innowacje: codziennie czyta kanały RSS 172 stron szkół, uczelni, PCI i samorządów (AI przepuszcza tylko
+   wpisy z konkretnym rozwiązaniem, wg Oslo Manual 2018; bez nazwisk), a co tydzień odświeża bazy projektów i patentów.
+   Analityk może też ocenić projekt z wyszukiwarki („Oceń ten projekt”) albo z linku. To nie jest platforma do zgłaszania pomysłów;
 2. przeszukuje ok. 88 tys. dokumentów: Mapa Dotacji UE (Podkarpacie), Interreg PL–SK, RAD-on (projekty i patenty
    polskich uczelni), a na żądanie patenty EPO, OpenAlex i Crossref;
 3. przepuszcza zgłoszenie przez cztery filtry odrzucenia (plagiat, kopia pomysłu, patent, nowość). Każdy filtr ma procent,
@@ -16,11 +18,18 @@ czy pomysł nie jest kopią, plagiatem albo czy nie jest już opatentowany. Brak
    możliwość ochrony, precedens finansowania, zgodność ze specjalizacjami). Wagi ustawia organizacja w swoim profilu;
 5. wskazuje komórkę organizacji (dla PCI: młodzi 16–30, naukowcy, inni, ogólne), ścieżkę dalej (akceleracja, ochrona,
    transfer, finansowanie, współpraca) i instytucje, które działają w temacie;
-6. kieruje pozycje z flagą do kolejki analityka. Decyzję (potwierdź, przywróć, przekaż) podejmuje człowiek, z powodem w dzienniku.
+6. tworzy kartę innowacji wg FAQ: obszar, status wdrożenia (5 poziomów), TRL 1–9, potencjał i wiarygodność, z oznaczeniem
+   „fakt z danych / deklaracja / szacunek AI / reguła w kodzie”;
+7. kieruje pozycje z flagą do kolejki analityka. Decyzję (potwierdź, przywróć, przekaż) podejmuje człowiek, z powodem w dzienniku.
 
 **Nie „AI wrapper”.** Wyszukiwanie, plagiat, podobieństwo, reguły ścieżek i wzór potencjału liczy kod. AI (DeepSeek przez
 OpenRouter) tłumaczy zapytanie, potwierdza kopie i odpowiada na 5 pytań rubryki nowości. Kod sprawdza, że każdy dokument,
 na który powołuje się AI, był w wynikach. Jedno sprawdzenie trwa ok. 15–60 s i kosztuje ok. 0,001 $.
+
+**Dla kogo.** Zakładki z prostym opisem i demo dla analityka PCI, szkół i młodych (16–30), uczelni, gmin i firm.
+
+**Warunki działania.** Strona /warunki: stan danych każdego źródła, harmonogram aktualizacji (timery systemd: bazy co tydzień,
+radar codziennie, EPO na żywo), trzy ścieżki AI (API, model lokalny, bez AI) i wymagania sprzętowe.
 
 **Integracja i skalowanie.** REST API z dokumentacją OpenAPI (/docs), nowa organizacja = jeden plik JSON z komórkami,
 ścieżkami i wagami, licencja EUPL-1.2.
