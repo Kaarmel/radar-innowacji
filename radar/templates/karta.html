@@ -69,6 +69,7 @@
   <p class="pokrycie">Przeszukano {{ (p.dokumentow or 0) | liczba(0) }} dokumentów ({{ p.zrodla | join(', ') }}),
     {{ p.kandydatow or 0 }} najbliższych porównano dokładnie, plus {{ p.zgloszen_porownanych or 0 }} wcześniejszych zgłoszeń.
     {% if p.niedostepne %}<b>Niedostępne teraz: {{ p.niedostepne | join(', ') }}.</b>{% endif %}
+    {% if p.limit_czasu %}<b>Limit czasu sprawdzenia: pominięto {{ p.limit_czasu | join('; ') }}.</b>{% endif %}
     {% if p.stan_danych %}Stan danych: {% for zr, d in p.stan_danych.items() %}{{ s.ZRODLA[zr][0] if zr in s.ZRODLA else zr }} {{ d }}{{ '; ' if not loop.last }}{% endfor %};
       patenty EP i publikacje sprawdzone na żywo {{ p.na_zywo }} (<a href="/warunki">harmonogram</a>).{% endif %}
     Czas {{ k.czas_s | liczba }} s, koszt AI {{ '%.4f' | format(k.koszt_usd or 0) }} $.

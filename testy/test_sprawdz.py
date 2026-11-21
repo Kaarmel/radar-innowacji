@@ -4,6 +4,8 @@ from radar import ai, db, sprawdz
 from radar.model import Dokument, Zgloszenie
 from radar.zrodla import BrakDostepu, mapadotacji
 
+PRAWDZIWE = {n: getattr(ai, n) for n in ("tlumacz_zapytanie", "ten_sam_pomysl", "rubryka_nowosci")}
+
 ORYG = ("Uczniowie technikum zbudowali filtr wody inspirowany skrzelami ryb. Urządzenie zatrzymuje drobiny mikroplastiku "
         "bez użycia wymiennych wkładów. Prototyp przetestowano w szkolnym laboratorium na próbkach z pobliskiej rzeki.")
 
@@ -119,3 +121,18 @@ def test_podwojny_klik_tylko_drugie_to_duplikat(con, monkeypatch):
     k2 = sprawdz.sprawdz(con, drugie)
     uwaga = lambda k: next(w for w in k["wyniki"] if w["filtr"] == "plagiat")["uwaga"]
     assert uwaga(k1) != "duplikat zgłoszenia" and uwaga(k2) == "duplikat zgłoszenia"
+
+
+def test_zawieszone_ai_nie_blokuje_karty(con, monkeypatch):
+    from radar import config
+    for n, f in PRAWDZIWE.items():
+        monkeypatch.setattr(ai, n, f)
+    monkeypatch.setattr(ai, "_czat_json", lambda s, u: (__import__("time").sleep(0.5), ({}, 0.0))[1])
+    monkeypatch.setattr(sprawdz, "ZRODLA_NA_ZADANIE", {})
+    monkeypatch.setattr(config, "LIMIT_SPRAWDZENIA_S", 1.0)
+    import time
+    t0 = time.time()
+    k = sprawdz.sprawdz(con, _zgl(con))
+    assert time.time() - t0 < 3 and k["status"] == "gotowe"
+    assert k["pokrycie"]["limit_czasu"]
+    assert next(w for w in k["wyniki"] if w["filtr"] == "nowosc")["pasmo"] == "brak_danych"

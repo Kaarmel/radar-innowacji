@@ -107,3 +107,13 @@ def test_odpowiedzi_zlego_typu_nie_wywracaja(monkeypatch):
         else:
             k, _ = ai.karta_z_tekstu("t", "tekst")
             assert k["typ_innowacji"] == "" and k["etap"] == "" and k["cytat"] is None and isinstance(k["co"], str)
+
+
+def test_rubryka_bez_podwojnego_przeczenia_i_z_definicja_tego_samego(monkeypatch):
+    """Q5 „czy to NIE jest rutyna” model mylił („nie, to nie rutyna” = punkt mniej dla B+R)."""
+    pytania = dict(ai.RUBRYKA)
+    assert "nie jest" not in pytania["Q5"] and "rutyn" in pytania["Q5"]
+    wyslane = {}
+    monkeypatch.setattr(ai, "czat_json", lambda s, u: (wyslane.update(u=u), ({}, 0.0))[1])
+    ai.rubryka_nowosci("opis", [])
+    assert "TO SAMO rozwiązanie" in wyslane["u"] and "podobny temat" in wyslane["u"]

@@ -6,7 +6,7 @@ import re
 
 import httpx
 
-from . import config
+from . import config, termin
 
 URL = "https://openrouter.ai/api/v1/chat/completions"  # ścieżka A (API); AI_URL zmienia na model lokalny (ścieżka B)
 SYSTEM = ("Jesteś analitykiem innowacji w sektorze publicznym i firmach. Odpowiadasz wyłącznie poprawnym obiektem JSON "
@@ -18,7 +18,7 @@ RUBRYKA = [
     ("Q2", "Czy używa innej metody lub technologii niż znalezione dokumenty?"),
     ("Q3", "Czy celuje w innego odbiorcę albo kontekst (np. instytucje publiczne, region)?"),
     ("Q4", "Czy opisuje mierzalną przewagę (koszt, czas, skala)?"),
-    ("Q5", "Czy to nie jest rutyna (wydarzenie, zakup sprzętu, udział w konkursie, szkolenie)?"),
+    ("Q5", "Czy zgłoszenie opisuje własne nowe lub ulepszone rozwiązanie, a nie rutynę (wydarzenie, zakup gotowego sprzętu, budowę, remont, szkolenie, udział w konkursie)?"),
 ]
 
 
@@ -26,6 +26,9 @@ def czat_json(system: str, user: str) -> tuple[dict, float]:
     """Jedno ponowienie przy błędzie sieci lub pustej odpowiedzi (dostawcy OpenRouter bywają niestabilni)."""
     wynik, koszt = {}, 0.0
     for _ in range(3):
+        if termin.zostalo() < 8:
+            termin.notuj("część odpowiedzi AI")
+            break
         wynik, k = _czat_json(system, user)
         koszt += k
         if wynik:
@@ -55,7 +58,7 @@ def _czat_json(system: str, user: str) -> tuple[dict, float]:
         # bez rozumowania: inaczej model zużywa cały limit na "myślenie" i zwraca pustą treść (finish=length)
         body |= {"provider": {"data_collection": "deny"}, "usage": {"include": True}, "reasoning": {"enabled": False}}
     try:
-        r = httpx.post(url, json=body, timeout=300 if not openrouter else 120,
+        r = httpx.post(url, json=body, timeout=max(5.0, min(300 if not openrouter else 120, termin.zostalo() - 3)),
                        headers={"X-Title": "Radar Innowacji"} | ({"Authorization": f"Bearer {klucz}"} if klucz else {}))
         d = r.json()
         tresc = d["choices"][0]["message"].get("content") or ""
@@ -146,7 +149,9 @@ DOKUMENTY:
 def rubryka_nowosci(zgl_opis: str, dokumenty: list) -> tuple[list[dict], float]:
     pytania = "\n".join(f"{k}: {p}" for k, p in RUBRYKA)
     odp, koszt = czat_json(SYSTEM, f"""Oceń nowość zgłoszenia względem ZNALEZIONYCH DOKUMENTÓW (to wszystko, co wiesz o stanie techniki).
-Na każde pytanie odpowiedz "tak", "nie" albo "nie_wiadomo". W dokument_id podaj id dokumentu z nawiasu kwadratowego,
+Na każde pytanie odpowiedz "tak", "nie" albo "nie_wiadomo". Odpowiedź "nie" w Q1–Q3 tylko wtedy, gdy dokument opisuje
+TO SAMO rozwiązanie (ten sam problem rozwiązany tą samą metodą); podobny temat albo ta sama branża to jeszcze nie brak nowości.
+W dokument_id podaj id dokumentu z nawiasu kwadratowego,
 na którym opierasz odpowiedź (albo null, gdy opierasz się tylko na zgłoszeniu). JSON:
 {{"odpowiedzi": [{{"pytanie": "Q1", "odpowiedz": "tak|nie|nie_wiadomo", "dokument_id": null, "uzasadnienie": "jedno zdanie"}}]}}
 

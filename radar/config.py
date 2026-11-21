@@ -4,6 +4,7 @@ from pathlib import Path
 
 KORZEN = Path(__file__).resolve().parent.parent
 DANE = KORZEN / "dane"
+LIMIT_SPRAWDZENIA_S = 150  # całe sprawdzenie; potem źródła i AI są pomijane, a karta pokazuje lukę
 BAZA = Path(os.environ.get("RADAR_BAZA") or DANE / "radar.sqlite")  # RADAR_BAZA: osobna kopia np. dla zestawu testowego
 KONFIGURACJA = KORZEN / "konfiguracja"
 

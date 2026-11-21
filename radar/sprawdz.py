@@ -1,9 +1,9 @@
 """Sprawdzenie jednego zgłoszenia: wyszukiwanie w bazie i źródłach na żądanie, cztery filtry, werdykt, karta."""
 import sqlite3
 import time
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, wait
 
-from . import ai, config, db, filtry, instytucje, organizacje, potencjal, slowniki, tekst, werdykt
+from . import ai, config, db, filtry, instytucje, organizacje, potencjal, slowniki, tekst, termin, werdykt
 from .model import Dokument, Zgloszenie
 from .zrodla import BrakDostepu, crossref, epo, mapadotacji, openalex
 
@@ -27,16 +27,23 @@ def _na_zadanie(terminy_en: list[str]) -> tuple[list[Dokument], list[str], list[
     if not terminy_en:
         return [], [], list(ZRODLA_NA_ZADANIE)
     docs, ok, nie = [], [], []
-    with ThreadPoolExecutor(max_workers=len(ZRODLA_NA_ZADANIE)) as pula:
-        zadania = {n: pula.submit(f, terminy_en) for n, f in ZRODLA_NA_ZADANIE.items()}
-        for nazwa, zad in zadania.items():
-            try:
-                docs += zad.result()
-                ok.append(nazwa)
-            except BrakDostepu:
-                nie.append(nazwa)
-            except Exception:  # nieprzewidziany błąd źródła = źródło niedostępne, nie awaria sprawdzenia
-                nie.append(nazwa)
+    limit = max(0.0, min(40.0, termin.zostalo() - 60))  # zostaw minutę na filtry i AI
+    pula = ThreadPoolExecutor(max_workers=len(ZRODLA_NA_ZADANIE))
+    zadania = {n: pula.submit(f, terminy_en) for n, f in ZRODLA_NA_ZADANIE.items()}
+    wait(zadania.values(), timeout=limit)
+    for nazwa, zad in zadania.items():
+        if not zad.done():
+            nie.append(nazwa)
+            termin.notuj(f"źródło {nazwa} (nie odpowiedziało w {limit:.0f} s)")
+            continue
+        try:
+            docs += zad.result()
+            ok.append(nazwa)
+        except BrakDostepu:
+            nie.append(nazwa)
+        except Exception:  # nieprzewidziany błąd źródła = źródło niedostępne, nie awaria sprawdzenia
+            nie.append(nazwa)
+    pula.shutdown(wait=False, cancel_futures=True)  # wolne źródło kończy się w tle, karta nie czeka
     return docs, ok, nie
 
 
@@ -54,10 +61,21 @@ def _uzupelnij_beneficjentow(con: sqlite3.Connection, z: Zgloszenie, ranking: li
     trafienia = [d for s, d in bez if tekst.pokrycie_ngramow(z.opis, f"{d.tytul}. {d.opis}")[0] > 0]
     prog = config.PROGI["kopia"]["zolte"]  # poniżej progu kopii instytucja nie zmienia wyniku filtrów
     brakujace = trafienia + [d for s, d in bez if s >= prog and d not in trafienia][:3]
+    do_pobrania = brakujace[:MAX_BENEFICJENTOW]
+    if not do_pobrania:
+        return
+    budzet = max(0.0, min(30.0, termin.zostalo() - 75))  # reszta na filtry z AI
+    pula = ThreadPoolExecutor(max_workers=1)  # kolejno: 1 zapytanie na sekundę do jednego hosta
+    zadania = [(d, pula.submit(mapadotacji.beneficjent, d.link)) for d in do_pobrania]
+    wait([z for _, z in zadania], timeout=budzet)
+    pula.shutdown(wait=False, cancel_futures=True)
     zmienione = []
-    for d in brakujace[:MAX_BENEFICJENTOW]:
+    for d, zad in zadania:
+        if not zad.done() or zad.cancelled():
+            termin.notuj(f"beneficjenci Mapy Dotacji (strona nie odpowiedziała w {budzet:.0f} s)")
+            continue
         try:
-            nazwa = mapadotacji.beneficjent(d.link)
+            nazwa = zad.result()
         except Exception:
             nazwa = None
         if nazwa:
@@ -81,6 +99,7 @@ def sprawdz(con: sqlite3.Connection, zgl_id: int) -> dict:
         raise KeyError(f"brak zgłoszenia {zgl_id}")
     db.ustaw_status(con, zgl_id, "w_toku")
     koszt: list[float] = []
+    termin.ustaw(config.LIMIT_SPRAWDZENIA_S)
     try:
         tl, k = ai.tlumacz_zapytanie(z.opis)
         koszt.append(k)
@@ -118,11 +137,13 @@ def sprawdz(con: sqlite3.Connection, zgl_id: int) -> dict:
                     "stan_danych": {k: slowniki.czas_pl(slowniki.stan_na(k, v), "%Y-%m-%d")
                                     for k, v in db.stan_zrodel(con).items() if v["pobrano_do"] and k in slowniki.HARMONOGRAM
                                     and slowniki.HARMONOGRAM[k]["tryb"] != "na żywo"},
-                    "na_zywo": slowniki.czas_pl(time.time())}
+                    "na_zywo": slowniki.czas_pl(time.time()), "limit_czasu": termin.przekroczenia()}
         db.zapisz_wyniki(con, zgl_id, wyniki, werdykt.werdykt(wyniki), werdykt.komorka(z, profil),
                          werdykt.sciezka(z, wyniki, podobne, profil), werdykt.partnerzy(z, podobne),
                          round(time.time() - t0, 1), round(sum(koszt), 5), pokrycie=pokrycie)
     except Exception:
         db.ustaw_status(con, zgl_id, "blad")
         raise
+    finally:
+        termin.ustaw(None)
     return db.karta(con, zgl_id)
