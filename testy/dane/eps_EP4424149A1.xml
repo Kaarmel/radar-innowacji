@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ep-patent-document PUBLIC "-//EPO//EP PATENT DOCUMENT 1.7//EN" "ep-patent-document-v1-7.dtd">
+<!-- This XML data has been generated under the supervision of the European Patent Office -->
+<ep-patent-document id="EP22834827A1" file="EP22834827NWA1.xml" lang="en" country="EP" doc-number="4424149" kind="A1" date-publ="20240904" status="n" dtd-version="ep-patent-document-v1-7">
+<SDOBI lang="en"><B000><eptags><B001EP>ATBECHDEDKESFRGBGRITLILUNLSEMCPTIESILTLVFIROMKCYALTRBGCZEEHUPLSKBAHRIS..MTNORSMESMMAKHTNMD..........</B001EP><B005EP>J</B005EP><B007EP>0009011-RPUB02</B007EP></eptags></B000><B100><B110>4424149</B110><B120><B121>EUROPEAN PATENT APPLICATION</B121><B121EP>published in accordance with Art. 153(4) EPC</B121EP></B120><B130>A1</B130><B140><date>20240904</date></B140><B190>EP</B190></B100><B200><B210>22834827.2</B210><B220><date>20221026</date></B220><B240><B241><date>20230110</date></B241></B240><B250>ja</B250><B251EP>en</B251EP><B260>en</B260></B200><B300><B310>2021175090</B310><B320><date>20211026</date></B320><B330><ctry>JP</ctry></B330></B300><B400><B405><date>20240904</date><bnum>202436</bnum></B405><B430><date>20240904</date><bnum>202436</bnum></B430></B400><B500><B510EP><classification-ipcr sequence="1"><text>A01G  33/00        20060101AFI20230505BHEP        </text></classification-ipcr></B510EP><B520EP><classifications-cpc><classification-cpc sequence="1"><text>Y02W  30/62        20150501 LA20220822BGEP        </text></classification-cpc><classification-cpc sequence="2"><text>A01G  33/00        20130101 LI20230522BCEP        </text></classification-cpc><classification-cpc sequence="3"><text>C12N   1/12        20130101 FI20230522BHEP        </text></classification-cpc><classification-cpc sequence="4"><text>C12M   1/00        20130101 LI20230522BCEP        </text></classification-cpc><classification-cpc sequence="5"><text>C02F   1/286       20130101 LI20230709BHEP        </text></classification-cpc><classification-cpc sequence="6"><text>C02F2103/08        20130101 LA20230709BHEP        </text></classification-cpc><classification-cpc sequence="7"><text>C02F2103/007       20130101 LA20230709BHEP        </text></classification-cpc><classification-cpc sequence="8"><text>C02F2303/16        20130101 LA20230709BHEP        </text></classification-cpc><classification-cpc sequence="9"><text>C02F   3/322       20130101 LA20230710BHEP        </text></classification-cpc><classification-cpc sequence="10"><text>C02F2103/008       20130101 LA20230710BHEP        </text></classification-cpc><classification-cpc sequence="11"><text>C02F   1/001       20130101 LI20230710BHEP        </text></classification-cpc></classifications-cpc></B520EP><B540><B541>de</B541><B542>VERFAHREN UND SYSTEM ZUM SAMMELN VON MIKROKUNSTSTOFF AUS WASSER</B542><B541>en</B541><B542>METHOD AND SYSTEM FOR COLLECTING MICROPLASTIC FROM WATER</B542><B541>fr</B541><B542>PROCÉDÉ ET SYSTÈME DE COLLECTE DE MICROPLASTIQUES DANS L'EAU</B542></B540><B590><B598>1</B598></B590></B500><B700><B710><B711><snm>Novelgen Co., Ltd.</snm><iid>101987683</iid><irf>251 589 a/dst</irf><adr><str>210-11, Juuri-cho</str><city>Nagahama-shi, Shiga 526-0016</city><ctry>JP</ctry></adr></B711></B710><B720><B721><snm>OGURA, Atsushi</snm><adr><city>Nagahama-shi, Shiga 526-0016</city><ctry>JP</ctry></adr></B721><B721><snm>KAWADA, Yoshihiro</snm><adr><city>Nagahama-shi, Shiga 526-0016</city><ctry>JP</ctry></adr></B721><B721><snm>SAWADA, Yui</snm><adr><city>Nagahama-shi, Shiga 526-0016</city><ctry>JP</ctry></adr></B721><B721><snm>TABATA, Hiromasa</snm><adr><city>Nagahama-shi, Shiga 526-0016</city><ctry>JP</ctry></adr></B721></B720><B740><B741><snm>Hoffmann Eitle</snm><iid>100061036</iid><adr><str>Patent- und Rechtsanwälte PartmbB
+Arabellastraße 30</str><city>81925 München</city><ctry>DE</ctry></adr></B741></B740></B700><B800><B840><ctry>AL</ctry><ctry>AT</ctry><ctry>BE</ctry><ctry>BG</ctry><ctry>CH</ctry><ctry>CY</ctry><ctry>CZ</ctry><ctry>DE</ctry><ctry>DK</ctry><ctry>EE</ctry><ctry>ES</ctry><ctry>FI</ctry><ctry>FR</ctry><ctry>GB</ctry><ctry>GR</ctry><ctry>HR</ctry><ctry>HU</ctry><ctry>IE</ctry><ctry>IS</ctry><ctry>IT</ctry><ctry>LI</ctry><ctry>LT</ctry><ctry>LU</ctry><ctry>LV</ctry><ctry>MC</ctry><ctry>ME</ctry><ctry>MK</ctry><ctry>MT</ctry><ctry>NL</ctry><ctry>NO</ctry><ctry>PL</ctry><ctry>PT</ctry><ctry>RO</ctry><ctry>RS</ctry><ctry>SE</ctry><ctry>SI</ctry><ctry>SK</ctry><ctry>SM</ctry><ctry>TR</ctry></B840><B844EP><B845EP><ctry>BA</ctry></B845EP></B844EP><B848EP><B849EP><ctry>KH</ctry></B849EP><B849EP><ctry>MA</ctry></B849EP><B849EP><ctry>MD</ctry></B849EP><B849EP><ctry>TN</ctry></B849EP></B848EP><B860><B861><dnum><anum>JP2022039814</anum></dnum><date>20221026</date></B861><B862>ja</B862></B860><B870><B871><dnum><pnum>WO2023074716</pnum></dnum><date>20230504</date><bnum>202318</bnum></B871></B870></B800></SDOBI>
+<abstract id="abst" lang="en">
+<p id="pa01" num="0001">To provide a new technique for efficiently recovering microplastics from water to be treated, in which problems of conventional techniques such as large energy consumption are solved. A method for recovering microplastics from water to be treated containing the microplastics, the method comprising a step of allowing algae having microplastic adsorption and recovery ability to be present in the water to be treated, in which the algae are algae that secrete a sticky substance, and an amount of a sticky substance secreted by the algae is such that a volume of a sticky substance secreted to an outside of cells is 0.25 times or more and 100 times or less compared to a cell volume.<img id="iaf01" file="imgaf001.tif" wi="172" he="128" img-content="drawing" img-format="tif"/></p>
+</abstract>
+<description id="desc" lang="en"><!-- EPO <DP n="1"> -->
+<heading id="h0001">Technical Field</heading>
+<p id="p0001" num="0001">The present invention relates to a method and system for recovering microplastics from water (e.g., seawater or river water).</p>
+<heading id="h0002">Background Art</heading>
+<p id="p0002" num="0002">Plastic is one of the indispensable materials in life. On the other hand, microplastics generated when the plastic is, for example, broken has a serious problem on the environment and also threatens the ecological system. It is said that microplastics enter human bodies from food chains or various routes and accumulates little by little.</p>
+<p id="p0003" num="0003">As a technique for recovering microplastics, a technique for removing microplastics using microalgae has been proposed (Non-Patent Literature 1).</p>
+<heading id="h0003">Citation List</heading>
+<heading id="h0004">Non-Patent Literature</heading>
+<p id="p0004" num="0004">Non-Patent Literature 1: <nplcit id="ncit0001" npl-type="s"><text>Convertech, July 2020, pp. 2-5</text></nplcit></p>
+<heading id="h0005">Summary of Invention</heading>
+<heading id="h0006">Technical Problem</heading>
+<p id="p0005" num="0005">The present inventors have attempted to remove microplastics in accordance with Non Patent Literature 1, and have found that an event in which microplastics cannot be stably recovered over a long period of time occurs. Therefore, an object of the present invention is to provide a means capable of stably recovering microplastics over a long period of time.</p>
+<heading id="h0007">Solution to Problem</heading>
+<p id="p0006" num="0006">The present inventors have examined countless conditions such as the type,<!-- EPO <DP n="2"> --> amount and size of algae and various culture conditions, have found that the above-described problem can be solved when the volume of sticky substance secreted to the outside of a cell is within a predetermined range compared to the cell volume, and have completed the present invention. Specifically, the details are as follows.</p>
+<p id="p0007" num="0007">The present invention (1) is a method for recovering microplastics from water to be treated containing the microplastics, the method comprising a step of allowing algae having microplastic adsorption and recovery ability to be present in the water to be treated, in which the algae are algae that secrete a sticky substance, and an amount of a sticky substance secreted by the algae is such that a volume of a sticky substance secreted to an outside of cells is 0.25 times or more and 100 times or less compared to a cell volume.</p>
+<p id="p0008" num="0008">The present invention (2) is the method of the invention (1), in which the sticky substance is a polysaccharide.</p>
+<p id="p0009" num="0009">The present invention (3) is the method of the invention (1) or (2), in which the algae are at least one species selected from diatoms, dinoflagellate algae, Chlorarachniophyte algae, green algae, red algae, conjugating algae, Euglena algae, and blue-green algae.</p>
+<p id="p0010" num="0010">The present invention (4) is a system for recovering microplastics from water to be treated containing the microplastics, the system utilizing algae having microplastic adsorption and recovery ability when the microplastics are recovered from the water to be treated, in which the algae are algae that secrete a sticky substance, and an amount of a sticky substance secreted by the algae is such that a volume of a sticky substance secreted to an outside of cells is 0.25 times or more and 100 times or less compared to a cell volume.</p>
+<p id="p0011" num="0011">The present invention (5) is the system of the invention (4), in which the sticky substance is a polysaccharide.</p>
+<p id="p0012" num="0012">The present invention (6) is the system of the invention (4) or (5), in which the algae are at least one species selected from diatoms, dinoflagellate algae, Chlorarachniophyte algae, green algae, red algae, conjugating algae, Euglena algae, and blue-green algae.</p>
+<heading id="h0008">Advantageous Effects of Invention</heading>
+<p id="p0013" num="0013">According to the present invention, it is possible to provide a means capable of stably recovering microplastics over a long period of time.<!-- EPO <DP n="3"> --></p>
+<heading id="h0009">Brief Description of Drawings</heading>
+<p id="p0014" num="0014">
+<ul id="ul0001" list-style="none" compact="compact">
+<li><figref idref="f0001">Fig. 1</figref> is a conceptual diagram illustrating an example of a microplastic recovery system.</li>
+<li><figref idref="f0001">Fig. 2</figref> is an example of a control block diagram of the microplastic recovery system.</li>
+<li><figref idref="f0002">Fig. 3</figref> is an example of a control flow diagram in the microplastic recovery system.</li>
+<li><figref idref="f0003">Fig. 4</figref> is an example of a control flow diagram in the microplastic recovery system.</li>
+<li><figref idref="f0004">Fig. 5</figref> is an example of a control flow diagram in another system capable of executing control different from the control in <figref idref="f0003">Fig. 4</figref>.</li>
+<li><figref idref="f0005">Fig. 6</figref> is an example of a control flow diagram in another system capable of executing control different from the control in <figref idref="f0003">Fig. 4</figref>.</li>
+<li><figref idref="f0006">Fig. 7</figref> is an example of a control flow diagram in still another system capable of executing control different from the control in <figref idref="f0003">Fig. 4</figref>.</li>
+<li><figref idref="f0007">Fig. 8</figref> is an example of a control flow diagram in still another system capable of executing control different from the control in <figref idref="f0003">Fig. 4</figref>.</li>
+<li><figref idref="f0008">Fig. 9</figref> is a diagram (photograph) illustrating a state in which precipitates were confirmed after adsorption of microplastics in Examples.</li>
+<li><figref idref="f0008">Fig. 10</figref> is a diagram illustrating a procedure for measuring the amount of sticky substance secreted by algae.</li>
+<li><figref idref="f0009">Fig. 11</figref> is an enlarged photograph of various algae used in Examples.</li>
+<li><figref idref="f0010">Fig. 12</figref> is a diagram illustrating a difference between a conventional recovery system using a filtration device (filter or others) and a recovery system of an embodiment of the present invention.</li>
+<li><figref idref="f0010">Fig. 13</figref> is a diagram illustrating an example of utilization of algae used for microplastic recovery.</li>
+<li><figref idref="f0011">Fig. 14</figref> is a conceptual diagram when the present invention is utilized for sewage treatment.</li>
+</ul></p>
+<heading id="h0010">Description of Embodiments</heading>
+<heading id="h0011">«Method for Recovering Microplastics»</heading><!-- EPO <DP n="4"> -->
+<p id="p0015" num="0015">The present invention is a method for recovering microplastics from water to be treated containing the microplastics, the method comprising a step of allowing algae having microplastic adsorption and recovery ability to be present in the water to be treated, in which the algae are algae that secrete a sticky substance, and an amount of a sticky substance secreted by the algae is such that a volume of a sticky substance secreted to an outside of cells is 0.25 times or more and 100 times or less compared to a cell volume. Each component will be described in detail below.</p>
+<heading id="h0012">&lt;Water To Be Treated&gt;</heading>
+<p id="p0016" num="0016">The water to be treated is not particularly limited, and, for example, water in which microplastics are present or may be present, which includes seawater, fresh water, brackish water, and other water. More specific examples thereof include raw water in preparing water (e.g., seawater for aquaculture, fresh water for aquaculture, ballast water, drinking water, and other water) which may be ingested by or come into contact with humans or animals.</p>
+<heading id="h0013">&lt;Microplastics&gt;</heading>
+<p id="p0017" num="0017">The term "microplastics" as used in the present invention refers to particles having a size of 0.1 µm or more and 5000 µm or less (maximum length portion). However, the plastics which are present (or may be present) in the water to be treated, which is an object to be treated, may contain not only microplastics but also plastic particles having a particle size of less than 0.1 µm or more than 5000 µm. The actual microplastics are that most of the microplastics (e.g., 80% or more, 90% or more, or 95% or more of the total number of particles) are, for example, 0.1 µm or more, 0.5 µm or more, 1 µm or more, 2 µm or more, 3 µm or more, 4 µm or more, 5 µm or more, 6 µm or more, 7 µm or more, 10 µm or more, 50 µm or more, 100 µm or more, 500 µm or more, 1000 µm or more, 2500 µm or more; 2500 µm or less, 1000 µm or less, 500 µm or less, 100 µm or less, 50 µm or less, 10 µm or less, 9 µm or less, 8 µm or less, 7 µm or less, 6 µm or less, 5 µm or less, 4 µm or less, or 3 µm or less (maximum length portion). Note that, as is well known, microplastics include primary microplastics (plastics manufactured in micro-size: for example, utilized in capsules for facial cleansers, softeners, and slow-release fertilizers) and secondary microplastics (large plastics crushed and fragmented into micro-size in natural environments).</p>
+<heading id="h0014">&lt;Algae&gt;</heading><!-- EPO <DP n="5"> -->
+<p id="p0018" num="0018">The term "algae having microplastic adsorption and recovery ability" as used in the present invention refers to algae capable of reducing the concentration of microplastics in water to be treated when algae is allowed to be present by a predetermined amount (e.g., 10%, 20%, 30%, 40%, 50%, 60%, 70%, 80%, 90%, or 95%) or more compared to the concentration of microplastics in water to be treated when algae is not allowed to be present. Algae that secrete sticky substances include diatoms and brown algae belonging to Stramenopiles, dinoflagellate algae belonging to Alveolata, Chlorarachniophyte algae belonging to Rhizaria, green algae and red algae belonging to Archaeplastida, conjugating algae, Euglena algae belonging to Excavata, and blue-green algae belonging to eubacteria. Microalgae are known to release various mucilaginous substances to the outside of the cells. Sticky substances are typically polysaccharides, and are, for example, substances such as red algae such as tengusa, agarose or porphyran in the case of conjugating algae, or alginic acid or a fucose-containing polysaccharides in the case of brown algae such as kelp. Among various types of diatoms, Skeletonema tropicum is particularly preferable. Blue-green algae and green algae are preferable in that the growth rate of the algae is excellent. Further, since Euglena has flagella, it is preferable in that Euglena can actively adsorb microplastics.</p>
+<p id="p0019" num="0019">Examples of the other algae also include: algae (e.g., brown algae) having a physical structure (e.g., a porous structure or a concave-convex structure) that traps microplastics; and algae charged with a charge opposite to that of microplastics. For example, microalgae vary in shape and size, and there are porous algae having a large surface area and those forming a filamentous colony. Such a structure also has the function of entangling microplastics. Unlike algae having sticky substances, such algae are less likely to undergo structural changes due to environmental changes or other changes, and thus are excellent in that trapped microplastics can be stably retained.</p>
+<p id="p0020" num="0020">As the algae used for removing microplastics, one type selected from the above-described algae may be used, or two or more specific types of algae may be used in combination.</p>
+<p id="p0021" num="0021">For example, combining diatoms and algae (e.g., blue-green algae and green algae) having a growth rate higher than that of the diatoms allows to sufficiently obtain the adsorption effect of microplastics even in the initial stage of culture.</p>
+<p id="p0022" num="0022">Combining diatoms and algae (e.g., dinoflagellates and brown algae) having a<!-- EPO <DP n="6"> --> size larger than that of the diatoms allows to sufficiently obtain an adsorption effect of microplastics having a larger size, which are difficult to be adsorbed by diatoms.</p>
+<p id="p0023" num="0023">The size of the algae is not particularly limited. However, in view of the fact that the size of the microplastics to be treated is 0.1 µm or more and 5000 µm or less, the size is preferably 5000 µm or more (e.g., in the case of connected or clustered algae, the size of the connected or clustered algae). However, the size of the algae may be allowed to depend on the main size of microplastics present in the water to be treated, and in this case, the assumed size of the algae is, for example, 0.1 µm or more, 1 µm or more, 2 µm or more, 5 µm or more, 10 µm or more, 50 µm or more, 100 µm or more, 500 µm or more, 1000 µm or more, 2500 µm or more, 5000 µm or less, 2500 µm or less, 1000 µm or less, 500 µm or less, 250 µm or less, 100 µm or less, 50 µm or less, 25 µm or less, 20 µm or less, 10 µm or less, 5 µm or less, or 1 µm or less. Note that the "size" here refers to the maximum diameter portion (e.g., in the case of rod-shaped algae, the long diameter portion). Algae having various sizes are present in the system, and the "size" here refers to an average value of the sizes of 100 algae obtained at random.</p>
+<p id="p0024" num="0024">In addition, the amount of the sticky substance secreted by the algae is preferably such that the volume of the sticky substance secreted to the outside of the cells is 0.25 times or more and 100 times or less compared to the cell volume. Within this range, it is possible to provide a means capable of stably recovering microplastics over a long period of time. Note that the method for measuring the volume is as follows. 10 µL of a microalgae culture solution cultured on a glass slide is added. 10 µL of India ink diluted 5-fold was added, the India ink and the microalgae culture solution were mixed well, a cover glass was placed, and the cell volume of microalgae and the volume of extracellular mucilage were measured under a microscopic environment. In accordance with the method of Kishimoto et al. {<nplcit id="ncit0002" npl-type="s"><text>Kishimoto N., Ichise S., Suzuki K., Yamamoto C.: Analysis of long-term variation in phytoplankton biovolume in the northern basin of Lake Biwa. Limnology 14: 117-128(2013</text></nplcit>)}, each algae was approximated by an elliptic cylinder, an ellipse, a rectangular parallelepiped, and a combination thereof, and the cell volume was calculated. With respect to the extracellular mucilage volume, the volume including the portion not stained with India ink was calculated and the extracellular mucilage volume was obtained by dividing the cell volume. <figref idref="f0008">Fig. 10</figref> is a diagram illustrating the above procedure. Algae having various sizes are present in the system, and the "amount" here refers to an average value<!-- EPO <DP n="7"> --> of the sizes of 100 algae obtained at random.</p>
+<p id="p0025" num="0025">The cell increase rate of algae used for removal of microplastics is preferably 250% or more, more preferably 300% or more, and even more preferably 400% or more. When the cell increase rate of the algae is within the above range, the sticky substance is rapidly secreted after culture, and thus the adsorption effect of microplastics can be exhibited at an early stage after the culture. The cell increase rate is calculated according to the following conditions and calculation formula.</p>
+<heading id="h0015">&lt;Culture Conditions&gt;</heading>
+<p id="p0026" num="0026">The culturing of algae is carried out in 200 ml of medium (f/2, with the exception that the sodium nitrate is changed to 750 mg/L, which is 10 times the normal concentration). Table 1 illustrates the components of the medium (f/2). Table 2 illustrates the components of f/2 metals contained in the medium (f/2).
+<tables id="tabl0001" num="0001">
+<table frame="all">
+<title>[Table 1]</title>
+<tgroup cols="2">
+<colspec colnum="1" colname="col1" colwidth="33mm" align="center"/>
+<colspec colnum="2" colname="col2" colwidth="21mm" align="center"/>
+<thead valign="top">
+<row>
+<entry namest="col1" nameend="col2">f/2</entry></row></thead>
+<tbody>
+<row>
+<entry>NaNO<sub>3</sub></entry>
+<entry>75mg</entry></row>
+<row>
+<entry>NaH<sub>2</sub>PO<sub>4</sub>·2H<sub>2</sub>O</entry>
+<entry>0.6mg</entry></row>
+<row>
+<entry>Vitamin B<sub>12</sub></entry>
+<entry>0.05<i>µ</i>g</entry></row>
+<row>
+<entry>Biotin</entry>
+<entry>0.05<i>µ</i>g</entry></row>
+<row>
+<entry>Thiamine HCl</entry>
+<entry>10<i>µ</i>g</entry></row>
+<row>
+<entry>Na<sub>2</sub>SiO<sub>3</sub>·9H<sub>2</sub>O</entry>
+<entry>1mg</entry></row>
+<row>
+<entry>f/2 metals</entry>
+<entry>0.1mL</entry></row>
+<row>
+<entry>Seawater</entry>
+<entry>99.9mL</entry></row></tbody></tgroup>
+</table>
+</tables><!-- EPO <DP n="8"> -->
+<tables id="tabl0002" num="0002">
+<table frame="all">
+<title>[Table 2]</title>
+<tgroup cols="2">
+<colspec colnum="1" colname="col1" colwidth="34mm" align="center"/>
+<colspec colnum="2" colname="col2" colwidth="21mm" align="center"/>
+<thead valign="top">
+<row>
+<entry namest="col1" nameend="col2">f/2 metals</entry></row></thead>
+<tbody>
+<row>
+<entry>Na<sub>2</sub>EDTA·2H<sub>2</sub>O</entry>
+<entry>440mg</entry></row>
+<row>
+<entry>FeCl<sub>3</sub>·6H<sub>2</sub>O</entry>
+<entry>316mg</entry></row>
+<row>
+<entry>CoSO<sub>4</sub>·7H<sub>2</sub>O</entry>
+<entry>1.2mg</entry></row>
+<row>
+<entry>ZnSO<sub>4</sub>·7H<sub>2</sub>O</entry>
+<entry>2.1mg</entry></row>
+<row>
+<entry>MnCl<sub>2</sub>·4H<sub>2</sub>O</entry>
+<entry>18mg</entry></row>
+<row>
+<entry>CuSO<sub>4</sub>·5H<sub>2</sub>O</entry>
+<entry>0.7mg</entry></row>
+<row>
+<entry>Na<sub>2</sub>MoO<sub>4</sub>·2H<sub>2</sub>O</entry>
+<entry>0.7mg</entry></row>
+<row>
+<entry>Distilled Water</entry>
+<entry>100mL</entry></row></tbody></tgroup>
+</table>
+</tables></p>
+<heading id="h0016">(Cell Increase Rate)</heading>
+<p id="p0027" num="0027">Each algae is cultured using the above-described medium. The number of cells before culture is, for example, 5000 to 20000 cells/ml, and typically 10000 cells/ml. Using an ultraviolet-visible spectrophotometer, the absorbance at a wavelength of 490 nm is measured 6 hours and 3 days after the start of the culture, respectively. The cell increase rate is calculated according to the following formula: <maths id="math0001" num=""><formula-text>Cell increase rate = (absorbance measured after 3 days)/(absorbance measured after 6 hours)×100</formula-text></maths></p>
+<p id="p0028" num="0028">Table 3 illustrates the cell increase rates obtained for the eight types of algae.
+<tables id="tabl0003" num="0003">
+<table frame="all">
+<title>[Table 3]</title>
+<tgroup cols="5">
+<colspec colnum="1" colname="col1" colwidth="36mm"/>
+<colspec colnum="2" colname="col2" colwidth="44mm"/>
+<colspec colnum="3" colname="col3" colwidth="25mm"/>
+<colspec colnum="4" colname="col4" colwidth="23mm"/>
+<colspec colnum="5" colname="col5" colwidth="37mm"/>
+<thead valign="middle">
+<row>
+<entry morerows="1">Classification of Algae</entry>
+<entry morerows="1" align="center">Species Name</entry>
+<entry namest="col3" nameend="col4" align="center">Absorbance</entry>
+<entry morerows="1" align="center">Cell Increase Rate (%)</entry></row>
+<row>
+<entry align="center">After 6 hours</entry>
+<entry align="center">After 3 days</entry></row></thead>
+<tbody valign="middle">
+<row>
+<entry align="center">Diatoms</entry>
+<entry align="center">Achnanthes kuwaitensis</entry>
+<entry align="center">0.1</entry>
+<entry align="center">0.29</entry>
+<entry align="center">280.0</entry></row>
+<row>
+<entry align="center">Diatoms</entry>
+<entry align="center">Skeletonema tropicum</entry>
+<entry align="center">0.11</entry>
+<entry align="center">0.38</entry>
+<entry align="center">345.5</entry></row>
+<row>
+<entry align="center">Blue-green algae</entry>
+<entry align="center">Calothrix parasitica</entry>
+<entry align="center">0.09</entry>
+<entry align="center">0.41</entry>
+<entry align="center">455.6</entry></row>
+<row>
+<entry align="center">Euglena algae</entry>
+<entry align="center">Euglena mutabilis</entry>
+<entry align="center">0.12</entry>
+<entry align="center">0.19</entry>
+<entry align="center">158.3</entry></row>
+<row>
+<entry align="center">Brown algae</entry>
+<entry align="center">Acinetospora crinita</entry>
+<entry align="center">0.1</entry>
+<entry align="center">0.18</entry>
+<entry align="center">180.0</entry></row>
+<row>
+<entry align="center">Green algae</entry>
+<entry align="center">Chlamydomonas kuwadae</entry>
+<entry align="center">0.09</entry>
+<entry align="center">0.39</entry>
+<entry align="center">433.3</entry></row>
+<row>
+<entry align="center">Conjugating algae</entry>
+<entry align="center">Closterium ehrenbergii</entry>
+<entry align="center">0.08</entry>
+<entry align="center">0.14</entry>
+<entry align="center">175.0</entry></row>
+<row>
+<entry align="center">Dinoflagellate algae</entry>
+<entry align="center">Pyrocystis fusiformis</entry>
+<entry align="center">0.09</entry>
+<entry align="center">0.13</entry>
+<entry align="center">144.4</entry></row></tbody></tgroup>
+</table>
+</tables><!-- EPO <DP n="9"> --></p>
+<heading id="h0017">&lt;Recovery Conditions&gt;</heading>
+<p id="p0029" num="0029">Preferred recovery conditions in the method for recovering microplastics from water to be treated containing the microplastics will now be described.</p>
+<heading id="h0018">(Relationship between Microplastic Concentration and Algal Concentration)</heading>
+<p id="p0030" num="0030">The preferred algal concentration in the system varies depending on the microplastic concentration, the size of the microplastics, the type of algae used, and others. This condition setting can be determined, for example, by carrying out the model experiments described in Examples.</p>
+<heading id="h0019">(Recovery Time)</heading>
+<p id="p0031" num="0031">The preferred recovery time in the system varies depending on the microplastic concentration, the size of the microplastics, the type of algae to be used, the microplastic concentration to be reduced, and others. This condition setting can be determined, for example, by carrying out the model experiments described in Examples.</p>
+<heading id="h0020">«Algal Composition»</heading>
+<p id="p0032" num="0032">The algae used in the methods and systems according to the present invention may be an algal composition. Specifically, the composition is a group of algae of the same or different species. For example, the group of algae is preferably stored in a container or others in a state in which the algae are viable (e.g., in a liquid medium). Freeze-dried viable algae may be handled in a dry form. Note that, if necessary, the composition may contain components other than algae.</p>
+<heading id="h0021">«Microplastic Recovery System»</heading>
+<p id="p0033" num="0033">A microplastic recovery system according to the present embodiment will now be described. Note that a "system" as used in the present description and claims is a concept including a device and a plant. First, the system is not particularly limited if the system is characterized by using algae having microplastic adsorption and recovery ability (or algae secreting sticky substances) when recovering the microplastics from water to be treated, and various systems are assumed (e.g., <figref idref="f0011">Fig. 14</figref> is a conceptual diagram when the present invention is utilized for sewage treatment). <figref idref="f0010">Fig. 12</figref> is merely an example, and illustrates a difference between a conventional recovery system and the recovery system of one embodiment of the present invention, using a filtration<!-- EPO <DP n="10"> --> device (filter or others). As can be seen from the figure, the conventional technique can recover only a small amount of microplastics, whereas the embodiment of the present invention can recover a larger amount of microplastics because microplastics adhere to algae and forms a lump. An example of the system will be described below.</p>
+<heading id="h0022">&lt;System Configuration&gt;</heading>
+<p id="p0034" num="0034"><figref idref="f0001">Fig. 1</figref> is a conceptual diagram illustrating an example of a microplastic recovery system. As illustrated in <figref idref="f0001">Fig. 1</figref>, the system 1 includes a microplastic recovery unit 1-1 that can store water, an algae introduction unit 1-2 that introduces water containing algae into the microplastic recovery unit 1-1, a water-to-be-treated introduction unit 1-3 that introduces water-to-be-treated that may contain microplastics into the microplastic recovery unit 1-1, and a filtration unit 1-4 that filters water treated in the microplastic recovery unit 1-1 to remove algae and others.</p>
+<p id="p0035" num="0035">Note that it is preferable that a mechanism for supplying air to the microplastic recovery unit 1-1 is installed so that air can be appropriately supplied to water stored in the microplastic recovery unit 1-1. Thus, the amount of the sticky substances secreted from algae cultured in the water stored in the microplastic recovery unit 1-1 is increased, and thus the amount of the microplastic adsorbed and recovered by algae can be increased.</p>
+<heading id="h0023">&lt;System Function&gt;</heading>
+<p id="p0036" num="0036">Then, <figref idref="f0001">Fig. 2</figref> is an example of a control block diagram of the microplastic recovery system. The treatment system 1 includes an algae introduction control means 1-1 that controls an algae introduction means 2 to control introduction of water containing algae into the microplastic recovery unit 1-1, a water-to-be-treated introduction control means 1-2 that controls a water-to-be-treated introduction means 3 to control introduction of water to be treated into the microplastic recovery unit 1-1, an MP amount measurement control means 1-3 that controls a MP amount measurement means that measures the presence and/or amount of plastics in the microplastic recovery unit 1-1, a stirring control means 1-4 that controls stirring of a stirring means 5 that stirs water (water to be treated + algae) in the microplastic recovery unit 1-1, a treatment completion determination means 1-5 that determines whether treatment of water to be treated is completed, and a drainage control means 1-6 that controls drainage of a drainage means 6 that drains the water to be treated from the microplastic recovery unit 1-1 after treatment of water to be treated.<!-- EPO <DP n="11"> --></p>
+<heading id="h0024">&lt;Control&gt;</heading>
+<p id="p0037" num="0037">Then, <figref idref="f0002">Figs. 3</figref> and <figref idref="f0003">4</figref> are examples of control flow diagrams in the microplastic recovery system. First, in step 1, the water-to-be-treated introduction control means 1-2 controls the water-to-be-treated introduction means 3 to start introduction of the water to be treated into the microplastic recovery unit 1-1. Then, in step 3, the water-to-be-treated introduction control means 1-2 determines whether or not a predetermined amount of water to be treated has been introduced into the microplastic recovery unit 1-1. If Yes in step 3, the water-to-be-treated introduction control means 1-2 controls the water-to-be-treated introduction means 3 to complete the introduction of the water to be treated into the microplastic recovery unit 1-1. Note that, if No in step 3, the introduction of the water to be treated is continued. Then, in step 7, the MP amount measurement control means 1-3 performs measurement control of the MP amount in the microplastic recovery unit 1-1 using the MP amount measurement means 4. In step 9, the MP amount measurement control means 1-3 determines the amount of algae to be introduced into the microplastic recovery unit 1-1 according to the amount of microplastics in the water to be treated. Then, in step 11, the algae introduction control means 1-1 controls the algae introduction means 2 to start introduction of water containing algae into the microplastic recovery unit 1-1 from, for example, an algae storage unit {e.g., a storage unit storing water containing algae (e.g., fresh water or seawater) and having, for example, a function of culturing algae} provided separately from the microplastic recovery unit 1-1. Then, in step 13, the algae introduction control means 1-1 determines whether or not the algae introduction amount determined in step 9 has been reached. If Yes in step 13, in step 15, the algae introduction means 1-1 ends introduction of algae into the microplastic recovery unit 1-1 from the algae storage unit. Note that, if No in step 13, the introduction of algae is continued. Then, in step 17, the stirring control means 1-4 determines the stirring time (treatment time) based on a predetermined parameter (e.g., microplastic concentration or amount of introduced algae) for determining the stirring time for making the microplastic amount or concentration less than or equal to a predetermined amount. In step 19, the stirring control means 1-4 controls the stirring means 5 to start stirring of the water (water containing microplastics + algae) in the microplastic recovery unit 1-1. Then, in step 21, the stirring control means 1-4 determines whether or not the stirring time (treatment time) determined in step 17 has been reached. If Yes in step 21, the stirring control means 1-6 controls the stirring means 5 to end stirring of water in the microplastic<!-- EPO <DP n="12"> --> recovery unit 1-1. Note that, if No in step 21, the stirring of the water in the microplastic recovery unit 1-1 is continued. Then, in step 25, the drainage control means 1-6 controls the drainage means 6 to drain the water (treated water) in the microplastic recovery unit 1-1. Note that the drainage is then preferably introduced into the filtration unit, where microplastic-attached algae are removed from the water. As a result, the water contaminated with microplastics can be turned into water that contains no microplastics or contains a reduced amount of microplastics.</p>
+<heading id="h0025">&lt;Other Control Example 1&gt;</heading>
+<p id="p0038" num="0038"><figref idref="f0004">Figs. 5</figref> and <figref idref="f0005">6</figref> are examples of control flow diagrams in another system capable of executing control different from the control described above. The control in these figures is different from the above-described control, and the difference is the process in step 21. In the above-described control, the stirring control means 1-4 executes a process of determining whether or not the determined stirring time (treatment time) determined in step 17 has been reached. On the other hand, in the control in these figures, the stirring control means 1-4 measures the presence or absence or the amount of microplastics in the microplastic recovery unit 1-1 using the MP amount measurement means 4 and determines whether or not the MP amount in the water to be treated is less than or equal to a predetermined amount.</p>
+<heading id="h0026">&lt;Other Control Example 2&gt;</heading>
+<p id="p0039" num="0039"><figref idref="f0006">Figs. 7</figref> and <figref idref="f0007">8</figref> are examples of control flow diagrams in still another system capable of executing control different from the control described above. The above-described system is a system in which a predetermined amount of algae (an amount of algae according to the amount of microplastics contained in water introduced into the microplastic recovery unit 1-1) is introduced into the microplastic recovery unit 1-1. On the other hand, this system is different from the above-described system in that sufficient algae for treating microplastics contained in water introduced into the microplastic recovery unit 1-1 are allowed to be present in the microplastic recovery unit 1-1 by introducing algae into the microplastic recovery unit 1-1 (an amount of algae smaller than an amount of algae capable of treating microplastics contained in water introduced into the microplastic recovery unit 1-1) and then culturing the algae in the microplastic recovery unit 1-1. Based on the difference, the process of this system is explained as follows. In step 7, the algae introduction control means 1-1 controls the algae introduction means 2 to add a predetermined amount of algae into the<!-- EPO <DP n="13"> --> microplastic treatment unit 1-1. Then, in step 9, the MP amount measurement control means 1-3 controls the MP amount measurement means 4 to measure the presence and/or amount of microplastics in the microplastic 1-1, and then the treatment system 1 determines the culture conditions of the algae based on the "amount of microplastics in the water to be treated" and the "amount of introduced algae" (time, temperature, and others). Note that, in this example, the culture condition is described by taking time as an example. Then, in step 13, the treatment system 1 determines whether or not the culture time determined in step 9 has been reached. If Yes in step 13, in step 15, the treatment system 1 ends culturing of the algae in the microplastic recovery unit 1-1.</p>
+<p id="p0040" num="0040">On the other hand, if No in step 13, the culturing of the algae is continued.</p>
+<heading id="h0027">«Utility»</heading>
+<p id="p0041" num="0041">The present invention is useful in producing non-microplastic marine seafood and safe and secure seafood, which are equivalent to non-pesticide (organic) agricultural products on land. In particular, the present invention is promising for introduction into on-land aquaculture facilities because microplastics in the environment are not ingested. Examples thereof include cultivation of sea grapes, seaweed laver, Malabar grouper (high-class fish), oysters, sea urchins, and shrimps. Further, the present invention leads to an environmental contribution of removal of coastal MP for consumers. In addition, the algae used for microplastic recovery can also be utilized in the application illustrated in <figref idref="f0010">Fig. 13</figref>.</p>
+<heading id="h0028">Examples</heading>
+<heading id="h0029">«Culture of Algae»</heading>
+<p id="p0042" num="0042">The algae used in the experiment (see Table 4) were cultured on a 1L scale. At this point, the turbidities were measured and recorded using a turbidimeter (CO8000 Biowave). For example, the number of algal cells was 7000 cells/ml for algae of the genus Skeletonema or having a size of about 5 to 10 µm. Note that, if the number of algal cells was more than 7000 cells/ml, the algae were diluted with medium or others. On the other hand, if the number of algal cells was less than 7000 cells/ml, supernatant was removed after 2 to 3 hours for adjustment. Then, 19.648 ml of well-suspended culture solution was placed in a 70 ml cell culture flask (three flasks were prepared). As a control, 19.648 ml of medium was placed in a new 70 ml cell culture flask {four flasks were prepared (one of the four flasks was used for preparing a calibration curve)}.<!-- EPO <DP n="14"> --> In addition, about 20 ml of well-suspended culture solution was prepared for base-line correction when the absorbance was measured with an ultraviolet-visible spectrophotometer. Then, 352 µl of a 2 µm bead solution (5.68 × 10<sup>8</sup> beads/ml) was placed in a 70ml cell culture flask containing the culture solution. The solution was then mixed by pipetting, and placed in an artificial meteorological device at 20 °C. for static culture (for 1 day). Note that <figref idref="f0009">Fig. 11</figref> is enlarged photographs of various algae used. In the figure, the dotted lines indicate the cell surface, and the solid lines indicate the interface of the sticky substance. Table 5 illustrates the amounts of the sticky components calculated by the method described in the general description.
+<tables id="tabl0004" num="0004">
+<table frame="all">
+<title>[Table 4]</title>
+<tgroup cols="3">
+<colspec colnum="1" colname="col1" colwidth="42mm"/>
+<colspec colnum="2" colname="col2" colwidth="48mm"/>
+<colspec colnum="3" colname="col3" colwidth="27mm"/>
+<thead valign="middle">
+<row>
+<entry>Classification of Algae</entry>
+<entry>Species Name</entry>
+<entry>Size</entry></row></thead>
+<tbody valign="middle">
+<row>
+<entry morerows="1">Diatoms</entry>
+<entry>Achnanthes kuwaitensis</entry>
+<entry>12-40 µm</entry></row>
+<row>
+<entry>Skeletonema tropicum</entry>
+<entry>3-12 µm</entry></row>
+<row>
+<entry>Blue-green algae</entry>
+<entry>Calothrix parasitica</entry>
+<entry>-11 µm</entry></row>
+<row>
+<entry>Euglena</entry>
+<entry>Euglena mutabilis</entry>
+<entry>-63 µm</entry></row>
+<row>
+<entry>Brown algae</entry>
+<entry>Acinetospora crinita</entry>
+<entry>17 µm</entry></row>
+<row>
+<entry>Green algae</entry>
+<entry>Chlamydomonas kuwadae</entry>
+<entry>10-25 µm</entry></row>
+<row>
+<entry>Conjugating algae</entry>
+<entry>Closterium ehrenbergii</entry>
+<entry>80-500 µm</entry></row>
+<row>
+<entry>Dinoflagellate algae</entry>
+<entry>Pyrocystis fusiformis</entry>
+<entry>400 µm</entry></row></tbody></tgroup>
+</table>
+</tables><!-- EPO <DP n="15"> -->
+<tables id="tabl0005" num="0005">
+<table frame="all">
+<title>[Table 5]</title>
+<tgroup cols="3">
+<colspec colnum="1" colname="col1" colwidth="42mm"/>
+<colspec colnum="2" colname="col2" colwidth="48mm"/>
+<colspec colnum="3" colname="col3" colwidth="39mm"/>
+<thead valign="middle">
+<row>
+<entry>Classification of Algae</entry>
+<entry>Species used in Analysis</entry>
+<entry>Amount of Mucilage</entry></row></thead>
+<tbody valign="middle">
+<row>
+<entry morerows="1">Diatoms</entry>
+<entry>Achnanthes kuwaitensis</entry>
+<entry>5 times</entry></row>
+<row>
+<entry>Skeletonema tropicum</entry>
+<entry>10 times</entry></row>
+<row>
+<entry>Blue-green algae</entry>
+<entry>Calothrix parasitica</entry>
+<entry>35 times</entry></row>
+<row>
+<entry>Euglena</entry>
+<entry>Euglena mutabilis</entry>
+<entry>1 times</entry></row>
+<row>
+<entry>Brown algae</entry>
+<entry>Acinetospora crinita</entry>
+<entry>- (not confirmed)</entry></row>
+<row>
+<entry>Green algae</entry>
+<entry>Chlamydomonas kuwadae</entry>
+<entry>7 times</entry></row>
+<row>
+<entry>Conjugating algae</entry>
+<entry>Closterium ehrenbergii</entry>
+<entry>12 times</entry></row>
+<row>
+<entry>Dinoflagellate algae</entry>
+<entry>Pyrocystis fusiformis</entry>
+<entry>0.39 times</entry></row></tbody></tgroup>
+</table>
+</tables></p>
+<heading id="h0030">«Microplastic Recovery Test»</heading>
+<p id="p0043" num="0043">The flask {solution with a final concentration of 1 × 10<sup>7</sup> beads (2 µm)/ml in which the above each algae was cultured} obtained in the above-described «Culture of Algae» was taken out from the artificial meteorological device so as not shake the flask. At this point, as illustrated in <figref idref="f0008">Fig. 9</figref>, precipitates were confirmed. The solution was then suspended by swirling and pipetting. Then, a 50 µm cell strainer (pluriStrainer 50 µm) was set and labeled in a 50 ml tube using a connector ring (cell strainers corresponding to the number of cell culture flasks other than those for the calibration curve were prepared). All culture flasks were depressurized and filtered, in each cell strainer, using a syringe (culture flasks for calibration curves were not filtered). The primarily filtered samples were then covered with a lid and stored on a laboratory table. A calibration curve was prepared, and then a beads dilution series for a calibration curve was prepared in order to estimate the beads recovery rate by algae. Specifically, medium to which beads were not added was set to be a beads concentration of 0, and 1/2 dilution was repeated from a stock concentration of 1.00 × 10<sup>7</sup> beads/ml to prepare 3.13 × 10<sup>5</sup> beads/ml, 6.25 × 10<sup>5</sup> beads/ml, 1.25 × 10<sup>6</sup> beads/ml, 2.50 × 10<sup>6</sup> beads/ml, and 5.00 × 10<sup>6</sup> beads/ml.</p>
+<heading id="h0031">«Microplastic Recovery Measurement Test»</heading>
+<p id="p0044" num="0044">The absorbance at 267 nm, which is the fluorescence of the beads, was measured using an ultraviolet-visible spectrophotometer, BioSpec-Mini (Shimadzu Corporation).<!-- EPO <DP n="16"> --> At this point, in order to estimate the beads recovery rate of the algae, the beads dilution series for a calibration curve was measured, and a calibration curve was prepared to obtain a primary regression equation. A 50 µm cell-strainer permeated solution of the algae culture medium + beads solution was used as a sample to measure absorbance, and the beads concentration in the permeated solution was calculated from the primary regression equation obtained by the calibration curve. In the same manner, a 50 µm cell strainer permeated solution of the medium + beads solution without culture was used as a control to measure absorbance, and the beads concentration in the permeated solution was calculated from the primary regression equation obtained by the calibration curve. The recovery rate of the beads was calculated from the beads concentration in the sample and the beads concentration in the control. The results are illustrated in Table 6.
+<tables id="tabl0006" num="0006">
+<table frame="all">
+<title>[Table 6]</title>
+<tgroup cols="3">
+<colspec colnum="1" colname="col1" colwidth="44mm"/>
+<colspec colnum="2" colname="col2" colwidth="50mm"/>
+<colspec colnum="3" colname="col3" colwidth="71mm"/>
+<thead valign="middle">
+<row>
+<entry>Classification of Algae</entry>
+<entry>Species used in Analysis</entry>
+<entry>Recovery Rate of Treatment Time 1 Day</entry></row></thead>
+<tbody valign="middle">
+<row>
+<entry morerows="1">Diatoms</entry>
+<entry>Achnanthes kuwaitensis</entry>
+<entry align="right">25%</entry></row>
+<row>
+<entry>Skeletonema tropicum</entry>
+<entry align="right">40%</entry></row>
+<row>
+<entry>Blue-algae</entry>
+<entry>Calothrix parasitica</entry>
+<entry align="right">38%</entry></row>
+<row>
+<entry>Euglena</entry>
+<entry>Euglena mutabilis</entry>
+<entry align="right">18%</entry></row>
+<row>
+<entry>Brown algae</entry>
+<entry>Acinetospora crinita</entry>
+<entry align="right">10%</entry></row>
+<row>
+<entry>Green algae</entry>
+<entry>Chlamydomonas kuwadae</entry>
+<entry align="right">6%</entry></row>
+<row>
+<entry>Conjugating algae</entry>
+<entry>Closterium ehrenbergii</entry>
+<entry align="right">5%</entry></row>
+<row>
+<entry>Dinoflagellate algae</entry>
+<entry>Pyrocystis fusiformis</entry>
+<entry align="right">17%</entry></row></tbody></tgroup>
+<tgroup cols="3" rowsep="0">
+<colspec colnum="1" colname="col1" colwidth="44mm" align="justify"/>
+<colspec colnum="2" colname="col2" colwidth="50mm"/>
+<colspec colnum="3" colname="col3" colwidth="71mm"/>
+<tbody>
+<row>
+<entry namest="col1" nameend="col3">Remarks: Recovery rate of conjugating algae: performed at cell number of 240 cells/ml<br/>
+Recovery rate of brown algae: performed at cell number of 106 cells/ml and recovery time 4 hrs<br/>
+Recovery rate of green algae: performed at recovery time 4 hrs</entry></row></tbody></tgroup>
+</table>
+</tables></p>
+</description>
+<claims id="claims01" lang="en"><!-- EPO <DP n="17"> -->
+<claim id="c-en-0001" num="0001">
+<claim-text>A method for recovering microplastics from water to be treated containing the microplastics, the method comprising a step of allowing algae having microplastic adsorption and recovery ability to be present in the water to be treated,<br/>
+wherein the algae are algae that secrete a sticky substance, and an amount of a sticky substance secreted by the algae is such that a volume of a sticky substance secreted to an outside of cells is 0.25 times or more and 100 times or less compared to a cell volume.</claim-text></claim>
+<claim id="c-en-0002" num="0002">
+<claim-text>The method according to claim 1, wherein the sticky substance is a polysaccharide.</claim-text></claim>
+<claim id="c-en-0003" num="0003">
+<claim-text>The method according to claim 1 or 2, wherein the algae are at least one species selected from diatoms, dinoflagellate algae, Chlorarachniophyte algae, green algae, red algae, conjugating algae, Euglena algae, and blue-green algae.</claim-text></claim>
+<claim id="c-en-0004" num="0004">
+<claim-text>A system for recovering microplastics from water to be treated containing the microplastics, the system utilizing algae having microplastic adsorption and recovery ability when the microplastics are recovered from the water to be treated,<br/>
+wherein the algae are algae that secrete a sticky substance, and an amount of a sticky substance secreted by the algae is such that a volume of a sticky substance secreted to an outside of cells is 0.25 times or more and 100 times or less compared to a cell volume.</claim-text></claim>
+<claim id="c-en-0005" num="0005">
+<claim-text>The system according to claim 4, wherein the sticky substance is a polysaccharide.</claim-text></claim>
+<claim id="c-en-0006" num="0006">
+<claim-text>The system according to claim 4 or 5, wherein the algae are at least one species selected from diatoms, dinoflagellate algae, Chlorarachniophyte algae, green algae, red algae, conjugating algae, Euglena algae, and blue-green algae.</claim-text></claim>
+</claims>
+<drawings id="draw" lang="en"><!-- EPO <DP n="18"> -->
+<figure id="f0001" num="1,2"><img id="if0001" file="imgf0001.tif" wi="148" he="225" img-content="drawing" img-format="tif"/></figure><!-- EPO <DP n="19"> -->
+<figure id="f0002" num="3"><img id="if0002" file="imgf0002.tif" wi="110" he="228" img-content="drawing" img-format="tif"/></figure><!-- EPO <DP n="20"> -->
+<figure id="f0003" num="4"><img id="if0003" file="imgf0003.tif" wi="147" he="190" img-content="drawing" img-format="tif"/></figure><!-- EPO <DP n="21"> -->
+<figure id="f0004" num="5"><img id="if0004" file="imgf0004.tif" wi="115" he="227" img-content="drawing" img-format="tif"/></figure><!-- EPO <DP n="22"> -->
+<figure id="f0005" num="6"><img id="if0005" file="imgf0005.tif" wi="145" he="218" img-content="drawing" img-format="tif"/></figure><!-- EPO <DP n="23"> -->
+<figure id="f0006" num="7"><img id="if0006" file="imgf0006.tif" wi="114" he="227" img-content="drawing" img-format="tif"/></figure><!-- EPO <DP n="24"> -->
+<figure id="f0007" num="8"><img id="if0007" file="imgf0007.tif" wi="144" he="217" img-content="drawing" img-format="tif"/></figure><!-- EPO <DP n="25"> -->
+<figure id="f0008" num="9,10"><img id="if0008" file="imgf0008.tif" wi="152" he="214" img-content="drawing" img-format="tif"/></figure><!-- EPO <DP n="26"> -->
+<figure id="f0009" num="11"><img id="if0009" file="imgf0009.tif" wi="147" he="194" img-content="drawing" img-format="tif"/></figure><!-- EPO <DP n="27"> -->
+<figure id="f0010" num="12,13"><img id="if0010" file="imgf0010.tif" wi="150" he="211" img-content="drawing" img-format="tif"/></figure><!-- EPO <DP n="28"> -->
+<figure id="f0011" num="14"><img id="if0011" file="imgf0011.tif" wi="147" he="86" img-content="drawing" img-format="tif"/></figure>
+</drawings>
+<search-report-data id="srep" lang="en" srep-office="EP" date-produced=""><doc-page id="srep0001" file="srep0001.tif" wi="194" he="276" type="tif"/><doc-page id="srep0002" file="srep0002.tif" wi="198" he="278" type="tif"/></search-report-data>
+<ep-reference-list id="ref-list">
+<heading id="ref-h0001"><b>REFERENCES CITED IN THE DESCRIPTION</b></heading>
+<p id="ref-p0001" num=""><i>This list of references cited by the applicant is for the reader's convenience only. It does not form part of the European patent document. Even though great care has been taken in compiling the references, errors or omissions cannot be excluded and the EPO disclaims all liability in this regard.</i></p>
+<heading id="ref-h0002"><b>Non-patent literature cited in the description</b></heading>
+<p id="ref-p0002" num="">
+<ul id="ref-ul0001" list-style="bullet">
+<li><nplcit id="ref-ncit0001" npl-type="s"><article><atl/><serial><sertitle>Convertech</sertitle><pubdate><sdate>20200700</sdate><edate/></pubdate></serial><location><pp><ppf>2</ppf><ppl>5</ppl></pp></location></article></nplcit><crossref idref="ncit0001">[0004]</crossref></li>
+<li><nplcit id="ref-ncit0002" npl-type="s"><article><author><name>KISHIMOTO N.</name></author><author><name>ICHISE S.</name></author><author><name>SUZUKI K.</name></author><author><name>YAMAMOTO C.</name></author><atl>Analysis of long-term variation in phytoplankton biovolume in the northern basin of Lake Biwa</atl><serial><sertitle>Limnology</sertitle><pubdate><sdate>20130000</sdate><edate/></pubdate><vid>14</vid></serial><location><pp><ppf>117</ppf><ppl>128</ppl></pp></location></article></nplcit><crossref idref="ncit0002">[0024]</crossref></li>
+</ul></p>
+</ep-reference-list>
+</ep-patent-document>

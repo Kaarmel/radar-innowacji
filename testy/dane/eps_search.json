@@ -1,0 +1,60 @@
+{
+ "content": [
+  {
+   "id": 26692957,
+   "publicationNumber": "4424149",
+   "publicationKind": "A1",
+   "originalPublicationKind": "A1",
+   "lang": "en",
+   "b3SequenceNumber": null,
+   "originalB3SequenceNumber": null,
+   "publicationDate": "2024-09-04",
+   "correctionCode": "NW",
+   "countryCode": "EP",
+   "applicationNumber": "22834827",
+   "applicationDate": "2022-10-26",
+   "ipcClassification": null,
+   "epDocumentSize": 54864,
+   "xmlFile": "2024/36/DOC/EPNWA1/EP22834827NWA1/EP22834827NWA1.xml",
+   "xmlFileSize": null,
+   "pdfFileSize": 2145442,
+   "pdfFilePageNumber": 24,
+   "pdfFile": "2024/36/DOC/EPNWA1/EP22834827NWA1/EP22834827NWA1.pdf",
+   "images": null,
+   "sequenceList": null,
+   "zipFile": "2024/36/DOC/EPNWA1/EP22834827NWA1.zip",
+   "totalSize": 2814950,
+   "publishedByEpo": true,
+   "woPublicationNumber": null,
+   "espacenetLink": "https://worldwide.espacenet.com/patent/search?q=pn=EP4424149A1&called_by=PublicationServer",
+   "registerLink": "https://register.epo.org/application?number=EP22834827&tab=main&lng=en",
+   "wipoLink": null,
+   "edition": null
+  }
+ ],
+ "pageable": {
+  "pageNumber": 0,
+  "pageSize": 5,
+  "sort": {
+   "unsorted": true,
+   "sorted": false,
+   "empty": true
+  },
+  "offset": 0,
+  "unpaged": false,
+  "paged": true
+ },
+ "totalPages": 1,
+ "totalElements": 1,
+ "last": true,
+ "numberOfElements": 1,
+ "size": 5,
+ "number": 0,
+ "sort": {
+  "unsorted": true,
+  "sorted": false,
+  "empty": true
+ },
+ "first": true,
+ "empty": false
+}

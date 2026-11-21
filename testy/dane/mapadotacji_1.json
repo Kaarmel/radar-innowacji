@@ -1,0 +1,124 @@
+[
+ {
+  "id": 1855670,
+  "date": "2026-11-03T16:43:47",
+  "date_gmt": "2026-11-03T15:43:47",
+  "guid": {
+   "rendered": "http://mapadotacji.gov.pl/projekty//"
+  },
+  "modified": "2026-11-03T16:43:47",
+  "modified_gmt": "2026-11-03T15:43:47",
+  "slug": "gminny-program-rewitalizacji-gminy-czarna-na-lata-2025-2030",
+  "status": "publish",
+  "type": "projekty",
+  "link": "https://mapadotacji.gov.pl/projekty/1855670/",
+  "title": {
+   "rendered": "„Gminny Program Rewitalizacji Gminy Czarna na lata 2025-2030”"
+  },
+  "content": {
+   "rendered": "<p>Rewitalizacja stanowi kompleksowy oraz skoordynowany proces zintegrowanych działań na rzecz lokalnej społeczności, przestrzeni i gospodarki. Zgodnie z art. 3 ust. 1 ustawy z dnia 9 października 2015 r. o rewitalizacji przygotowanie, koordynowanie i tworzenie warunków do prowadzenia tego procesu stanowią zadania własne gminy. Dlatego Gmina Czarna podjęła wszystkie wynikające z obowiązujących regulacji prawnych działania zmierzające do opracowania dokumentu w postaci Gminnego Programu Rewitalizacji dla Gminy Czarna na lata 2025-2030, w oparciu o który będzie możliwe prowadzenie rewitalizacji. Najważniejsze etapy tych prac wyznaczały • Uchwała Nr XV/116/2025 Rady Gminy Czarna z dnia 17 czerwca 2025 r. w sprawie wyznaczenia obszaru zdegradowanego i obszaru rewitalizacji na terenie Gminy Czarna. • Uchwała Nr XVII/130/2025 Rady Gminy Czarna z dnia 10 września 2025 r. w sprawie w sprawie przystąpienia do sporządzenia Gminnego Programu Rewitalizacji Gminy Czarna na lata 2025-2030 • Uchwała Nr XXI/168/2025 Rady Gminy Czarna z dnia 27 listopada 2025 r. w sprawie określenia zasad wyznaczania składu oraz zasad działania Komitetu Rewitalizacji • Uchwała Nr XXIV/195/2026 Rady Gminy Czarna z dnia 19 stycznia 2026 w sprawie przyjęcie Gminnego Programu Rewitalizacji Gminy Czarna na lata 2025- 2030 Gminny Program Rewitalizacji Gminy Czarna na lata 2025- 2030 został opracowany zgodnie z wymogami ustawy z dnia 9 października 2015 r. o rewitalizacji, liczy 119 stron + załącznik mapowy i zawiera między innymi opis powiązań Gminnego Programu Rewitalizacji z dokumentami strategicznymi szczebla krajowego, regionalnego i lokalnego (Rozdział 9 strony 85-94). Zawarto tu między innymi zbieżność założeń opracowanego dokumentu ze Strategią Rozwoju Gminy Czarna na lata 2023 – 2030 (strony 92-94) Proces rewitalizacji ma na celu wyprowadzenie ze stanu kryzysowego obszarów zdegradowanych oraz poprawę jakości życia ich mieszkańców. Jednym z kluczowych założeń rewitalizacji jest partycypacja społeczna</p>\n",
+   "protected": false
+  },
+  "featured_media": 0,
+  "template": "",
+  "program": [
+   29425
+  ],
+  "dzialania": [
+   29610
+  ],
+  "fundusze": [
+   29402
+  ],
+  "kategorie": [
+   112
+  ],
+  "wojewodztwa_projekty": [
+   327
+  ],
+  "powiaty_projekty": [
+   27447
+  ],
+  "perspektywy": [
+   29398
+  ],
+  "_links": {
+   "self": [
+    {
+     "href": "https://mapadotacji.gov.pl/wp-json/wp/v2/projekty/1855670"
+    }
+   ],
+   "collection": [
+    {
+     "href": "https://mapadotacji.gov.pl/wp-json/wp/v2/projekty"
+    }
+   ],
+   "about": [
+    {
+     "href": "https://mapadotacji.gov.pl/wp-json/wp/v2/types/projekty"
+    }
+   ],
+   "version-history": [
+    {
+     "count": 1,
+     "href": "https://mapadotacji.gov.pl/wp-json/wp/v2/projekty/1855670/revisions"
+    }
+   ],
+   "predecessor-version": [
+    {
+     "id": 1855671,
+     "href": "https://mapadotacji.gov.pl/wp-json/wp/v2/projekty/1855670/revisions/1855671"
+    }
+   ],
+   "wp:attachment": [
+    {
+     "href": "https://mapadotacji.gov.pl/wp-json/wp/v2/media?parent=1855670"
+    }
+   ],
+   "wp:term": [
+    {
+     "taxonomy": "program",
+     "embeddable": true,
+     "href": "https://mapadotacji.gov.pl/wp-json/wp/v2/program?post=1855670"
+    },
+    {
+     "taxonomy": "dzialania",
+     "embeddable": true,
+     "href": "https://mapadotacji.gov.pl/wp-json/wp/v2/dzialania?post=1855670"
+    },
+    {
+     "taxonomy": "fundusze",
+     "embeddable": true,
+     "href": "https://mapadotacji.gov.pl/wp-json/wp/v2/fundusze?post=1855670"
+    },
+    {
+     "taxonomy": "kategorie",
+     "embeddable": true,
+     "href": "https://mapadotacji.gov.pl/wp-json/wp/v2/kategorie?post=1855670"
+    },
+    {
+     "taxonomy": "wojewodztwa_projekty",
+     "embeddable": true,
+     "href": "https://mapadotacji.gov.pl/wp-json/wp/v2/wojewodztwa_projekty?post=1855670"
+    },
+    {
+     "taxonomy": "powiaty_projekty",
+     "embeddable": true,
+     "href": "https://mapadotacji.gov.pl/wp-json/wp/v2/powiaty_projekty?post=1855670"
+    },
+    {
+     "taxonomy": "perspektywy",
+     "embeddable": true,
+     "href": "https://mapadotacji.gov.pl/wp-json/wp/v2/perspektywy?post=1855670"
+    }
+   ],
+   "curies": [
+    {
+     "name": "wp",
+     "href": "https://api.w.org/{rel}",
+     "templated": true
+    }
+   ]
+  }
+ }
+]

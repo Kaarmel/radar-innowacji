@@ -1,0 +1,2912 @@
+{
+ "meta": {
+  "count": 4286,
+  "db_response_time_ms": 1948,
+  "page": 1,
+  "per_page": 2,
+  "groups_count": null,
+  "x_query": {
+   "oql": "get works with (microplastic filter fish gills) in the title, abstract, or full text",
+   "x_new_oql": "get works with (microplastic filter fish gills) in the title, abstract, or full text",
+   "oqo": {
+    "get_rows": "works",
+    "filter_rows": [
+     {
+      "column_id": "fulltext.search",
+      "value": "microplastic filter fish gills",
+      "operator": "has"
+     }
+    ]
+   },
+   "url": "/works?filter=fulltext.search:microplastic filter fish gills&per_page=2",
+   "order": "best matches first",
+   "order_default": true
+  },
+  "cost_usd": 0.001
+ },
+ "results": [
+  {
+   "id": "https://openalex.org/W3183873586",
+   "doi": "https://doi.org/10.1021/acs.est.1c01753",
+   "title": "Fish Ingest Microplastics Unintentionally",
+   "display_name": "Fish Ingest Microplastics Unintentionally",
+   "alternate_titles": [],
+   "relevance_score": 84.283516,
+   "publication_year": 2021,
+   "publication_date": "2021-07-23",
+   "ids": {
+    "openalex": "https://openalex.org/W3183873586",
+    "doi": "https://doi.org/10.1021/acs.est.1c01753",
+    "mag": "3183873586",
+    "pmid": "https://pubmed.ncbi.nlm.nih.gov/34297559"
+   },
+   "language": "en",
+   "primary_location": {
+    "id": "doi:10.1021/acs.est.1c01753",
+    "doi": "https://doi.org/10.1021/acs.est.1c01753",
+    "is_oa": false,
+    "landing_page_url": "https://doi.org/10.1021/acs.est.1c01753",
+    "pdf_url": null,
+    "source": {
+     "id": "https://openalex.org/S13479253",
+     "display_name": "Environmental Science & Technology",
+     "issn_l": "0013-936X",
+     "issn": [
+      "0013-936X",
+      "1520-5851"
+     ],
+     "is_oa": false,
+     "is_in_doaj": false,
+     "is_core": true,
+     "listed_in": [
+      "anvur-class-a",
+      "anvur-scientific",
+      "cwts-core",
+      "dongbi-a",
+      "fnege-4",
+      "jufo-2",
+      "ki-jl-2",
+      "medline",
+      "norway-2",
+      "poland-140",
+      "russia-white-list-1",
+      "vabb-shw"
+     ],
+     "host_organization": "https://openalex.org/P4310320006",
+     "host_organization_name": "American Chemical Society",
+     "host_organization_lineage": [
+      "https://openalex.org/P4310320006"
+     ],
+     "host_organization_lineage_names": [
+      "American Chemical Society"
+     ],
+     "type": "journal"
+    },
+    "license": null,
+    "license_id": null,
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "Environmental Science &amp; Technology",
+    "raw_type": "journal-article"
+   },
+   "parent_works": [],
+   "lineage": [
+    "https://openalex.org/W3183873586"
+   ],
+   "child_works_count": 0,
+   "type": "article",
+   "is_traditional": true,
+   "indexed_in": [
+    "crossref",
+    "pubmed"
+   ],
+   "open_access": {
+    "is_oa": false,
+    "oa_status": "closed",
+    "oa_url": null,
+    "any_repository_has_fulltext": false
+   },
+   "authorships": [
+    {
+     "author_position": "first",
+     "author": {
+      "id": "https://openalex.org/A5100387311",
+      "display_name": "Autor",
+      "orcid": "Osoba",
+      "observed_orcids": [
+       "https://orcid.org/0009-0003-7512-8789"
+      ]
+     },
+     "institutions": [
+      {
+       "id": "https://openalex.org/I4391768061",
+       "display_name": "State Key Laboratory of Estuarine and Coastal Research",
+       "ror": "https://ror.org/04d0j0m16",
+       "country_code": "CN",
+       "type": "facility",
+       "lineage": [
+        "https://openalex.org/I4391768061",
+        "https://openalex.org/I66867065"
+       ]
+      },
+      {
+       "id": "https://openalex.org/I66867065",
+       "display_name": "East China Normal University",
+       "ror": "https://ror.org/02n96ep67",
+       "country_code": "CN",
+       "type": "education",
+       "lineage": [
+        "https://openalex.org/I66867065"
+       ]
+      }
+     ],
+     "countries": [
+      "CN"
+     ],
+     "is_corresponding": false,
+     "contributor_roles": [],
+     "raw_author_name": "Osoba",
+     "raw_affiliation_strings": [
+      "State Key Laboratory of Estuarine and Coastal Research, East China Normal University, Shanghai 200241, China"
+     ],
+     "raw_orcid": null,
+     "affiliations": [
+      {
+       "raw_affiliation_string": "State Key Laboratory of Estuarine and Coastal Research, East China Normal University, Shanghai 200241, China",
+       "institution_ids": [
+        "https://openalex.org/I4391768061",
+        "https://openalex.org/I66867065"
+       ]
+      }
+     ]
+    },
+    {
+     "author_position": "middle",
+     "author": {
+      "id": "https://openalex.org/A5049994181",
+      "display_name": "Autor",
+      "orcid": "Osoba",
+      "observed_orcids": [
+       "https://orcid.org/0009-0005-4569-555X"
+      ]
+     },
+     "institutions": [
+      {
+       "id": "https://openalex.org/I4391768061",
+       "display_name": "State Key Laboratory of Estuarine and Coastal Research",
+       "ror": "https://ror.org/04d0j0m16",
+       "country_code": "CN",
+       "type": "facility",
+       "lineage": [
+        "https://openalex.org/I4391768061",
+        "https://openalex.org/I66867065"
+       ]
+      },
+      {
+       "id": "https://openalex.org/I66867065",
+       "display_name": "East China Normal University",
+       "ror": "https://ror.org/02n96ep67",
+       "country_code": "CN",
+       "type": "education",
+       "lineage": [
+        "https://openalex.org/I66867065"
+       ]
+      }
+     ],
+     "countries": [
+      "CN"
+     ],
+     "is_corresponding": false,
+     "contributor_roles": [],
+     "raw_author_name": "Osoba",
+     "raw_affiliation_strings": [
+      "State Key Laboratory of Estuarine and Coastal Research, East China Normal University, Shanghai 200241, China"
+     ],
+     "raw_orcid": null,
+     "affiliations": [
+      {
+       "raw_affiliation_string": "State Key Laboratory of Estuarine and Coastal Research, East China Normal University, Shanghai 200241, China",
+       "institution_ids": [
+        "https://openalex.org/I4391768061",
+        "https://openalex.org/I66867065"
+       ]
+      }
+     ]
+    },
+    {
+     "author_position": "middle",
+     "author": {
+      "id": "https://openalex.org/A5027488634",
+      "display_name": "Autor",
+      "orcid": "Osoba",
+      "observed_orcids": [
+       "https://orcid.org/0000-0002-8602-0154"
+      ]
+     },
+     "institutions": [
+      {
+       "id": "https://openalex.org/I66867065",
+       "display_name": "East China Normal University",
+       "ror": "https://ror.org/02n96ep67",
+       "country_code": "CN",
+       "type": "education",
+       "lineage": [
+        "https://openalex.org/I66867065"
+       ]
+      }
+     ],
+     "countries": [
+      "CN"
+     ],
+     "is_corresponding": false,
+     "contributor_roles": [],
+     "raw_author_name": "Osoba",
+     "raw_affiliation_strings": [
+      "School of Ecological and Environmental Sciences, East China Normal University, Shanghai 200241, China"
+     ],
+     "raw_orcid": null,
+     "affiliations": [
+      {
+       "raw_affiliation_string": "School of Ecological and Environmental Sciences, East China Normal University, Shanghai 200241, China",
+       "institution_ids": [
+        "https://openalex.org/I66867065"
+       ]
+      }
+     ]
+    },
+    {
+     "author_position": "middle",
+     "author": {
+      "id": "https://openalex.org/A5004670981",
+      "display_name": "Autor",
+      "orcid": "Osoba",
+      "observed_orcids": [
+       "https://orcid.org/0000-0001-7665-9037"
+      ]
+     },
+     "institutions": [
+      {
+       "id": "https://openalex.org/I126924076",
+       "display_name": "Chongqing Normal University",
+       "ror": "https://ror.org/01dcw5w74",
+       "country_code": "CN",
+       "type": "education",
+       "lineage": [
+        "https://openalex.org/I126924076"
+       ]
+      }
+     ],
+     "countries": [
+      "CN"
+     ],
+     "is_corresponding": false,
+     "contributor_roles": [],
+     "raw_author_name": "Osoba",
+     "raw_affiliation_strings": [
+      "Laboratory of Evolutionary Physiology and Behavior, Chongqing Key Laboratory of Animal Biology, Chongqing Normal University Chongqing 401331, China"
+     ],
+     "raw_orcid": null,
+     "affiliations": [
+      {
+       "raw_affiliation_string": "Laboratory of Evolutionary Physiology and Behavior, Chongqing Key Laboratory of Animal Biology, Chongqing Normal University Chongqing 401331, China",
+       "institution_ids": [
+        "https://openalex.org/I126924076"
+       ]
+      }
+     ]
+    },
+    {
+     "author_position": "middle",
+     "author": {
+      "id": "https://openalex.org/A5062288322",
+      "display_name": "Autor",
+      "orcid": "Osoba",
+      "observed_orcids": [
+       "https://orcid.org/0000-0002-6667-1857"
+      ]
+     },
+     "institutions": [
+      {
+       "id": "https://openalex.org/I4391768061",
+       "display_name": "State Key Laboratory of Estuarine and Coastal Research",
+       "ror": "https://ror.org/04d0j0m16",
+       "country_code": "CN",
+       "type": "facility",
+       "lineage": [
+        "https://openalex.org/I4391768061",
+        "https://openalex.org/I66867065"
+       ]
+      },
+      {
+       "id": "https://openalex.org/I66867065",
+       "display_name": "East China Normal University",
+       "ror": "https://ror.org/02n96ep67",
+       "country_code": "CN",
+       "type": "education",
+       "lineage": [
+        "https://openalex.org/I66867065"
+       ]
+      }
+     ],
+     "countries": [
+      "CN"
+     ],
+     "is_corresponding": false,
+     "contributor_roles": [],
+     "raw_author_name": "Osoba",
+     "raw_affiliation_strings": [
+      "State Key Laboratory of Estuarine and Coastal Research, East China Normal University, Shanghai 200241, China"
+     ],
+     "raw_orcid": null,
+     "affiliations": [
+      {
+       "raw_affiliation_string": "State Key Laboratory of Estuarine and Coastal Research, East China Normal University, Shanghai 200241, China",
+       "institution_ids": [
+        "https://openalex.org/I4391768061",
+        "https://openalex.org/I66867065"
+       ]
+      }
+     ]
+    },
+    {
+     "author_position": "middle",
+     "author": {
+      "id": "https://openalex.org/A5090705501",
+      "display_name": "Autor",
+      "orcid": "Osoba",
+      "observed_orcids": [
+       "https://orcid.org/0000-0002-3247-7861"
+      ]
+     },
+     "institutions": [
+      {
+       "id": "https://openalex.org/I4391768061",
+       "display_name": "State Key Laboratory of Estuarine and Coastal Research",
+       "ror": "https://ror.org/04d0j0m16",
+       "country_code": "CN",
+       "type": "facility",
+       "lineage": [
+        "https://openalex.org/I4391768061",
+        "https://openalex.org/I66867065"
+       ]
+      },
+      {
+       "id": "https://openalex.org/I66867065",
+       "display_name": "East China Normal University",
+       "ror": "https://ror.org/02n96ep67",
+       "country_code": "CN",
+       "type": "education",
+       "lineage": [
+        "https://openalex.org/I66867065"
+       ]
+      }
+     ],
+     "countries": [
+      "CN"
+     ],
+     "is_corresponding": false,
+     "contributor_roles": [],
+     "raw_author_name": "Osoba",
+     "raw_affiliation_strings": [
+      "State Key Laboratory of Estuarine and Coastal Research, East China Normal University, Shanghai 200241, China"
+     ],
+     "raw_orcid": "https://orcid.org/0000-0002-3247-7861",
+     "affiliations": [
+      {
+       "raw_affiliation_string": "State Key Laboratory of Estuarine and Coastal Research, East China Normal University, Shanghai 200241, China",
+       "institution_ids": [
+        "https://openalex.org/I4391768061",
+        "https://openalex.org/I66867065"
+       ]
+      }
+     ]
+    },
+    {
+     "author_position": "middle",
+     "author": {
+      "id": null,
+      "display_name": "Autor",
+      "orcid": null,
+      "observed_orcids": []
+     },
+     "institutions": [
+      {
+       "id": "https://openalex.org/I4391768061",
+       "display_name": "State Key Laboratory of Estuarine and Coastal Research",
+       "ror": "https://ror.org/04d0j0m16",
+       "country_code": "CN",
+       "type": "facility",
+       "lineage": [
+        "https://openalex.org/I4391768061",
+        "https://openalex.org/I66867065"
+       ]
+      },
+      {
+       "id": "https://openalex.org/I66867065",
+       "display_name": "East China Normal University",
+       "ror": "https://ror.org/02n96ep67",
+       "country_code": "CN",
+       "type": "education",
+       "lineage": [
+        "https://openalex.org/I66867065"
+       ]
+      }
+     ],
+     "countries": [
+      "CN"
+     ],
+     "is_corresponding": false,
+     "contributor_roles": [],
+     "raw_author_name": "Osoba",
+     "raw_affiliation_strings": [
+      "State Key Laboratory of Estuarine and Coastal Research, East China Normal University, Shanghai 200241, China"
+     ],
+     "raw_orcid": null,
+     "affiliations": [
+      {
+       "raw_affiliation_string": "State Key Laboratory of Estuarine and Coastal Research, East China Normal University, Shanghai 200241, China",
+       "institution_ids": [
+        "https://openalex.org/I4391768061",
+        "https://openalex.org/I66867065"
+       ]
+      }
+     ]
+    },
+    {
+     "author_position": "middle",
+     "author": {
+      "id": "https://openalex.org/A5065975920",
+      "display_name": "Autor",
+      "orcid": "Osoba",
+      "observed_orcids": [
+       "https://orcid.org/0000-0002-0067-8861"
+      ]
+     },
+     "institutions": [
+      {
+       "id": "https://openalex.org/I165779595",
+       "display_name": "The University of Melbourne",
+       "ror": "https://ror.org/01ej9dk98",
+       "country_code": "AU",
+       "type": "education",
+       "lineage": [
+        "https://openalex.org/I165779595"
+       ]
+      }
+     ],
+     "countries": [
+      "AU"
+     ],
+     "is_corresponding": false,
+     "contributor_roles": [],
+     "raw_author_name": "Osoba",
+     "raw_affiliation_strings": [
+      "School of Biosciences, the University of Melbourne, Parkville 3010, Victoria, Australia"
+     ],
+     "raw_orcid": null,
+     "affiliations": [
+      {
+       "raw_affiliation_string": "School of Biosciences, the University of Melbourne, Parkville 3010, Victoria, Australia",
+       "institution_ids": [
+        "https://openalex.org/I165779595"
+       ]
+      }
+     ]
+    },
+    {
+     "author_position": "last",
+     "author": {
+      "id": "https://openalex.org/A5036179952",
+      "display_name": "Autor",
+      "orcid": "Osoba",
+      "observed_orcids": [
+       "https://orcid.org/0000-0003-2978-0680"
+      ]
+     },
+     "institutions": [
+      {
+       "id": "https://openalex.org/I4391768061",
+       "display_name": "State Key Laboratory of Estuarine and Coastal Research",
+       "ror": "https://ror.org/04d0j0m16",
+       "country_code": "CN",
+       "type": "facility",
+       "lineage": [
+        "https://openalex.org/I4391768061",
+        "https://openalex.org/I66867065"
+       ]
+      },
+      {
+       "id": "https://openalex.org/I66867065",
+       "display_name": "East China Normal University",
+       "ror": "https://ror.org/02n96ep67",
+       "country_code": "CN",
+       "type": "education",
+       "lineage": [
+        "https://openalex.org/I66867065"
+       ]
+      }
+     ],
+     "countries": [
+      "CN"
+     ],
+     "is_corresponding": true,
+     "contributor_roles": [],
+     "raw_author_name": "Osoba",
+     "raw_affiliation_strings": [
+      "State Key Laboratory of Estuarine and Coastal Research, East China Normal University, Shanghai 200241, China"
+     ],
+     "raw_orcid": "https://orcid.org/0000-0003-2978-0680",
+     "affiliations": [
+      {
+       "raw_affiliation_string": "State Key Laboratory of Estuarine and Coastal Research, East China Normal University, Shanghai 200241, China",
+       "institution_ids": [
+        "https://openalex.org/I4391768061",
+        "https://openalex.org/I66867065"
+       ]
+      }
+     ]
+    }
+   ],
+   "institutions": [],
+   "countries_distinct_count": 2,
+   "institutions_distinct_count": 4,
+   "corresponding_author_ids": [
+    "https://openalex.org/A5036179952"
+   ],
+   "corresponding_institution_ids": [
+    "https://openalex.org/I4391768061",
+    "https://openalex.org/I66867065"
+   ],
+   "apc_list": {
+    "value": 5000,
+    "currency": "USD",
+    "value_usd": 5000
+   },
+   "apc_paid": null,
+   "fwci": 12.286,
+   "is_authors_truncated": false,
+   "has_fulltext": true,
+   "cited_by_count": 351,
+   "citation_normalized_percentile": {
+    "value": 0.99634801,
+    "is_in_top_1_percent": true,
+    "is_in_top_10_percent": true
+   },
+   "cited_by_percentile_year": {
+    "min": 98,
+    "max": 100
+   },
+   "biblio": {
+    "volume": "55",
+    "issue": "15",
+    "first_page": "10471",
+    "last_page": "10479"
+   },
+   "is_retracted": false,
+   "is_pulled": false,
+   "is_paratext": false,
+   "is_xpac": false,
+   "primary_topic": {
+    "id": "https://openalex.org/T10753",
+    "display_name": "Microplastics and Plastic Pollution",
+    "score": 1.0,
+    "subfield": {
+     "id": "https://openalex.org/subfields/2310",
+     "display_name": "Pollution"
+    },
+    "field": {
+     "id": "https://openalex.org/fields/23",
+     "display_name": "Environmental Science"
+    },
+    "domain": {
+     "id": "https://openalex.org/domains/3",
+     "display_name": "Physical Sciences"
+    }
+   },
+   "topics": [
+    {
+     "id": "https://openalex.org/T10753",
+     "display_name": "Microplastics and Plastic Pollution",
+     "score": 1.0,
+     "subfield": {
+      "id": "https://openalex.org/subfields/2310",
+      "display_name": "Pollution"
+     },
+     "field": {
+      "id": "https://openalex.org/fields/23",
+      "display_name": "Environmental Science"
+     },
+     "domain": {
+      "id": "https://openalex.org/domains/3",
+      "display_name": "Physical Sciences"
+     }
+    },
+    {
+     "id": "https://openalex.org/T10447",
+     "display_name": "Environmental Toxicology and Ecotoxicology",
+     "score": 0.0,
+     "subfield": {
+      "id": "https://openalex.org/subfields/2307",
+      "display_name": "Health, Toxicology and Mutagenesis"
+     },
+     "field": {
+      "id": "https://openalex.org/fields/23",
+      "display_name": "Environmental Science"
+     },
+     "domain": {
+      "id": "https://openalex.org/domains/3",
+      "display_name": "Physical Sciences"
+     }
+    },
+    {
+     "id": "https://openalex.org/T10419",
+     "display_name": "Pharmaceutical and Antibiotic Environmental Impacts",
+     "score": 0.0,
+     "subfield": {
+      "id": "https://openalex.org/subfields/2310",
+      "display_name": "Pollution"
+     },
+     "field": {
+      "id": "https://openalex.org/fields/23",
+      "display_name": "Environmental Science"
+     },
+     "domain": {
+      "id": "https://openalex.org/domains/3",
+      "display_name": "Physical Sciences"
+     }
+    }
+   ],
+   "keywords": [
+    {
+     "id": "https://openalex.org/keywords/microplastics",
+     "display_name": "microplastics",
+     "score": 0.9950000047683716
+    },
+    {
+     "id": "https://openalex.org/keywords/fish-consumption",
+     "display_name": "fish consumption",
+     "score": 0.6510000228881836
+    },
+    {
+     "id": "https://openalex.org/keywords/microfibers",
+     "display_name": "microfibers",
+     "score": 0.8259999752044678
+    },
+    {
+     "id": "https://openalex.org/keywords/feeding-behavior",
+     "display_name": "feeding behavior",
+     "score": 0.8949999809265137
+    },
+    {
+     "id": "https://openalex.org/keywords/filter-feeding-fish",
+     "display_name": "filter-feeding fish",
+     "score": 0.7760000228881836
+    },
+    {
+     "id": "https://openalex.org/keywords/accidental-ingestion",
+     "display_name": "accidental ingestion",
+     "score": 0.5849999785423279
+    },
+    {
+     "id": "https://openalex.org/keywords/environmental-risk-assessment",
+     "display_name": "environmental risk assessment",
+     "score": 0.628000020980835
+    },
+    {
+     "id": "https://openalex.org/keywords/food-safety",
+     "display_name": "food safety",
+     "score": 0.9279999732971191
+    }
+   ],
+   "concepts": [
+    {
+     "id": "https://openalex.org/C2780401329",
+     "wikidata": "https://www.wikidata.org/wiki/Q6839919",
+     "display_name": "Microplastics",
+     "level": 2,
+     "score": 0.9901567697525024
+    },
+    {
+     "id": "https://openalex.org/C2909208804",
+     "wikidata": "https://www.wikidata.org/wiki/Q127282",
+     "display_name": "Fish <Actinopterygii>",
+     "level": 2,
+     "score": 0.5663024187088013
+    },
+    {
+     "id": "https://openalex.org/C12820456",
+     "wikidata": "https://www.wikidata.org/wiki/Q920873",
+     "display_name": "Microfiber",
+     "level": 2,
+     "score": 0.5460216999053955
+    },
+    {
+     "id": "https://openalex.org/C193230392",
+     "wikidata": "https://www.wikidata.org/wiki/Q1663054",
+     "display_name": "Ingestion",
+     "level": 2,
+     "score": 0.5417294502258301
+    },
+    {
+     "id": "https://openalex.org/C86803240",
+     "wikidata": "https://www.wikidata.org/wiki/Q420",
+     "display_name": "Biology",
+     "level": 0,
+     "score": 0.5393087863922119
+    },
+    {
+     "id": "https://openalex.org/C2777312293",
+     "wikidata": "https://www.wikidata.org/wiki/Q3649349",
+     "display_name": "Mucus",
+     "level": 2,
+     "score": 0.44711679220199585
+    },
+    {
+     "id": "https://openalex.org/C161153951",
+     "wikidata": "https://www.wikidata.org/wiki/Q132390",
+     "display_name": "Gill",
+     "level": 3,
+     "score": 0.4258020222187042
+    },
+    {
+     "id": "https://openalex.org/C90856448",
+     "wikidata": "https://www.wikidata.org/wiki/Q431",
+     "display_name": "Zoology",
+     "level": 1,
+     "score": 0.39497101306915283
+    },
+    {
+     "id": "https://openalex.org/C505870484",
+     "wikidata": "https://www.wikidata.org/wiki/Q180538",
+     "display_name": "Fishery",
+     "level": 1,
+     "score": 0.36814191937446594
+    },
+    {
+     "id": "https://openalex.org/C18903297",
+     "wikidata": "https://www.wikidata.org/wiki/Q7150",
+     "display_name": "Ecology",
+     "level": 1,
+     "score": 0.3674285411834717
+    },
+    {
+     "id": "https://openalex.org/C185592680",
+     "wikidata": "https://www.wikidata.org/wiki/Q2329",
+     "display_name": "Chemistry",
+     "level": 0,
+     "score": 0.14513486623764038
+    },
+    {
+     "id": "https://openalex.org/C55493867",
+     "wikidata": "https://www.wikidata.org/wiki/Q7094",
+     "display_name": "Biochemistry",
+     "level": 1,
+     "score": 0.0
+    },
+    {
+     "id": "https://openalex.org/C178790620",
+     "wikidata": "https://www.wikidata.org/wiki/Q11351",
+     "display_name": "Organic chemistry",
+     "level": 1,
+     "score": 0.0
+    }
+   ],
+   "mesh": [
+    {
+     "descriptor_ui": "D000080545",
+     "descriptor_name": "Microplastics",
+     "qualifier_ui": null,
+     "qualifier_name": null,
+     "is_major_topic": true
+    },
+    {
+     "descriptor_ui": "D000818",
+     "descriptor_name": "Animals",
+     "qualifier_ui": null,
+     "qualifier_name": null,
+     "is_major_topic": false
+    },
+    {
+     "descriptor_ui": "D004784",
+     "descriptor_name": "Environmental Monitoring",
+     "qualifier_ui": null,
+     "qualifier_name": null,
+     "is_major_topic": false
+    },
+    {
+     "descriptor_ui": "D005399",
+     "descriptor_name": "Fishes",
+     "qualifier_ui": null,
+     "qualifier_name": null,
+     "is_major_topic": false
+    },
+    {
+     "descriptor_ui": "D010969",
+     "descriptor_name": "Plastics",
+     "qualifier_ui": null,
+     "qualifier_name": null,
+     "is_major_topic": false
+    },
+    {
+     "descriptor_ui": "D014874",
+     "descriptor_name": "Water Pollutants, Chemical",
+     "qualifier_ui": "Q000032",
+     "qualifier_name": "analysis",
+     "is_major_topic": true
+    }
+   ],
+   "locations_count": 2,
+   "locations": [
+    {
+     "id": "doi:10.1021/acs.est.1c01753",
+     "doi": "https://doi.org/10.1021/acs.est.1c01753",
+     "is_oa": false,
+     "landing_page_url": "https://doi.org/10.1021/acs.est.1c01753",
+     "pdf_url": null,
+     "source": {
+      "id": "https://openalex.org/S13479253",
+      "display_name": "Environmental Science & Technology",
+      "issn_l": "0013-936X",
+      "issn": [
+       "0013-936X",
+       "1520-5851"
+      ],
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": true,
+      "listed_in": [
+       "anvur-class-a",
+       "anvur-scientific",
+       "cwts-core",
+       "dongbi-a",
+       "fnege-4",
+       "jufo-2",
+       "ki-jl-2",
+       "medline",
+       "norway-2",
+       "poland-140",
+       "russia-white-list-1",
+       "vabb-shw"
+      ],
+      "host_organization": "https://openalex.org/P4310320006",
+      "host_organization_name": "American Chemical Society",
+      "host_organization_lineage": [
+       "https://openalex.org/P4310320006"
+      ],
+      "host_organization_lineage_names": [
+       "American Chemical Society"
+      ],
+      "type": "journal"
+     },
+     "license": null,
+     "license_id": null,
+     "version": "publishedVersion",
+     "is_accepted": true,
+     "is_published": true,
+     "raw_source_name": "Environmental Science &amp; Technology",
+     "raw_type": "journal-article"
+    },
+    {
+     "id": "pmid:34297559",
+     "doi": null,
+     "is_oa": false,
+     "landing_page_url": "https://pubmed.ncbi.nlm.nih.gov/34297559",
+     "pdf_url": null,
+     "source": {
+      "id": "https://openalex.org/S4306525036",
+      "display_name": "PubMed",
+      "issn_l": null,
+      "issn": null,
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": false,
+      "listed_in": [],
+      "host_organization": "https://openalex.org/I1299303238",
+      "host_organization_name": "National Institutes of Health",
+      "host_organization_lineage": [
+       "https://openalex.org/I1299303238"
+      ],
+      "host_organization_lineage_names": [],
+      "type": "repository"
+     },
+     "license": null,
+     "license_id": null,
+     "version": "publishedVersion",
+     "is_accepted": true,
+     "is_published": true,
+     "raw_source_name": "Environmental science & technology",
+     "raw_type": "Journal Article"
+    }
+   ],
+   "best_oa_location": null,
+   "sustainable_development_goals": [
+    {
+     "score": 1.0,
+     "display_name": "Life below water",
+     "id": "https://metadata.un.org/sdg/14"
+    }
+   ],
+   "study_designs": [],
+   "awards": [
+    {
+     "id": "https://openalex.org/G3024647653",
+     "display_name": "鱼类对微塑料的摄食特性与机制",
+     "funder_award_id": "41977344",
+     "funder_id": "https://openalex.org/F4320321001",
+     "funder_display_name": "National Natural Science Foundation of China"
+    },
+    {
+     "id": "https://openalex.org/G4472028925",
+     "display_name": null,
+     "funder_award_id": "2020M681230",
+     "funder_id": "https://openalex.org/F4320321543",
+     "funder_display_name": "China Postdoctoral Science Foundation"
+    }
+   ],
+   "funders": [
+    {
+     "id": "https://openalex.org/F4320321001",
+     "display_name": "National Natural Science Foundation of China",
+     "ror": "https://ror.org/01h0zpd94"
+    },
+    {
+     "id": "https://openalex.org/F4320321543",
+     "display_name": "China Postdoctoral Science Foundation",
+     "ror": "https://ror.org/0426zh255"
+    }
+   ],
+   "has_content": {
+    "grobid_xml": false,
+    "pdf": false
+   },
+   "content_urls": null,
+   "referenced_works_count": 48,
+   "referenced_works": [
+    "https://openalex.org/W1965406049",
+    "https://openalex.org/W1973190230",
+    "https://openalex.org/W1975771948",
+    "https://openalex.org/W1986730561",
+    "https://openalex.org/W1992301911",
+    "https://openalex.org/W2002701398",
+    "https://openalex.org/W2015471159",
+    "https://openalex.org/W2046620646",
+    "https://openalex.org/W2059728255",
+    "https://openalex.org/W2060251729",
+    "https://openalex.org/W2074749389",
+    "https://openalex.org/W2089363773",
+    "https://openalex.org/W2116961566",
+    "https://openalex.org/W2156426400",
+    "https://openalex.org/W2161424163",
+    "https://openalex.org/W2255762950",
+    "https://openalex.org/W2279879244",
+    "https://openalex.org/W2280500059",
+    "https://openalex.org/W2287649114",
+    "https://openalex.org/W2297883954",
+    "https://openalex.org/W2507780008",
+    "https://openalex.org/W2519504880",
+    "https://openalex.org/W2586979179",
+    "https://openalex.org/W2607787041",
+    "https://openalex.org/W2609067898",
+    "https://openalex.org/W2726070559",
+    "https://openalex.org/W2785173370",
+    "https://openalex.org/W2800999767",
+    "https://openalex.org/W2884631602",
+    "https://openalex.org/W2885268267",
+    "https://openalex.org/W2887078825",
+    "https://openalex.org/W2900504334",
+    "https://openalex.org/W2906714685",
+    "https://openalex.org/W2935745496",
+    "https://openalex.org/W2947805083",
+    "https://openalex.org/W2952641987",
+    "https://openalex.org/W2954171146",
+    "https://openalex.org/W2956707092",
+    "https://openalex.org/W2965431248",
+    "https://openalex.org/W2982290768",
+    "https://openalex.org/W2996485787",
+    "https://openalex.org/W3007487779",
+    "https://openalex.org/W3009707960",
+    "https://openalex.org/W3010537688",
+    "https://openalex.org/W3016883106",
+    "https://openalex.org/W3034329703",
+    "https://openalex.org/W3045346482",
+    "https://openalex.org/W3126306941"
+   ],
+   "related_works": [
+    "https://openalex.org/W2800999767",
+    "https://openalex.org/W3009707960",
+    "https://openalex.org/W7165031898",
+    "https://openalex.org/W4389515072",
+    "https://openalex.org/W3086126851",
+    "https://openalex.org/W4211186838",
+    "https://openalex.org/W4285412728",
+    "https://openalex.org/W2996485787",
+    "https://openalex.org/W4403779017",
+    "https://openalex.org/W2888296876"
+   ],
+   "abstract_inverted_index": {
+    "Microplastics": [
+     0
+    ],
+    "(size": [
+     1
+    ],
+    "of": [
+     2,
+     24,
+     48,
+     110,
+     122,
+     126,
+     134
+    ],
+    "plastic": [
+     3
+    ],
+    "debris": [
+     4
+    ],
+    "<5": [
+     5
+    ],
+    "mm)": [
+     6
+    ],
+    "occur": [
+     7
+    ],
+    "in": [
+     8,
+     28,
+     89,
+     116,
+     131
+    ],
+    "various": [
+     9
+    ],
+    "environments": [
+     10
+    ],
+    "worldwide": [
+     11
+    ],
+    "these": [
+     12
+    ],
+    "days": [
+     13
+    ],
+    "and": [
+     14,
+     44,
+     66,
+     71,
+     120,
+     162,
+     170
+    ],
+    "cause": [
+     15
+    ],
+    "detrimental": [
+     16
+    ],
+    "effects": [
+     17
+    ],
+    "on": [
+     18
+    ],
+    "biota.": [
+     19
+    ],
+    "However,": [
+     20
+    ],
+    "the": [
+     21,
+     36,
+     111,
+     117,
+     132,
+     155
+    ],
+    "behavioral": [
+     22
+    ],
+    "responses": [
+     23
+    ],
+    "fish": [
+     25,
+     42,
+     54,
+     60,
+     94,
+     143,
+     161
+    ],
+    "to": [
+     26,
+     52,
+     165,
+     174
+    ],
+    "microplastics": [
+     27,
+     49,
+     145,
+     159
+    ],
+    "feeding": [
+     29,
+     55
+    ],
+    "processes": [
+     30
+    ],
+    "are": [
+     31
+    ],
+    "not": [
+     32,
+     81
+    ],
+    "well": [
+     33
+    ],
+    "understood.": [
+     34
+    ],
+    "In": [
+     35
+    ],
+    "present": [
+     37
+    ],
+    "study,": [
+     38
+    ],
+    "juveniles": [
+     39
+    ],
+    "from": [
+     40
+    ],
+    "four": [
+     41
+    ],
+    "species": [
+     43,
+     79
+    ],
+    "two": [
+     45
+    ],
+    "common": [
+     46,
+     140
+    ],
+    "shapes": [
+     47
+    ],
+    "were": [
+     50,
+     113,
+     129
+    ],
+    "used": [
+     51
+    ],
+    "explore": [
+     53
+    ],
+    "responses.": [
+     56
+    ],
+    "We": [
+     57,
+     150
+    ],
+    "found": [
+     58,
+     76,
+     115
+    ],
+    "swallowing-feeding": [
+     59
+    ],
+    "ingested": [
+     61,
+     127
+    ],
+    "more": [
+     62
+    ],
+    "pellets": [
+     63
+    ],
+    "than": [
+     64,
+     148
+    ],
+    "filtering-": [
+     65
+    ],
+    "sucking-feeding": [
+     67
+    ],
+    "fish.": [
+     68
+    ],
+    "With": [
+     69
+    ],
+    "high-definition": [
+     70
+    ],
+    "high-speed": [
+     72
+    ],
+    "observational": [
+     73
+    ],
+    "experiments,": [
+     74
+    ],
+    "we": [
+     75
+    ],
+    "that": [
+     77,
+     142
+    ],
+    "all": [
+     78
+    ],
+    "did": [
+     80
+    ],
+    "actively": [
+     82
+    ],
+    "capture": [
+     83
+    ],
+    "microfibers;": [
+     84
+    ],
+    "instead,": [
+     85
+    ],
+    "they": [
+     86
+    ],
+    "passively": [
+     87
+    ],
+    "sucked": [
+     88
+    ],
+    "microfibers": [
+     90,
+     104,
+     112,
+     128
+    ],
+    "while": [
+     91,
+     124
+    ],
+    "breathing.": [
+     92
+    ],
+    "Surprisingly,": [
+     93
+    ],
+    "showed": [
+     95
+    ],
+    "a": [
+     96,
+     139
+    ],
+    "rejective": [
+     97
+    ],
+    "behavior,": [
+     98
+    ],
+    "which": [
+     99,
+     158
+    ],
+    "was": [
+     100
+    ],
+    "spontaneously": [
+     101
+    ],
+    "coughing": [
+     102
+    ],
+    "up": [
+     103
+    ],
+    "mixed": [
+     105
+    ],
+    "with": [
+     106
+    ],
+    "mucus.": [
+     107
+    ],
+    "Nevertheless,": [
+     108
+    ],
+    "some": [
+     109
+    ],
+    "still": [
+     114
+    ],
+    "gastrointestinal": [
+     118
+    ],
+    "tracts": [
+     119
+    ],
+    "gills": [
+     121
+    ],
+    "fish,": [
+     123
+    ],
+    "abundances": [
+     125
+    ],
+    "increased": [
+     130
+    ],
+    "presence": [
+     133
+    ],
+    "food.": [
+     135
+    ],
+    "Our": [
+     136
+    ],
+    "findings": [
+     137
+    ],
+    "reveal": [
+     138
+    ],
+    "phenomenon": [
+     141
+    ],
+    "ingest": [
+     144
+    ],
+    "inadvertently": [
+     146
+    ],
+    "rather": [
+     147
+    ],
+    "intentionally.": [
+     149
+    ],
+    "also": [
+     151
+    ],
+    "provide": [
+     152
+    ],
+    "insights": [
+     153
+    ],
+    "into": [
+     154
+    ],
+    "pathways": [
+     156
+    ],
+    "via": [
+     157
+    ],
+    "enter": [
+     160
+    ],
+    "potential": [
+     163
+    ],
+    "strategies": [
+     164
+    ],
+    "assess": [
+     166
+    ],
+    "future": [
+     167
+    ],
+    "ecological": [
+     168
+    ],
+    "risk": [
+     169
+    ],
+    "food": [
+     171
+    ],
+    "safety": [
+     172
+    ],
+    "related": [
+     173
+    ],
+    "microplastics.": [
+     175
+    ]
+   },
+   "cited_by_api_url": "https://api.openalex.org/works?filter=cites:W3183873586",
+   "counts_by_year": [
+    {
+     "year": 2026,
+     "cited_by_count": 65
+    },
+    {
+     "year": 2025,
+     "cited_by_count": 75
+    },
+    {
+     "year": 2024,
+     "cited_by_count": 82
+    },
+    {
+     "year": 2023,
+     "cited_by_count": 81
+    },
+    {
+     "year": 2022,
+     "cited_by_count": 41
+    },
+    {
+     "year": 2021,
+     "cited_by_count": 7
+    }
+   ],
+   "updated_date": "2026-11-21T10:27:49.728292",
+   "created_date": "2021-08-02T00:00:00"
+  },
+  {
+   "id": "https://openalex.org/W2735828883",
+   "doi": "https://doi.org/10.1038/s41598-017-05828-6",
+   "title": "Microplastics in eviscerated flesh and excised organs of dried fish",
+   "display_name": "Microplastics in eviscerated flesh and excised organs of dried fish",
+   "alternate_titles": [],
+   "relevance_score": 69.43146,
+   "publication_year": 2017,
+   "publication_date": "2017-07-14",
+   "ids": {
+    "openalex": "https://openalex.org/W2735828883",
+    "doi": "https://doi.org/10.1038/s41598-017-05828-6",
+    "mag": "2735828883",
+    "pmid": "https://pubmed.ncbi.nlm.nih.gov/28710445",
+    "pmcid": "https://www.ncbi.nlm.nih.gov/pmc/articles/5511207"
+   },
+   "language": "en",
+   "primary_location": {
+    "id": "doi:10.1038/s41598-017-05828-6",
+    "doi": "https://doi.org/10.1038/s41598-017-05828-6",
+    "is_oa": true,
+    "landing_page_url": "https://doi.org/10.1038/s41598-017-05828-6",
+    "pdf_url": "https://www.nature.com/articles/s41598-017-05828-6.pdf",
+    "source": {
+     "id": "https://openalex.org/S196734849",
+     "display_name": "Scientific Reports",
+     "issn_l": "2045-2322",
+     "issn": [
+      "2045-2322"
+     ],
+     "is_oa": true,
+     "is_in_doaj": true,
+     "is_core": true,
+     "listed_in": [
+      "anvur-class-a",
+      "anvur-scientific",
+      "cwts-core",
+      "doaj",
+      "dongbi-c",
+      "doyens",
+      "jufo-1",
+      "ki-jl-1",
+      "medline",
+      "norway-1",
+      "poland-140",
+      "russia-white-list-1",
+      "vabb-shw"
+     ],
+     "host_organization": "https://openalex.org/P4310319908",
+     "host_organization_name": "Nature Portfolio",
+     "host_organization_lineage": [
+      "https://openalex.org/P4310319908",
+      "https://openalex.org/P4310319965"
+     ],
+     "host_organization_lineage_names": [
+      "Nature Portfolio",
+      "Springer Nature"
+     ],
+     "type": "journal"
+    },
+    "license": "cc-by",
+    "license_id": "https://openalex.org/licenses/cc-by",
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "Scientific Reports",
+    "raw_type": "journal-article"
+   },
+   "parent_works": [],
+   "lineage": [
+    "https://openalex.org/W2735828883"
+   ],
+   "child_works_count": 0,
+   "type": "article",
+   "is_traditional": true,
+   "indexed_in": [
+    "crossref",
+    "datacite",
+    "doaj",
+    "pubmed"
+   ],
+   "open_access": {
+    "is_oa": true,
+    "oa_status": "gold",
+    "oa_url": "https://www.nature.com/articles/s41598-017-05828-6.pdf",
+    "any_repository_has_fulltext": true
+   },
+   "authorships": [
+    {
+     "author_position": "first",
+     "author": {
+      "id": "https://openalex.org/A5085381601",
+      "display_name": "Autor",
+      "orcid": "Osoba",
+      "observed_orcids": [
+       "https://orcid.org/0000-0001-7328-6570"
+      ]
+     },
+     "institutions": [
+      {
+       "id": "https://openalex.org/I130343225",
+       "display_name": "Universiti Putra Malaysia",
+       "ror": "https://ror.org/02e91jd64",
+       "country_code": "MY",
+       "type": "education",
+       "lineage": [
+        "https://openalex.org/I130343225"
+       ]
+      }
+     ],
+     "countries": [
+      "MY"
+     ],
+     "is_corresponding": true,
+     "contributor_roles": [],
+     "raw_author_name": "Osoba",
+     "raw_affiliation_strings": [
+      "Laboratory of Aquatic Toxicology, Department of Environmental and Occupational Health, Faculty of Medicine and Health Sciences, Universiti Putra Malaysia, 43400, Selangor, Malaysia. alikaramiv@gmail.com",
+      "Laboratory of Aquatic Toxicology, Department of Environmental and Occupational Health, Faculty of Medicine and Health Sciences, Universiti Putra Malaysia, 43400, Selangor, Malaysia"
+     ],
+     "raw_orcid": null,
+     "affiliations": [
+      {
+       "raw_affiliation_string": "Laboratory of Aquatic Toxicology, Department of Environmental and Occupational Health, Faculty of Medicine and Health Sciences, Universiti Putra Malaysia, 43400, Selangor, Malaysia. alikaramiv@gmail.com",
+       "institution_ids": [
+        "https://openalex.org/I130343225"
+       ]
+      },
+      {
+       "raw_affiliation_string": "Laboratory of Aquatic Toxicology, Department of Environmental and Occupational Health, Faculty of Medicine and Health Sciences, Universiti Putra Malaysia, 43400, Selangor, Malaysia",
+       "institution_ids": [
+        "https://openalex.org/I130343225"
+       ]
+      }
+     ]
+    },
+    {
+     "author_position": "middle",
+     "author": {
+      "id": "https://openalex.org/A5025555065",
+      "display_name": "Autor",
+      "orcid": "Osoba",
+      "observed_orcids": [
+       "https://orcid.org/0000-0003-2205-3915"
+      ]
+     },
+     "institutions": [
+      {
+       "id": "https://openalex.org/I130343225",
+       "display_name": "Universiti Putra Malaysia",
+       "ror": "https://ror.org/02e91jd64",
+       "country_code": "MY",
+       "type": "education",
+       "lineage": [
+        "https://openalex.org/I130343225"
+       ]
+      }
+     ],
+     "countries": [
+      "MY"
+     ],
+     "is_corresponding": false,
+     "contributor_roles": [],
+     "raw_author_name": "Osoba",
+     "raw_affiliation_strings": [
+      "Laboratory of Aquatic Toxicology, Department of Environmental and Occupational Health, Faculty of Medicine and Health Sciences, Universiti Putra Malaysia, 43400, Selangor, Malaysia"
+     ],
+     "raw_orcid": null,
+     "affiliations": [
+      {
+       "raw_affiliation_string": "Laboratory of Aquatic Toxicology, Department of Environmental and Occupational Health, Faculty of Medicine and Health Sciences, Universiti Putra Malaysia, 43400, Selangor, Malaysia",
+       "institution_ids": [
+        "https://openalex.org/I130343225"
+       ]
+      }
+     ]
+    },
+    {
+     "author_position": "middle",
+     "author": {
+      "id": "https://openalex.org/A5037923781",
+      "display_name": "Autor",
+      "orcid": "Osoba",
+      "observed_orcids": [
+       "https://orcid.org/0000-0001-6517-0201"
+      ]
+     },
+     "institutions": [
+      {
+       "id": "https://openalex.org/I130343225",
+       "display_name": "Universiti Putra Malaysia",
+       "ror": "https://ror.org/02e91jd64",
+       "country_code": "MY",
+       "type": "education",
+       "lineage": [
+        "https://openalex.org/I130343225"
+       ]
+      }
+     ],
+     "countries": [
+      "MY"
+     ],
+     "is_corresponding": false,
+     "contributor_roles": [],
+     "raw_author_name": "Osoba",
+     "raw_affiliation_strings": [
+      "Laboratory of Aquatic Toxicology, Department of Environmental and Occupational Health, Faculty of Medicine and Health Sciences, Universiti Putra Malaysia, 43400, Selangor, Malaysia"
+     ],
+     "raw_orcid": null,
+     "affiliations": [
+      {
+       "raw_affiliation_string": "Laboratory of Aquatic Toxicology, Department of Environmental and Occupational Health, Faculty of Medicine and Health Sciences, Universiti Putra Malaysia, 43400, Selangor, Malaysia",
+       "institution_ids": [
+        "https://openalex.org/I130343225"
+       ]
+      }
+     ]
+    },
+    {
+     "author_position": "middle",
+     "author": {
+      "id": "https://openalex.org/A5089363592",
+      "display_name": "Autor",
+      "orcid": null,
+      "observed_orcids": []
+     },
+     "institutions": [
+      {
+       "id": "https://openalex.org/I4210096783",
+       "display_name": "Horiba (France)",
+       "ror": "https://ror.org/00sgqf002",
+       "country_code": "FR",
+       "type": "company",
+       "lineage": [
+        "https://openalex.org/I158139479",
+        "https://openalex.org/I4210096783"
+       ]
+      }
+     ],
+     "countries": [
+      "FR"
+     ],
+     "is_corresponding": false,
+     "contributor_roles": [],
+     "raw_author_name": "Osoba",
+     "raw_affiliation_strings": [
+      "HORIBA Jobin Yvon S.A.S., 231, rue de Lille, 59650, Villeneuve d'Ascq, France"
+     ],
+     "raw_orcid": null,
+     "affiliations": [
+      {
+       "raw_affiliation_string": "HORIBA Jobin Yvon S.A.S., 231, rue de Lille, 59650, Villeneuve d'Ascq, France",
+       "institution_ids": [
+        "https://openalex.org/I4210096783"
+       ]
+      }
+     ]
+    },
+    {
+     "author_position": "last",
+     "author": {
+      "id": "https://openalex.org/A5054561437",
+      "display_name": "Autor",
+      "orcid": "Osoba",
+      "observed_orcids": [
+       "https://orcid.org/0000-0002-1436-4871"
+      ]
+     },
+     "institutions": [
+      {
+       "id": "https://openalex.org/I11662577",
+       "display_name": "Monash University Malaysia",
+       "ror": "https://ror.org/00yncr324",
+       "country_code": "MY",
+       "type": "education",
+       "lineage": [
+        "https://openalex.org/I11662577",
+        "https://openalex.org/I56590836"
+       ]
+      }
+     ],
+     "countries": [
+      "MY"
+     ],
+     "is_corresponding": false,
+     "contributor_roles": [],
+     "raw_author_name": "Osoba",
+     "raw_affiliation_strings": [
+      "Discipline of Chemical Engineering, School of Engineering, Monash University Malaysia, 47500, Selangor, Malaysia"
+     ],
+     "raw_orcid": null,
+     "affiliations": [
+      {
+       "raw_affiliation_string": "Discipline of Chemical Engineering, School of Engineering, Monash University Malaysia, 47500, Selangor, Malaysia",
+       "institution_ids": [
+        "https://openalex.org/I11662577"
+       ]
+      }
+     ]
+    }
+   ],
+   "institutions": [],
+   "countries_distinct_count": 2,
+   "institutions_distinct_count": 3,
+   "corresponding_author_ids": [
+    "https://openalex.org/A5085381601"
+   ],
+   "corresponding_institution_ids": [
+    "https://openalex.org/I130343225"
+   ],
+   "apc_list": {
+    "value": 2690,
+    "currency": "USD",
+    "value_usd": 2690
+   },
+   "apc_paid": {
+    "value": 2690,
+    "currency": "USD",
+    "value_usd": 2690
+   },
+   "fwci": 12.3677,
+   "is_authors_truncated": false,
+   "has_fulltext": true,
+   "cited_by_count": 425,
+   "citation_normalized_percentile": {
+    "value": 0.99268215,
+    "is_in_top_1_percent": true,
+    "is_in_top_10_percent": true
+   },
+   "cited_by_percentile_year": {
+    "min": 87,
+    "max": 100
+   },
+   "biblio": {
+    "volume": "7",
+    "issue": "1",
+    "first_page": "5473",
+    "last_page": "5473"
+   },
+   "is_retracted": false,
+   "is_pulled": false,
+   "is_paratext": false,
+   "is_xpac": false,
+   "primary_topic": {
+    "id": "https://openalex.org/T10753",
+    "display_name": "Microplastics and Plastic Pollution",
+    "score": 1.0,
+    "subfield": {
+     "id": "https://openalex.org/subfields/2310",
+     "display_name": "Pollution"
+    },
+    "field": {
+     "id": "https://openalex.org/fields/23",
+     "display_name": "Environmental Science"
+    },
+    "domain": {
+     "id": "https://openalex.org/domains/3",
+     "display_name": "Physical Sciences"
+    }
+   },
+   "topics": [
+    {
+     "id": "https://openalex.org/T10753",
+     "display_name": "Microplastics and Plastic Pollution",
+     "score": 1.0,
+     "subfield": {
+      "id": "https://openalex.org/subfields/2310",
+      "display_name": "Pollution"
+     },
+     "field": {
+      "id": "https://openalex.org/fields/23",
+      "display_name": "Environmental Science"
+     },
+     "domain": {
+      "id": "https://openalex.org/domains/3",
+      "display_name": "Physical Sciences"
+     }
+    },
+    {
+     "id": "https://openalex.org/T10419",
+     "display_name": "Pharmaceutical and Antibiotic Environmental Impacts",
+     "score": 0.0,
+     "subfield": {
+      "id": "https://openalex.org/subfields/2310",
+      "display_name": "Pollution"
+     },
+     "field": {
+      "id": "https://openalex.org/fields/23",
+      "display_name": "Environmental Science"
+     },
+     "domain": {
+      "id": "https://openalex.org/domains/3",
+      "display_name": "Physical Sciences"
+     }
+    },
+    {
+     "id": "https://openalex.org/T10447",
+     "display_name": "Environmental Toxicology and Ecotoxicology",
+     "score": 0.0,
+     "subfield": {
+      "id": "https://openalex.org/subfields/2307",
+      "display_name": "Health, Toxicology and Mutagenesis"
+     },
+     "field": {
+      "id": "https://openalex.org/fields/23",
+      "display_name": "Environmental Science"
+     },
+     "domain": {
+      "id": "https://openalex.org/domains/3",
+      "display_name": "Physical Sciences"
+     }
+    }
+   ],
+   "keywords": [
+    {
+     "id": "https://openalex.org/keywords/microplastics",
+     "display_name": "microplastics",
+     "score": 0.9950000047683716
+    },
+    {
+     "id": "https://openalex.org/keywords/dried-fish",
+     "display_name": "dried fish",
+     "score": 0.9959999918937683
+    },
+    {
+     "id": "https://openalex.org/keywords/fish-viscera",
+     "display_name": "fish viscera",
+     "score": 0.9380000233650208
+    },
+    {
+     "id": "https://openalex.org/keywords/fish-gills",
+     "display_name": "fish gills",
+     "score": 0.8510000109672546
+    },
+    {
+     "id": "https://openalex.org/keywords/plastic-polymers",
+     "display_name": "plastic polymers",
+     "score": 0.6169999837875366
+    },
+    {
+     "id": "https://openalex.org/keywords/pigment-particles",
+     "display_name": "pigment particles",
+     "score": 0.9620000123977661
+    },
+    {
+     "id": "https://openalex.org/keywords/heavy-metals",
+     "display_name": "heavy metals",
+     "score": 0.7139999866485596
+    },
+    {
+     "id": "https://openalex.org/keywords/microplastic-ingestion",
+     "display_name": "microplastic ingestion",
+     "score": 0.48899999260902405
+    },
+    {
+     "id": "https://openalex.org/keywords/food-safety",
+     "display_name": "food safety",
+     "score": 0.6000000238418579
+    }
+   ],
+   "concepts": [
+    {
+     "id": "https://openalex.org/C2776327621",
+     "wikidata": "https://www.wikidata.org/wiki/Q13119823",
+     "display_name": "Flesh",
+     "level": 2,
+     "score": 0.8876752853393555
+    },
+    {
+     "id": "https://openalex.org/C2780401329",
+     "wikidata": "https://www.wikidata.org/wiki/Q6839919",
+     "display_name": "Microplastics",
+     "level": 2,
+     "score": 0.8277256488800049
+    },
+    {
+     "id": "https://openalex.org/C161153951",
+     "wikidata": "https://www.wikidata.org/wiki/Q132390",
+     "display_name": "Gill",
+     "level": 3,
+     "score": 0.7557477355003357
+    },
+    {
+     "id": "https://openalex.org/C2909208804",
+     "wikidata": "https://www.wikidata.org/wiki/Q127282",
+     "display_name": "Fish <Actinopterygii>",
+     "level": 2,
+     "score": 0.5757748484611511
+    },
+    {
+     "id": "https://openalex.org/C86803240",
+     "wikidata": "https://www.wikidata.org/wiki/Q420",
+     "display_name": "Biology",
+     "level": 0,
+     "score": 0.4313642978668213
+    },
+    {
+     "id": "https://openalex.org/C2992957956",
+     "wikidata": "https://www.wikidata.org/wiki/Q5364423",
+     "display_name": "Marine fish",
+     "level": 3,
+     "score": 0.42168229818344116
+    },
+    {
+     "id": "https://openalex.org/C31903555",
+     "wikidata": "https://www.wikidata.org/wiki/Q1637030",
+     "display_name": "Food science",
+     "level": 1,
+     "score": 0.38921141624450684
+    },
+    {
+     "id": "https://openalex.org/C505870484",
+     "wikidata": "https://www.wikidata.org/wiki/Q180538",
+     "display_name": "Fishery",
+     "level": 1,
+     "score": 0.38005495071411133
+    },
+    {
+     "id": "https://openalex.org/C185592680",
+     "wikidata": "https://www.wikidata.org/wiki/Q2329",
+     "display_name": "Chemistry",
+     "level": 0,
+     "score": 0.364535391330719
+    },
+    {
+     "id": "https://openalex.org/C105702510",
+     "wikidata": "https://www.wikidata.org/wiki/Q514",
+     "display_name": "Anatomy",
+     "level": 1,
+     "score": 0.3414609432220459
+    },
+    {
+     "id": "https://openalex.org/C107872376",
+     "wikidata": "https://www.wikidata.org/wiki/Q321355",
+     "display_name": "Environmental chemistry",
+     "level": 1,
+     "score": 0.277513325214386
+    }
+   ],
+   "mesh": [
+    {
+     "descriptor_ui": "D000818",
+     "descriptor_name": "Animals",
+     "qualifier_ui": null,
+     "qualifier_name": null,
+     "is_major_topic": false
+    },
+    {
+     "descriptor_ui": "D004784",
+     "descriptor_name": "Environmental Monitoring",
+     "qualifier_ui": null,
+     "qualifier_name": null,
+     "is_major_topic": true
+    },
+    {
+     "descriptor_ui": "D005399",
+     "descriptor_name": "Fishes",
+     "qualifier_ui": "Q000378",
+     "qualifier_name": "metabolism",
+     "is_major_topic": true
+    },
+    {
+     "descriptor_ui": "D009928",
+     "descriptor_name": "Organ Specificity",
+     "qualifier_ui": null,
+     "qualifier_name": null,
+     "is_major_topic": true
+    },
+    {
+     "descriptor_ui": "D010316",
+     "descriptor_name": "Particle Size",
+     "qualifier_ui": null,
+     "qualifier_name": null,
+     "is_major_topic": false
+    },
+    {
+     "descriptor_ui": "D010969",
+     "descriptor_name": "Plastics",
+     "qualifier_ui": "Q000032",
+     "qualifier_name": "analysis",
+     "is_major_topic": true
+    },
+    {
+     "descriptor_ui": "D013059",
+     "descriptor_name": "Spectrum Analysis, Raman",
+     "qualifier_ui": null,
+     "qualifier_name": null,
+     "is_major_topic": false
+    }
+   ],
+   "locations_count": 8,
+   "locations": [
+    {
+     "id": "doi:10.1038/s41598-017-05828-6",
+     "doi": "https://doi.org/10.1038/s41598-017-05828-6",
+     "is_oa": true,
+     "landing_page_url": "https://doi.org/10.1038/s41598-017-05828-6",
+     "pdf_url": "https://www.nature.com/articles/s41598-017-05828-6.pdf",
+     "source": {
+      "id": "https://openalex.org/S196734849",
+      "display_name": "Scientific Reports",
+      "issn_l": "2045-2322",
+      "issn": [
+       "2045-2322"
+      ],
+      "is_oa": true,
+      "is_in_doaj": true,
+      "is_core": true,
+      "listed_in": [
+       "anvur-class-a",
+       "anvur-scientific",
+       "cwts-core",
+       "doaj",
+       "dongbi-c",
+       "doyens",
+       "jufo-1",
+       "ki-jl-1",
+       "medline",
+       "norway-1",
+       "poland-140",
+       "russia-white-list-1",
+       "vabb-shw"
+      ],
+      "host_organization": "https://openalex.org/P4310319908",
+      "host_organization_name": "Nature Portfolio",
+      "host_organization_lineage": [
+       "https://openalex.org/P4310319908",
+       "https://openalex.org/P4310319965"
+      ],
+      "host_organization_lineage_names": [
+       "Nature Portfolio",
+       "Springer Nature"
+      ],
+      "type": "journal"
+     },
+     "license": "cc-by",
+     "license_id": "https://openalex.org/licenses/cc-by",
+     "version": "publishedVersion",
+     "is_accepted": true,
+     "is_published": true,
+     "raw_source_name": "Scientific Reports",
+     "raw_type": "journal-article"
+    },
+    {
+     "id": "pmh:oai:europepmc.org:4357896",
+     "doi": null,
+     "is_oa": true,
+     "landing_page_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/5511207",
+     "pdf_url": null,
+     "source": {
+      "id": "https://openalex.org/S4306400806",
+      "display_name": "Europe PMC (PubMed Central)",
+      "issn_l": null,
+      "issn": null,
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": false,
+      "listed_in": [],
+      "host_organization": "https://openalex.org/I1303153112",
+      "host_organization_name": "European Bioinformatics Institute",
+      "host_organization_lineage": [
+       "https://openalex.org/I1303153112"
+      ],
+      "host_organization_lineage_names": [],
+      "type": "repository"
+     },
+     "license": "cc-by",
+     "license_id": "https://openalex.org/licenses/cc-by",
+     "version": "publishedVersion",
+     "is_accepted": true,
+     "is_published": true,
+     "raw_source_name": null,
+     "raw_type": "Text"
+    },
+    {
+     "id": "pmh:oai:pubmedcentral.nih.gov:5511207",
+     "doi": null,
+     "is_oa": true,
+     "landing_page_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5511207/",
+     "pdf_url": null,
+     "source": {
+      "id": "https://openalex.org/S2764455111",
+      "display_name": "PubMed Central",
+      "issn_l": null,
+      "issn": null,
+      "is_oa": true,
+      "is_in_doaj": false,
+      "is_core": false,
+      "listed_in": [],
+      "host_organization": "https://openalex.org/I1299303238",
+      "host_organization_name": "National Institutes of Health",
+      "host_organization_lineage": [
+       "https://openalex.org/I1299303238"
+      ],
+      "host_organization_lineage_names": [],
+      "type": "repository"
+     },
+     "license": "cc-by",
+     "license_id": "https://openalex.org/licenses/cc-by",
+     "version": "publishedVersion",
+     "is_accepted": true,
+     "is_published": true,
+     "raw_source_name": "Sci Rep",
+     "raw_type": "Text"
+    },
+    {
+     "id": "pmid:28710445",
+     "doi": null,
+     "is_oa": false,
+     "landing_page_url": "https://pubmed.ncbi.nlm.nih.gov/28710445",
+     "pdf_url": null,
+     "source": {
+      "id": "https://openalex.org/S4306525036",
+      "display_name": "PubMed",
+      "issn_l": null,
+      "issn": null,
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": false,
+      "listed_in": [],
+      "host_organization": "https://openalex.org/I1299303238",
+      "host_organization_name": "National Institutes of Health",
+      "host_organization_lineage": [
+       "https://openalex.org/I1299303238"
+      ],
+      "host_organization_lineage_names": [],
+      "type": "repository"
+     },
+     "license": null,
+     "license_id": null,
+     "version": "publishedVersion",
+     "is_accepted": true,
+     "is_published": true,
+     "raw_source_name": "Scientific reports",
+     "raw_type": "Journal Article"
+    },
+    {
+     "id": "pmh:oai:psasir.upm.edu.my:62417",
+     "doi": null,
+     "is_oa": false,
+     "landing_page_url": "http://psasir.upm.edu.my/id/eprint/62417/1/FISH.pdf",
+     "pdf_url": "http://psasir.upm.edu.my/id/eprint/62417/1/FISH.pdf",
+     "source": {
+      "id": "https://openalex.org/S4377196260",
+      "display_name": "Universiti Putra Malaysia Institutional Repository (Universiti Putra Malaysia)",
+      "issn_l": null,
+      "issn": null,
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": false,
+      "listed_in": [],
+      "host_organization": "https://openalex.org/I130343225",
+      "host_organization_name": "Universiti Putra Malaysia",
+      "host_organization_lineage": [
+       "https://openalex.org/I130343225"
+      ],
+      "host_organization_lineage_names": [],
+      "type": "repository"
+     },
+     "license": null,
+     "license_id": null,
+     "version": "acceptedVersion",
+     "is_accepted": true,
+     "is_published": false,
+     "raw_source_name": null,
+     "raw_type": "Article"
+    },
+    {
+     "id": "pmh:oai:doaj.org/article:4b5a88f34c974a75b54f15b6dee848cf",
+     "doi": null,
+     "is_oa": true,
+     "landing_page_url": "https://doaj.org/article/4b5a88f34c974a75b54f15b6dee848cf",
+     "pdf_url": null,
+     "source": {
+      "id": "https://openalex.org/S4306401280",
+      "display_name": "DOAJ (DOAJ: Directory of Open Access Journals)",
+      "issn_l": null,
+      "issn": null,
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": false,
+      "listed_in": [],
+      "host_organization": null,
+      "host_organization_name": null,
+      "host_organization_lineage": [],
+      "host_organization_lineage_names": [],
+      "type": "repository"
+     },
+     "license": "cc-by-sa",
+     "license_id": "https://openalex.org/licenses/cc-by-sa",
+     "version": "submittedVersion",
+     "is_accepted": false,
+     "is_published": false,
+     "raw_source_name": "Scientific Reports, Vol 7, Iss 1, Pp 1-9 (2017)",
+     "raw_type": "article"
+    },
+    {
+     "id": "doi:10.60692/d6p1r-8cy66",
+     "doi": "https://doi.org/10.60692/d6p1r-8cy66",
+     "is_oa": true,
+     "landing_page_url": "https://doi.org/10.60692/d6p1r-8cy66",
+     "pdf_url": null,
+     "source": {
+      "id": "https://openalex.org/S7407051682",
+      "display_name": "Greater South Information System",
+      "issn_l": null,
+      "issn": null,
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": false,
+      "listed_in": [],
+      "host_organization": null,
+      "host_organization_name": null,
+      "host_organization_lineage": [],
+      "host_organization_lineage_names": [],
+      "type": "repository"
+     },
+     "license": null,
+     "license_id": null,
+     "version": null,
+     "is_accepted": false,
+     "is_published": false,
+     "raw_source_name": null,
+     "raw_type": "article-journal"
+    },
+    {
+     "id": "doi:10.60692/jcc8m-qnf60",
+     "doi": "https://doi.org/10.60692/jcc8m-qnf60",
+     "is_oa": true,
+     "landing_page_url": "https://doi.org/10.60692/jcc8m-qnf60",
+     "pdf_url": null,
+     "source": {
+      "id": "https://openalex.org/S7407051682",
+      "display_name": "Greater South Information System",
+      "issn_l": null,
+      "issn": null,
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": false,
+      "listed_in": [],
+      "host_organization": null,
+      "host_organization_name": null,
+      "host_organization_lineage": [],
+      "host_organization_lineage_names": [],
+      "type": "repository"
+     },
+     "license": null,
+     "license_id": null,
+     "version": null,
+     "is_accepted": false,
+     "is_published": false,
+     "raw_source_name": null,
+     "raw_type": "article-journal"
+    }
+   ],
+   "best_oa_location": {
+    "id": "doi:10.1038/s41598-017-05828-6",
+    "doi": "https://doi.org/10.1038/s41598-017-05828-6",
+    "is_oa": true,
+    "landing_page_url": "https://doi.org/10.1038/s41598-017-05828-6",
+    "pdf_url": "https://www.nature.com/articles/s41598-017-05828-6.pdf",
+    "source": {
+     "id": "https://openalex.org/S196734849",
+     "display_name": "Scientific Reports",
+     "issn_l": "2045-2322",
+     "issn": [
+      "2045-2322"
+     ],
+     "is_oa": true,
+     "is_in_doaj": true,
+     "is_core": true,
+     "listed_in": [
+      "anvur-class-a",
+      "anvur-scientific",
+      "cwts-core",
+      "doaj",
+      "dongbi-c",
+      "doyens",
+      "jufo-1",
+      "ki-jl-1",
+      "medline",
+      "norway-1",
+      "poland-140",
+      "russia-white-list-1",
+      "vabb-shw"
+     ],
+     "host_organization": "https://openalex.org/P4310319908",
+     "host_organization_name": "Nature Portfolio",
+     "host_organization_lineage": [
+      "https://openalex.org/P4310319908",
+      "https://openalex.org/P4310319965"
+     ],
+     "host_organization_lineage_names": [
+      "Nature Portfolio",
+      "Springer Nature"
+     ],
+     "type": "journal"
+    },
+    "license": "cc-by",
+    "license_id": "https://openalex.org/licenses/cc-by",
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "Scientific Reports",
+    "raw_type": "journal-article"
+   },
+   "sustainable_development_goals": [
+    {
+     "score": 1.0,
+     "display_name": "Life below water",
+     "id": "https://metadata.un.org/sdg/14"
+    }
+   ],
+   "study_designs": [],
+   "awards": [],
+   "funders": [],
+   "has_content": {
+    "grobid_xml": true,
+    "pdf": true
+   },
+   "content_urls": {
+    "pdf": "https://content.openalex.org/works/W2735828883.pdf",
+    "grobid_xml": "https://content.openalex.org/works/W2735828883.grobid-xml"
+   },
+   "referenced_works_count": 56,
+   "referenced_works": [
+    "https://openalex.org/W66475613",
+    "https://openalex.org/W144502162",
+    "https://openalex.org/W600221233",
+    "https://openalex.org/W749737320",
+    "https://openalex.org/W1277336925",
+    "https://openalex.org/W1509700908",
+    "https://openalex.org/W1538741266",
+    "https://openalex.org/W1552411542",
+    "https://openalex.org/W1946435840",
+    "https://openalex.org/W1967273901",
+    "https://openalex.org/W1973108351",
+    "https://openalex.org/W1973754912",
+    "https://openalex.org/W1974829426",
+    "https://openalex.org/W1996432231",
+    "https://openalex.org/W2005404508",
+    "https://openalex.org/W2012119635",
+    "https://openalex.org/W2014605689",
+    "https://openalex.org/W2014622657",
+    "https://openalex.org/W2037496050",
+    "https://openalex.org/W2042234501",
+    "https://openalex.org/W2054676924",
+    "https://openalex.org/W2062862304",
+    "https://openalex.org/W2080154049",
+    "https://openalex.org/W2082269184",
+    "https://openalex.org/W2082582160",
+    "https://openalex.org/W2085831882",
+    "https://openalex.org/W2095345231",
+    "https://openalex.org/W2103585709",
+    "https://openalex.org/W2118402248",
+    "https://openalex.org/W2151198049",
+    "https://openalex.org/W2157373687",
+    "https://openalex.org/W2193763022",
+    "https://openalex.org/W2230820137",
+    "https://openalex.org/W2294074907",
+    "https://openalex.org/W2295281563",
+    "https://openalex.org/W2300403628",
+    "https://openalex.org/W2463260999",
+    "https://openalex.org/W2494196179",
+    "https://openalex.org/W2504996912",
+    "https://openalex.org/W2518879154",
+    "https://openalex.org/W2521979161",
+    "https://openalex.org/W2524362342",
+    "https://openalex.org/W2525409352",
+    "https://openalex.org/W2545265990",
+    "https://openalex.org/W2552024085",
+    "https://openalex.org/W2554494350",
+    "https://openalex.org/W2557576947",
+    "https://openalex.org/W2560508194",
+    "https://openalex.org/W2569522377",
+    "https://openalex.org/W2604924339",
+    "https://openalex.org/W2760744588",
+    "https://openalex.org/W3199624982",
+    "https://openalex.org/W4234181714",
+    "https://openalex.org/W4248531637",
+    "https://openalex.org/W4299364448",
+    "https://openalex.org/W4301268755"
+   ],
+   "related_works": [
+    "https://openalex.org/W6958358482",
+    "https://openalex.org/W4313492652",
+    "https://openalex.org/W4366505357",
+    "https://openalex.org/W4388632554",
+    "https://openalex.org/W4409107519",
+    "https://openalex.org/W4391066142",
+    "https://openalex.org/W7150920112",
+    "https://openalex.org/W4415518889",
+    "https://openalex.org/W2800589245",
+    "https://openalex.org/W3013245933"
+   ],
+   "abstract_inverted_index": {
+    "There": [
+     0
+    ],
+    "is": [
+     1
+    ],
+    "a": [
+     2
+    ],
+    "paucity": [
+     3
+    ],
+    "of": [
+     4,
+     9,
+     22,
+     41,
+     72,
+     98,
+     136
+    ],
+    "information": [
+     5
+    ],
+    "about": [
+     6
+    ],
+    "the": [
+     7,
+     19,
+     25,
+     37,
+     108,
+     115,
+     123,
+     134
+    ],
+    "occurrence": [
+     8
+    ],
+    "microplastics": [
+     10
+    ],
+    "(MPs)": [
+     11
+    ],
+    "in": [
+     12,
+     24,
+     112,
+     150
+    ],
+    "edible": [
+     13,
+     151
+    ],
+    "fish": [
+     14,
+     35,
+     46,
+     152
+    ],
+    "tissues.": [
+     15,
+     153
+    ],
+    "Here,": [
+     16
+    ],
+    "we": [
+     17
+    ],
+    "investigated": [
+     18
+    ],
+    "potential": [
+     20
+    ],
+    "presence": [
+     21
+    ],
+    "MPs": [
+     23,
+     102
+    ],
+    "excised": [
+     26,
+     124
+    ],
+    "organs": [
+     27
+    ],
+    "(viscera": [
+     28
+    ],
+    "and": [
+     29,
+     31,
+     39,
+     63
+    ],
+    "gills)": [
+     30,
+     40
+    ],
+    "eviscerated": [
+     32,
+     116
+    ],
+    "flesh": [
+     33,
+     117
+    ],
+    "(whole": [
+     34
+    ],
+    "excluding": [
+     36
+    ],
+    "viscera": [
+     38
+    ],
+    "four": [
+     42
+    ],
+    "commonly": [
+     43
+    ],
+    "consumed": [
+     44
+    ],
+    "dried": [
+     45
+    ],
+    "species": [
+     47
+    ],
+    "(n": [
+     48
+    ],
+    "=": [
+     49
+    ],
+    "30": [
+     50
+    ],
+    "per": [
+     51
+    ],
+    "species).": [
+     52
+    ],
+    "The": [
+     53,
+     96
+    ],
+    "MP": [
+     54,
+     120,
+     137
+    ],
+    "chemical": [
+     55
+    ],
+    "composition": [
+     56
+    ],
+    "was": [
+     57
+    ],
+    "then": [
+     58
+    ],
+    "determined": [
+     59
+    ],
+    "using": [
+     60
+    ],
+    "micro-Raman": [
+     61
+    ],
+    "spectroscopy": [
+     62,
+     69
+    ],
+    "elemental": [
+     64
+    ],
+    "analysis": [
+     65
+    ],
+    "with": [
+     66
+    ],
+    "energy-dispersive": [
+     67
+    ],
+    "X-ray": [
+     68
+    ],
+    "(EDX).": [
+     70
+    ],
+    "Out": [
+     71
+    ],
+    "61": [
+     73
+    ],
+    "isolated": [
+     74
+    ],
+    "particles,": [
+     75,
+     83
+    ],
+    "59.0%": [
+     76
+    ],
+    "were": [
+     77,
+     81,
+     85,
+     106
+    ],
+    "plastic": [
+     78
+    ],
+    "polymers,": [
+     79
+    ],
+    "21.3%": [
+     80
+    ],
+    "pigment": [
+     82,
+     104
+    ],
+    "6.55%": [
+     84
+    ],
+    "non-plastic": [
+     86
+    ],
+    "items": [
+     87
+    ],
+    "(i.e.": [
+     88
+    ],
+    "cellulose": [
+     89
+    ],
+    "or": [
+     90,
+     103
+    ],
+    "actinolite),": [
+     91
+    ],
+    "while": [
+     92
+    ],
+    "13.1%": [
+     93
+    ],
+    "remained": [
+     94
+    ],
+    "unidentified.": [
+     95
+    ],
+    "level": [
+     97
+    ],
+    "heavy": [
+     99
+    ],
+    "metals": [
+     100
+    ],
+    "on": [
+     101
+    ],
+    "particles": [
+     105
+    ],
+    "below": [
+     107
+    ],
+    "detection": [
+     109
+    ],
+    "limit.": [
+     110
+    ],
+    "Surprisingly,": [
+     111
+    ],
+    "two": [
+     113
+    ],
+    "species,": [
+     114
+    ],
+    "contained": [
+     118
+    ],
+    "higher": [
+     119
+    ],
+    "loads": [
+     121,
+     149
+    ],
+    "than": [
+     122
+    ],
+    "organs,": [
+     125
+    ],
+    "which": [
+     126
+    ],
+    "highlights": [
+     127
+    ],
+    "that": [
+     128
+    ],
+    "evisceration": [
+     129
+    ],
+    "does": [
+     130
+    ],
+    "not": [
+     131
+    ],
+    "necessarily": [
+     132
+    ],
+    "eliminate": [
+     133
+    ],
+    "risk": [
+     135
+    ],
+    "intake": [
+     138
+    ],
+    "by": [
+     139
+    ],
+    "consumers.": [
+     140
+    ],
+    "Future": [
+     141
+    ],
+    "studies": [
+     142
+    ],
+    "are": [
+     143
+    ],
+    "encouraged": [
+     144
+    ],
+    "to": [
+     145
+    ],
+    "quantify": [
+     146
+    ],
+    "anthropogenic": [
+     147
+    ],
+    "particle": [
+     148
+    ]
+   },
+   "cited_by_api_url": "https://api.openalex.org/works?filter=cites:W2735828883",
+   "counts_by_year": [
+    {
+     "year": 2026,
+     "cited_by_count": 41
+    },
+    {
+     "year": 2025,
+     "cited_by_count": 41
+    },
+    {
+     "year": 2024,
+     "cited_by_count": 60
+    },
+    {
+     "year": 2023,
+     "cited_by_count": 53
+    },
+    {
+     "year": 2022,
+     "cited_by_count": 62
+    },
+    {
+     "year": 2021,
+     "cited_by_count": 52
+    },
+    {
+     "year": 2020,
+     "cited_by_count": 58
+    },
+    {
+     "year": 2019,
+     "cited_by_count": 34
+    },
+    {
+     "year": 2018,
+     "cited_by_count": 22
+    },
+    {
+     "year": 2017,
+     "cited_by_count": 1
+    }
+   ],
+   "updated_date": "2026-11-21T10:27:49.728292",
+   "created_date": "2017-07-21T00:00:00"
+  }
+ ],
+ "group_by": []
+}

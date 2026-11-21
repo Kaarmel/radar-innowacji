@@ -1,0 +1,236 @@
+{
+ "results": [
+  {
+   "projectAbstractEn": null,
+   "keywords": "dane osobowe, ochrona danych osobowych, sztuczna inteligencja, uczenie maszynowe",
+   "edition": "Edycja 18",
+   "projectUuid": "61978f6914f9235546114ca8",
+   "projectAbstractPl": "Jeśli Big Data stanowią ropę naftową naszych czasów, utratę prywatności można opisać jako nowy kryzys klimatyczny; w dobie zbierania i przetwarzania danych osobowych na bezprecedensową skalę, osoby prywatne stają wobec rosnącej potęgi wielkich podmiotów gospodarczych oraz nieprzejrzystych systemów podejmowania decyzji z jakich podmioty te korzystają. Projekt, powstały w oparciu o ideę siły przeciwważnej (countervailing power) sformułowaną przez Kena Galbraitha, ma za zadanie dowieść, że sztuczna inteligencja może zostać wykorzystana dla wzmocnienia pozycji współczesnego obywatela poprzez umożliwienie zautomatyzowanej oceny legalności tekstów dokumentów prawnych takich jak umowy użytkownika czy polityki prywatności, dokonywanej w sposób transparentny przez system wyjaśnialnej sztucznej inteligencji (XAI – eXplainable Artificial Intelligence). Elementem dokonywanej w ten sposób analizy byłaby również ocena przejrzystości tekstu, spełniając tym samym wymóg prawny transparentności tekstu jako niezbędnego warunku jego zgodności z prawem. Przedmiotowe badania stanowić mogą istotny krok na drodze do stworzenia powszechnie dostępnej, darmowej technologii, która umożliwi szybką, łatwą i przejrzystą kontrolę przez użytkownika legalności postanowień umowy użytkownika lub polityki prywatności dostawcy usług, dostarczając zarazem prostych i niezawodnych wyjaśnień w zakresie wszelkich zidentyfikowanych problemów ze zgodnością postanowień z prawem",
+   "projectStartDate": "2020-10-19",
+   "implementingInstitutions": [
+    {
+     "institutionUuid": "5c3e8361-f5f3-4fc9-8751-5b1cb44e67a2",
+     "institutionName": "Instytut Języka Polskiego Polskiej Akademii Nauk",
+     "leader": "Nie",
+     "foreignInstitutionLeader": "Nie",
+     "higherEducationAndScience": "Tak",
+     "ownFunds": "0"
+    },
+    {
+     "institutionUuid": "e4059d4a-c713-487c-aeb1-a2f4e0ff4e87",
+     "institutionName": "Instytut Nauk Prawnych Polskiej Akademii Nauk",
+     "leader": "Tak",
+     "foreignInstitutionLeader": "Nie",
+     "higherEducationAndScience": "Tak",
+     "ownFunds": "0"
+    }
+   ],
+   "disseminationOfScience": "Nie",
+   "nationalFunds": "797777",
+   "partnership": "Projekt realizowany przez grupę podmiotów",
+   "projectGrantDate": "2020-05-18",
+   "anotherProjectClassification": null,
+   "acronym": null,
+   "lastRefresh": "1747043454604",
+   "projectNumber": "2019/35/B/HS5/04444",
+   "projectEndDate": "2023-10-18",
+   "projectTitleEn": "Citizen empowerment through online terms of service review: an automated transparency assessment by explainable Al",
+   "financedCompetition": "Tak",
+   "projectManagers": [
+    {
+     "institutionUuid": "5c3e8361-f5f3-4fc9-8751-5b1cb44e67a2",
+     "institutionName": "Instytut Języka Polskiego Polskiej Akademii Nauk",
+     "employeeId": "0BF45B7202053740E7F1FBF7A54F48064D6271D3",
+     "kindManagerCode": "KZ",
+     "kindManager": "Kierownik zespołu badawczego",
+     "firstName": "Osoba",
+     "middleName": null,
+     "lastName": "Osoba",
+     "ORCID": "Osoba",
+     "startDate": null,
+     "endDate": null
+    },
+    {
+     "institutionUuid": "e4059d4a-c713-487c-aeb1-a2f4e0ff4e87",
+     "institutionName": "Instytut Nauk Prawnych Polskiej Akademii Nauk",
+     "employeeId": null,
+     "kindManagerCode": "KP",
+     "kindManager": "Kierownik Projektu",
+     "firstName": "Osoba",
+     "middleName": null,
+     "lastName": "Osoba",
+     "ORCID": null,
+     "startDate": "2020-10-19",
+     "endDate": "2023-10-18"
+    }
+   ],
+   "entityShowingAchievementsName": "Instytut Języka Polskiego Polskiej Akademii Nauk",
+   "namePriority": null,
+   "receivedFunds": [
+    {
+     "institutionUuid": "5c3e8361-f5f3-4fc9-8751-5b1cb44e67a2",
+     "institutionName": "Instytut Języka Polskiego Polskiej Akademii Nauk",
+     "nationalFunds": "81480",
+     "foreignFunds": "0",
+     "totalFunds": "81480",
+     "financingInstitutionUuid": "f1244717-78c4-45d5-889f-ea59691bd4ba",
+     "financingInstitutionName": "Narodowe Centrum Nauki"
+    },
+    {
+     "institutionUuid": "e4059d4a-c713-487c-aeb1-a2f4e0ff4e87",
+     "institutionName": "Instytut Nauk Prawnych Polskiej Akademii Nauk",
+     "nationalFunds": "716297",
+     "foreignFunds": "0",
+     "totalFunds": "716297",
+     "financingInstitutionUuid": "f1244717-78c4-45d5-889f-ea59691bd4ba",
+     "financingInstitutionName": "Narodowe Centrum Nauki"
+    }
+   ],
+   "projectClassification": "OPUS",
+   "relatedProjects": [],
+   "foreignFunds": "0",
+   "disciplines": [
+    {
+     "institutionUuid": "5c3e8361-f5f3-4fc9-8751-5b1cb44e67a2",
+     "institutionName": "Instytut Języka Polskiego Polskiej Akademii Nauk",
+     "disciplineCode": "DS010104N",
+     "disciplineName": "językoznawstwo",
+     "percentageShare": "100"
+    },
+    {
+     "institutionUuid": "e4059d4a-c713-487c-aeb1-a2f4e0ff4e87",
+     "institutionName": "Instytut Nauk Prawnych Polskiej Akademii Nauk",
+     "disciplineCode": "DS010507N",
+     "disciplineName": "nauki prawne",
+     "percentageShare": "100"
+    }
+   ],
+   "projectTitlePl": "Wzmacnianie pozycji obywateli przez kontrolę reguł świadczenia usług online: zautomatyzowana ocena transparentności przez wyjaśnialną sztuczną inteligencję",
+   "financingInstitutions": [
+    {
+     "financingInstitutionUuid": "f1244717-78c4-45d5-889f-ea59691bd4ba",
+     "financingInstitutionName": "Narodowe Centrum Nauki",
+     "kindOfFinancingInstitution": "Krajowa",
+     "grantDate": "2020-05-18",
+     "settlementDate": null,
+     "sourceOfFinancing": "Projekt finansowany przez Narodowe Centrum Nauki",
+     "anotherSourceOfFinancing": null,
+     "receivedFunds": "797777",
+     "nationalFunds": "797777",
+     "foreignFunds": "0",
+     "urlAddress": "https://www.ncn.gov.pl/",
+     "country": "Polska",
+     "voivodeship": "małopolskie",
+     "addressCity": "Kraków [woj. małopolskie, pow. Kraków, gm. Kraków,miasto]",
+     "addressPostalCode": "30-312",
+     "addressStreet": "Twardowskiego [Kraków-Podgórze]",
+     "addressBuildingNumber": "16",
+     "addressApartmentNumber": null
+    }
+   ],
+   "dataSource": "POLON",
+   "entityShowingAchievementsUuid": "5c3e8361-f5f3-4fc9-8751-5b1cb44e67a2",
+   "totalFunds": "797777"
+  },
+  {
+   "projectAbstractEn": null,
+   "keywords": "ekspresja mikroRNA",
+   "edition": "5",
+   "projectUuid": "61eea7a3aa66d95890059110",
+   "projectAbstractPl": "Pozyskiwanie wyników wstępnych potwierdzających znaczenie badanych receptorów dla aktywności guzów kortykotropowych będące podstawowym założeniem hipotezy badawczej oraz ocena przydatności modelu linii komórkowej ATT-20 do badań nad receptorami dla kortykosteroidów i pozyskiwanie danych wstępnych na temat roli hsa-miR-124-3p dla ekspresji NR3C1.",
+   "projectStartDate": "2021-11-30",
+   "implementingInstitutions": [
+    {
+     "institutionUuid": "bdcdbaed-bbf2-43bd-b224-c5d80dd351fb",
+     "institutionName": "Narodowy Instytut Onkologii im. Marii Skłodowskiej-Curie – Państwowy Instytut Badawczy",
+     "leader": "Tak",
+     "foreignInstitutionLeader": "Nie",
+     "higherEducationAndScience": "Tak",
+     "ownFunds": "0"
+    }
+   ],
+   "disseminationOfScience": "Nie",
+   "nationalFunds": "49940",
+   "partnership": "Projekt realizowany samodzielnie",
+   "projectGrantDate": "2021-11-30",
+   "anotherProjectClassification": null,
+   "acronym": null,
+   "lastRefresh": "1747043454611",
+   "projectNumber": "2021/05/X/NZ5/01874",
+   "projectEndDate": "2022-11-29",
+   "projectTitleEn": null,
+   "financedCompetition": "Tak",
+   "projectManagers": [
+    {
+     "institutionUuid": "bdcdbaed-bbf2-43bd-b224-c5d80dd351fb",
+     "institutionName": "Narodowy Instytut Onkologii im. Marii Skłodowskiej-Curie – Państwowy Instytut Badawczy",
+     "employeeId": "1FD8DC07E22CEFE2F17DDF14B6FC511A5E9D37A1",
+     "kindManagerCode": "KP",
+     "kindManager": "Kierownik Projektu",
+     "firstName": "Osoba",
+     "middleName": "Osoba",
+     "lastName": "Osoba",
+     "ORCID": "Osoba",
+     "startDate": "2021-11-30",
+     "endDate": "2022-11-29"
+    }
+   ],
+   "entityShowingAchievementsName": "Narodowy Instytut Onkologii im. Marii Skłodowskiej-Curie – Państwowy Instytut Badawczy",
+   "namePriority": null,
+   "receivedFunds": [
+    {
+     "institutionUuid": "bdcdbaed-bbf2-43bd-b224-c5d80dd351fb",
+     "institutionName": "Narodowy Instytut Onkologii im. Marii Skłodowskiej-Curie – Państwowy Instytut Badawczy",
+     "nationalFunds": "49940",
+     "foreignFunds": null,
+     "totalFunds": "49940",
+     "financingInstitutionUuid": "f1244717-78c4-45d5-889f-ea59691bd4ba",
+     "financingInstitutionName": "Narodowe Centrum Nauki"
+    }
+   ],
+   "projectClassification": "MINIATURA",
+   "relatedProjects": [],
+   "foreignFunds": "0",
+   "disciplines": [
+    {
+     "institutionUuid": "bdcdbaed-bbf2-43bd-b224-c5d80dd351fb",
+     "institutionName": "Narodowy Instytut Onkologii im. Marii Skłodowskiej-Curie – Państwowy Instytut Badawczy",
+     "disciplineCode": "DS010304N",
+     "disciplineName": "nauki medyczne",
+     "percentageShare": "100"
+    }
+   ],
+   "projectTitlePl": "Ocena ekspresji receptorów dla kortykosteroidów w guzach kortykotropowych przysadki i komórkach linii ATT-20 w kontekście planowanego badania roli miRNA",
+   "financingInstitutions": [
+    {
+     "financingInstitutionUuid": "f1244717-78c4-45d5-889f-ea59691bd4ba",
+     "financingInstitutionName": "Narodowe Centrum Nauki",
+     "kindOfFinancingInstitution": "Krajowa",
+     "grantDate": "2021-11-30",
+     "settlementDate": "2022-11-29",
+     "sourceOfFinancing": "Projekt finansowany przez Narodowe Centrum Nauki",
+     "anotherSourceOfFinancing": null,
+     "receivedFunds": "49940",
+     "nationalFunds": "49940",
+     "foreignFunds": "0",
+     "urlAddress": "https://www.ncn.gov.pl/",
+     "country": "Polska",
+     "voivodeship": "małopolskie",
+     "addressCity": "Kraków [woj. małopolskie, pow. Kraków, gm. Kraków,miasto]",
+     "addressPostalCode": "30-312",
+     "addressStreet": "Twardowskiego [Kraków-Podgórze]",
+     "addressBuildingNumber": "16",
+     "addressApartmentNumber": null
+    }
+   ],
+   "dataSource": "POLON",
+   "entityShowingAchievementsUuid": "bdcdbaed-bbf2-43bd-b224-c5d80dd351fb",
+   "totalFunds": "49940"
+  }
+ ],
+ "pagination": {
+  "maxCount": 48853,
+  "token": "MTc0NzA0MzQ1NDYxMQ=="
+ },
+ "version": "1.1.5"
+}

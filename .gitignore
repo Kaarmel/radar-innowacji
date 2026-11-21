@@ -5,7 +5,7 @@
 *.key
 
 # Local and prepared datasets
-dane/
+/dane/
 dane_przygotowane/
 
 # macOS i dokumenty organizatora (poza repo)

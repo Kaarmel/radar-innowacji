@@ -1,0 +1,279 @@
+{
+ "results": [
+  {
+   "protectionRegionCode": "33",
+   "protectionRegion": "Polska",
+   "priorityExhibitionNumber": null,
+   "grantingInstitutionCode": "3",
+   "applicationNumber": "408059",
+   "plantBotanicName": null,
+   "inventors": [
+    {
+     "relatedInstitutionUuid": "511d4dfc-574e-4801-af14-e99dc24f8209",
+     "relatedInstitutionName": "Uniwersytet Warszawski",
+     "persons": [
+      {
+       "employeeId": "3375CF73D50CDC8F3B1FC3CA33BC52DEA215622F",
+       "firstName": "Osoba",
+       "relatedFirstName": "Wojciech",
+       "middleName": null,
+       "relatedMiddleName": null,
+       "lastName": "Osoba",
+       "relatedLastName": "Wasilewski",
+       "relatedOrcid": null,
+       "evaluationStatement": [
+        {
+         "disciplineCode": "DS010605N",
+         "disciplineName": "nauki fizyczne",
+         "institutionUuid": "511d4dfc-574e-4801-af14-e99dc24f8209",
+         "institutionName": "Uniwersytet Warszawski"
+        }
+       ]
+      },
+      {
+       "employeeId": null,
+       "firstName": "Osoba",
+       "relatedFirstName": null,
+       "middleName": null,
+       "relatedMiddleName": null,
+       "lastName": "Osoba",
+       "relatedLastName": null,
+       "relatedOrcid": null,
+       "evaluationStatement": []
+      }
+     ]
+    }
+   ],
+   "applicants": [
+    {
+     "relatedInstitutionUuid": "511d4dfc-574e-4801-af14-e99dc24f8209",
+     "relatedInstitutionName": "Uniwersytet Warszawski",
+     "institutions": [
+      {
+       "institutionUuid": "511d4dfc-574e-4801-af14-e99dc24f8209",
+       "institutionName": "UNIWERSYTET WARSZAWSKI",
+       "higherEducationInstitutionMarker": "true",
+       "higherEducationInstitutionName": "Uniwersytet Warszawski"
+      }
+     ]
+    }
+   ],
+   "priorityNumber": "408059",
+   "relatedInstitutions": [
+    {
+     "institutionUuid": "511d4dfc-574e-4801-af14-e99dc24f8209",
+     "institutionName": "Uniwersytet Warszawski"
+    }
+   ],
+   "plantVarietyNames": [],
+   "priorityApplicationNumberUPRP": null,
+   "priorityRegion": "Polska",
+   "plantSpeciesNames": [],
+   "priorityFirstApplication": "false",
+   "protectionTitle": "Przestrajalny, wąskopasmowy filtr optyczny do filtrowania wiązek laserowych i sposób filtrowania wiązek laserowych",
+   "publicationDate": "2020-02-28",
+   "grantingInstitutionName": "Urząd Patentowy Rzeczpospolitej Polskiej",
+   "dateSubmissionTranslation": null,
+   "protectionTypeCode": "1",
+   "productDescription": "Wynalazek obejmuje wąskopasmowy filtr optyczny do filtrowania wiązek laserowych, zawierający szczelnie zamkniętą i podgrzewaną komórkę filtra (1) zawierającą absorbent wewnątrz, charakteryzujący się tym, że komórka filtra (1) po&#0x73;iada co najmniej dwa okienka optyczne ustawione równolegle względem siebie, ponadto komórka filtra (1) położona jest pomiędzy źródłami pola magnetycznego (10), umieszczonymi i skonfigurowanymi tak, że komórka filtra (1) znajduje się w polu magnetycznym generowanym przez te źródła (10), a kierunek linii sił tego pola magnetycznego jest zwłaszcza poprzeczny względem osi filtra. Wynalazek obejmuje także sposób filtrowania wiązek laserowych, charakteryzujący się tym, że obejmuje etap przejścia wiązki laserowej przez komórkę filtra (1) zawierającą absorbent w poprzecznym polu magnetycznym.",
+   "publicationNumber": "234407",
+   "productTitles": [
+    {
+     "code": "angielski",
+     "value": "Tunable, narrow-band optical filter for filtering laser beams and method of filtration of laser beams "
+    },
+    {
+     "code": "polski",
+     "value": "Przestrajalny, wąskopasmowy filtr optyczny do filtrowania wiązek laserowych i sposób filtrowania wiązek laserowych"
+    }
+   ],
+   "protectionType": "Patent na wynalazek",
+   "protectionUuid": "0EAEA307C56FB83C926A6871F9D589E5",
+   "lastRefresh": "1762501886188",
+   "priorityClaimDate": "2014-04-29",
+   "grantingInstitutionCountry": "Polska",
+   "dataSource": "POLON",
+   "applicationDate": "2014-04-29"
+  },
+  {
+   "protectionRegionCode": "33",
+   "protectionRegion": "Polska",
+   "priorityExhibitionNumber": null,
+   "grantingInstitutionCode": "3",
+   "applicationNumber": "40357113",
+   "plantBotanicName": null,
+   "inventors": [
+    {
+     "relatedInstitutionUuid": "40ee9e13-51b8-4fde-b8b0-e9fb7505c3b9",
+     "relatedInstitutionName": "Szkoła Główna Gospodarstwa Wiejskiego w Warszawie",
+     "persons": [
+      {
+       "employeeId": "03AB56D5DD4D44336A29497F30885C4C1F93AB6C",
+       "firstName": "Osoba",
+       "relatedFirstName": "Agnieszka",
+       "middleName": null,
+       "relatedMiddleName": "Zofia",
+       "lastName": "Osoba",
+       "relatedLastName": "Bus",
+       "relatedOrcid": null,
+       "evaluationStatement": []
+      },
+      {
+       "employeeId": "5696A1B614760E502FF3FCDBDC25E5D9F77769B8",
+       "firstName": "Osoba",
+       "relatedFirstName": "Agnieszka",
+       "middleName": null,
+       "relatedMiddleName": "Alicja",
+       "lastName": "Osoba",
+       "relatedLastName": "Karczmarczyk",
+       "relatedOrcid": null,
+       "evaluationStatement": [
+        {
+         "disciplineCode": "DS010209N",
+         "disciplineName": "inżynieria środowiska, górnictwo i energetyka",
+         "institutionUuid": "40ee9e13-51b8-4fde-b8b0-e9fb7505c3b9",
+         "institutionName": "Szkoła Główna Gospodarstwa Wiejskiego w Warszawie"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "applicants": [
+    {
+     "relatedInstitutionUuid": "40ee9e13-51b8-4fde-b8b0-e9fb7505c3b9",
+     "relatedInstitutionName": "Szkoła Główna Gospodarstwa Wiejskiego w Warszawie",
+     "institutions": [
+      {
+       "institutionUuid": "40ee9e13-51b8-4fde-b8b0-e9fb7505c3b9",
+       "institutionName": "SZKOŁA GŁÓWNA GOSPODARSTWA WIEJSKIEGO W WARSZAWIE",
+       "higherEducationInstitutionMarker": "true",
+       "higherEducationInstitutionName": "Szkoła Główna Gospodarstwa Wiejskiego w Warszawie"
+      }
+     ]
+    }
+   ],
+   "priorityNumber": "40357113",
+   "relatedInstitutions": [
+    {
+     "institutionUuid": "40ee9e13-51b8-4fde-b8b0-e9fb7505c3b9",
+     "institutionName": "Szkoła Główna Gospodarstwa Wiejskiego w Warszawie"
+    }
+   ],
+   "plantVarietyNames": [],
+   "priorityApplicationNumberUPRP": null,
+   "priorityRegion": "Polska",
+   "plantSpeciesNames": [],
+   "priorityFirstApplication": "false",
+   "protectionTitle": "Filtr do usuwania zanieczyszczeń, zwłaszcza z małych cieków i zbiorników wodnych",
+   "publicationDate": "2018-06-29",
+   "grantingInstitutionName": "Urząd Patentowy Rzeczpospolitej Polskiej",
+   "dateSubmissionTranslation": null,
+   "protectionTypeCode": "1",
+   "productDescription": "Filtr do usuwania zanieczyszczeń z cieków i zbiorników wodnych składa się z co najmniej jednego worka filtracyjnego (2) wypełnionego materiałem reaktywnym (1), umieszczonego na nieelastycznej lince (3), której drugi koniec jest połączony w sposób rozłączny z co najmniej jednym elementem nośnym (4), umieszczonym poprzecznie w stosunku do oczyszczanego zbiornika wodnego lub cieku.",
+   "publicationNumber": "229087",
+   "productTitles": [
+    {
+     "code": "polski",
+     "value": "Filtr do usuwania zanieczyszczeń, zwłaszcza z małych cieków i zbiorników wodnych"
+    }
+   ],
+   "protectionType": "Patent na wynalazek",
+   "protectionUuid": "0D127082F13A2493E1E85CBFF9F98ED3",
+   "lastRefresh": "1762501887643",
+   "priorityClaimDate": "2013-04-17",
+   "grantingInstitutionCountry": "Polska",
+   "dataSource": "POLON",
+   "applicationDate": "2013-04-17"
+  },
+  {
+   "protectionRegionCode": "33",
+   "protectionRegion": "Polska",
+   "priorityExhibitionNumber": null,
+   "grantingInstitutionCode": "3",
+   "applicationNumber": "435502",
+   "plantBotanicName": null,
+   "inventors": [
+    {
+     "relatedInstitutionUuid": "919617f6-b49f-4075-b60b-465136e8dcb3",
+     "relatedInstitutionName": "Akademia Górniczo-Hutnicza im. Stanisława Staszica w Krakowie",
+     "persons": [
+      {
+       "employeeId": "D72BA23AF87D761D4B3E8CFF35AA305A1BE5EFFF",
+       "firstName": "Osoba",
+       "relatedFirstName": "Bartłomiej",
+       "middleName": null,
+       "relatedMiddleName": "Krzysztof",
+       "lastName": "Osoba",
+       "relatedLastName": "Ciapała",
+       "relatedOrcid": "0000-0002-5362-0612",
+       "evaluationStatement": [
+        {
+         "disciplineCode": "DS010209N",
+         "disciplineName": "inżynieria środowiska, górnictwo i energetyka",
+         "institutionUuid": "919617f6-b49f-4075-b60b-465136e8dcb3",
+         "institutionName": "Akademia Górniczo-Hutnicza im. Stanisława Staszica w Krakowie"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "applicants": [
+    {
+     "relatedInstitutionUuid": "919617f6-b49f-4075-b60b-465136e8dcb3",
+     "relatedInstitutionName": "Akademia Górniczo-Hutnicza im. Stanisława Staszica w Krakowie",
+     "institutions": [
+      {
+       "institutionUuid": "919617f6-b49f-4075-b60b-465136e8dcb3",
+       "institutionName": "AKADEMIA GÓRNICZO-HUTNICZA IM. STANISŁAWA STASZICA W KRAKOWIE",
+       "higherEducationInstitutionMarker": "true",
+       "higherEducationInstitutionName": "Akademia Górniczo-Hutnicza im. Stanisława Staszica w Krakowie"
+      }
+     ]
+    }
+   ],
+   "priorityNumber": null,
+   "relatedInstitutions": [
+    {
+     "institutionUuid": "919617f6-b49f-4075-b60b-465136e8dcb3",
+     "institutionName": "Akademia Górniczo-Hutnicza im. Stanisława Staszica w Krakowie"
+    }
+   ],
+   "plantVarietyNames": [],
+   "priorityApplicationNumberUPRP": null,
+   "priorityRegion": null,
+   "plantSpeciesNames": [],
+   "priorityFirstApplication": "true",
+   "protectionTitle": "Filtr otworu wiertniczego",
+   "publicationDate": "2023-11-27",
+   "grantingInstitutionName": "Urząd Patentowy Rzeczpospolitej Polskiej",
+   "dateSubmissionTranslation": null,
+   "protectionTypeCode": "1",
+   "productDescription": "Filtr ściany kolumny rury filtracyjnej ma wykonane wyłącznie jako warstwa (4) strukturyzowana. Utworzony jest ze ścianek tworzących puste, połączone ze sobą przestrzenie otwarte do wewnątrz i na zewnątrz. Wielkość otworów po stronie zewnętrznej dostosowana jest do specyfiki górotworu w miejscu montażu, a prześwit pustych przestrzeni i otworów po stronie wewnętrznej jest co najmniej wielkości otworów warstwy po stronie zewnętrznej. Struktura przestrzenna ściany filtru dostosowana jest do możliwości drukowania 3D. Filtr może być wykonany z materiału elastycznego. Może mieć formę pozbawioną połączeń rozłącznych. Ponadto układ ścianek tworzących strukturę jest modularny, z elementów (1), powtarzanych cyklicznie wzdłuż lub na obwodzie rury filtru. Także na długości rury może mieć strukturę zmienną. Otwory i puste przestrzenie mają kształty geometryczne, utworzone, między, innymi przez gyroid. Przykładem są też przesunięte względem siebie profile o czterech ścianach lub przesunięte względem siebie pierścienie z rurek. Innym rozwiązaniem jest strukturyzowana rura, której ścianka zewnętrzna i wewnętrzna są gładkie z przelotowymi otworami w postaci poziomych rurek, a pomiędzy tymi ściankami utworzona jest kratownica. Sposób wykonania filtru otworu wiertniczego, charakteryzuje się tym, że za pomocą urządzeń drukujących 3D nakłada się w sposób ciągły kolejne warstwy materiału w odpowiednich miejscach strukturyzowanej ściany filtru. Filtry wykonuje się za pomocą urządzeń drukujących 3D w systemie kroczącym, a także za pomocą urządzeń drukujących 3D zainstalowanych na ramionach robotów przemysłowych. Filtry wykonuje się za pomocą laserowych drukarek 3D wykorzystujących materiały proszkowane, a także materiały elastyczne utwardzane nad otworem wiertniczym.",
+   "publicationNumber": "244076",
+   "productTitles": [
+    {
+     "code": "angielski",
+     "value": "Borehole filter and method for borehole filter producing"
+    },
+    {
+     "code": "polski",
+     "value": "Filtr otworu wiertniczego"
+    }
+   ],
+   "protectionType": "Patent na wynalazek",
+   "protectionUuid": "1429EAF7CF202553C79A860EFFF69838",
+   "lastRefresh": "1762501887713",
+   "priorityClaimDate": null,
+   "grantingInstitutionCountry": null,
+   "dataSource": "POLON",
+   "applicationDate": "2020-09-28"
+  }
+ ],
+ "pagination": {
+  "maxCount": 26,
+  "token": "MTc2MjUwMTg4NzcxMw=="
+ },
+ "version": "1.1.7"
+}

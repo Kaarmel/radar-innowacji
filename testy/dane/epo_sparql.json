@@ -1,0 +1,1165 @@
+{
+ "head": {
+  "vars": [
+   "pub",
+   "score",
+   "title",
+   "date",
+   "kind",
+   "appnum",
+   "app1",
+   "ipcs"
+  ]
+ },
+ "results": {
+  "bindings": [
+   {
+    "pub": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/data/publication/EP/3759052/A1/-"
+    },
+    "score": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#float",
+     "value": "2.0"
+    },
+    "title": {
+     "type": "literal",
+     "xml:lang": "en",
+     "value": "USE OF ALKYL-TRICHLOROSILANES AND/OR SILSESQUIOXANES FOR THE REMOVAL OF MICROPLASTIC PARTICLES FROM WATER AND/OR A BODY OF WATER"
+    },
+    "date": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#date",
+     "value": "2021-01-06"
+    },
+    "kind": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/def/patent/publicationKind_A1"
+    },
+    "appnum": {
+     "type": "literal",
+     "value": "EP20190708982"
+    },
+    "app1": {
+     "type": "literal",
+     "value": "ABCR GmbH"
+    },
+    "ipcs": {
+     "type": "literal",
+     "value": "C08F299-00;C08G77-04;C02F1-52;C02F1-28;C07F7-21;C08L83-06;C02F1-54;C07F7-12"
+    }
+   },
+   {
+    "pub": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/data/publication/EP/3759052/B1/-"
+    },
+    "score": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#float",
+     "value": "2.0"
+    },
+    "title": {
+     "type": "literal",
+     "xml:lang": "en",
+     "value": "USE OF ALKYL-TRICHLOROSILANES FOR THE REMOVAL OF MICROPLASTIC PARTICLES FROM WATER AND/OR A BODY OF WATER"
+    },
+    "date": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#date",
+     "value": "2023-07-05"
+    },
+    "kind": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/def/patent/publicationKind_B1"
+    },
+    "appnum": {
+     "type": "literal",
+     "value": "EP20190708982"
+    },
+    "app1": {
+     "type": "literal",
+     "value": "ABCR GmbH"
+    },
+    "ipcs": {
+     "type": "literal",
+     "value": "C08F299-00;C08G77-04;C02F1-52;C02F1-28;C07F7-21;C08L83-06;C02F1-54;C07F7-12"
+    }
+   },
+   {
+    "pub": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/data/publication/EP/4238940/A1/-"
+    },
+    "score": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#float",
+     "value": "2.0"
+    },
+    "title": {
+     "type": "literal",
+     "xml:lang": "en",
+     "value": "USE OF SILSESQUIOXANES FOR REMOVING MICROPLASTIC PARTICLES FROM WATER AND/OR A BODY OF WATER"
+    },
+    "date": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#date",
+     "value": "2023-09-06"
+    },
+    "kind": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/def/patent/publicationKind_A1"
+    },
+    "appnum": {
+     "type": "literal",
+     "value": "EP20230183101"
+    },
+    "app1": {
+     "type": "literal",
+     "value": "ABCR GmbH"
+    },
+    "ipcs": {
+     "type": "literal",
+     "value": "C08F299-00;C08G77-04;C02F1-52;C02F1-28;C07F7-21;C08L83-06;C02F1-54;C07F7-12"
+    }
+   },
+   {
+    "pub": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/data/publication/EP/4238940/B1/-"
+    },
+    "score": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#float",
+     "value": "2.0"
+    },
+    "title": {
+     "type": "literal",
+     "xml:lang": "en",
+     "value": "USE OF SILSESQUIOXANES FOR REMOVING MICROPLASTIC PARTICLES FROM WATER AND/OR A BODY OF WATER"
+    },
+    "date": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#date",
+     "value": "2025-02-12"
+    },
+    "kind": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/def/patent/publicationKind_B1"
+    },
+    "appnum": {
+     "type": "literal",
+     "value": "EP20230183101"
+    },
+    "app1": {
+     "type": "literal",
+     "value": "ABCR GmbH"
+    },
+    "ipcs": {
+     "type": "literal",
+     "value": "C08F299-00;C08G77-04;C02F1-52;C02F1-28;C07F7-21;C08L83-06;C02F1-54;C07F7-12"
+    }
+   },
+   {
+    "pub": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/data/publication/EP/4534752/A1/-"
+    },
+    "score": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#float",
+     "value": "2.0"
+    },
+    "title": {
+     "type": "literal",
+     "xml:lang": "en",
+     "value": "DISCHARGE PUMP FOR HOUSEHOLD APPLIANCE PROVIDED WITH A FILTER FOR MICROPLASTICS AND RELATED CONTROL METHOD"
+    },
+    "date": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#date",
+     "value": "2025-04-09"
+    },
+    "kind": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/def/patent/publicationKind_A1"
+    },
+    "appnum": {
+     "type": "literal",
+     "value": "EP20240204325"
+    },
+    "app1": {
+     "type": "literal",
+     "value": "Askoll Holding S.r.l."
+    },
+    "ipcs": {
+     "type": "literal",
+     "value": "D06F39-08"
+    }
+   },
+   {
+    "pub": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/data/publication/EP/4534752/B1/-"
+    },
+    "score": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#float",
+     "value": "2.0"
+    },
+    "title": {
+     "type": "literal",
+     "xml:lang": "en",
+     "value": "DISCHARGE PUMP FOR HOUSEHOLD APPLIANCE PROVIDED WITH A FILTER FOR MICROPLASTICS AND RELATED CONTROL METHOD"
+    },
+    "date": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#date",
+     "value": "2026-04-15"
+    },
+    "kind": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/def/patent/publicationKind_B1"
+    },
+    "appnum": {
+     "type": "literal",
+     "value": "EP20240204325"
+    },
+    "app1": {
+     "type": "literal",
+     "value": "Askoll Holding S.r.l."
+    },
+    "ipcs": {
+     "type": "literal",
+     "value": "D06F39-08"
+    }
+   },
+   {
+    "pub": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/data/publication/EP/4623145/A1/-"
+    },
+    "score": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#float",
+     "value": "2.0"
+    },
+    "title": {
+     "type": "literal",
+     "xml:lang": "en",
+     "value": "FILTER DEVICE FOR FILTERING MICROPLASTICS FROM WASHING LI UIDS AND WASHIN MACHINE THEREWITH"
+    },
+    "date": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#date",
+     "value": "2025-10-01"
+    },
+    "kind": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/def/patent/publicationKind_A1"
+    },
+    "appnum": {
+     "type": "literal",
+     "value": "EP20230809729"
+    },
+    "app1": {
+     "type": "literal",
+     "value": "Boll & Kirch Filterbau Gesellschaft mit\nbeschränkter Haftung"
+    },
+    "ipcs": {
+     "type": "literal",
+     "value": "D06F39-10;B01D29-90;B01D29-56"
+    }
+   },
+   {
+    "pub": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/data/publication/EP/4153542/A1/-"
+    },
+    "score": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#float",
+     "value": "2.0"
+    },
+    "title": {
+     "type": "literal",
+     "xml:lang": "en",
+     "value": "MULTISTAGE BIOFILTER FOR REMOVAL OF MICROPLASTIC PARTICULATES AND BIOCHEMICAL WASTE FROM AQUACULTURE WATER"
+    },
+    "date": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#date",
+     "value": "2023-03-29"
+    },
+    "kind": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/def/patent/publicationKind_A1"
+    },
+    "appnum": {
+     "type": "literal",
+     "value": "EP20210808488"
+    },
+    "app1": {
+     "type": "literal",
+     "value": "Clean Valley Bio-Filtration Technologies CIC"
+    },
+    "ipcs": {
+     "type": "literal",
+     "value": "C02F3-00;C02F3-32;A01K63-04"
+    }
+   },
+   {
+    "pub": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/data/publication/EP/4516375/A1/-"
+    },
+    "score": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#float",
+     "value": "2.0"
+    },
+    "title": {
+     "type": "literal",
+     "xml:lang": "en",
+     "value": "MICROPLASTIC FILTERING SYSTEM INTEGRATED WITH A PRE-FILTERING ASSEMBLY, FOR A WASHING MACHINE, SUCH AS A  LAUNDRY WASHING MACHINE"
+    },
+    "date": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#date",
+     "value": "2025-03-05"
+    },
+    "kind": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/def/patent/publicationKind_A1"
+    },
+    "appnum": {
+     "type": "literal",
+     "value": "EP20240198072"
+    },
+    "app1": {
+     "type": "literal",
+     "value": "ELBI International S.p.A."
+    },
+    "ipcs": {
+     "type": "literal",
+     "value": "A47L15-42;D06F39-10;B01D29-64"
+    }
+   },
+   {
+    "pub": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/data/publication/EP/4516375/B1/-"
+    },
+    "score": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#float",
+     "value": "2.0"
+    },
+    "title": {
+     "type": "literal",
+     "xml:lang": "en",
+     "value": "MICROPLASTIC FILTERING SYSTEM INTEGRATED WITH A PRE-FILTERING ASSEMBLY, FOR A WASHING MACHINE, SUCH AS A  LAUNDRY WASHING MACHINE"
+    },
+    "date": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#date",
+     "value": "2026-04-22"
+    },
+    "kind": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/def/patent/publicationKind_B1"
+    },
+    "appnum": {
+     "type": "literal",
+     "value": "EP20240198072"
+    },
+    "app1": {
+     "type": "literal",
+     "value": "ELBI International S.p.A."
+    },
+    "ipcs": {
+     "type": "literal",
+     "value": "A47L15-42;D06F39-10;B01D29-64"
+    }
+   },
+   {
+    "pub": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/data/publication/EP/4516377/A1/-"
+    },
+    "score": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#float",
+     "value": "2.0"
+    },
+    "title": {
+     "type": "literal",
+     "xml:lang": "en",
+     "value": "MICROPLASTIC FILTERING SYSTEM FOR A HOUSEHOLD APPLIANCE, IN PARTICULAR A WASHING MACHINE, SUCH AS A LAUNDRY WASHING MACHINE, SAID SYSTEM BEING PROVIDED WITH A DRAINING PUMP"
+    },
+    "date": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#date",
+     "value": "2025-03-05"
+    },
+    "kind": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/def/patent/publicationKind_A1"
+    },
+    "appnum": {
+     "type": "literal",
+     "value": "EP20240198062"
+    },
+    "app1": {
+     "type": "literal",
+     "value": "ELBI International S.p.A."
+    },
+    "ipcs": {
+     "type": "literal",
+     "value": "A47L15-42;D06F39-10;B01D33-46"
+    }
+   },
+   {
+    "pub": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/data/publication/EP/4516987/A1/-"
+    },
+    "score": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#float",
+     "value": "2.0"
+    },
+    "title": {
+     "type": "literal",
+     "xml:lang": "en",
+     "value": "WASHING MACHINE PROVIDED WITH A MICROPLASTIC FILTERING SYSTEM INTEGRATED WITH THE DRAWER"
+    },
+    "date": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#date",
+     "value": "2025-03-05"
+    },
+    "kind": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/def/patent/publicationKind_A1"
+    },
+    "appnum": {
+     "type": "literal",
+     "value": "EP20240198052"
+    },
+    "app1": {
+     "type": "literal",
+     "value": "ELBI International S.p.A."
+    },
+    "ipcs": {
+     "type": "literal",
+     "value": "D06F39-10"
+    }
+   },
+   {
+    "pub": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/data/publication/EP/3907190/A1/-"
+    },
+    "score": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#float",
+     "value": "2.0"
+    },
+    "title": {
+     "type": "literal",
+     "xml:lang": "en",
+     "value": "METHOD AND PLANT FOR REMOVING MICROPLASTIC MATERIAL FROM BACKWASH WATERS"
+    },
+    "date": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#date",
+     "value": "2021-11-10"
+    },
+    "kind": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/def/patent/publicationKind_A1"
+    },
+    "appnum": {
+     "type": "literal",
+     "value": "EP20210171783"
+    },
+    "app1": {
+     "type": "literal",
+     "value": "Grimaldi Euromed S.p.A."
+    },
+    "ipcs": {
+     "type": "literal",
+     "value": "C02F1-00;B01D33-04"
+    }
+   },
+   {
+    "pub": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/data/publication/EP/3907190/B1/-"
+    },
+    "score": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#float",
+     "value": "2.0"
+    },
+    "title": {
+     "type": "literal",
+     "xml:lang": "en",
+     "value": "METHOD AND PLANT FOR REMOVING MICROPLASTIC MATERIAL FROM BACKWASH WATERS"
+    },
+    "date": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#date",
+     "value": "2023-06-28"
+    },
+    "kind": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/def/patent/publicationKind_B1"
+    },
+    "appnum": {
+     "type": "literal",
+     "value": "EP20210171783"
+    },
+    "app1": {
+     "type": "literal",
+     "value": "Grimaldi Euromed S.p.A."
+    },
+    "ipcs": {
+     "type": "literal",
+     "value": "C02F1-00;B01D33-04"
+    }
+   },
+   {
+    "pub": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/data/publication/EP/4355189/A2/-"
+    },
+    "score": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#float",
+     "value": "2.0"
+    },
+    "title": {
+     "type": "literal",
+     "xml:lang": "en",
+     "value": "MICROPLASTIC FILTER FOR WASHING MACHINE"
+    },
+    "date": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#date",
+     "value": "2024-04-24"
+    },
+    "kind": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/def/patent/publicationKind_A2"
+    },
+    "appnum": {
+     "type": "literal",
+     "value": "EP20220733565"
+    },
+    "app1": {
+     "type": "literal",
+     "value": "Hengst SE"
+    },
+    "ipcs": {
+     "type": "literal",
+     "value": "B01D25-00;A47L15-42;B01D29-64;B01D29-82;B01D29-35;B01D29-58"
+    }
+   },
+   {
+    "pub": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/data/publication/EP/3927665/A1/-"
+    },
+    "score": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#float",
+     "value": "2.0"
+    },
+    "title": {
+     "type": "literal",
+     "xml:lang": "en",
+     "value": "METHOD OF MONITORING AND OPTIONALLY CONTROLLING REMOVAL OF MICROPLASTICS FROM MICROPLASTIC CONTAINING WATERS"
+    },
+    "date": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#date",
+     "value": "2021-12-29"
+    },
+    "kind": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/def/patent/publicationKind_A1"
+    },
+    "appnum": {
+     "type": "literal",
+     "value": "EP20200706213"
+    },
+    "app1": {
+     "type": "literal",
+     "value": "KEMIRA OYJ"
+    },
+    "ipcs": {
+     "type": "literal",
+     "value": "C02F1-00;C02F1-52;C02F1-24;C02F1-56;G01N33-18"
+    }
+   },
+   {
+    "pub": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/data/publication/EP/3927665/B1/-"
+    },
+    "score": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#float",
+     "value": "2.0"
+    },
+    "title": {
+     "type": "literal",
+     "xml:lang": "en",
+     "value": "METHOD OF MONITORING AND OPTIONALLY CONTROLLING THE REMOVAL OF MICROPLASTICS FROM MICROPLASTIC CONTAINING WATERS"
+    },
+    "date": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#date",
+     "value": "2023-11-15"
+    },
+    "kind": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/def/patent/publicationKind_B1"
+    },
+    "appnum": {
+     "type": "literal",
+     "value": "EP20200706213"
+    },
+    "app1": {
+     "type": "literal",
+     "value": "KEMIRA OYJ"
+    },
+    "ipcs": {
+     "type": "literal",
+     "value": "C02F1-00;C02F1-52;C02F1-24;C02F1-56;G01N33-18"
+    }
+   },
+   {
+    "pub": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/data/publication/EP/3927666/A1/-"
+    },
+    "score": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#float",
+     "value": "2.0"
+    },
+    "title": {
+     "type": "literal",
+     "xml:lang": "en",
+     "value": "METHOD OF EVALUATING AND OPTIONALLY SELECTING A SUITABLE CHEMISTRY FOR REMOVAL OF MICROPLASTICS IN A LIQUID MATRIX"
+    },
+    "date": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#date",
+     "value": "2021-12-29"
+    },
+    "kind": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/def/patent/publicationKind_A1"
+    },
+    "appnum": {
+     "type": "literal",
+     "value": "EP20200707018"
+    },
+    "app1": {
+     "type": "literal",
+     "value": "KEMIRA OYJ"
+    },
+    "ipcs": {
+     "type": "literal",
+     "value": "C02F1-00;C02F1-52;C02F1-24;C02F1-56;G01N33-18;G01N15-14"
+    }
+   },
+   {
+    "pub": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/data/publication/EP/3927666/B1/-"
+    },
+    "score": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#float",
+     "value": "2.0"
+    },
+    "title": {
+     "type": "literal",
+     "xml:lang": "en",
+     "value": "METHOD OF EVALUATING AND SELECTING A SUITABLE CHEMISTRY FOR REMOVAL OF MICROPLASTICS IN A LIQUID MATRIX"
+    },
+    "date": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#date",
+     "value": "2023-12-20"
+    },
+    "kind": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/def/patent/publicationKind_B1"
+    },
+    "appnum": {
+     "type": "literal",
+     "value": "EP20200707018"
+    },
+    "app1": {
+     "type": "literal",
+     "value": "KEMIRA OYJ"
+    },
+    "ipcs": {
+     "type": "literal",
+     "value": "C02F1-00;C02F1-52;C02F1-24;C02F1-56;G01N33-18;G01N15-14"
+    }
+   },
+   {
+    "pub": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/data/publication/EP/4313883/A1/-"
+    },
+    "score": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#float",
+     "value": "2.0"
+    },
+    "title": {
+     "type": "literal",
+     "xml:lang": "en",
+     "value": "METHOD, APPARATUS, AND SYSTEM FOR AQUATIC MICROPLASTICS REMOVAL"
+    },
+    "date": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#date",
+     "value": "2024-02-07"
+    },
+    "kind": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/def/patent/publicationKind_A1"
+    },
+    "appnum": {
+     "type": "literal",
+     "value": "EP20220776361"
+    },
+    "app1": {
+     "type": "literal",
+     "value": "PROJECT PLASTIC LLC"
+    },
+    "ipcs": {
+     "type": "literal",
+     "value": "C02F1-00;C02F1-26;C02F3-32;C02F3-06;E02B15-00;E02B15-04"
+    }
+   },
+   {
+    "pub": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/data/publication/EP/4680363/A1/-"
+    },
+    "score": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#float",
+     "value": "2.0"
+    },
+    "title": {
+     "type": "literal",
+     "xml:lang": "en",
+     "value": "DEVICE FOR AQUATIC MICROPLASTICS REMOVAL"
+    },
+    "date": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#date",
+     "value": "2026-01-21"
+    },
+    "kind": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/def/patent/publicationKind_A1"
+    },
+    "appnum": {
+     "type": "literal",
+     "value": "EP20240775440"
+    },
+    "app1": {
+     "type": "literal",
+     "value": "PolyGone Systems, Inc."
+    },
+    "ipcs": {
+     "type": "literal",
+     "value": "B63B35-32;B29B17-02;E02B15-10;B01D39-20"
+    }
+   },
+   {
+    "pub": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/data/publication/EP/4676622/A1/-"
+    },
+    "score": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#float",
+     "value": "2.0"
+    },
+    "title": {
+     "type": "literal",
+     "xml:lang": "en",
+     "value": "FILTER DEVICE COMPRISING BIONIC FILTER ELEMENT, AND METHOD FOR SEPARATING MICROPLASTIC FROM FLUIDS"
+    },
+    "date": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#date",
+     "value": "2026-01-14"
+    },
+    "kind": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/def/patent/publicationKind_A1"
+    },
+    "appnum": {
+     "type": "literal",
+     "value": "EP20240720749"
+    },
+    "app1": {
+     "type": "literal",
+     "value": "Rheinische Friedrich-Wilhelms-Universität Bonn,\nKörperschaft des öffentlichen Rechts"
+    },
+    "ipcs": {
+     "type": "literal",
+     "value": "D06F39-10;B01D29-35;B01D29-25"
+    }
+   },
+   {
+    "pub": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/data/publication/EP/4501864/A1/-"
+    },
+    "score": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#float",
+     "value": "2.0"
+    },
+    "title": {
+     "type": "literal",
+     "xml:lang": "en",
+     "value": "PROCESS FOR REMOVING MICROPLASTICS FROM WATER AND DEVICE FOR CARRYING OUT THE SAME"
+    },
+    "date": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#date",
+     "value": "2025-02-05"
+    },
+    "kind": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/def/patent/publicationKind_A1"
+    },
+    "appnum": {
+     "type": "literal",
+     "value": "EP20230188712"
+    },
+    "app1": {
+     "type": "literal",
+     "value": "Rouse, Charles George"
+    },
+    "ipcs": {
+     "type": "literal",
+     "value": "C02F1-48;C02F1-04;B01D1-00;C02F1-12"
+    }
+   },
+   {
+    "pub": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/data/publication/EP/3789354/A1/-"
+    },
+    "score": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#float",
+     "value": "2.0"
+    },
+    "title": {
+     "type": "literal",
+     "xml:lang": "en",
+     "value": "SELECTIVE REMOVAL OF MICROPOLLUTANTS AND MICROPLASTICS FROM SLUDGE AND ORGANIC WASTE"
+    },
+    "date": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#date",
+     "value": "2021-03-10"
+    },
+    "kind": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/def/patent/publicationKind_A1"
+    },
+    "appnum": {
+     "type": "literal",
+     "value": "EP20190290085"
+    },
+    "app1": {
+     "type": "literal",
+     "value": "SUEZ Groupe"
+    },
+    "ipcs": {
+     "type": "literal",
+     "value": "C10J3-00;C02F11-10;C02F11-12;C02F11-18;C10J3-78;C02F11-04"
+    }
+   },
+   {
+    "pub": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/data/publication/EP/4171855/A1/-"
+    },
+    "score": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#float",
+     "value": "2.0"
+    },
+    "title": {
+     "type": "literal",
+     "xml:lang": "en",
+     "value": "MICROPLASTIC REMOVAL USING ADHESIVES"
+    },
+    "date": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#date",
+     "value": "2023-05-03"
+    },
+    "kind": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/def/patent/publicationKind_A1"
+    },
+    "appnum": {
+     "type": "literal",
+     "value": "EP20210832336"
+    },
+    "app1": {
+     "type": "literal",
+     "value": "The Procter & Gamble Company"
+    },
+    "ipcs": {
+     "type": "literal",
+     "value": "B29C65-00;B23Q11-00;B23C3-30"
+    }
+   },
+   {
+    "pub": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/data/publication/EP/4171855/B1/-"
+    },
+    "score": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#float",
+     "value": "2.0"
+    },
+    "title": {
+     "type": "literal",
+     "xml:lang": "en",
+     "value": "MICROPLASTIC REMOVAL USING ADHESIVES"
+    },
+    "date": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#date",
+     "value": "2025-12-10"
+    },
+    "kind": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/def/patent/publicationKind_B1"
+    },
+    "appnum": {
+     "type": "literal",
+     "value": "EP20210832336"
+    },
+    "app1": {
+     "type": "literal",
+     "value": "The Procter & Gamble Company"
+    },
+    "ipcs": {
+     "type": "literal",
+     "value": "C02F1-28;B29C65-00;B23Q11-00;B23C3-30"
+    }
+   },
+   {
+    "pub": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/data/publication/EP/4219018/A1/-"
+    },
+    "score": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#float",
+     "value": "2.0"
+    },
+    "title": {
+     "type": "literal",
+     "xml:lang": "en",
+     "value": "PROCESS FOR THE CONTINUOUS MAGNETIC REMOVAL OF MICROPLASTICS PRESENT IN AQUEOUS MATRICES"
+    },
+    "date": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#date",
+     "value": "2023-08-02"
+    },
+    "kind": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/def/patent/publicationKind_A1"
+    },
+    "appnum": {
+     "type": "literal",
+     "value": "EP20220382063"
+    },
+    "app1": {
+     "type": "literal",
+     "value": "Universidad Autónoma de Madrid"
+    },
+    "ipcs": {
+     "type": "literal",
+     "value": "C02F1-48;B03C1-01"
+    }
+   },
+   {
+    "pub": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/data/publication/EP/4219018/B1/-"
+    },
+    "score": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#float",
+     "value": "2.0"
+    },
+    "title": {
+     "type": "literal",
+     "xml:lang": "en",
+     "value": "PROCESS FOR THE CONTINUOUS MAGNETIC REMOVAL OF MICROPLASTICS PRESENT IN AQUEOUS MATRICES"
+    },
+    "date": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#date",
+     "value": "2024-12-04"
+    },
+    "kind": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/def/patent/publicationKind_B1"
+    },
+    "appnum": {
+     "type": "literal",
+     "value": "EP20220382063"
+    },
+    "app1": {
+     "type": "literal",
+     "value": "Universidad Autónoma de Madrid"
+    },
+    "ipcs": {
+     "type": "literal",
+     "value": "C02F1-48;B03C1-01"
+    }
+   },
+   {
+    "pub": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/data/publication/EP/4219018/B9/2025-02-19"
+    },
+    "score": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#float",
+     "value": "2.0"
+    },
+    "title": {
+     "type": "literal",
+     "xml:lang": "en",
+     "value": "PROCESS FOR THE CONTINUOUS MAGNETIC REMOVAL OF MICROPLASTICS PRESENT IN AQUEOUS MATRICES"
+    },
+    "date": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#date",
+     "value": "2025-02-19"
+    },
+    "kind": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/def/patent/publicationKind_B9"
+    },
+    "appnum": {
+     "type": "literal",
+     "value": "EP20220382063"
+    },
+    "app1": {
+     "type": "literal",
+     "value": "Universidad Autónoma de Madrid"
+    },
+    "ipcs": {
+     "type": "literal",
+     "value": "C02F1-48;B03C1-01"
+    }
+   },
+   {
+    "pub": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/data/publication/EP/4469406/A1/-"
+    },
+    "score": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#float",
+     "value": "2.0"
+    },
+    "title": {
+     "type": "literal",
+     "xml:lang": "en",
+     "value": "METHOD FOR THE REGENERATION OF THE MAGNETIC MATERIAL USED FOR THE MAGNETIC REMOVAL OF MICROPLASTICS FROM AQUEOUS MATRICES"
+    },
+    "date": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#date",
+     "value": "2024-12-04"
+    },
+    "kind": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/def/patent/publicationKind_A1"
+    },
+    "appnum": {
+     "type": "literal",
+     "value": "EP20230701777"
+    },
+    "app1": {
+     "type": "literal",
+     "value": "Universidad Autónoma de Madrid"
+    },
+    "ipcs": {
+     "type": "literal",
+     "value": "C02F1-52;C02F1-48"
+    }
+   },
+   {
+    "pub": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/data/publication/EP/4469406/B1/-"
+    },
+    "score": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#float",
+     "value": "2.0"
+    },
+    "title": {
+     "type": "literal",
+     "xml:lang": "en",
+     "value": "METHOD FOR THE REGENERATION OF THE MAGNETIC MATERIAL USED FOR THE MAGNETIC REMOVAL OF MICROPLASTICS FROM AQUEOUS MATRICES"
+    },
+    "date": {
+     "type": "literal",
+     "datatype": "http://www.w3.org/2001/XMLSchema#date",
+     "value": "2025-11-19"
+    },
+    "kind": {
+     "type": "uri",
+     "value": "http://data.epo.org/linked-data/def/patent/publicationKind_B1"
+    },
+    "appnum": {
+     "type": "literal",
+     "value": "EP20230701777"
+    },
+    "app1": {
+     "type": "literal",
+     "value": "Universidad Autónoma de Madrid"
+    },
+    "ipcs": {
+     "type": "literal",
+     "value": "C02F1-52;C02F1-48"
+    }
+   }
+  ]
+ }
+}
