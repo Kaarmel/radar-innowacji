@@ -22,11 +22,11 @@ Limit słów dotyczy tekstu lektora. Jeśli coś zmienisz, zmieść się w limic
 | s04 | Przypadek 1 · a | 9 s | lista wykryć, klik w RescuePet | a) radar sam wykrył innowację |
 | s05 | Przypadek 1 · b | 10 s | karta innowacji | b) informacje zebrane w jedną kartę |
 | s06 | Przypadek 1 · c | 11 s | filtry i ocena potencjału | c) 4 filtry i potencjał z dowodami |
-| s07 | Przypadek 1 · d | 10 s | ścieżka dalej, kto już działa | d) ścieżka dalej i partnerzy |
+| s07 | Przypadek 1 · d | 10 s | komórka PCI, ścieżka dalej | d) komórka PCI i ścieżka dalej |
 | s08 | Przypadek 1 · e | 7 s | miernik, decyzja analityka | e) miernik skuteczności, decyzja człowieka |
 | s09 | Przypadek 2 · a | 10 s | wyszukiwarka, „Oceń ten projekt” | a) ktoś szuka rozwiązania i zleca ocenę |
 | s10 | Przypadek 2 · b–c | 10 s | karta w trakcie sprawdzania i gotowa | b–c) karta i ocena w kilkanaście sekund |
-| s11 | Przypadek 2 · d–e | 8 s | finansowanie, partnerzy, miernik | d–e) programy, partnerzy, miernik |
+| s11 | Przypadek 2 · d–e | 9 s | ścieżka z miernikiem, partnerzy | d–e) ścieżka, miernik, partnerzy |
 | s12 | Test | 12 s | kolejka, karta 10, miary | Test: bramka zatrzymuje rutynę, błędy poprawia człowiek |
 | s13 | Wdrożenie | 10 s | plansza końcowa z linkami | radar-innowacji.skroban.tech |
 
@@ -37,7 +37,7 @@ Radar Innowacji. Sam znajduje innowacje w Polsce i ocenia je z dowodami.
 Analityk centrum innowacji ma problem: najciekawsze pomysły giną na stronach szkół, uczelni i gmin. Nikt ich nie zgłasza, więc trzeba ich szukać.
 
 ### s03 · Pomysł: rozwiązanie (do 30 słów)
-Radar co godzinę czyta strony stu siedemdziesięciu dwóch instytucji. Sztuczna inteligencja odrzuca wydarzenia i zakupy. Reszta przechodzi cztery filtry i dostaje ocenę potencjału z dowodami.
+Radar co godzinę sprawdza strony stu siedemdziesięciu dwóch instytucji. Sztuczna inteligencja odrzuca wydarzenia i zakupy. Reszta przechodzi cztery filtry i dostaje ocenę potencjału z dowodami.
 
 ### s04 · Przypadek 1 · a) wykrycie (do 20 słów)
 Przypadek pierwszy. Radar sam znalazł na stronie technikum w Trzcianie aplikację RescuePet do zgłaszania rannych zwierząt.
@@ -49,7 +49,7 @@ Wszystko jest w jednej karcie: opis, cytat ze strony, poziom gotowości, specjal
 Cztery filtry: plagiat, kopia pomysłu, patent i nowość. Wszystkie zielone. Potencjał siedemdziesiąt cztery na sto, a przy każdym punkcie uzasadnienie i link.
 
 ### s07 · d) odbiorcy i ścieżka (do 22 słów)
-Radar proponuje ścieżkę: ochronę pomysłu i finansowanie. Pokazuje też uczelnie, które już pracują nad podobnym tematem.
+Projekt trafia do komórki młodych innowatorów. Radar proponuje ochronę pomysłu, bo nowość jest wysoka, a kolidującego patentu brak.
 
 ### s08 · e) miernik i decyzja (do 16 słów)
 Każda ścieżka ma miernik skuteczności. Decyzję podejmuje analityk, a powód trafia do dziennika.
@@ -60,8 +60,8 @@ Przypadek drugi. Ktoś szuka rozwiązania do obsługi dronów. Wpisuje temat, wy
 ### s10 · b–c) karta i ocena (do 22 słów)
 Po kilkunastu sekundach jest gotowa karta. Radar porównał projekt z setkami tysięcy dokumentów i pokazał, co trzeba sprawdzić.
 
-### s11 · d–e) ścieżka i miernik (do 18 słów)
-Do tego programy, które finansowały podobne projekty, firmy do współpracy i miernik: wniosek w najbliższym naborze.
+### s11 · d–e) ścieżka i miernik (do 22 słów)
+Ścieżka to ochrona, z miernikiem: zgłoszenie patentowe w ciągu roku. Radar wskazuje też uczelnie i instytuty, które budują podobne drony.
 
 ### s12 · Test (do 26 słów)
 Sprawdzamy się uczciwie. Na zestawie kontrolnym bramka zatrzymała dwadzieścia dziewięć z trzydziestu rutyn. Gdy przepuści zajęcia z maskotką, człowiek odrzuca je jednym kliknięciem.

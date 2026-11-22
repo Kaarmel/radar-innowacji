@@ -9,6 +9,31 @@ nowa organizacja to jeden plik JSON.
 
 **Demo:** https://radar-innowacji.skroban.tech/ · **API:** https://radar-innowacji.skroban.tech/docs
 
+## Dla jurorów: najważniejsze w 3 minuty
+
+<p><img src="docs/prezentacja/img/start_hero.jpg" alt="Strona główna: radar i ostatnie wykrycie z dowodami" width="100%"></p>
+
+| Materiał | Link |
+|---|---|
+| Działające demo | https://radar-innowacji.skroban.tech/ |
+| Film (ok. 2 min) | [docs/prezentacja/radar-innowacji-film.mp4](docs/prezentacja/radar-innowacji-film.mp4) |
+| Prezentacja PDF (10 slajdów) | [docs/prezentacja/radar-innowacji.pdf](docs/prezentacja/radar-innowacji.pdf) |
+| API (OpenAPI) | https://radar-innowacji.skroban.tech/docs |
+
+**Dwa przypadki z zadania (scenariusz a–e), wszystko do kliknięcia:**
+
+| Krok | Przypadek 1: radar sam wykrył innowację | Przypadek 2: ocena projektu z bazy |
+|---|---|---|
+| a) wykrycie albo wprowadzenie | wpis w aktualnościach technikum w Trzcianie, znaleziony bez zgłoszenia → [karta 7](https://radar-innowacji.skroban.tech/karta/7) | „Szukam rozwiązania”: [drony autonomiczne ładowanie](https://radar-innowacji.skroban.tech/szukaj?q=drony+autonomiczne+%C5%82adowanie) → „Oceń ten projekt” przy systemie AirNest |
+| b) kluczowe informacje | [karta innowacji](https://radar-innowacji.skroban.tech/karta/7): opis, cytat ze źródła, TRL 1–3, specjalizacja ICT, wiarygodność | [karta 18](https://radar-innowacji.skroban.tech/karta/18): status wdrożenia z rejestru, TRL 6–9, wiarygodność 3/5 |
+| c) ocena potencjału | 4 filtry bez flag, [potencjał 74/100](https://radar-innowacji.skroban.tech/karta/7#potencjal), każdy punkt z dowodem | 4 filtry bez flag, [potencjał 87/100](https://radar-innowacji.skroban.tech/karta/18#potencjal) |
+| d) odbiorcy, partnerzy, ścieżki | komórka PCI: młodzi 16–30; ochrona (R2), bo nowość 80% i brak kolidującego patentu; podobne projekty weryfikuje analityk (patrz „Ograniczenia”) | partnerzy z podobnymi projektami dronów: Politechnika Łódzka, AGH, Łukasiewicz – Instytut Lotnictwa; ochrona (R2) i finansowanie (R4) |
+| e) uzasadnienie i mierniki | miernik: zgłoszenie do UPRP albo licencja w 12 miesięcy; decyzja analityka z powodem | mierniki: zgłoszenie do UPRP albo licencja w 12 miesięcy; wniosek o finansowanie w najbliższym naborze |
+
+Uczciwy test: [kolejka PCI](https://radar-innowacji.skroban.tech/o/pci/kolejka?wejscie=radar) pokazuje, co bramka odrzuciła automatycznie,
+[karta 10](https://radar-innowacji.skroban.tech/karta/10) to błąd AI (zajęcia z maskotką) poprawiony jednym kliknięciem przez analityka,
+a [miary](https://radar-innowacji.skroban.tech/miary) podają wyniki zestawu kontrolnego.
+
 ## Problem
 
 Wartościowe pomysły ze szkół, uczelni i samorządów zostają tam, gdzie powstały. Dziś analityk szuka ich ręcznie
@@ -32,13 +57,13 @@ Ta sama aplikacja ma zakładki opisane językiem konkretnej osoby, z przyciskami
 ```text
  wejście                      wyszukiwanie (kod)                     ocena                                 człowiek
  ─────────                    ──────────────────                     ─────                                 ────────
- radar WWW ─┐                 SQLite FTS5 (BM25) po ~88 tys.         bramka: 4 filtry odrzucenia           kolejka organizacji
+ radar WWW ─┐                 SQLite FTS5 (BM25) po >300 tys.         bramka: 4 filtry odrzucenia           kolejka organizacji
  z bazy    ─┼─► karta ──────► dokumentów + źródła na żądanie ──────► (procent, pasmo, dowód)       ──────► decyzja z powodem
  z linku   ─┤   innowacji     (EPO, OpenAlex, Crossref) +            potencjał 0–100 (jawny wzór)          (potwierdź / przywróć /
  opis      ─┘                 wcześniej ocenione projekty            komórka, ścieżka, partnerzy           przekaż) → dziennik
 ```
 
-1. **Odkrywanie.** Radar WWW co godzinę (i na żądanie, przyciskiem na stronie głównej) czyta kanały RSS 172 stron szkół, uczelni, PCI i samorządów. AI przepuszcza tylko
+1. **Odkrywanie.** Radar WWW co godzinę (i na żądanie, przyciskiem na stronie głównej) sprawdza 172 strony szkół, uczelni, PCI i samorządów i czyta wpisy ze 125 z nich, które mają kanał RSS lub Atom (strony bez kanału to następny krok). AI przepuszcza tylko
    wpisy, które mówią konkretnie, co zbudowano i jak działa (definicja innowacji z Oslo Manual 2018); wydarzenia, warsztaty
    i wyniki konkursów bez opisu rozwiązania odpadają. Z wpisu zostaje streszczenie bez nazwisk i dosłowny cytat-dowód.
    Bazy projektów i patentów odświeżają się co tydzień. Analityk może też ocenić projekt znaleziony w wyszukiwarce
@@ -140,10 +165,13 @@ wyjście HTTPS do źródeł, reverse proxy z HTTPS. Klucze: `OPENROUTER_API_KEY`
 ## Ograniczenia (świadome)
 
 - **Zgłoszenia patentowe są jawne dopiero po 18 miesiącach.** Karta zawsze to przypomina. Polskie zgłoszenia w toku
-  (Biuletyn UPRP) to następne źródło do dodania.
+  bierzemy z Biuletynu UPRP (52 ostatnie numery).
 - Patenty EP są wyszukiwane po tytułach. Abstrakty pobieramy dla 5 najlepszych wyników.
 - Podobieństwo TF-IDF łapie przepisany tekst, ale nie ten sam pomysł opisany zupełnie innymi słowami. Dlatego czerwone
   pasmo kopii wymaga potwierdzenia AI, a nowość ocenia rubryka.
+- W drugą stronę też się myli: aplikacja do zgłaszania bezdomnych zwierząt (karta 7) dostała jako „podobne” projekty
+  o osobach w kryzysie bezdomności. Dlatego listę partnerów i ścieżkę finansowania traktujemy jako podpowiedź,
+  którą zatwierdza analityk.
 - Wagi potencjału i progi są eksperckie. Dziennik decyzji analityków służy do ich kalibracji.
 - Jedno sprawdzenie ma limit 150 s: źródło albo dostawca AI, który nie odpowiada, zostaje pominięty, a karta mówi, co
   pominięto.
@@ -222,6 +250,21 @@ Docker: `docker build -t radar-innowacji . && docker run -p 8090:8090 -v "$PWD/d
 - Nowe województwo: parametr `--woj` przy Mapie Dotacji i nowa lista `zrodla_www.csv`.
 - Bezpieczeństwo: klucze tylko w `.env`, escapowanie całego tekstu z zewnątrz, linki tylko http(s), ochrona przed SSRF
   przy pobieraniu strony z linku, XML z encjami odrzucany, brak danych osobowych z baz (bez nazwisk twórców i kierowników).
+
+## Dalszy rozwój
+
+- Logowanie i role analityków (dziś demo jest publiczne, z limitem sprawdzeń na IP).
+- Kalibracja wag potencjału i progów filtrów na decyzjach analityków z dziennika, mierzona na nowym zestawie kontrolnym.
+- Powiadomienia dla komórek PCI o nowych kartach bez flag.
+- Kolejne źródła: PBN (wymaga tokenu), zrzuty CORDIS, więcej stron szkół i gmin w `konfiguracja/zrodla_www.csv`.
+
+## Zasoby zewnętrzne i licencje
+
+- Dane publiczne: Mapa Dotacji UE, Interreg Polska–Słowacja, RAD-on, Biuletyn UPRP, EPO (Linked Data i European Publication Server),
+  OpenAlex, Crossref, kanały RSS stron szkół, uczelni i instytucji (lista w `konfiguracja/zrodla_www.csv`).
+- Model AI: DeepSeek przez OpenRouter (ścieżka A); etykiety zestawu kontrolnego: głosowanie 5 modeli (opis w sekcji „Miary”).
+- Font Lato (Łukasz Dziedzic), licencja SIL Open Font License 1.1, pliki w `radar/static/fonts` razem z `OFL.txt`.
+- Biblioteki Pythona z `requirements.txt` (MIT, BSD lub Apache-2.0).
 
 ## Autorzy
 
