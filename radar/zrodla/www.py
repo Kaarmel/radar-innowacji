@@ -1,7 +1,9 @@
 """Radar WWW: kanały RSS/Atom szkół, uczelni i instytucji Podkarpacia. Lejek: wpisy z ostatnich dni → sygnał słów
 (kod) → AI potwierdza, że to nowe rozwiązanie (z cytatem) → karta → zgłoszenie z wejściem „radar” → pełna ocena."""
+import contextlib
 import csv
 import datetime
+import fcntl
 import json
 import re
 import sqlite3
@@ -196,7 +198,56 @@ def _kanal(zrodlo: dict) -> str | None:
     return None
 
 
+@contextlib.contextmanager
+def blokada():
+    """Jeden przebieg radaru naraz (timer co godzinę i przycisk „Sprawdź źródła teraz”): blokada pliku dane/radar.lock.
+    Daje True, gdy ten proces ją trzyma, False, gdy inny przebieg już trwa."""
+    config.DANE.mkdir(parents=True, exist_ok=True)
+    f = open(config.DANE / "radar.lock", "a+", encoding="utf-8")
+    try:
+        fcntl.flock(f, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except BlockingIOError:
+        f.close()
+        yield False
+        return
+    try:
+        f.seek(0)
+        f.truncate()
+        f.write(str(time.time()))
+        f.flush()
+        yield True
+    finally:
+        fcntl.flock(f, fcntl.LOCK_UN)
+        f.close()
+
+
+def trwa() -> float | None:
+    """Czas startu trwającego przebiegu albo None, gdy radar teraz nie działa."""
+    plik = config.DANE / "radar.lock"
+    if not plik.exists():
+        return None
+    with open(plik, "a+", encoding="utf-8") as f:
+        try:
+            fcntl.flock(f, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError:
+            f.seek(0)
+            try:
+                return float(f.read().strip() or time.time())
+            except ValueError:
+                return time.time()
+        fcntl.flock(f, fcntl.LOCK_UN)
+        return None
+
+
 def uruchom(con: sqlite3.Connection, limit_zrodel: int = 300, dni: int = 180, organizacja: str = "pci", log=print) -> dict:
+    with blokada() as mam:
+        if not mam:
+            log("radar: inny przebieg trwa, pomijam")
+            return {"pominiety": "inny przebieg trwa"}
+        return _uruchom(con, limit_zrodel, dni, organizacja, log)
+
+
+def _uruchom(con: sqlite3.Connection, limit_zrodel: int, dni: int, organizacja: str, log) -> dict:
     with open(ZRODLA, encoding="utf-8") as f:
         zrodla = list(csv.DictReader(f))[:limit_zrodel]
     stat: dict = {"start": time.time(), "zrodel": len(zrodla), "kanalow": 0}

@@ -7,7 +7,7 @@ Podkarpackie Centrum Innowacji szukają ich dziś ręcznie (bazy, strony, telefo
 czy pomysł nie jest kopią, plagiatem albo czy nie jest już opatentowany. Brakuje powtarzalnego procesu oceny z jasnymi kryteriami.
 
 **Rozwiązanie.** Radar dla instytucji takich jak PCI (pierwszy profil), który:
-1. sam wyszukuje innowacje: codziennie czyta kanały RSS 172 stron szkół, uczelni, PCI i samorządów (AI przepuszcza tylko
+1. sam wyszukuje innowacje: co godzinę (i na żądanie) czyta kanały RSS 172 stron szkół, uczelni, PCI i samorządów (AI przepuszcza tylko
    wpisy z konkretnym rozwiązaniem, wg Oslo Manual 2018; bez nazwisk), a co tydzień odświeża bazy projektów i patentów.
    Analityk może też ocenić projekt z wyszukiwarki („Oceń ten projekt”) albo z linku. To nie jest platforma do zgłaszania pomysłów;
 2. przeszukuje ok. 88 tys. dokumentów: Mapa Dotacji UE (Podkarpacie), Interreg PL–SK, RAD-on (projekty i patenty
@@ -36,7 +36,7 @@ wynosi 0,95, ale to nie jest niezależny pomiar.
 **Dla kogo.** Zakładki z prostym opisem i demo dla analityka PCI, szkół i młodych (16–30), uczelni, gmin i firm.
 
 **Warunki działania.** Strona /warunki: stan danych każdego źródła, harmonogram aktualizacji (timery systemd: bazy co tydzień,
-radar codziennie, EPO na żywo), trzy ścieżki AI (API, model lokalny, bez AI) i wymagania sprzętowe.
+radar co godzinę i na żądanie, EPO na żywo), trzy ścieżki AI (API, model lokalny, bez AI) i wymagania sprzętowe.
 
 **Integracja i skalowanie.** REST API z dokumentacją OpenAPI (/docs), nowa organizacja = jeden plik JSON z komórkami,
 ścieżkami i wagami, licencja EUPL-1.2.

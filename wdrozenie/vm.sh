@@ -55,7 +55,7 @@ User=eouser
 Nice=10
 ExecStart=/home/eouser/radar/wdrozenie/aktualizuj.sh %i
 EOF
-for wpis in "mapadotacji|Mon *-*-* 03:00 Europe/Warsaw" "radon|Tue *-*-* 03:00 Europe/Warsaw" "radon_patenty|Wed *-*-* 03:00 Europe/Warsaw" "uprp|Thu *-*-* 03:00 Europe/Warsaw" "interreg|*-*-01 03:30 Europe/Warsaw" "radar|*-*-* 06:00 Europe/Warsaw"; do
+for wpis in "mapadotacji|Mon *-*-* 03:00 Europe/Warsaw" "radon|Tue *-*-* 03:00 Europe/Warsaw" "radon_patenty|Wed *-*-* 03:00 Europe/Warsaw" "uprp|Thu *-*-* 03:00 Europe/Warsaw" "interreg|*-*-01 03:30 Europe/Warsaw" "radar|*-*-* *:05:00 Europe/Warsaw"; do
   zr="${wpis%%|*}"; kiedy="${wpis#*|}"
   sudo tee /etc/systemd/system/radar-aktualizacja-$zr.timer > /dev/null <<EOF
 [Unit]
@@ -73,6 +73,7 @@ EOF
 done
 sudo systemctl daemon-reload
 for zr in mapadotacji radon radon_patenty uprp interreg radar; do sudo systemctl start radar-aktualizacja-$zr.timer; done
+sudo systemctl restart radar-aktualizacja-radar.timer   # nowy harmonogram radaru (co godzinę) działa od razu
 sudo systemctl enable --now radar-innowacji
 sudo systemctl restart radar-innowacji
 command -v pdftotext > /dev/null || sudo apt-get install -y -q poppler-utils > /dev/null   # Biuletyn UPRP (PDF)

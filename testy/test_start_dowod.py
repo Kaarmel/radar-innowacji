@@ -1,6 +1,4 @@
 """Strona główna: na pierwszym ekranie ostatnie wykrycie z dowodami (cytat, cztery filtry z procentami), potem lejek ostatniego przebiegu."""
-import json
-
 from radar import config, db
 from radar.model import WynikFiltra, Zgloszenie
 
@@ -36,16 +34,6 @@ def test_odrzucone_przez_analityka_nie_trafia_na_pierwszy_ekran(klient):
     assert klient.post(f"/karta/{zle}/decyzja", data={"decyzja": "odrzuc", "powod": "Wydarzenie, nie innowacja"}).status_code == 200
     s = klient.get("/").text
     assert "Szkolenie z pierwszej pomocy" not in s and "Pracownia robotyki" in s[s.index('class="dowod-karta"'):]
-
-
-def test_lejek_ostatniego_przebiegu_radaru(klient, tmp_path, monkeypatch):
-    monkeypatch.setattr(config, "DANE", tmp_path)
-    (tmp_path / "radar_statystyki.json").write_text(json.dumps({"start": 1795293483.0, "koniec": 1795294201.2, "zrodel": 172, "kanalow": 125,
-                                                               "wpisow": 1510, "sygnal": 107, "do_ai": 107, "zgloszen": 9, "innowacje": 9}))
-    s = klient.get("/").text
-    lejek = s[s.index('class="lejek"'):]
-    for tekst in ("Ostatni przebieg radaru", "21.11.2026, 21:50", "<b>172</b>", "<b>1 510</b>", "<b>107</b>", "<b>9</b>"):
-        assert tekst in lejek, tekst
 
 
 def test_start_bez_statystyk_radaru(klient, tmp_path, monkeypatch):

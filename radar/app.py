@@ -6,7 +6,10 @@ import logging
 import math
 import os
 import re
+import sqlite3
 import statistics
+import subprocess
+import sys
 import threading
 import time
 from collections import defaultdict, deque
@@ -300,7 +303,58 @@ def start(request: Request, con=Depends(polaczenie)):
              "patenty": liczby.get("radon_patenty", 0) + liczby.get("uprp", 0), "www": _liczba_stron_www()}
     return strona(request, "start.html", liczby=liczby, razem=sum(v for k, v in liczby.items()), zgloszen=zgl, stan=stan,
                   wykryte=wykryte, radar=radar, zwiad=zwiad, dowod=_dowod(con, wykryte[0]["id"]) if wykryte else None,
-                  lejek=_lejek(radar))
+                  lejek=_lejek(con, radar), stan_radaru=_stan_radaru(radar), komunikat_radaru=request.query_params.get("radar", ""))
+
+
+PRZERWA_RADARU_S = 600  # „Sprawdź źródła teraz” najwyżej raz na 10 minut od końca poprzedniego przebiegu
+
+
+def _stan_radaru(radar: dict | None = None) -> dict:
+    """Czy radar WWW teraz działa (blokada pliku albo świeże zlecenie z przycisku) i od kiedy można zlecić kolejny przebieg."""
+    from .zrodla import www
+    if radar is None:
+        plik = config.DANE / "radar_statystyki.json"
+        radar = json.loads(plik.read_text(encoding="utf-8")) if plik.exists() else {}
+    koniec = radar.get("koniec") or 0
+    trwa_od = www.trwa()
+    zlecenie = config.DANE / "radar_zlecono"
+    if trwa_od is None and zlecenie.exists():
+        try:
+            zlecono = float(zlecenie.read_text(encoding="utf-8"))
+        except ValueError:
+            zlecono = 0
+        if zlecono > koniec and time.time() - zlecono < 120:  # proces dopiero startuje i jeszcze nie wziął blokady
+            trwa_od = zlecono
+    mozna_od = koniec + PRZERWA_RADARU_S if koniec else 0
+    return {"trwa_od": trwa_od, "trwa": slowniki.czas_pl(trwa_od, "%H:%M") if trwa_od else "",
+            "mozna": trwa_od is None and time.time() >= mozna_od, "mozna_od": slowniki.czas_pl(mozna_od, "%H:%M") if mozna_od else ""}
+
+
+def _radar_w_tle() -> None:
+    """Przebieg radaru WWW w osobnym procesie (ten sam co z timera); blokada w www.uruchom pilnuje jednego przebiegu naraz."""
+    log = config.DANE / "logi" / "aktualizacja-radar.log"
+    log.parent.mkdir(parents=True, exist_ok=True)
+    with open(log, "a", encoding="utf-8") as f:
+        f.write(f"== {time.strftime('%Y-%m-%dT%H:%M:%S')} start radar (na żądanie)\n")
+        f.flush()
+        p = subprocess.Popen([sys.executable, "-m", "radar.cli", "radar", "--limit", "300", "--dni", "180"], cwd=config.KORZEN,
+                             stdin=subprocess.DEVNULL, stdout=f, stderr=subprocess.STDOUT, start_new_session=True)
+    threading.Thread(target=p.wait, daemon=True).start()  # bez procesów-zombie po zakończeniu
+
+
+@app.post("/radar/sprawdz-teraz", include_in_schema=False)
+def radar_teraz():
+    stan = _stan_radaru()
+    if stan["trwa_od"]:
+        wynik = "trwa"
+    elif not stan["mozna"]:
+        wynik = "za_wczesnie"
+    else:
+        config.DANE.mkdir(parents=True, exist_ok=True)
+        (config.DANE / "radar_zlecono").write_text(str(time.time()), encoding="utf-8")
+        _radar_w_tle()
+        wynik = "uruchomiony"
+    return RedirectResponse(f"/?radar={wynik}#radar", status_code=303)
 
 
 def _dowod(con, zid: int) -> dict:
@@ -315,14 +369,18 @@ def _dowod(con, zid: int) -> dict:
     return z
 
 
-def _lejek(radar: dict) -> dict | None:
-    """Lejek ostatniego przebiegu radaru WWW z radar_statystyki.json; bez pliku albo bez liczby wpisów nie ma czego pokazać."""
-    if not radar.get("wpisow"):
+def _lejek(con, radar: dict) -> dict | None:
+    """Lejek radaru WWW od początku działania (tabela radar_widziane) i dane ostatniego przebiegu z radar_statystyki.json.
+    Przy przebiegach co godzinę pojedynczy przebieg zwykle nie ma nic nowego, więc lejek liczy całą historię."""
+    try:
+        wpisow, do_ai, tak = con.execute("""SELECT count(*), COALESCE(sum(ai IN ('tak', 'nie')), 0), COALESCE(sum(ai = 'tak'), 0)
+                                            FROM radar_widziane""").fetchone()
+    except sqlite3.OperationalError:  # radar jeszcze nie działał
         return None
-    kroki = [(radar["wpisow"], "wpisów i aktualności przejrzanych"),
-             (radar.get("do_ai", radar.get("sygnal")), "z sygnałem innowacji, sprawdzonych przez AI"),
-             (radar.get("innowacje", radar.get("zgloszen")), "uznanych za innowację i ocenionych filtrami")]
-    kroki = [(n, opis) for n, opis in kroki if n is not None]
+    if not wpisow:
+        return None
+    kroki = [(wpisow, "wpisów i aktualności przejrzanych"), (do_ai, "z sygnałem innowacji, sprawdzonych przez AI"),
+             (tak, "uznanych przez AI za innowację i ocenionych filtrami")]
     gora = math.log10(max(n for n, _ in kroki) + 1)
     return {"kiedy": slowniki.czas_pl(radar["koniec"], "%d.%m.%Y, %H:%M") if radar.get("koniec") else "",
             "zrodel": radar.get("zrodel"), "kanalow": radar.get("kanalow"),

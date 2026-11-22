@@ -1,5 +1,6 @@
 {% extends "baza.html" %}
 {% macro kropki(pasma) %}<span class="kropki">{% for f, (nazwa, _) in s.FILTRY.items() %}{% set p = pasma.get(f, '') %}<span class="kropka {{ p or 'puste' }}" title="{{ nazwa }}: {{ s.PASMA.get(p, 'brak wyniku') }}">{{ nazwa[:1] if f != 'patent' else 'Pa' }}</span>{% endfor %}</span>{% endmacro %}
+{% block glowa %}{% if stan_radaru.trwa_od %}<meta http-equiv="refresh" content="60">{% endif %}{% endblock %}
 {% block tresc %}
 <section class="hero{% if dowod %} hero-z-dowodem{% endif %}">
   <div class="hero-tekst">
@@ -49,11 +50,25 @@
     <p class="maly">Od początku działania: {{ radar.wykryc }} wykryć, z tego {{ radar.odrzucone }} odrzuciła bramka filtrów
       (czekają na człowieka), {{ radar.z_decyzja }} z decyzją analityka. <a href="/miary">Jak mierzymy trafność →</a></p>
   </div>
+  <div class="lejek-kolumna">
+  <div class="radar-stan" id="radar">
+    {% if stan_radaru.trwa_od %}
+    <p><span class="puls" aria-hidden="true"></span><b>Radar sprawdza źródła teraz</b> (od {{ stan_radaru.trwa }}). Przebieg trwa
+      zwykle 10–15 minut; nowe wykrycia pojawią się na tej stronie, która sama się odświeża.</p>
+    {% else %}
+    <form method="post" action="/radar/sprawdz-teraz">
+      <p>Radar sprawdza strony {{ s.HARMONOGRAM.www.co_ile.split(',')[0] }}.</p>
+      <button class="przycisk drugi" type="submit" {% if not stan_radaru.mozna %}disabled{% endif %}>Sprawdź źródła teraz</button>
+    </form>
+    {% if komunikat_radaru == 'za_wczesnie' or not stan_radaru.mozna %}<p class="maly">Na żądanie najwyżej raz na 10 minut od końca
+      poprzedniego przebiegu{% if stan_radaru.mozna_od %}: następne od {{ stan_radaru.mozna_od }}{% endif %}.</p>{% endif %}
+    {% endif %}
+  </div>
   {% if lejek %}
-  <div class="lejek" aria-label="Lejek ostatniego przebiegu radaru">
-    <p class="lejek-tytul">Ostatni przebieg radaru{% if lejek.kiedy %} · {{ lejek.kiedy }}{% endif %}</p>
-    {% if lejek.zrodel %}<p class="lejek-wejscie"><b>{{ lejek.zrodel }}</b> stron szkół, uczelni i instytucji{% if lejek.kanalow %}
-      ({{ lejek.kanalow }} z kanałem RSS){% endif %}</p>{% endif %}
+  <div class="lejek" aria-label="Lejek radaru od początku działania">
+    <p class="lejek-tytul">Od początku działania radaru</p>
+    {% if lejek.kiedy %}<p class="lejek-wejscie">Ostatni przebieg: {{ lejek.kiedy }}{% if lejek.zrodel %} · <b>{{ lejek.zrodel }}</b> stron szkół,
+      uczelni i instytucji{% if lejek.kanalow %} ({{ lejek.kanalow }} z kanałem RSS){% endif %}{% endif %}</p>{% endif %}
     <ol class="lejek-kroki">
       {% for k in lejek.kroki %}
       <li style="--szer: {{ k.szer }}%"><span class="lejek-pasek"><b>{{ k.liczba | liczba(0) }}</b></span><span class="lejek-opis">{{ k.opis }}</span></li>
@@ -61,6 +76,7 @@
     </ol>
   </div>
   {% endif %}
+  </div>
 </section>
 
 <section>

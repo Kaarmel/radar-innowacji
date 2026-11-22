@@ -69,7 +69,7 @@ HARMONOGRAM = {
             "uwaga": "Zgłoszenia patentowe są jawne dopiero po 18 miesiącach od daty pierwszeństwa: najnowszych nie widzi żadna baza."},
     "openalex": {"tryb": "na żywo", "co_ile": "przy każdym sprawdzeniu", "uwaga": "Publikacje z abstraktami; darmowy klucz."},
     "crossref": {"tryb": "na żywo", "co_ile": "przy każdym sprawdzeniu", "uwaga": "Metadane publikacji (DOI)."},
-    "www": {"tryb": "kanały RSS", "co_ile": "codziennie 06:00, wpisy z ostatnich 180 dni",
+    "www": {"tryb": "kanały RSS", "co_ile": "co godzinę (5 minut po pełnej) i na żądanie, wpisy z ostatnich 180 dni",
             "uwaga": "172 strony szkół, uczelni, PCI i samorządów (konfiguracja/zrodla_www.csv)."},
 }
 ZRODLA = {

@@ -38,7 +38,7 @@ Ta sama aplikacja ma zakładki opisane językiem konkretnej osoby, z przyciskami
  opis      ─┘                 wcześniej ocenione projekty            komórka, ścieżka, partnerzy           przekaż) → dziennik
 ```
 
-1. **Odkrywanie.** Radar WWW codziennie czyta kanały RSS 172 stron szkół, uczelni, PCI i samorządów. AI przepuszcza tylko
+1. **Odkrywanie.** Radar WWW co godzinę (i na żądanie, przyciskiem na stronie głównej) czyta kanały RSS 172 stron szkół, uczelni, PCI i samorządów. AI przepuszcza tylko
    wpisy, które mówią konkretnie, co zbudowano i jak działa (definicja innowacji z Oslo Manual 2018); wydarzenia, warsztaty
    i wyniki konkursów bez opisu rozwiązania odpadają. Z wpisu zostaje streszczenie bez nazwisk i dosłowny cytat-dowód.
    Bazy projektów i patentów odświeżają się co tydzień. Analityk może też ocenić projekt znaleziony w wyszukiwarce
@@ -119,7 +119,7 @@ podaje stan danych, na których ją oceniono, i godzinę zapytań na żywo.
 | RAD-on: patenty uczelni | kopia lokalna (API) | co tydzień, śr. 03:00 | tylko udzielone; zgłoszenia jawne po 18 mies. |
 | EPO (patenty EP) | na żywo | przy każdym sprawdzeniu | EPO publikuje co tydzień (środa); zgłoszenia jawne po 18 mies. od pierwszeństwa |
 | OpenAlex, Crossref | na żywo | przy każdym sprawdzeniu | |
-| Radar WWW (RSS) | kanały RSS | codziennie 06:00, wpisy z 180 dni | zależnie od tego, kiedy szkoła opublikuje wpis |
+| Radar WWW (RSS) | kanały RSS | co godzinę i na żądanie (przycisk „Sprawdź źródła teraz”, najwyżej raz na 10 min), wpisy z 180 dni | zależnie od tego, kiedy szkoła opublikuje wpis |
 
 Harmonogram realizują timery systemd instalowane przez `wdrozenie/vm.sh`
 (`wdrozenie/aktualizuj.sh <źródło>` → `python -m radar.cli pobierz <źródło> --od-nowa` albo `radar`).
