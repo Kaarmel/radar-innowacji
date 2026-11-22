@@ -1,4 +1,6 @@
 """Aplikacja WWW i API: zgłoszenia, kolejki organizacji, karta z dowodami, decyzje człowieka, wyszukiwarka, miary."""
+import csv
+import functools
 import json
 import logging
 import os
@@ -279,13 +281,24 @@ def start(request: Request, con=Depends(polaczenie)):
     # na stronie głównej tylko wykrycia, które przeszły bramkę; odrzucone czekają w kolejce na człowieka
     wykryte = [dict(r) for r in con.execute("""SELECT id, tytul, instytucja, werdykt, utworzono_at FROM zgloszenie
                                                 WHERE wejscie='radar' AND (werdykt IS NULL OR werdykt != 'odrzucone_do_przegladu')
+                                                AND COALESCE((SELECT d.decyzja FROM decyzja d WHERE d.zgl_id = zgloszenie.id
+                                                              ORDER BY d.kiedy DESC, d.id DESC LIMIT 1), '')
+                                                    NOT IN ('odrzuc', 'potwierdz_odrzucenie')
                                                 ORDER BY id DESC LIMIT 4""")]
     plik = config.DANE / "radar_statystyki.json"
     radar = json.loads(plik.read_text(encoding="utf-8")) if plik.exists() else {}
     radar["wykryc"] = con.execute("SELECT count(*) FROM zgloszenie WHERE wejscie='radar'").fetchone()[0]
     radar["odrzucone"] = con.execute("SELECT count(*) FROM zgloszenie WHERE wejscie='radar' AND werdykt='odrzucone_do_przegladu'").fetchone()[0]
+    zwiad = {"projekty": liczby.get("mapadotacji", 0) + liczby.get("interreg", 0), "naukowe": liczby.get("radon", 0),
+             "patenty": liczby.get("radon_patenty", 0) + liczby.get("uprp", 0), "www": _liczba_stron_www()}
     return strona(request, "start.html", liczby=liczby, razem=sum(v for k, v in liczby.items()), zgloszen=zgl, stan=stan,
-                  wykryte=wykryte, radar=radar)
+                  wykryte=wykryte, radar=radar, zwiad=zwiad)
+
+
+@functools.lru_cache(maxsize=1)
+def _liczba_stron_www() -> int:
+    with open(config.KONFIGURACJA / "zrodla_www.csv", encoding="utf-8") as f:
+        return sum(1 for _ in csv.DictReader(f))
 
 
 @app.get("/dla/{slug}", response_class=HTMLResponse, include_in_schema=False)

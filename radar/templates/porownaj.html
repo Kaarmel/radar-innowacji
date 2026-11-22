@@ -13,6 +13,7 @@
   <tr><th scope="row">Obszar</th>{% for k in karty %}<td>{{ k.klasyfikacja.obszar.wartosc }}</td>{% endfor %}</tr>
   <tr><th scope="row">Status wdrożenia</th>{% for k in karty %}<td>{{ k.klasyfikacja.wdrozenie.kroki | selectattr('zaznaczony') | map(attribute='nazwa') | join(' – ') or '—' }}</td>{% endfor %}</tr>
   <tr><th scope="row">Zasięg nowości</th>{% for k in karty %}<td>{{ k.klasyfikacja.zasieg.wartosc or '—' }}</td>{% endfor %}</tr>
+  <tr><th scope="row">Specjalizacje regionu (RIS3)</th>{% for k in karty %}<td>{{ k.klasyfikacja.specjalizacje.wartosc or '—' }}</td>{% endfor %}</tr>
   <tr><th scope="row">TRL (1–9)</th>{% for k in karty %}{% set t = k.klasyfikacja.trl %}<td>{% if t.wartosc %}TRL {{ t.wartosc }}{% else %}<span class="maly">{{ t.uwaga }}</span>{% endif %}</td>{% endfor %}</tr>
   <tr><th scope="row">Potencjał</th>{% for k in karty %}<td>{% if k.potencjal %}<b>{{ k.potencjal.wynik | int }}</b><span class="maly">/100</span>{% else %}—{% endif %}</td>{% endfor %}</tr>
   <tr><th scope="row">Wiarygodność</th>{% for k in karty %}{% set w = k.klasyfikacja.wiarygodnosc %}<td><b>{{ w.poziom }}</b> ({{ w.spelnione }}/5)</td>{% endfor %}</tr>

@@ -30,6 +30,7 @@
     <dt>Status wdrożenia</dt><dd><ol class="skala">{% for x in kl.wdrozenie.kroki %}<li {% if x.zaznaczony %}class="tak"{% endif %}>{{ x.nazwa }}</li>{% endfor %}</ol> {{ skad(kl.wdrozenie.pochodzenie) }}</dd>
     {% if kl.zasieg.wartosc %}<dt>Zasięg nowości (Oslo 2018)</dt><dd>{{ kl.zasieg.wartosc }} {{ skad(kl.zasieg.pochodzenie) }}</dd>{% endif %}
     <dt>Poziom gotowości (TRL 1–9)</dt><dd>{% if kl.trl.wartosc %}TRL {{ kl.trl.wartosc }} ({{ kl.trl.uwaga }}){% else %}{{ kl.trl.uwaga }}{% endif %} {{ skad('regula') }}</dd>
+    {% if kl.specjalizacje.wartosc %}<dt>Specjalizacje regionu (RIS3)</dt><dd>{% if kl.specjalizacje.pasuje %}<b>{{ kl.specjalizacje.wartosc }}</b>{% else %}{{ kl.specjalizacje.wartosc }}{% endif %} {{ skad('regula') }}</dd>{% endif %}
     <dt>Ocena potencjału</dt><dd>{% if kl.potencjal.wartosc is not none %}<a href="#potencjal">{{ kl.potencjal.wartosc | liczba(0) }}/100</a>{% else %}—{% endif %} {{ skad('regula') }}</dd>
     <dt>Wiarygodność</dt><dd><b>{{ kl.wiarygodnosc.poziom }}</b> ({{ kl.wiarygodnosc.spelnione }}/5) {{ skad('regula') }}
       <ul class="maly lista-wiar">{% for x in kl.wiarygodnosc.kryteria %}<li>{{ '✓' if x.spelnione else '✗' }} {{ x.nazwa }}</li>{% endfor %}</ul></dd>
@@ -51,8 +52,29 @@
 {% else %}
 <div class="werdykt-pasek {{ k.werdykt }}">
   <strong>{{ s.WERDYKTY.get(k.werdykt, k.werdykt) }}</strong>
-  <span>Komórka: <b>{{ komorka }}</b>. System flaguje i podaje dowody; decyzję podejmuje człowiek (formularz na dole).</span>
+  <span>Komórka: <b>{{ komorka }}</b>. System flaguje i podaje dowody; decyzję podejmuje człowiek (poniżej).</span>
 </div>
+
+<section class="decyzja" id="decyzja">
+  <h2>Decyzja analityka</h2>
+  <p class="maly">Ostateczną decyzję podejmuje człowiek. Filtry i AI tylko flagują i podają dowody; decyzja trafia do dziennika razem z powodem.</p>
+  {% if k.decyzje %}
+  <ul class="lista">
+    {% for d in k.decyzje %}<li><strong>{{ s.DECYZJE.get(d.decyzja, d.decyzja) }}</strong> <span class="maly">· {{ d.kiedy | data }}</span><br>{{ d.powod }}</li>{% endfor %}
+  </ul>
+  {% endif %}
+  <form method="post" action="/karta/{{ k.id }}/decyzja">
+    <fieldset class="wybor">
+      <legend class="maly">Wybierz decyzję</legend>
+      {% for kl, v in s.DECYZJE.items() %}
+      <label><input type="radio" name="decyzja" value="{{ kl }}" required {% if loop.first and k.werdykt == 'odrzucone_do_przegladu' %}checked{% endif %}> {{ v }}</label>
+      {% endfor %}
+    </fieldset>
+    <label for="powod">Powód</label>
+    <input id="powod" name="powod" minlength="3" maxlength="1000" required placeholder="np. to wydarzenie, nie innowacja; albo: tekst skopiowany z projektu …">
+    <button class="przycisk" type="submit">Zatwierdź decyzję</button>
+  </form>
+</section>
 
 <section class="filtry-paski" aria-label="Wyniki filtrów">
   {% for w in k.wyniki %}
@@ -184,23 +206,4 @@
   <div class="tekst">{{ k.opis }}</div>
 </section>
 
-<section class="decyzja" id="decyzja">
-  <h2>Decyzja analityka</h2>
-  {% if k.decyzje %}
-  <ul class="lista">
-    {% for d in k.decyzje %}<li><strong>{{ s.DECYZJE.get(d.decyzja, d.decyzja) }}</strong> <span class="maly">· {{ d.kiedy | data }}</span><br>{{ d.powod }}</li>{% endfor %}
-  </ul>
-  {% endif %}
-  <form method="post" action="/karta/{{ k.id }}/decyzja">
-    <fieldset class="wybor">
-      <legend class="maly">Decyzja trafia do dziennika razem z powodem.</legend>
-      {% for kl, v in s.DECYZJE.items() %}
-      <label><input type="radio" name="decyzja" value="{{ kl }}" required {% if loop.first and k.werdykt == 'odrzucone_do_przegladu' %}checked{% endif %}> {{ v }}</label>
-      {% endfor %}
-    </fieldset>
-    <label for="powod">Powód</label>
-    <input id="powod" name="powod" minlength="3" maxlength="1000" required placeholder="np. potwierdzam: tekst skopiowany z projektu …">
-    <button class="przycisk" type="submit">Zapisz decyzję</button>
-  </form>
-</section>
 {% endblock %}

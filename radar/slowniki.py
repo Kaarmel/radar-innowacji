@@ -36,7 +36,8 @@ FILTRY = {
     "patent": ("Patent", "Podobieństwo do patentów EP i patentów polskich uczelni; czerwone tylko po potwierdzeniu AI."),
     "nowosc": ("Nowość", "Rubryka 5 pytań oceniana przez AI; każda odpowiedź wskazuje dokument-dowód."),
 }
-DECYZJE = {"potwierdz_odrzucenie": "Potwierdzam odrzucenie", "przywroc": "Przywracam (flaga nietrafna)",
+DECYZJE = {"potwierdz_odrzucenie": "Potwierdzam odrzucenie", "odrzuc": "Odrzucam: to nie innowacja (np. wydarzenie, zakup)",
+           "przywroc": "Przywracam (flaga nietrafna)",
            "przekaz": "Przekazuję dalej (do komórki lub eksperta)"}
 STATUSY = {"nowe": "w kolejce", "w_toku": "sprawdzanie", "gotowe": "gotowe", "blad": "błąd sprawdzenia"}
 def czas_pl(ts: float, fmt: str = "%Y-%m-%d %H:%M") -> str:

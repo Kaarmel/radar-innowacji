@@ -69,6 +69,18 @@ def _zasieg(k: dict) -> dict:
     return {"wartosc": wartosc, "pochodzenie": "szacunek_ai"}
 
 
+def _specjalizacje(k: dict) -> dict:
+    """Specjalizacje regionu (np. RIS3 Podkarpacia) z kryterium oceny potencjału; reguła słów kluczowych z profilu organizacji."""
+    kr = next((x for x in (k.get("potencjal") or {}).get("kryteria") or [] if x.get("id") == "specjalizacje"), None)
+    tekst = (kr or {}).get("uzasadnienie") or ""
+    if tekst.startswith("Pasuje do:"):
+        nazwy = [c.split(" (")[0].strip() for c in tekst[len("Pasuje do:"):].rstrip(".").split(";")]
+        return {"wartosc": ", ".join(n for n in nazwy if n), "pasuje": True, "pochodzenie": "regula"}
+    if tekst.startswith("Nie pasuje do specjalizacji:") and tekst.split(":", 1)[1].strip(" ."):
+        return {"wartosc": "nie pasuje do: " + tekst.split(":", 1)[1].strip(" ."), "pasuje": False, "pochodzenie": "regula"}
+    return {"wartosc": None, "pasuje": None, "pochodzenie": "regula"}
+
+
 def profil(k: dict) -> dict:
     etap = k.get("etap") or ""
     od, do = ETAP_KROKI.get(etap, (None, None))
@@ -84,5 +96,6 @@ def profil(k: dict) -> dict:
         "potencjal": {"wartosc": potencjal, "pochodzenie": "regula"},
         "wiarygodnosc": _wiarygodnosc(k),
         "zasieg": _zasieg(k),
+        "specjalizacje": _specjalizacje(k),
         "pochodzenie_opisu": poch,
     }

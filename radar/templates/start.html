@@ -5,6 +5,9 @@
   <p class="lead">Czyta strony szkół, uczelni i gmin oraz bazy projektów z dotacją, projektów badawczych i patentów.
     Każdy znaleziony projekt przechodzi przez cztery filtry odrzucenia i dostaje ocenę potencjału. Każdy wynik ma procent
     i link do dokumentu, na którym się opiera. Decyzję podejmuje człowiek.</p>
+  <p class="zwiad">Przeszukujemy: <b>{{ zwiad.projekty | liczba(0) }}</b> projektów z dotacją (Mapa Dotacji UE z całej Polski, Interreg)
+    · <b>{{ zwiad.naukowe | liczba(0) }}</b> projektów naukowych (RAD-on) · <b>{{ zwiad.patenty | liczba(0) }}</b> patentów i zgłoszeń patentowych
+    (RAD-on, Biuletyn UPRP) · <b>{{ zwiad.www }}</b> stron szkół, uczelni i instytucji · EPO, OpenAlex i Crossref na żywo.</p>
   <div class="akcje">
     <a class="przycisk" href="/o/pci/kolejka">Przejrzyj wykryte innowacje</a>
     <a class="przycisk drugi" href="/szukaj">Szukam rozwiązania</a>
