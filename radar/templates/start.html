@@ -1,59 +1,98 @@
 {% extends "baza.html" %}
+{% macro kropki(pasma) %}<span class="kropki">{% for f, (nazwa, _) in s.FILTRY.items() %}{% set p = pasma.get(f, '') %}<span class="kropka {{ p or 'puste' }}" title="{{ nazwa }}: {{ s.PASMA.get(p, 'brak wyniku') }}">{{ nazwa[:1] if f != 'patent' else 'Pa' }}</span>{% endfor %}</span>{% endmacro %}
 {% block tresc %}
-<section class="hero">
-  <h1>Radar sam wyszukuje innowacje w Polsce i ocenia je z dowodami</h1>
-  <p class="lead">Czyta strony szkół, uczelni i gmin oraz bazy projektów z dotacją, projektów badawczych i patentów.
-    Każdy znaleziony projekt przechodzi przez cztery filtry odrzucenia i dostaje ocenę potencjału. Każdy wynik ma procent
-    i link do dokumentu, na którym się opiera. Decyzję podejmuje człowiek.</p>
-  <div class="zwiad" aria-label="Przeszukiwane źródła">
-    <p class="zwiad-tytul">Przeszukujemy</p>
-    <div class="zwiad-siatka">
-      <div><b>{{ zwiad.projekty | liczba(0) }}</b> projektów z dotacją<span>Mapa Dotacji UE z całej Polski, Interreg</span></div>
-      <div><b>{{ zwiad.naukowe | liczba(0) }}</b> projektów naukowych<span>RAD-on</span></div>
-      <div><b>{{ zwiad.patenty | liczba(0) }}</b> patentów i zgłoszeń patentowych<span>RAD-on, Biuletyn UPRP</span></div>
-      <div><b>{{ zwiad.www }}</b> stron szkół, uczelni i instytucji<span>radar WWW, codziennie</span></div>
+<section class="hero{% if dowod %} hero-z-dowodem{% endif %}">
+  <div class="hero-tekst">
+    <p class="etykieta"><span class="modul" aria-hidden="true"></span>Odkrywanie innowacji z dowodami · cała Polska</p>
+    <h1>Radar sam wyszukuje innowacje w Polsce i ocenia je z dowodami</h1>
+    <p class="lead">Czyta strony szkół, uczelni i gmin oraz bazy projektów z dotacją, projektów badawczych i patentów.
+      Każde wykrycie przechodzi przez cztery filtry odrzucenia i dostaje ocenę potencjału. Każdy wynik ma procent
+      i link do dokumentu, na którym się opiera. Decyzję podejmuje człowiek.</p>
+    <div class="akcje">
+      <a class="przycisk" href="/o/pci/kolejka">Przejrzyj wykryte innowacje</a>
+      <a class="przycisk drugi" href="/szukaj">Szukam rozwiązania</a>
     </div>
-    <p class="zwiad-na-zywo">Przy każdym sprawdzeniu dodatkowo EPO, OpenAlex i Crossref na żywo.</p>
+    <p class="maly akcja-dodatkowa">Masz link do projektu albo opis? <a href="/zglos">Oceń projekt tymi samymi filtrami →</a></p>
   </div>
-  <div class="akcje">
-    <a class="przycisk" href="/o/pci/kolejka">Przejrzyj wykryte innowacje</a>
-    <a class="przycisk drugi" href="/szukaj">Szukam rozwiązania</a>
-    <a class="przycisk drugi" href="/zglos">Oceń projekt</a>
+  {% if dowod %}
+  <aside class="dowod-karta" aria-label="Ostatnie wykrycie radaru">
+    <p class="dk-meta">Ostatnie wykrycie · {{ dowod.utworzono_at | data }}</p>
+    <h2 class="dk-tytul"><a href="/karta/{{ dowod.id }}">{{ dowod.tytul }}</a></h2>
+    <p class="dk-inst">{{ dowod.instytucja or 'instytucja nieustalona' }}</p>
+    {% if dowod.cytat %}{% set href = dowod.link | link %}
+    <blockquote class="dk-cytat"><q>{{ dowod.cytat }}</q>
+      {% if href %}<a href="{{ href }}" rel="noopener" target="_blank">cytat ze strony źródłowej</a>{% endif %}</blockquote>{% endif %}
+    <ul class="dk-filtry" aria-label="Wyniki czterech filtrów">
+      {% for f in dowod.filtry %}
+      <li><span class="dk-nazwa">{{ f.nazwa }}</span>
+        <span class="pasek" aria-hidden="true"><span class="pasek-wypelnienie {{ f.pasmo }}" style="width: {{ [f.procent or 0, 100] | min }}%"></span></span>
+        <span class="dk-proc">{% if f.procent is not none %}{{ f.procent | liczba(1) }}%{% else %}—{% endif %}</span>
+        <span class="pasmo {{ f.pasmo }}">{{ s.PASMA.get(f.pasmo, f.pasmo) }}</span></li>
+      {% endfor %}
+    </ul>
+    <div class="dk-stopka">
+      {% if dowod.potencjal is not none %}<span>Potencjał <b>{{ dowod.potencjal | int }}</b>/100</span>{% endif %}
+      {% if dowod.werdykt %}<span class="werdykt {{ dowod.werdykt }}">{{ s.WERDYKTY.get(dowod.werdykt, dowod.werdykt) }}</span>{% endif %}
+      <a class="dk-link" href="/karta/{{ dowod.id }}">Karta i dowody →</a>
+    </div>
+  </aside>
+  {% endif %}
+</section>
+
+<section class="pas-lejek">
+  <div class="pas-tekst">
+    <h2>Z tysięcy wpisów zostaje kilka kart do decyzji</h2>
+    <p class="zwiad">Każde wykrycie radar porównuje z bazą: <b>{{ zwiad.projekty | liczba(0) }}</b> projektów z dotacją
+      (Mapa Dotacji UE z całej Polski, Interreg), <b>{{ zwiad.naukowe | liczba(0) }}</b> projektów naukowych (RAD-on)
+      i <b>{{ zwiad.patenty | liczba(0) }}</b> patentów i zgłoszeń patentowych (RAD-on, Biuletyn UPRP). Przy każdym
+      sprawdzeniu pyta dodatkowo EPO, OpenAlex i Crossref na żywo.</p>
+    <p class="maly">Od początku działania: {{ radar.wykryc }} wykryć, z tego {{ radar.odrzucone }} odrzuciła bramka filtrów
+      (czekają na człowieka), {{ radar.z_decyzja }} z decyzją analityka. <a href="/miary">Jak mierzymy trafność →</a></p>
   </div>
-  <nav class="zakladki" aria-label="Dla kogo">
-    <span class="maly">Zobacz, co radar daje:</span>
-    {% for k, x in s.ROLE.items() %}<a href="/dla/{{ k }}">{{ x.nazwa }}</a>{% endfor %}
-  </nav>
+  {% if lejek %}
+  <div class="lejek" aria-label="Lejek ostatniego przebiegu radaru">
+    <p class="lejek-tytul">Ostatni przebieg radaru{% if lejek.kiedy %} · {{ lejek.kiedy }}{% endif %}</p>
+    {% if lejek.zrodel %}<p class="lejek-wejscie"><b>{{ lejek.zrodel }}</b> stron szkół, uczelni i instytucji{% if lejek.kanalow %}
+      ({{ lejek.kanalow }} z kanałem RSS){% endif %}</p>{% endif %}
+    <ol class="lejek-kroki">
+      {% for k in lejek.kroki %}
+      <li style="--szer: {{ k.szer }}%"><span class="lejek-pasek"><b>{{ k.liczba | liczba(0) }}</b></span><span class="lejek-opis">{{ k.opis }}</span></li>
+      {% endfor %}
+    </ol>
+  </div>
+  {% endif %}
 </section>
 
 <section>
   <h2>Ostatnio wykryte przez radar</h2>
   <p class="maly">Pokazujemy wykrycia, które przeszły bramkę czterech filtrów. Odrzucone czekają w <a href="/o/pci/kolejka?wejscie=radar">kolejce</a> na decyzję człowieka.</p>
   {% if wykryte %}
-  <ul class="wykryte">
+  <ol class="rejestr">
     {% for w in wykryte %}
-    <li><a href="/karta/{{ w.id }}"><b>{{ w.tytul }}</b></a> · {{ w.instytucja or 'instytucja nieustalona' }}
-      · <span class="maly">{{ s.WERDYKTY.get(w.werdykt, w.werdykt) if w.werdykt else 'w trakcie sprawdzania' }}</span></li>
+    <li><span class="rejestr-filtry">{{ kropki(w.pasma) }}</span>
+      <span class="rejestr-tytul"><a href="/karta/{{ w.id }}">{{ w.tytul }}</a><span class="maly">{{ w.instytucja or 'instytucja nieustalona' }}</span></span>
+      <span class="maly rejestr-werdykt">{{ s.WERDYKTY.get(w.werdykt, w.werdykt) if w.werdykt else 'w trakcie sprawdzania' }}</span>
+      <span class="maly rejestr-data">{{ w.utworzono_at | data }}</span></li>
     {% endfor %}
-  </ul>
+  </ol>
   {% else %}<p class="pusty">Radar jeszcze niczego nie wykrył.</p>{% endif %}
-  {% if radar.wykryc %}<p class="maly">{% if radar.get('wpisow') %}Ostatni przebieg: {{ radar.get('kanalow', 0) }} kanałów RSS, {{ radar.wpisow }} wpisów przejrzanych,
-    {{ radar.get('do_ai', 0) }} sprawdzonych przez AI. {% endif %}Wszystkich wykryć: {{ radar.wykryc }}, z tego {{ radar.odrzucone }} odrzuciła bramka (do przeglądu).</p>{% endif %}
 </section>
 
-<section>
-  <h2>Cztery filtry odrzucenia</h2>
-  <div class="siatka4">
-    {% for klucz, (nazwa, opis) in s.FILTRY.items() %}
-    <article class="kafel">
-      <h3>{{ nazwa }}</h3>
-      <p>{{ opis }}</p>
-      <p class="maly">{% if klucz == 'plagiat' %}Liczy kod, bez AI.{% elif klucz == 'nowosc' %}AI ocenia, a kod sprawdza, czy każdy wskazany dokument naprawdę był w wynikach.{% else %}Liczy kod, AI tylko potwierdza.{% endif %}</p>
-    </article>
-    {% endfor %}
+<section class="filtry-opis">
+  <div>
+    <h2>Cztery filtry odrzucenia</h2>
+    <p>Każdy filtr zwraca procent i dokumenty, na których się opiera. Czerwone pasmo nie usuwa projektu, tylko kieruje go
+      do analityka.</p>
+    <p class="maly">Wcześniejsza praca tej samej instytucji nie jest powodem odrzucenia. Karta oznacza ją jako kontynuację
+      i podpowiada ochronę albo licencję. Ponowne zgłoszenie tego samego tekstu oznacza jako duplikat.</p>
   </div>
-  <p class="maly">Wcześniejsza praca tej samej instytucji nie jest powodem odrzucenia. Karta oznacza ją jako kontynuację
-    i podpowiada ochronę albo licencję. Ponowne zgłoszenie tego samego tekstu oznacza jako duplikat.</p>
+  <ol class="filtry-lista">
+    {% for klucz, (nazwa, opis) in s.FILTRY.items() %}
+    <li><h3>{{ nazwa }}</h3>
+      <p>{{ opis }}</p>
+      <p class="maly">{% if klucz == 'plagiat' %}Liczy kod, bez AI.{% elif klucz == 'nowosc' %}AI ocenia, a kod sprawdza, czy każdy wskazany dokument naprawdę był w wynikach.{% else %}Liczy kod, AI tylko potwierdza.{% endif %}</p></li>
+    {% endfor %}
+  </ol>
 </section>
 
 <section>

@@ -3,6 +3,7 @@ import csv
 import functools
 import json
 import logging
+import math
 import os
 import re
 import statistics
@@ -279,20 +280,53 @@ def start(request: Request, con=Depends(polaczenie)):
     zgl = con.execute("SELECT count(*) FROM zgloszenie").fetchone()[0]
     stan = {k: slowniki.czas_pl(slowniki.stan_na(k, v), "%d.%m.%Y") for k, v in db.stan_zrodel(con).items() if v["pobrano_do"]}
     # na stronie głównej tylko wykrycia, które przeszły bramkę; odrzucone czekają w kolejce na człowieka
-    wykryte = [dict(r) for r in con.execute("""SELECT id, tytul, instytucja, werdykt, utworzono_at FROM zgloszenie
+    wykryte = [dict(r) for r in con.execute("""SELECT id, tytul, instytucja, werdykt, utworzono_at,
+                                                (SELECT group_concat(filtr || ':' || pasmo) FROM wynik w WHERE w.zgl_id = zgloszenie.id) AS pasma
+                                                FROM zgloszenie
                                                 WHERE wejscie='radar' AND (werdykt IS NULL OR werdykt != 'odrzucone_do_przegladu')
                                                 AND COALESCE((SELECT d.decyzja FROM decyzja d WHERE d.zgl_id = zgloszenie.id
                                                               ORDER BY d.kiedy DESC, d.id DESC LIMIT 1), '')
                                                     NOT IN ('odrzuc', 'potwierdz_odrzucenie')
                                                 ORDER BY id DESC LIMIT 4""")]
+    for w in wykryte:
+        w["pasma"] = dict(p.split(":", 1) for p in (w["pasma"] or "").split(",") if ":" in p)
     plik = config.DANE / "radar_statystyki.json"
     radar = json.loads(plik.read_text(encoding="utf-8")) if plik.exists() else {}
     radar["wykryc"] = con.execute("SELECT count(*) FROM zgloszenie WHERE wejscie='radar'").fetchone()[0]
     radar["odrzucone"] = con.execute("SELECT count(*) FROM zgloszenie WHERE wejscie='radar' AND werdykt='odrzucone_do_przegladu'").fetchone()[0]
+    radar["z_decyzja"] = con.execute("""SELECT count(DISTINCT d.zgl_id) FROM decyzja d JOIN zgloszenie z ON z.id = d.zgl_id
+                                        WHERE z.wejscie='radar'""").fetchone()[0]
     zwiad = {"projekty": liczby.get("mapadotacji", 0) + liczby.get("interreg", 0), "naukowe": liczby.get("radon", 0),
              "patenty": liczby.get("radon_patenty", 0) + liczby.get("uprp", 0), "www": _liczba_stron_www()}
     return strona(request, "start.html", liczby=liczby, razem=sum(v for k, v in liczby.items()), zgloszen=zgl, stan=stan,
-                  wykryte=wykryte, radar=radar, zwiad=zwiad)
+                  wykryte=wykryte, radar=radar, zwiad=zwiad, dowod=_dowod(con, wykryte[0]["id"]) if wykryte else None,
+                  lejek=_lejek(radar))
+
+
+def _dowod(con, zid: int) -> dict:
+    """Ostatnie wykrycie na pierwszy ekran: cytat ze źródła, cztery filtry z procentem i pasmem, ocena potencjału."""
+    z = dict(con.execute("SELECT id, tytul, instytucja, cytat, link, werdykt, status, utworzono_at FROM zgloszenie WHERE id=?",
+                         (zid,)).fetchone())
+    wyniki = {r["filtr"]: dict(r) for r in con.execute("SELECT filtr, procent, pasmo FROM wynik WHERE zgl_id=?", (zid,))}
+    z["filtry"] = [{"klucz": k, "nazwa": nazwa, **wyniki.get(k, {"procent": None, "pasmo": "brak_danych"})}
+                   for k, (nazwa, _) in slowniki.FILTRY.items()]
+    r = con.execute("SELECT wynik FROM ocena WHERE zgl_id=?", (zid,)).fetchone()
+    z["potencjal"] = r[0] if r else None
+    return z
+
+
+def _lejek(radar: dict) -> dict | None:
+    """Lejek ostatniego przebiegu radaru WWW z radar_statystyki.json; bez pliku albo bez liczby wpisów nie ma czego pokazać."""
+    if not radar.get("wpisow"):
+        return None
+    kroki = [(radar["wpisow"], "wpisów i aktualności przejrzanych"),
+             (radar.get("do_ai", radar.get("sygnal")), "z sygnałem innowacji, sprawdzonych przez AI"),
+             (radar.get("innowacje", radar.get("zgloszen")), "uznanych za innowację i ocenionych filtrami")]
+    kroki = [(n, opis) for n, opis in kroki if n is not None]
+    gora = math.log10(max(n for n, _ in kroki) + 1)
+    return {"kiedy": slowniki.czas_pl(radar["koniec"], "%d.%m.%Y, %H:%M") if radar.get("koniec") else "",
+            "zrodel": radar.get("zrodel"), "kanalow": radar.get("kanalow"),
+            "kroki": [{"liczba": n, "opis": opis, "szer": max(8, round(100 * math.log10(n + 1) / gora))} for n, opis in kroki]}
 
 
 @functools.lru_cache(maxsize=1)

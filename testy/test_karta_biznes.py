@@ -29,8 +29,7 @@ def test_start_pokazuje_glebokosc_zwiadu(klient):
                            Dokument(id="radon_patenty:1", zrodlo="radon_patenty", typ="patent", tytul="P", opis="O", link="https://r/1")])
     s = klient.get("/").text
     assert s.index('class="zwiad"') < s.index("Ostatnio wykryte")
-    for tekst in ("<b>3</b> projektów z dotacją", "<b>2</b> patentów i zgłoszeń patentowych", "<b>172</b> stron szkół, uczelni",
-                  "EPO, OpenAlex i Crossref na żywo"):
+    for tekst in ("<b>3</b> projektów z dotacją", "<b>2</b> patentów i zgłoszeń patentowych", "EPO, OpenAlex i Crossref na żywo"):
         assert tekst in s, tekst
 
 
