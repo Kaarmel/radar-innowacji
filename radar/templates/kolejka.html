@@ -29,6 +29,8 @@
 
 {% if wiersze %}
 <form method="get" action="/porownaj" class="porownaj-form">
+<p class="legenda"><b>P</b> plagiat · <b>K</b> kopia pomysłu · <b>Pa</b> patent · <b>N</b> nowość —
+  <span class="kropka zielone">✓</span> bez flagi · <span class="kropka zolte">?</span> do sprawdzenia · <span class="kropka czerwone">!</span> flaga</p>
 <p class="maly">Zaznacz 2–4 projekty i <button class="przycisk drugi maly-przycisk" type="submit">porównaj zaznaczone</button></p>
 <table class="tabela kolejka">
   <thead><tr><th><span class="ukryte">Porównaj</span></th><th>Zgłoszenie</th>{% if not profil %}<th>Organizacja</th>{% endif %}<th>Komórka</th><th>Filtry</th><th>Werdykt</th><th class="liczba">Potencjał</th><th>Decyzja</th></tr></thead>

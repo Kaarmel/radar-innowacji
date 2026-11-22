@@ -303,6 +303,11 @@ select, input, textarea { border-radius: 0; }
 .lejek-pasek b { font-size: 1.3rem; font-weight: 900; font-variant-numeric: tabular-nums; }
 .lejek-opis { font-size: .88rem; color: var(--szary); }
 
+/* legenda kropek filtrów */
+.legenda { margin: 4px 0 8px; font-size: .8rem; color: var(--szary); }
+.legenda b { color: var(--tusz); }
+.legenda .kropka { min-width: 18px; padding: 0 3px; font-size: .68rem; }
+
 /* rejestr wykryć */
 .rejestr { list-style: none; margin: 0; padding: 0; background: var(--biel); border: 1px solid var(--linia); }
 .rejestr li { display: grid; grid-template-columns: 150px minmax(0, 1fr) 170px 130px; gap: 14px; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--linia); }

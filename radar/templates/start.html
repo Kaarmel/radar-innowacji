@@ -83,6 +83,8 @@
   <h2>Ostatnio wykryte przez radar</h2>
   <p class="maly">Pokazujemy wykrycia, które przeszły bramkę czterech filtrów. Odrzucone czekają w <a href="/o/pci/kolejka?wejscie=radar">kolejce</a> na decyzję człowieka.</p>
   {% if wykryte %}
+  <p class="legenda"><b>P</b> plagiat · <b>K</b> kopia pomysłu · <b>Pa</b> patent · <b>N</b> nowość —
+  <span class="kropka zielone">✓</span> bez flagi · <span class="kropka zolte">?</span> do sprawdzenia · <span class="kropka czerwone">!</span> flaga</p>
   <ol class="rejestr">
     {% for w in wykryte %}
     <li><span class="rejestr-filtry">{{ kropki(w.pasma) }}</span>
