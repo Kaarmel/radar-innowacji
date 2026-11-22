@@ -266,12 +266,12 @@ select, input, textarea { border-radius: 0; }
 .dk-cytat q { display: block; }
 .dk-cytat a { font-size: .8rem; }
 .dk-filtry { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--linia); }
-.dk-filtry li { display: grid; grid-template-columns: 112px 1fr 52px 96px; gap: 10px; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--linia); font-size: .9rem; }
+.dk-filtry li { display: grid; grid-template-columns: 112px minmax(40px, 1fr) 56px auto; gap: 10px; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--linia); font-size: .9rem; }
 .dk-nazwa { font-weight: 700; }
-.dk-filtry .pasek { height: 8px; border-radius: 0; }
-.dk-filtry .pasek-wypelnienie { border-radius: 0; }
+.dk-filtry .pasek { display: block; height: 8px; border-radius: 0; }
+.dk-filtry .pasek-wypelnienie { display: block; border-radius: 0; }
 .dk-proc { font-family: var(--mono); font-size: .85rem; text-align: right; }
-.dk-filtry .pasmo { justify-self: start; font-size: .72rem; }
+.dk-filtry .pasmo { justify-self: start; font-size: .72rem; white-space: nowrap; }
 .dk-stopka { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin-top: 12px; font-size: .9rem; }
 .dk-stopka b { font-size: 1.3rem; color: var(--pci-granat); }
 .dk-link { margin-left: auto; font-weight: 700; }
