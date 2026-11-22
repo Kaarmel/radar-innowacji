@@ -1,70 +1,66 @@
 # Film: tekst dla lektora
 
-Film ma około 2 minut. Obraz jest gotowy i ma napisy, więc da się go obejrzeć bez dźwięku. Lektor czyta 13 krótkich fragmentów.
+Film ma około 2:20 (limit 3 minuty). Obraz ma napisy, więc da się go obejrzeć bez dźwięku. Lektor czyta 13 krótkich fragmentów.
 
-## Jak nagrać (10 minut)
+## Jak nagrać
 
-1. Nagraj każdy fragment jako osobny plik: `s01.m4a`, `s02.m4a` … `s13.m4a` (Dyktafon w telefonie albo QuickTime: Plik → Nowe nagranie dźwięku).
-   Można też nagrać wszystko w jednym pliku, z **2 sekundami ciszy** między fragmentami.
-2. Mów spokojnie, jak do jurora, który pierwszy raz słyszy o projekcie. Liczby czytaj słowami.
-3. Nie musisz trafiać w czas co do sekundy: obraz dopasuję do długości Twojego głosu.
-4. Pliki wrzuć do `docs/prezentacja/glos/` (ten folder nie idzie do repozytorium).
-
-Limit słów dotyczy tekstu lektora. Jeśli coś zmienisz, zmieść się w limicie.
+1. Najlepiej jeden plik: wszystkie fragmenty po kolei, z krótką pauzą między nimi. Powtórki są w porządku: z każdego fragmentu biorę ostatnie pełne podejście.
+2. Mów jak do jurora, który pierwszy raz słyszy o projekcie: z energią, liczby słowami.
+3. Plik wrzuć do `docs/prezentacja/glos/` (ten folder nie idzie do repozytorium).
 
 ## Fragmenty
 
-| # | Etap | Czas | Co widać | Napis na ekranie |
-|---|---|---|---|---|
-| s01 | Tytuł | 6 s | plansza z logo | Radar Innowacji |
-| s02 | Empatia: problem | 11 s | plansza problemu | Innowacje giną na stronach szkół, uczelni i gmin |
-| s03 | Pomysł: rozwiązanie | 14 s | strona główna, lejek radaru | Co godzinę: strony → AI → 4 filtry → ocena → człowiek |
-| s04 | Przypadek 1 · a | 9 s | lista wykryć, klik w RescuePet | a) radar sam wykrył innowację |
-| s05 | Przypadek 1 · b | 10 s | karta innowacji | b) informacje zebrane w jedną kartę |
-| s06 | Przypadek 1 · c | 11 s | filtry i ocena potencjału | c) 4 filtry i potencjał z dowodami |
-| s07 | Przypadek 1 · d | 10 s | komórka PCI, ścieżka dalej | d) komórka PCI i ścieżka dalej |
-| s08 | Przypadek 1 · e | 7 s | miernik, decyzja analityka | e) miernik skuteczności, decyzja człowieka |
-| s09 | Przypadek 2 · a | 10 s | wyszukiwarka, „Oceń ten projekt” | a) ktoś szuka rozwiązania i zleca ocenę |
-| s10 | Przypadek 2 · b–c | 10 s | karta w trakcie sprawdzania i gotowa | b–c) karta i ocena w kilkanaście sekund |
-| s11 | Przypadek 2 · d–e | 9 s | ścieżka z miernikiem, partnerzy | d–e) ścieżka, miernik, partnerzy |
-| s12 | Test | 12 s | kolejka, karta 10, miary | Test: bramka zatrzymuje rutynę, błędy poprawia człowiek |
-| s13 | Wdrożenie | 10 s | plansza końcowa z linkami | radar-innowacji.skroban.tech |
+| # | Etap | Co widać |
+|---|---|---|
+| s01 | Haczyk | plansza tytułowa |
+| s02 | Empatia: problem | plansza problemu, liczby |
+| s03 | Pomysł: rozwiązanie | strona główna, lejek |
+| s04 | Przypadek 1 · a | lista wykryć, klik w RescuePet |
+| s05 | Przypadek 1 · b | karta innowacji |
+| s06 | Przypadek 1 · c | filtry i ocena potencjału |
+| s07 | Przypadek 1 · d | komórka PCI, ścieżka ochrony |
+| s08 | Przypadek 1 · e | miernik, decyzja analityka |
+| s09 | Przypadek 2 · a | wyszukiwarka, „Oceń ten projekt” |
+| s10 | Przypadek 2 · b–c | sprawdzanie, gotowa karta |
+| s11 | Przypadek 2 · d–e | ścieżka z miernikiem, partnerzy |
+| s12 | Test | miary, karta 10 |
+| s13 | Wdrożenie | plansza końcowa |
 
-### s01 · Tytuł (do 12 słów)
-Radar Innowacji. Sam znajduje innowacje w Polsce i ocenia je z dowodami.
+### s01 · Haczyk
+Uczennice z technikum w Trzcianie wymyśliły aplikację dla rannych zwierząt. Nikt jej nigdzie nie zgłosił. Radar Innowacji i tak ją znalazł.
 
-### s02 · Empatia: problem (do 24 słów)
-Analityk centrum innowacji ma problem: najciekawsze pomysły giną na stronach szkół, uczelni i gmin. Nikt ich nie zgłasza, więc trzeba ich szukać.
+### s02 · Empatia: problem
+Takie pomysły giną w aktualnościach szkół i uczelni, między apelem a przetargiem na tonery. Analityk nie przeczyta codziennie stu siedemdziesięciu dwóch stron.
 
-### s03 · Pomysł: rozwiązanie (do 30 słów)
-Radar co godzinę czyta aktualności ze stu dwudziestu pięciu stron szkół, uczelni i instytucji. Sztuczna inteligencja odrzuca wydarzenia i zakupy. Reszta przechodzi cztery filtry i dostaje ocenę potencjału z dowodami.
+### s03 · Pomysł: rozwiązanie
+Radar robi to za niego co godzinę. Z ponad półtora tysiąca wpisów sztuczna inteligencja wybrała sto trzydzieści sześć z sygnałem innowacji. Trzynaście przeszło do pełnej oceny.
 
-### s04 · Przypadek 1 · a) wykrycie (do 20 słów)
-Przypadek pierwszy. Radar sam znalazł na stronie technikum w Trzcianie koncepcję aplikacji RescuePet do zgłaszania rannych zwierząt.
+### s04 · Przypadek 1 · a
+Jedna z nich to RescuePet: robisz zdjęcie rannego zwierzęcia, a aplikacja wskazuje najbliższą pomoc.
 
-### s05 · b) informacje (do 22 słów)
-Wszystko jest w jednej karcie: opis, cytat ze strony, poziom gotowości, specjalizacja regionu i wiarygodność źródła.
+### s05 · Przypadek 1 · b
+Radar składa wszystko w jedną kartę: cytat ze strony szkoły, etap koncepcji, specjalizację regionu i wiarygodność źródła.
 
-### s06 · c) ocena potencjału (do 24 słów)
-Cztery filtry: plagiat, kopia pomysłu, patent i nowość. Wszystkie zielone. Potencjał siedemdziesiąt cztery na sto, a przy każdym punkcie uzasadnienie i link.
+### s06 · Przypadek 1 · c
+Potem próbuje ten pomysł obalić. Plagiat zero procent, kopia dwadzieścia, patent siedemnaście, nowość osiemdziesiąt. Potencjał: siedemdziesiąt cztery na sto, każdy punkt z linkiem do dowodu.
 
-### s07 · d) odbiorcy i ścieżka (do 22 słów)
-Projekt trafia do komórki młodych innowatorów. Radar proponuje ochronę pomysłu, bo nowość jest wysoka, a kolidującego patentu brak.
+### s07 · Przypadek 1 · d
+To uczennice, więc projekt trafia do komórki młodych innowatorów. Nowość jest wysoka, kolidującego patentu brak, dlatego radar proponuje ochronę.
 
-### s08 · e) miernik i decyzja (do 16 słów)
-Każda ścieżka ma miernik skuteczności. Decyzję podejmuje analityk, a powód trafia do dziennika.
+### s08 · Przypadek 1 · e
+Miernik sukcesu: zgłoszenie patentowe albo licencja w ciągu roku. Ostatnie słowo ma analityk, a jego powód trafia do dziennika.
 
-### s09 · Przypadek 2 · a) zgłoszenie (do 22 słów)
-Przypadek drugi. Ktoś szuka rozwiązania do ładowania dronów. Wpisuje temat, wybiera projekt z bazy i zleca jego ocenę.
+### s09 · Przypadek 2 · a
+Drugi przypadek. Firma szuka sposobu na ładowanie dronów w terenie. Wpisuje temat, znajduje projekt AirNest z Podkarpacia i zleca jego ocenę.
 
-### s10 · b–c) karta i ocena (do 22 słów)
-Po kilkunastu sekundach jest gotowa karta. Radar porównał projekt z setkami tysięcy dokumentów: wszystkie filtry zielone, potencjał osiemdziesiąt siedem na sto.
+### s10 · Przypadek 2 · b–c
+Siedemnaście sekund później karta jest gotowa. Radar porównał AirNest z ponad trzystoma tysiącami dokumentów: filtry zielone, potencjał osiemdziesiąt siedem na sto.
 
-### s11 · d–e) ścieżka i miernik (do 22 słów)
-Ścieżka to ochrona, z miernikiem: zgłoszenie patentowe albo licencja w ciągu roku. Radar wskazuje uczelnie i instytuty, które prowadzą projekty z dronami.
+### s11 · Przypadek 2 · d–e
+Ścieżka znów prowadzi do ochrony, z tym samym miernikiem. Do tego kontakty, których firma sama by nie znalazła: Politechnika Łódzka, AGH i Instytut Lotnictwa już pracują nad dronami.
 
-### s12 · Test (do 26 słów)
-Sprawdzamy się uczciwie. Na zestawie kontrolnym bramka zatrzymała dwadzieścia dziewięć z trzydziestu rutyn. Na żywo raz przepuściła zajęcia z maskotką; analityk odrzucił je jedną decyzją.
+### s12 · Test
+Czy można temu ufać? Na pięćdziesięciu nowych projektach bramka zatrzymała dwadzieścia dziewięć z trzydziestu rutyn. Raz przepuściła zajęcia z maskotką, Inspektorem Lwem. Analityk odrzucił je jedną decyzją.
 
-### s13 · Wdrożenie (do 22 słów)
-Radar działa na serwerze i ma otwarte API. Nowa organizacja to nowy plik z kryteriami, bez zmian w kodzie. Zapraszamy do demo.
+### s13 · Wdrożenie
+Radar działa już dziś na małym serwerze, za ułamek centa za ocenę. Ma otwarte API, a nowa organizacja to jeden plik z kryteriami. Analityk dowiaduje się pierwszy i od razu ma dowody.
