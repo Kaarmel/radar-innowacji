@@ -264,8 +264,8 @@ def raport(con, log=print) -> dict:
             czytelne[opis.split(":")[0] + ": czułość"] = f"{x['trafione']}/{x['wszystkie']} ({x['czulosc']:.2f})"
     if "etykiety" in m:
         e = m["etykiety"]
-        czytelne[f"Nowość: zgodność z etykietą ({kto})"] = f"{e['zgodnosc']:.2f} (n={e['n']})"
-        czytelne[f"Średni potencjał: nowość / rutyna ({kto})"] = f"{e['potencjal_nowosc']} / {e['potencjal_rutyna']}"
+        czytelne[f"20 projektów kalibracji (nie niezależny pomiar): zgodność nowości ({kto})"] = f"{e['zgodnosc']:.2f} (n={e['n']})"
+        czytelne[f"20 projektów kalibracji: średni potencjał nowość / rutyna ({kto})"] = f"{e['potencjal_nowosc']} / {e['potencjal_rutyna']}"
     if "kontrolny" in m:
         e = m["kontrolny"]
         czytelne[f"Zestaw kontrolny, niezależny pomiar: zgodność nowości ({kto_k})"] = f"{e['zgodnosc']:.2f} (n={e['n']})"
@@ -282,8 +282,10 @@ def raport(con, log=print) -> dict:
     wynik = {"kiedy": time.strftime("%Y-%m-%d %H:%M"), "miary": czytelne, "szczegoly": m,
              "opis": "Przypadki ze znaną prawdą zbudowane z dzisiejszych danych (RAD-on, Mapa Dotacji): " + "; ".join(OPISY.values())
                      + opis_etykiet(zrodlo, "etykiety" in m)
-                     + (f" Zestaw kontrolny (walidacja/kontrolne.csv): projekty wylosowane po zamrożeniu rubryki, etykiety: {zrodlo_k}."
-                        if "kontrolny" in m else "")}
+                     + (" Rubrykę nowości poprawialiśmy na tych 20 projektach, więc ich zgodność nie jest niezależnym pomiarem."
+                        if "etykiety" in m else "")
+                     + (f" Niezależny pomiar to zestaw kontrolny (walidacja/kontrolne.csv): projekty wylosowane po zamrożeniu rubryki,"
+                        f" etykiety: {zrodlo_k}; rubryki po tym pomiarze nie zmienialiśmy." if "kontrolny" in m else "")}
     RAPORT_JSON.parent.mkdir(parents=True, exist_ok=True)
     RAPORT_JSON.write_text(json.dumps(wynik, ensure_ascii=False, indent=1), encoding="utf-8")
     KATALOG.mkdir(exist_ok=True)

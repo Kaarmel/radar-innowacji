@@ -192,7 +192,8 @@ nie zmienialiśmy. Spadek z 0,95 do 0,62 pokazuje, ile dało dopasowanie do 20 p
 
 Wniosek z zestawu kontrolnego: ranking potencjału działa (losowa nowość ma wyższy potencjał niż losowa rutyna w 89%
 par), a lejek rzadko odrzuca prawdziwą nowość (2 z 20). Słaby jest sam kolor nowości: 15 z 30 rutyn dostaje żółte
-„do sprawdzenia”, bo reguła Oslo obejmuje też część zwykłych inwestycji. To błąd w bezpieczną stronę: więcej przeglądu,
+„do sprawdzenia”, bo model w pytaniu Q5 uznaje je za własne rozwiązanie, a nie rutynę (8 z nich podniosła
+reguła Oslo, 7 próg dwóch odpowiedzi „tak”). To błąd w bezpieczną stronę: więcej przeglądu,
 mniej utraconych innowacji. Następną poprawkę zmierzymy na nowym zestawie kontrolnym, a docelowo na etykietach
 analityków PCI. Każde odrzucenie przegląda człowiek. Opisy projektów OSP często dzielą szablonowe zdania, więc filtr
 plagiatu flaguje je do przeglądu.
