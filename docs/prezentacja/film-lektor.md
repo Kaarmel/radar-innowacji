@@ -1,6 +1,6 @@
 # Film: tekst dla lektora
 
-Film ma około 2:20 (limit 3 minuty). Obraz ma napisy, więc da się go obejrzeć bez dźwięku. Lektor czyta 13 krótkich fragmentów.
+Film ma 2:10 (limit 3 minuty). Obraz ma napisy, więc da się go obejrzeć bez dźwięku. Lektor czyta 13 krótkich fragmentów.
 
 ## Jak nagrać
 
@@ -54,7 +54,7 @@ Miernik sukcesu: zgłoszenie patentowe albo licencja w ciągu roku. Ostatnie sł
 Drugi przypadek. Firma szuka sposobu na ładowanie dronów w terenie. Wpisuje temat, znajduje projekt AirNest z Podkarpacia i zleca jego ocenę.
 
 ### s10 · Przypadek 2 · b–c
-Siedemnaście sekund później karta jest gotowa. Radar porównał AirNest z ponad trzystoma tysiącami dokumentów: filtry zielone, potencjał osiemdziesiąt siedem na sto.
+Siedemnaście sekund później karta jest gotowa. Filtry zielone, potencjał osiemdziesiąt siedem na sto.
 
 ### s11 · Przypadek 2 · d–e
 Ścieżka znów prowadzi do ochrony, z tym samym miernikiem. Do tego kontakty, których firma sama by nie znalazła: Politechnika Łódzka, AGH i Instytut Lotnictwa już pracują nad dronami.
