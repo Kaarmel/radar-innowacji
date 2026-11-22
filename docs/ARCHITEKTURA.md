@@ -26,7 +26,7 @@ z opóźnieniami opisuje [SPECYFIKACJA.md](SPECYFIKACJA.md).
 
 1. **Kod liczy, AI potwierdza.** Wyszukiwanie, plagiat, podobieństwo, reguły ścieżek i wzór potencjału to deterministyczny
    kod. AI (DeepSeek przez OpenRouter, temperatura 0, bez rozumowania) robi tylko to, czego nie da się zaprogramować:
-   tłumaczy zapytanie, potwierdza „ten sam pomysł”, odpowiada na pytania rubryki nowości i wyciąga kartę z tekstu strony.
+   tłumaczy zapytanie, potwierdza „ten sam pomysł” i „ten sam problem” podobnych projektów, odpowiada na pytania rubryki nowości i wyciąga kartę z tekstu strony.
 2. **Dowód przy każdej liczbie.** Każdy filtr zwraca dokumenty z linkami, każda rekomendacja nazwę reguły, każde pole
    karty pochodzenie (fakt, deklaracja, szacunek AI, reguła w kodzie).
 3. **Człowiek decyduje.** System flaguje i uzasadnia. Odrzucenie automatyczne zawsze trafia do przeglądu.

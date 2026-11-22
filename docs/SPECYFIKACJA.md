@@ -228,15 +228,16 @@ Specjalizacje PCI (`konfiguracja/organizacje/pci.json`): lotnictwo i kosmos, mot
 | Nowość | 4 z 4 pytań Q1–Q3, Q5 z odpowiedzią „tak” | 25 / 25 |
 | Dojrzałość | etap „pomysł” = 25% | 3,75 / 15 |
 | Mierzalna przewaga | Q4: „nie”, brak wskaźników kosztu, czasu, skali | 0 / 10 |
-| Zapotrzebowanie | 7 innych instytucji z podobnymi projektami (pełne punkty od 5) | 15 / 15 |
+| Zapotrzebowanie | brak innych instytucji z tym samym problemem (projekty o bezdomności ludzi AI odrzuciło) | 0 / 15 |
 | Ochrona | filtr patentowy zielony, najbliższy patent 17% | 10 / 10 |
-| Finansowanie | 1 podobny projekt z dofinansowaniem | 5 / 10 |
+| Finansowanie | brak sfinansowanych projektów o tym samym problemie | 0 / 10 |
 | Specjalizacje | ICT (aplikacja, sztuczna inteligencja) | 15 / 15 |
-| **Razem** | 73,75 / 100 | **74** |
+| **Razem** | 53,75 / 100 | **54** |
 
-Ta sama karta pokazuje też słabość: „zapotrzebowanie” i finansowanie policzono z projektów o bezdomności ludzi, bo opis
-mówi o bezdomnych zwierzętach (patrz rozdział 11). Dlatego każde kryterium ma na karcie listę dokumentów, z których je
-policzono, a analityk widzi to od razu.
+Bez potwierdzenia tematu ta karta miała 74 pkt: „zapotrzebowanie” i finansowanie policzono z projektów o bezdomności
+ludzi, bo opis mówi o bezdomnych zwierzętach. Teraz AI sprawdza, czy podobny dokument dotyczy tego samego problemu,
+zanim policzy zapotrzebowanie, finansowanie (R4) i partnerów; odrzucone dokumenty są wypisane na karcie
+(polecenie `python -m radar.cli przelicz-podobne` stosuje to do zapisanych kart bez zmiany filtrów).
 
 Karta 18 (AirNest, projekt z Mapy Dotacji, etap: zakończone): nowość 25, dojrzałość 12, przewaga 0, zapotrzebowanie 15,
 ochrona 10, finansowanie 10, specjalizacje 15 (lotnictwo i kosmos, ICT) → **87**.
@@ -556,7 +557,7 @@ którzy wpisują decyzje z powodem: to one kalibrują system.
 |---|---|---|
 | zgłoszenia patentowe jawne po 18 miesiącach | świeży patent niewidoczny dla filtra | przypomnienie na każdej karcie; Biuletyn UPRP; ścieżka R2 zawsze przez rzecznika |
 | TF-IDF nie widzi tego samego pomysłu opisanego zupełnie innymi słowami | kopia może przejść | rubryka nowości (AI) ocenia osobno; czerwona kopia wymaga potwierdzenia AI |
-| podobieństwo słów myli tematy (karta 7: bezdomne zwierzęta i bezdomność ludzi) | słabe dopasowania w R4, partnerach i kryterium zapotrzebowania | lista dokumentów przy każdym kryterium; partnerów i finansowanie zatwierdza analityk; plan: potwierdzenie przez AI |
+| podobieństwo słów myli tematy (karta 7: bezdomne zwierzęta i bezdomność ludzi) | słabe dopasowania w R4, partnerach i kryterium zapotrzebowania | AI potwierdza temat najbliższych dokumentów przed policzeniem partnerów, zapotrzebowania i R4; pominięte są wypisane na karcie; decyzję zatwierdza analityk |
 | kolor nowości za łagodny dla rutyn (15 z 30 żółtych) | więcej pracy przeglądu | błąd w bezpieczną stronę; kalibracja na decyzjach (etap 2) |
 | wagi i progi eksperckie | ranking zależy od założeń | wagi w pliku profilu, jawne; dziennik decyzji do kalibracji |
 | etykiety walidacji z głosowania modeli, nie od ludzi | miary są przybliżone | etap 2: etykiety analityków PCI |

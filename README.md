@@ -101,8 +101,8 @@ Dwa przypadki z zadania, wszystko do kliknięcia na żywej stronie:
 |---|---|---|
 | a) wykrycie albo wprowadzenie | wpis w aktualnościach technikum w Trzcianie, znaleziony bez zgłoszenia → [karta 7](https://radar-innowacji.skroban.tech/karta/7) | „Szukam rozwiązania”: [drony autonomiczne ładowanie](https://radar-innowacji.skroban.tech/szukaj?q=drony+autonomiczne+%C5%82adowanie) → „Oceń ten projekt” przy systemie AirNest |
 | b) kluczowe informacje | [karta innowacji](https://radar-innowacji.skroban.tech/karta/7): opis, instytucja, cytat ze źródła, etap koncepcji, TRL 1–3, specjalizacja ICT, wiarygodność 2/5 | [karta 18](https://radar-innowacji.skroban.tech/karta/18): status wdrożenia z rejestru, TRL 6–9, wiarygodność 3/5 |
-| c) ocena potencjału | 4 filtry bez flag (plagiat 0%, kopia 20%, patent 17%, nowość 80%), [potencjał 74/100](https://radar-innowacji.skroban.tech/karta/7#potencjal) | 4 filtry bez flag, [potencjał 87/100](https://radar-innowacji.skroban.tech/karta/18#potencjal), sprawdzenie w 17 s |
-| d) odbiorcy, partnerzy, ścieżki | komórka PCI: młodzi innowatorzy 16–30; ścieżka R2 (ochrona), bo nowość ≥ 80% i brak kolidującego patentu; R4 na tej karcie to słabe dopasowanie (patrz [Ograniczenia](#ograniczenia)) | partnerzy z podobnymi projektami: Politechnika Łódzka, AGH, Łukasiewicz – Instytut Lotnictwa; R2 i R4 |
+| c) ocena potencjału | 4 filtry bez flag (plagiat 0%, kopia 20%, patent 17%, nowość 80%), [potencjał 54/100](https://radar-innowacji.skroban.tech/karta/7#potencjal) | 4 filtry bez flag, [potencjał 87/100](https://radar-innowacji.skroban.tech/karta/18#potencjal), sprawdzenie w 17 s |
+| d) odbiorcy, partnerzy, ścieżki | komórka PCI: młodzi innowatorzy 16–30; ścieżka R2 (ochrona), bo nowość ≥ 80% i brak kolidującego patentu; projekty o bezdomności ludzi AI odrzuciło jako inny problem, więc nie liczą się do partnerów ani finansowania | partnerzy z podobnymi projektami: Politechnika Łódzka, AGH, Łukasiewicz – Instytut Lotnictwa; R2 i R4 |
 | e) uzasadnienie i mierniki | miernik R2: zgłoszenie do UPRP albo umowa licencyjna w 12 miesięcy; decyzja analityka z powodem w dzienniku | mierniki R2 i R4: zgłoszenie albo licencja w 12 miesięcy, wniosek o finansowanie w najbliższym naborze |
 
 Uczciwy test: [kolejka PCI](https://radar-innowacji.skroban.tech/o/pci/kolejka?wejscie=radar) pokazuje, co bramka odrzuciła automatycznie,
@@ -469,8 +469,9 @@ docs/                  specyfikacja, architektura, prezentacja, film, zgłoszeni
 - Patenty EP wyszukujemy po tytułach; abstrakty pobieramy dla 5 najlepszych wyników.
 - TF-IDF łapie przepisany tekst, ale nie ten sam pomysł opisany zupełnie innymi słowami; dlatego czerwona kopia wymaga
   potwierdzenia AI, a nowość ocenia rubryka.
-- Podobieństwo myli się też w drugą stronę: przy aplikacji dla bezdomnych zwierząt (karta 7) jako „podobne” pojawiły się
-  projekty o osobach w kryzysie bezdomności. Listę partnerów i ścieżkę finansowania zatwierdza analityk.
+- Podobieństwo słów myli też tematy (aplikacja dla bezdomnych zwierząt i projekty o bezdomności ludzi). Dlatego
+  partnerów, zapotrzebowanie i finansowanie (R4) liczymy tylko z dokumentów, które AI potwierdzi jako ten sam problem;
+  pominięte są wypisane na karcie, a ostatnie słowo ma analityk.
 - Wagi i progi są eksperckie; dziennik decyzji analityków służy do kalibracji.
 - Mapa Dotacji: ok. 93% projektów z API (dalsze strony API nie odpowiadały podczas hackathonu); cotygodniowa
   aktualizacja dopełnia resztę.
@@ -495,7 +496,7 @@ docs/                  specyfikacja, architektura, prezentacja, film, zgłoszeni
 - [ ] Powiadomienia dla komórek PCI o nowych kartach bez flag
 - [ ] Strony bez kanału RSS (czytanie listy aktualności z poszanowaniem robots.txt)
 - [ ] Kolejne źródła: PBN (token instytucji), zrzuty CORDIS, listy rankingowe NCBR i NCN
-- [ ] Potwierdzanie partnerów przez AI, tak jak przy kopii (mniej fałszywych dopasowań)
+- [x] Potwierdzanie tematu podobnych projektów przez AI (partnerzy, zapotrzebowanie, finansowanie)
 
 Szczegóły i harmonogram pilotażu: [specyfikacja, rozdział 10](docs/SPECYFIKACJA.md#10-propozycja-ścieżki-wdrożenia-w-pci).
 
