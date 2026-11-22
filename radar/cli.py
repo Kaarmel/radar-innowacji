@@ -13,6 +13,7 @@ def main(argv=None) -> int:
     pp.add_argument("zrodlo", choices=["mapadotacji", "interreg", "radon", "radon_patenty", "uprp"])
     pp.add_argument("--woj", default="pl", help="Mapa Dotacji: pl = cała Polska (domyślnie) albo id województwa (327 = podkarpackie)")
     pp.add_argument("--od-nowa", action="store_true", help="cykliczna aktualizacja: pobiera całe źródło od początku (nadpisuje rekordy)")
+    pp.add_argument("--od-konca", action="store_true", help="Mapa Dotacji: dopełnij od najnowszych projektów, aż strona jest już w bazie")
     pr = sub.add_parser("radar", help="radar WWW: kanały RSS szkół i uczelni → zgłoszenia z wejściem radar")
     pr.add_argument("--limit", type=int, default=300)
     pr.add_argument("--dni", type=int, default=180)
@@ -42,7 +43,7 @@ def main(argv=None) -> int:
             with con:
                 con.execute("CREATE TABLE IF NOT EXISTS postep(klucz TEXT PRIMARY KEY, wartosc TEXT)")
                 con.execute("DELETE FROM postep WHERE klucz LIKE ?", (f"{a.zrodlo}:%",))
-        n = {"mapadotacji": lambda: mapadotacji.pobierz_wszystko(con, a.woj),
+        n = {"mapadotacji": lambda: (mapadotacji.pobierz_od_konca if a.od_konca else mapadotacji.pobierz_wszystko)(con, a.woj),
              "interreg": lambda: interreg.pobierz_wszystko(con),
              "radon": lambda: radon.pobierz_wszystko(con),
              "radon_patenty": lambda: radon_patenty.pobierz_wszystko(con),

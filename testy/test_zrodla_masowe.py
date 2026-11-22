@@ -97,3 +97,28 @@ def test_mapadotacji_cala_polska_bez_filtra(tmp_path, monkeypatch):
     mapadotacji.pobierz_wszystko(con, log=lambda *a: None)
     assert wywolania and all("wojewodztwa_projekty" not in p for p in wywolania)
     assert mapadotacji._postep(con, "mapadotacji:pl") == "2"
+
+
+def test_mapadotacji_od_konca_dopelnia_najnowsze_i_konczy_na_znanych(tmp_path, monkeypatch):
+    """Gdy strony z dużym przesunięciem nie odpowiadają (22.11: strona 2622 → 88 s, 2623 → timeout), dopełniamy
+    od najnowszych: malejąco po id, aż cała strona jest już w bazie."""
+    from radar import db
+    p = json.loads((D / "mapadotacji_1.json").read_text(encoding="utf-8"))[0]
+    con = db.polacz(tmp_path / "t.sqlite")
+    db.zapisz_dokumenty(con, mapadotacji.parsuj([{**p, "id": i} for i in (5, 6, 7)]))
+    strony = {1: [10, 9], 2: [8, 7], 3: [6, 5], 4: [4, 3]}
+    wywolania = []
+
+    class Odp:
+        status_code = 200
+        headers = {"X-WP-Total": "8"}
+
+        def __init__(self, ids):
+            self.text = json.dumps([{**p, "id": i} for i in ids])
+    monkeypatch.setattr(siec, "pobierz", lambda url, params=None, **kw: (wywolania.append(params or {}), Odp(strony[params["page"]]))[1])
+    mapadotacji.pobierz_od_konca(con, log=lambda *a: None)
+    assert [w["page"] for w in wywolania] == [1, 2, 3]
+    assert all(w["order"] == "desc" and w["orderby"] == "id" for w in wywolania)
+    ids = {r[0] for r in con.execute("SELECT id FROM dokument WHERE zrodlo='mapadotacji'")}
+    assert {"mapadotacji:10", "mapadotacji:9", "mapadotacji:8"} <= ids and "mapadotacji:4" not in ids
+    assert mapadotacji._postep(con, "mapadotacji:pl:od_konca") == "3"
