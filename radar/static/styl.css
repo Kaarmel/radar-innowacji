@@ -303,6 +303,10 @@ select, input, textarea { border-radius: 0; }
 .lejek-pasek b { font-size: 1.3rem; font-weight: 900; font-variant-numeric: tabular-nums; }
 .lejek-opis { font-size: .88rem; color: var(--szary); }
 
+/* miernik skuteczności przy ścieżce dalej */
+.miernik { color: var(--pci-niebieski); }
+.miernik::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 6px; background: var(--logo-zielony); vertical-align: 1px; }
+
 /* legenda kropek filtrów */
 .legenda { margin: 4px 0 8px; font-size: .8rem; color: var(--szary); }
 .legenda b { color: var(--tusz); }

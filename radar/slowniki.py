@@ -39,6 +39,16 @@ FILTRY = {
 DECYZJE = {"potwierdz_odrzucenie": "Potwierdzam odrzucenie", "odrzuc": "Odrzucam: to nie innowacja (np. wydarzenie, zakup)",
            "przywroc": "Przywracam (flaga nietrafna)",
            "przekaz": "Przekazuję dalej (do komórki lub eksperta)"}
+# Oczekiwany miernik skuteczności każdej ścieżki dalej (zadanie PCI §6 e): po czym analityk pozna, że rekomendacja zadziałała.
+MIERNIKI = {
+    "R1": "prototyp przetestowany z pierwszym odbiorcą w ciągu 6 miesięcy",
+    "R2": "zgłoszenie do UPRP albo umowa licencyjna w ciągu 12 miesięcy",
+    "R3": "co najmniej jedna instytucja tego samego typu wdraża rozwiązanie w ciągu roku",
+    "R4": "wniosek o finansowanie złożony w najbliższym naborze",
+    "R5": "pierwszy kontakt z autorem podobnego projektu w ciągu miesiąca",
+    "PRZEGLAD": "decyzja analityka w ciągu 5 dni roboczych",
+    "ODRZUCENIE": "decyzja analityka w ciągu 5 dni roboczych; odsetek odrzuceń potwierdzonych przez człowieka",
+}
 STATUSY = {"nowe": "w kolejce", "w_toku": "sprawdzanie", "gotowe": "gotowe", "blad": "błąd sprawdzenia"}
 def czas_pl(ts: float, fmt: str = "%Y-%m-%d %H:%M") -> str:
     """Czas w strefie Europe/Warsaw niezależnie od strefy serwera (serwer demo działa w UTC)."""

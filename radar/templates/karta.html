@@ -136,7 +136,8 @@
   <ul class="lista">
     {% for r in k.rekomendacje %}
     <li><strong>{{ r.nazwa }}</strong> {% for reg in r.reguly %}<span class="znaczek">{{ reg }}</span>{% endfor %}<br>
-      <span class="maly">{{ r.powod }}</span></li>
+      <span class="maly">{{ r.powod }}</span>
+      {% set miernik = s.MIERNIKI.get((r.reguly or [''])[0]) %}{% if miernik %}<br><span class="maly miernik">Miernik skuteczności: {{ miernik }}</span>{% endif %}</li>
     {% endfor %}
   </ul>
 </section>
