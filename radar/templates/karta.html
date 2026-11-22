@@ -154,6 +154,11 @@
   </ul>
 </section>
 {% endif %}
+{% set t = k.pokrycie.tematy if k.pokrycie else None %}
+{% if t and t.odrzucone %}
+<p class="maly">Pominięte w partnerach, zapotrzebowaniu i finansowaniu, bo dotyczą innego problemu (AI potwierdza temat podobnych projektów):
+  {% for o in t.odrzucone[:5] %}{% set href = o.link | link %}{% if href %}<a href="{{ href }}" rel="noopener" target="_blank">{{ o.tytul }}</a>{% else %}{{ o.tytul }}{% endif %}{% if not loop.last %}; {% endif %}{% endfor %}{% if t.odrzucone | length > 5 %} i {{ t.odrzucone | length - 5 }} innych{% endif %}.</p>
+{% endif %}
 
 {% for w in k.wyniki %}
 {% set nazwa, objasnienie = s.FILTRY[w.filtr] %}

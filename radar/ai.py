@@ -169,6 +169,31 @@ DOKUMENTY:
     return wynik, koszt
 
 
+def ten_sam_problem(zgl_opis: str, dokumenty: list) -> tuple[dict[str, dict], float]:
+    """Czy dokument dotyczy tego samego problemu co zgłoszenie, a nie tylko wspólnych słów? Wejście do zapotrzebowania,
+    finansowania (R4) i partnerów: podobieństwo słów myli przedmiot, gdy to samo słowo dotyczy innej grupy odbiorców."""
+    if not dokumenty:
+        return {}, 0.0
+    odp, koszt = czat_json(SYSTEM, f"""Dla każdego dokumentu oceń, czy dotyczy TEGO SAMEGO PROBLEMU co zgłoszenie: tej samej potrzeby
+i tego samego przedmiotu albo grupy odbiorców, tak że jego autorzy mogą być partnerami, odbiorcami rozwiązania albo źródłem
+doświadczeń. Inna metoda lub technologia nie przeszkadza: wtedy "tak". Odpowiedz "nie", gdy dokument dzieli ze zgłoszeniem
+tylko słowa, a dotyczy innego przedmiotu albo innej grupy (np. ludzie zamiast zwierząt, budynki zamiast pojazdów), albo gdy
+jest ogólną inwestycją niezwiązaną z tym problemem. JSON:
+{{"oceny": [{{"dokument_id": "id z nawiasu kwadratowego", "ten_sam_problem": "tak|nie", "uzasadnienie": "jedno zdanie"}}]}}
+
+ZGŁOSZENIE:
+{zgl_opis[:2000]}
+
+DOKUMENTY:
+{_dokumenty_txt(dokumenty, 500)}""")
+    dozwolone = {d.id for d in dokumenty}
+    wynik = {}
+    for o in odp.get("oceny") or []:
+        if isinstance(o, dict) and _z(o.get("dokument_id"), dozwolone) and _z(o.get("ten_sam_problem"), {"tak", "nie"}):
+            wynik[o["dokument_id"]] = {"ten_sam": o["ten_sam_problem"] == "tak", "uzasadnienie": _tekst(o.get("uzasadnienie"))}
+    return wynik, koszt
+
+
 def rubryka_nowosci(zgl_opis: str, dokumenty: list) -> tuple[list[dict], float]:
     pytania = "\n".join(f"{k}: {p}" for k, p in RUBRYKA)
     odp, koszt = czat_json(SYSTEM, f"""Oceń nowość zgłoszenia względem ZNALEZIONYCH DOKUMENTÓW (to wszystko, co wiesz o stanie techniki).

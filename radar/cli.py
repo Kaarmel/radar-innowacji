@@ -25,6 +25,9 @@ def main(argv=None) -> int:
     pk.add_argument("--n-br", type=int, default=20)
     sub.add_parser("raport", help="liczy miary zestawu testowego → walidacja/raport.md i dane/zestaw_raport.json")
     sub.add_parser("przelicz", help="przelicza zapisane oceny potencjału po zmianie wzoru")
+    pp = sub.add_parser("przelicz-podobne", help="ponownie liczy zapotrzebowanie, finansowanie, R4 i partnerów z potwierdzeniem tematu (filtry bez zmian)")
+    pp.add_argument("ids", nargs="*", type=int)
+    pp.add_argument("--sucho", action="store_true", help="tylko pokazuje wynik, bez zapisu")
     ps = sub.add_parser("sprawdz", help="sprawdza zgłoszenie o danym id albo nowe z --opis")
     ps.add_argument("id", nargs="?", type=int)
     ps.add_argument("--tytul", default="Zgłoszenie z wiersza poleceń")
@@ -64,6 +67,16 @@ def main(argv=None) -> int:
     elif a.cmd == "przelicz":
         from . import potencjal
         print(f"przeliczono ocen: {potencjal.przelicz_zapisane(con)}", flush=True)
+    elif a.cmd == "przelicz-podobne":
+        import json
+
+        from .sprawdz import przelicz_podobne
+        ids = a.ids or [r[0] for r in con.execute("SELECT id FROM zgloszenie WHERE status='gotowe' ORDER BY id")]
+        for zid in ids:
+            w = przelicz_podobne(con, zid, zapisz=not a.sucho)
+            print(json.dumps({"id": zid, "potencjal": w["wynik"], "sciezki": [r.reguly[0] for r in w["rekomendacje"]],
+                              "partnerzy": [p["nazwa"] for p in w["partnerzy"]],
+                              "odrzucone": [o["tytul"][:70] for o in w["tematy"]["odrzucone"]]}, ensure_ascii=False), flush=True)
     elif a.cmd == "raport":
         from . import walidacja
         walidacja.raport(con)

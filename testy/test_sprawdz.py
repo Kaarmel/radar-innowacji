@@ -23,6 +23,7 @@ def con(tmp_path, monkeypatch):
     monkeypatch.setattr(ai, "ten_sam_pomysl", lambda o, d: ({x.id: {"ocena": "ten_sam", "uzasadnienie": "ten sam"} for x in d}, 0.001))
     monkeypatch.setattr(ai, "rubryka_nowosci", lambda o, d: ([{"pytanie": f"Q{i}", "odpowiedz": "nie", "dokument_id": None,
                                                                "uzasadnienie": ""} for i in range(1, 6)], 0.001))
+    monkeypatch.setattr(ai, "ten_sam_problem", lambda o, d: ({}, 0.0))
     monkeypatch.setattr(mapadotacji, "beneficjent", lambda link: None)
     return c
 
