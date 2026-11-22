@@ -27,7 +27,7 @@ W nocy AI przepuściło zajęcia straży miejskiej z maskotką. Analityk odrzuci
 Etykiety pochodzą z głosowania modeli, więc każde odrzucenie przegląda człowiek.
 
 **3:30–4:30 · Wdrożenie.** Slajd 9.
-Działa teraz na jednym serwerze (1 vCPU, 4 GB RAM): 338 473 dokumentów, radar co godzinę, bazy co tydzień.
+Działa teraz na jednym serwerze (1 vCPU, 4 GB RAM): 357 121 dokumentów, radar co godzinę, bazy co tydzień.
 Jedno sprawdzenie kosztuje ok. 0,001 $. REST API, licencja EUPL. Nowa organizacja to jeden plik z kryteriami i wagami.
 Dalej: logowanie analityków i kalibracja wag na decyzjach z dziennika.
 
