@@ -6,32 +6,32 @@ Plan B na wypadek braku sieci: PDF (`docs/prezentacja/radar-innowacji.pdf`) i fi
 
 ## Scenariusz (5:00)
 
-**0:00–0:30 · Haczyk.**
-„Wczoraj o 19:12 technikum w Trzcianie napisało w aktualnościach o aplikacji RescuePet do zgłaszania rannych zwierząt.
-Nikt jej nigdzie nie zgłaszał. Po godzinie była w kolejce PCI, z oceną 74 na 100 i linkiem do każdego dowodu.
+**0:00–0:30 · Haczyk.** Slajd 1.
+„Miesiąc temu technikum w Trzcianie opisało w aktualnościach koncepcję aplikacji RescuePet do zgłaszania rannych zwierząt.
+Nikt jej nigdzie nie zgłaszał. Wczoraj radar sam ją znalazł, a pół minuty później była w kolejce PCI, z oceną 74 na 100 i linkiem do każdego dowodu.
 To jest Radar Innowacji.”
 
-**0:30–1:10 · Problem (empatia).**
+**0:30–1:10 · Problem (empatia).** Slajdy 2–3.
 Analityk PCI dowiaduje się o innowacjach przypadkiem. Szuka ręcznie: bazy, strony szkół, telefony.
 Każdy projekt sprawdza sam: czy jest nowy, czy to kopia albo plagiat, czy nie blokuje go patent. Powody decyzji nigdzie nie zostają.
 Mentorzy PCI powiedzieli nam wprost: odkrywać to, co już istnieje, i dawać procent z dowodem.
 
-**1:10–2:40 · Demo (pomysł i prototyp).**
+**1:10–2:40 · Demo (pomysł i prototyp).** Slajdy 4–7 albo na żywo.
 1. Strona główna: lejek. Z 1 519 wpisów zostało 13 innowacji. Przycisk „Sprawdź źródła teraz”.
 2. Karta 7: cytat ze strony szkoły, cztery filtry z procentami, potencjał z jawnego wzoru, ścieżka i miernik skuteczności.
 3. „Szukam rozwiązania”: drony → AirNest → „Oceń ten projekt”. Karta 18 gotowa w 17 sekund: potencjał 87, partnerzy, ścieżka.
 
-**2:40–3:30 · Test (uczciwie).**
+**2:40–3:30 · Test (uczciwie).** Slajd 8.
 Na 50 nowych projektach ranking potencjału trafia w 89% par. Bramka zatrzymała 29 z 30 rutyn i odrzuciła 2 z 20 nowości.
-W nocy AI przepuściło zajęcia straży miejskiej z maskotką. Człowiek odrzucił je jednym kliknięciem, a my uszczelniliśmy bramkę.
+W nocy AI przepuściło zajęcia straży miejskiej z maskotką. Analityk odrzucił je jedną decyzją, a my uszczelniliśmy bramkę.
 Etykiety pochodzą z głosowania modeli, więc każde odrzucenie przegląda człowiek.
 
-**3:30–4:30 · Wdrożenie.**
+**3:30–4:30 · Wdrożenie.** Slajd 9.
 Działa teraz na jednym serwerze (1 vCPU, 4 GB RAM): 338 473 dokumentów, radar co godzinę, bazy co tydzień.
 Jedno sprawdzenie kosztuje ok. 0,001 $. REST API, licencja EUPL. Nowa organizacja to jeden plik z kryteriami i wagami.
 Dalej: logowanie analityków i kalibracja wag na decyzjach z dziennika.
 
-**4:30–5:00 · Zamknięcie.**
+**4:30–5:00 · Zamknięcie.** Slajd 10.
 „Radar sprawia, że analityk dowiaduje się o innowacji pierwszy i od razu ma dowody. Decyzja zostaje przy człowieku.
 Od poniedziałku może pracować dla PCI.”
 
@@ -48,4 +48,5 @@ Od poniedziałku może pracować dla PCI.”
 | Jak dodać inną organizację lub województwo? | Plik JSON z komórkami, ścieżkami i wagami; lista stron w CSV; Mapa Dotacji już obejmuje całą Polskę. |
 | Strony bez RSS? | Dziś radar czyta 125 ze 172 stron, które mają kanał RSS lub Atom. Parser stron z aktualnościami to następny krok. |
 | Skąd wagi potencjału? | Eksperckie, jawne w profilu organizacji. Dziennik decyzji analityków posłuży do kalibracji. |
+| Dlaczego przy RescuePet są projekty o bezdomności? | Dopasowanie po słowie „bezdomnych” (zwierzęta, nie ludzie). Dlatego każdy punkt ma link: analityk widzi to od razu. Ograniczenie opisane w README; następny krok to potwierdzanie partnerów przez AI, tak jak przy kopii. |
 | Czym różni się od wyszukiwarki? | Wyszukiwarka czeka na pytanie. Radar sam znajduje nowe wpisy, ocenia je i kładzie analitykowi gotową kartę do decyzji. |

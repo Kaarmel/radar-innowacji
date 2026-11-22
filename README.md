@@ -117,7 +117,7 @@ każdą odpowiedź, która powołuje się na dokument spoza wyników, i każdy �
 
 | Źródło | Tryb | Zakres | Uwagi |
 |---|---|---|---|
-| [Mapa Dotacji UE](https://mapadotacji.gov.pl) | pobierane (API WordPress) | 265 880 projektów z całej Polski (stan na 22.11.2026) | beneficjent tylko ze strony projektu, dociągany na żądanie; filtr województwa |
+| [Mapa Dotacji UE](https://mapadotacji.gov.pl) | pobierane (API WordPress) | 265 980 projektów z całej Polski (stan na 22.11.2026) | beneficjent tylko ze strony projektu, dociągany na żądanie; filtr województwa |
 | [Interreg Polska–Słowacja](https://pl-sk.eu) | pobierane (XLSX) | 258 projektów | |
 | [RAD-on](https://radon.nauka.gov.pl): projekty | pobierane (API) | 48 817 projektów naukowych | bez nazwisk kierowników |
 | RAD-on: patenty | pobierane (API) | 19 004 patentów i wzorów polskich uczelni | bez nazwisk twórców |

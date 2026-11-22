@@ -37,10 +37,10 @@ Radar Innowacji. Sam znajduje innowacje w Polsce i ocenia je z dowodami.
 Analityk centrum innowacji ma problem: najciekawsze pomysły giną na stronach szkół, uczelni i gmin. Nikt ich nie zgłasza, więc trzeba ich szukać.
 
 ### s03 · Pomysł: rozwiązanie (do 30 słów)
-Radar co godzinę sprawdza strony stu siedemdziesięciu dwóch instytucji. Sztuczna inteligencja odrzuca wydarzenia i zakupy. Reszta przechodzi cztery filtry i dostaje ocenę potencjału z dowodami.
+Radar co godzinę czyta aktualności ze stu dwudziestu pięciu stron szkół, uczelni i instytucji. Sztuczna inteligencja odrzuca wydarzenia i zakupy. Reszta przechodzi cztery filtry i dostaje ocenę potencjału z dowodami.
 
 ### s04 · Przypadek 1 · a) wykrycie (do 20 słów)
-Przypadek pierwszy. Radar sam znalazł na stronie technikum w Trzcianie aplikację RescuePet do zgłaszania rannych zwierząt.
+Przypadek pierwszy. Radar sam znalazł na stronie technikum w Trzcianie koncepcję aplikacji RescuePet do zgłaszania rannych zwierząt.
 
 ### s05 · b) informacje (do 22 słów)
 Wszystko jest w jednej karcie: opis, cytat ze strony, poziom gotowości, specjalizacja regionu i wiarygodność źródła.
@@ -55,16 +55,16 @@ Projekt trafia do komórki młodych innowatorów. Radar proponuje ochronę pomys
 Każda ścieżka ma miernik skuteczności. Decyzję podejmuje analityk, a powód trafia do dziennika.
 
 ### s09 · Przypadek 2 · a) zgłoszenie (do 22 słów)
-Przypadek drugi. Ktoś szuka rozwiązania do obsługi dronów. Wpisuje temat, wybiera projekt z bazy i jednym kliknięciem zleca ocenę.
+Przypadek drugi. Ktoś szuka rozwiązania do ładowania dronów. Wpisuje temat, wybiera projekt z bazy i zleca jego ocenę.
 
 ### s10 · b–c) karta i ocena (do 22 słów)
 Po kilkunastu sekundach jest gotowa karta. Radar porównał projekt z setkami tysięcy dokumentów: wszystkie filtry zielone, potencjał osiemdziesiąt siedem na sto.
 
 ### s11 · d–e) ścieżka i miernik (do 22 słów)
-Ścieżka to ochrona, z miernikiem: zgłoszenie patentowe w ciągu roku. Radar wskazuje też uczelnie i instytuty, które budują podobne drony.
+Ścieżka to ochrona, z miernikiem: zgłoszenie patentowe albo licencja w ciągu roku. Radar wskazuje uczelnie i instytuty, które prowadzą projekty z dronami.
 
 ### s12 · Test (do 26 słów)
-Sprawdzamy się uczciwie. Na zestawie kontrolnym bramka zatrzymała dwadzieścia dziewięć z trzydziestu rutyn. Gdy przepuści zajęcia z maskotką, człowiek odrzuca je jednym kliknięciem.
+Sprawdzamy się uczciwie. Na zestawie kontrolnym bramka zatrzymała dwadzieścia dziewięć z trzydziestu rutyn. Na żywo raz przepuściła zajęcia z maskotką; analityk odrzucił je jedną decyzją.
 
 ### s13 · Wdrożenie (do 22 słów)
 Radar działa na serwerze i ma otwarte API. Nowa organizacja to nowy plik z kryteriami, bez zmian w kodzie. Zapraszamy do demo.
