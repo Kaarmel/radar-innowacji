@@ -61,6 +61,16 @@ def test_radar_odrzuca_inwestycje_i_remonty(monkeypatch):
         assert slowo in wyslane["u"], slowo
 
 
+def test_radar_odrzuca_zajecia_kampanie_i_maskotki(monkeypatch):
+    """Karta 10 (zajęcia straży miejskiej z maskotką) i 13 (szkolenie z pierwszej pomocy) przeszły bramkę AI: to rutyna, nie innowacja."""
+    from radar import ai
+    wyslane = {}
+    monkeypatch.setattr(ai, "czat_json", lambda s, u: (wyslane.update(u=u), ({}, 0.0))[1])
+    ai.czy_innowacja("t", "x")
+    for slowo in ("szkolenie", "pokaz", "kampania", "pogadanka", "maskotka", "konkurs", "zakup lub montaż gotowych instalacji"):
+        assert slowo in wyslane["u"], slowo
+
+
 def test_formularz_to_ocena_projektu_przez_analityka(klient):
     s = klient.get("/zglos").text
     assert "Oceń projekt" in s and "Do kogo kierujesz" not in s and "Profil oceny" in s

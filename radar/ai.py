@@ -209,8 +209,12 @@ def czy_innowacja(tytul: str, tekst: str) -> tuple[dict, float]:
 (urządzenie, aplikację, metodę nauczania, program, usługę, sposób organizacji pracy), które działa albo zostało przetestowane
 lub udostępnione (definicja innowacji wg Oslo Manual 2018)? Odpowiedz "tak" TYLKO wtedy, gdy tekst mówi konkretnie, CO
 zbudowano lub opracowano i JAK to działa albo do czego służy. NIE: wydarzenie, warsztaty, hackathon, wycieczka, uroczystość,
-zakup sprzętu, wyposażenie pracowni, budowa, przebudowa lub remont, inwestycja w infrastrukturę, projekt unijny opisany
-tylko celami, nabór, rekrutacja, ogłoszenie, wynik w konkursie bez opisu działania rozwiązania. JSON:
+szkolenie, pokaz, pogadanka, zajęcia lub kampania edukacyjna albo profilaktyczna (także gdy występuje maskotka
+lub „autorska postać”), konkurs, akcja, zakup sprzętu, zakup lub montaż gotowych instalacji (np. fotowoltaika,
+magazyny energii), wyposażenie pracowni, budowa, przebudowa lub remont, inwestycja w infrastrukturę, projekt unijny
+opisany tylko celami, nabór,
+rekrutacja, ogłoszenie, wynik w konkursie bez opisu działania rozwiązania. Wyjątek: tekst opisuje konkretne nowe narzędzie
+lub metodę opracowaną w instytucji (np. aplikację, urządzenie, autorski program nauczania) i to, jak działa. JSON:
 {{"czy": "tak|nie|niepewne", "cytat": "dosłowny fragment tekstu (do 200 znaków) opisujący działanie rozwiązania, bez imion i nazwisk"}}
 
 Tytuł: {tytul}

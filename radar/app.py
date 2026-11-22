@@ -302,7 +302,7 @@ def start(request: Request, con=Depends(polaczenie)):
     zwiad = {"projekty": liczby.get("mapadotacji", 0) + liczby.get("interreg", 0), "naukowe": liczby.get("radon", 0),
              "patenty": liczby.get("radon_patenty", 0) + liczby.get("uprp", 0), "www": _liczba_stron_www()}
     return strona(request, "start.html", liczby=liczby, razem=sum(v for k, v in liczby.items()), zgloszen=zgl, stan=stan,
-                  wykryte=wykryte, radar=radar, zwiad=zwiad, dowod=_dowod(con, wykryte[0]["id"]) if wykryte else None,
+                  wykryte=wykryte, radar=radar, zwiad=zwiad, dowod=_dowod(con, _id_na_pierwszy_ekran(con, wykryte)),
                   lejek=_lejek(con, radar), stan_radaru=_stan_radaru(radar), komunikat_radaru=request.query_params.get("radar", ""))
 
 
@@ -357,7 +357,18 @@ def radar_teraz():
     return RedirectResponse(f"/?radar={wynik}#radar", status_code=303)
 
 
-def _dowod(con, zid: int) -> dict:
+def _id_na_pierwszy_ekran(con, wykryte: list[dict]) -> int | None:
+    """Najnowsze wykrycie radaru bez flag (werdykt „dalej”), którego analityk nie odrzucił; bez takiego: najnowsze z listy."""
+    r = con.execute("""SELECT z.id FROM zgloszenie z WHERE z.wejscie='radar' AND z.werdykt='dalej'
+                       AND COALESCE((SELECT d.decyzja FROM decyzja d WHERE d.zgl_id = z.id ORDER BY d.kiedy DESC, d.id DESC LIMIT 1), '')
+                           NOT IN ('odrzuc', 'potwierdz_odrzucenie')
+                       ORDER BY z.id DESC LIMIT 1""").fetchone()
+    return r[0] if r else (wykryte[0]["id"] if wykryte else None)
+
+
+def _dowod(con, zid: int | None) -> dict | None:
+    if zid is None:
+        return None
     """Ostatnie wykrycie na pierwszy ekran: cytat ze źródła, cztery filtry z procentem i pasmem, ocena potencjału."""
     z = dict(con.execute("SELECT id, tytul, instytucja, cytat, link, werdykt, status, utworzono_at FROM zgloszenie WHERE id=?",
                          (zid,)).fetchone())

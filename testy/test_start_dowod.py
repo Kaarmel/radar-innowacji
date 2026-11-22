@@ -27,6 +27,19 @@ def test_start_zaczyna_od_ostatniego_wykrycia_z_dowodami(klient):
         assert tekst in karta, tekst
 
 
+def test_pierwszy_ekran_woli_wykrycie_bez_flag(klient):
+    """Na pierwszym ekranie najnowsze wykrycie, które przeszło wszystkie filtry bez flag; nowsze „do przeglądu” zostaje na liście."""
+    con = db.polacz()
+    starsze = _wykrycie(con, "Aplikacja do zgłaszania zwierząt", "aplikacja przesyła zgłoszenie z lokalizacją")
+    with con:
+        con.execute("UPDATE zgloszenie SET werdykt='dalej' WHERE id=?", (starsze,))
+    _wykrycie(con, "Instalacje OZE w szkołach", "panele i magazyny energii")
+    s = klient.get("/").text
+    karta = s[s.index('class="dowod-karta"'):s.index("Ostatnio wykryte przez radar")]
+    assert "Aplikacja do zgłaszania zwierząt" in karta and "Ostatnie wykrycie bez flag" in karta
+    assert "Instalacje OZE w szkołach" in s[s.index("Ostatnio wykryte przez radar"):]
+
+
 def test_odrzucone_przez_analityka_nie_trafia_na_pierwszy_ekran(klient):
     con = db.polacz()
     _wykrycie(con, "Pracownia robotyki", "roboty z drukarki 3D")

@@ -17,7 +17,7 @@
   </div>
   {% if dowod %}
   <aside class="dowod-karta" aria-label="Ostatnie wykrycie radaru">
-    <p class="dk-meta">Ostatnie wykrycie · {{ dowod.utworzono_at | data }}</p>
+    <p class="dk-meta">{% if dowod.werdykt == 'dalej' %}Ostatnie wykrycie bez flag{% else %}Ostatnie wykrycie{% endif %} · {{ dowod.utworzono_at | data }}</p>
     <h2 class="dk-tytul"><a href="/karta/{{ dowod.id }}">{{ dowod.tytul }}</a></h2>
     <p class="dk-inst">{{ dowod.instytucja or 'instytucja nieustalona' }}</p>
     {% if dowod.cytat %}{% set href = dowod.link | link %}
