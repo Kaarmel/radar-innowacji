@@ -70,9 +70,9 @@
     <tr><td>Patent: opis patentu uczelni przepisany</td><td class="num"><b>5 z 5</b></td></tr><tr><td>Własna praca: kontynuacja, bez odrzucenia</td><td class="num"><b>5 z 5</b></td></tr>
     <tr><td>Duplikat zgłoszenia</td><td class="num"><b>3 z 3</b></td></tr></table>
     <p class="small">Mediana czasu 44,3 s (4 sprawdzenia równolegle), średni koszt AI 0,00129 $.</p></div><div>
-    <h3>Nowość na 20 prawdziwych projektach</h3><p>Etykiety: głosowanie 5 niezależnych modeli (GPT, Gemini, Claude, Mistral, Antigravity), 19 z 20 jednogłośnie.</p>
-    <p>Po poprawkach rubryki: rutyna czerwona w 9 z 10, wdrożenia i B+R w 3 z 8. Zgodność 0,78 (było 0,56); średni potencjał 48 vs 9 pkt.</p>
-    <p class="small">Poprawki na tych samych 20 projektach: to nie jest niezależny pomiar, a wyniki wahają się między przebiegami. Każde odrzucenie przegląda człowiek.</p></div></div></section>
+    <h3>Nowość: pomiar na 50 nowych projektach</h3><p>Etykiety: głosowanie 5 modeli (GPT, Gemini, Claude, Mistral, Antigravity). Rubrykę zamroziliśmy przed losowaniem projektów.</p>
+    <p>Potencjał nowości wyżej niż rutyny w 89% par (AUC 0,89). Lejek odrzucił 2 z 20 nowości i zatrzymał 29 z 30 rutyn. Sam kolor nowości zgadza się w 0,62: rutyna często trafia na żółte „do sprawdzenia”.</p>
+    <p class="small">Na 20 projektach, na których poprawialiśmy rubrykę, zgodność 0,95; niezależny jest tylko zestaw kontrolny. Każde odrzucenie przegląda człowiek.</p></div></div></section>
 <section><h2>Wdrożenie i skalowanie</h2><div class="cols"><div><h3>Już działa</h3><ul>
     <li>Publiczna strona i REST API (OpenAPI): radar, wyszukiwarka, karta, kolejka, ocena projektu.</li>
     <li>Nowa organizacja = 1 plik JSON: komórki, ścieżki, wagi, specjalizacje. Kolejka pod /o/&lt;nazwa&gt;.</li>

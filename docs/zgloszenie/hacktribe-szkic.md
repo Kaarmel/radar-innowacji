@@ -28,8 +28,10 @@ OpenRouter) tłumaczy zapytanie, potwierdza kopie i odpowiada na 5 pytań rubryk
 na który powołuje się AI, był w wynikach. Jedno sprawdzenie trwa ok. 15–60 s (limit 150 s) i kosztuje ok. 0,001 $.
 
 **Miary.** 52 przypadki ze znaną prawdą zbudowane z danych: plagiat 9/9, kopia 10/10, patent 5/5, własna praca 5/5,
-duplikat 3/3. Na 20 prawdziwych projektach z etykietami z głosowania 5 niezależnych modeli (nie człowieka) zgodność
-filtra nowości wynosi 0,78 (n=18). Rubrykę poprawialiśmy na tych samych projektach, więc to nie jest niezależny pomiar.
+duplikat 3/3. Na 50 nowych projektach wylosowanych po zamrożeniu rubryki (etykiety z głosowania 5 modeli, nie człowieka)
+potencjał nowości jest wyższy niż rutyny w 89% par (AUC 0,89), lejek odrzucił 2 z 20 nowości i zatrzymał 29 z 30 rutyn,
+a sam kolor nowości zgadza się z etykietą w 0,62 (n=48). Na 20 projektach, na których poprawialiśmy rubrykę, zgodność
+wynosi 0,95, ale to nie jest niezależny pomiar.
 
 **Dla kogo.** Zakładki z prostym opisem i demo dla analityka PCI, szkół i młodych (16–30), uczelni, gmin i firm.
 

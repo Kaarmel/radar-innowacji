@@ -173,22 +173,29 @@ Mistral Small (przez OpenRouter) i Antigravity. Nie głosował DeepSeek, który 
 jednogłośnych (`walidacja/etykiety_glosy.csv`); to nie jest ocena człowieka.
 
 Pierwszy pomiar pokazał, że filtr nowości był za surowy dla wdrożeń firm (czerwony w 6 z 9). Poprawiliśmy rubrykę:
-pytanie o rutynę bez podwójnego przeczenia, a „brak nowości” tylko wtedy, gdy dokument opisuje to samo rozwiązanie,
-nie podobny temat. Gdy żaden dokument nie opisuje tego samego, odpowiedź brzmi „tak”. Pomiar obecnej wersji (wszystkie 20
-sprawdzone w limicie czasu, najdłużej 58 s):
+pytanie o rutynę bez podwójnego przeczenia, „brak nowości” tylko wtedy, gdy dokument opisuje to samo rozwiązanie,
+a własne nowe rozwiązanie najwyżej żółte (Oslo 2018: nowe dla instytucji to też innowacja). Potem rubrykę zamroziliśmy
+i zmierzyliśmy ją na zestawie kontrolnym.
 
-| Miara | Przed poprawką | Obecna wersja |
-|---|---|---|
-| Zgodność filtra nowości z etykietami | 0,56 (n=16) | 0,78 (n=18) |
-| Rutyna: czerwona nowość | 6 z 7 | 9 z 10 |
-| Wdrożenia i B+R: czerwona nowość | 6 z 9 | 3 z 8 |
-| Projekty bez oceny nowości | 4 z 20 (3 przekroczyły czas) | 2 z 20 |
-| Średni potencjał: nowość / rutyna | 28 / 18 pkt | 48 / 8,7 pkt |
+| Miara | Pierwszy pomiar (20 projektów) | Obecna wersja (te same 20) | Zestaw kontrolny (50 nowych) |
+|---|---|---|---|
+| Zgodność koloru nowości z etykietami (żółte i zielone = nowość) | 0,56 (n=16) | 0,95 (n=19) | **0,62 (n=48)** |
+| Średni potencjał: nowość / rutyna | 28 / 18 pkt | 59,8 / 10,5 pkt | **66,8 / 22,0 pkt** |
+| Potencjał nowości wyżej niż rutyny (AUC, bez progu) | – | 0,93 | **0,89** |
+| Nowości odrzucone przez lejek | – | 2 z 10 | **2 z 20** |
+| Rutyny zatrzymane (odrzucone lub do przeglądu) | – | 10 z 10 | **29 z 30** |
 
-Uczciwie: rubrykę poprawialiśmy na tych samych 20 projektach, więc to nie jest niezależny pomiar. Wyniki wahają się
-między przebiegami (pośrednia wersja dała zgodność 0,87, ale 5 z 20 projektów bez oceny), więc przy 20 projektach
-traktujemy je jako orientacyjne. Następny krok: etykiety analityków PCI na nowych projektach. Każde odrzucenie przegląda
-człowiek. Opisy projektów OSP często dzielą szablonowe zdania, więc filtr plagiatu flaguje je do przeglądu.
+Niezależny jest tylko zestaw kontrolny: 50 projektów Mapy Dotacji wylosowanych po zamrożeniu rubryki (30 losowych
+i 20 losowych ze słowami B+R, innowacja, technologia), z pominięciem projektów użytych wcześniej. Etykiety pochodzą
+z tego samego głosowania 5 modeli (39 z 50 jednogłośnych, `walidacja/kontrolne_glosy.csv`). Rubryki po tym pomiarze
+nie zmienialiśmy. Spadek z 0,95 do 0,62 pokazuje, ile dało dopasowanie do 20 projektów, na których poprawialiśmy rubrykę.
+
+Wniosek z zestawu kontrolnego: ranking potencjału działa (losowa nowość ma wyższy potencjał niż losowa rutyna w 89%
+par), a lejek rzadko odrzuca prawdziwą nowość (2 z 20). Słaby jest sam kolor nowości: 15 z 30 rutyn dostaje żółte
+„do sprawdzenia”, bo reguła Oslo obejmuje też część zwykłych inwestycji. To błąd w bezpieczną stronę: więcej przeglądu,
+mniej utraconych innowacji. Następną poprawkę zmierzymy na nowym zestawie kontrolnym, a docelowo na etykietach
+analityków PCI. Każde odrzucenie przegląda człowiek. Opisy projektów OSP często dzielą szablonowe zdania, więc filtr
+plagiatu flaguje je do przeglądu.
 
 ## Uruchomienie
 
