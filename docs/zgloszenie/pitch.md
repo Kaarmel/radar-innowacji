@@ -17,7 +17,7 @@ Każdy projekt sprawdza sam: czy jest nowy, czy to kopia albo plagiat, czy nie b
 Mentorzy PCI powiedzieli nam wprost: odkrywać to, co już istnieje, i dawać procent z dowodem.
 
 **1:10–2:40 · Demo (pomysł i prototyp).** Slajdy 4–7 albo na żywo.
-1. Strona główna: lejek. Z 1 519 wpisów zostało 13 innowacji. Przycisk „Sprawdź źródła teraz”.
+1. Strona główna: lejek. Z 1 539 wpisów zostało 13 innowacji. Przycisk „Sprawdź źródła teraz”.
 2. Karta 7: cytat ze strony szkoły, cztery filtry z procentami, potencjał z jawnego wzoru, ścieżka i miernik skuteczności.
 3. „Szukam rozwiązania”: drony → AirNest → „Oceń ten projekt”. Karta 18 gotowa w 17 sekund: potencjał 87, partnerzy, ścieżka.
 
@@ -27,7 +27,7 @@ W nocy AI przepuściło zajęcia straży miejskiej z maskotką. Analityk odrzuci
 Etykiety pochodzą z głosowania modeli, więc każde odrzucenie przegląda człowiek.
 
 **3:30–4:30 · Wdrożenie.** Slajd 9.
-Działa teraz na jednym serwerze (1 vCPU, 4 GB RAM): 357 121 dokumentów, radar co godzinę, bazy co tydzień.
+Działa teraz na jednym serwerze (1 vCPU, 4 GB RAM): 386 243 dokumentów, radar co godzinę, bazy co tydzień.
 Jedno sprawdzenie kosztuje ok. 0,001 $. REST API, licencja EUPL. Nowa organizacja to jeden plik z kryteriami i wagami.
 Dalej: logowanie analityków i kalibracja wag na decyzjach z dziennika.
 

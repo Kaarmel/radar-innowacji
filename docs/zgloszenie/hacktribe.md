@@ -23,7 +23,7 @@ szkół, uczelni i gmin. To, czy projekt jest nowy, czy to nie kopia albo plagia
 
 **Jak działa.**
 1. **Odkrywa:** co godzinę (i na żądanie) sprawdza 172 strony szkół, uczelni i instytucji (125 ma kanał RSS). AI odrzuca wydarzenia, szkolenia i zakupy.
-2. **Sprawdza:** 4 filtry odrzucenia (plagiat, kopia pomysłu, patent, nowość) na tle 357 121 dokumentów: projektów z dotacją,
+2. **Sprawdza:** 4 filtry odrzucenia (plagiat, kopia pomysłu, patent, nowość) na tle 386 243 dokumentów: projektów z dotacją,
    projektów naukowych i patentów, a do tego EPO, OpenAlex i Crossref na żywo. Każdy wynik ma procent i link do dowodu.
 3. **Ocenia:** potencjał 0–100 z jawnego wzoru (nowość, dojrzałość, zapotrzebowanie, specjalizacje regionu, ochrona, finansowanie)
    i karta innowacji: status wdrożenia, TRL, wiarygodność, każde pole oznaczone jako fakt, deklaracja albo szacunek AI.
@@ -49,9 +49,9 @@ rekomendację zatwierdza analityk.
 ## Dotychczasowy postęp
 
 Działa teraz: https://radar-innowacji.skroban.tech
-- Radar przeczytał 1 519 wpisów i wybrał 13 innowacji do oceny. Dwa fałszywe wykrycia (zajęcia i wydarzenie) odrzucił człowiek,
+- Radar przeczytał 1 539 wpisów i wybrał 13 innowacji do oceny. Dwa fałszywe wykrycia (zajęcia i wydarzenie) odrzucił człowiek,
   a bramkę AI uszczelniliśmy.
-- Baza: 357 121 dokumentów (Mapa Dotacji UE z całej Polski, RAD-on, patenty uczelni, Biuletyn UPRP, Interreg), odświeżana według harmonogramu.
+- Baza: 386 243 dokumentów (Mapa Dotacji UE z całej Polski, RAD-on, patenty uczelni, Biuletyn UPRP, Interreg), odświeżana według harmonogramu.
 - Test: 52 przypadki ze znaną prawdą wykryte w całości. Zestaw kontrolny 50 nowych projektów: AUC 0,89, 29 z 30 rutyn zatrzymanych,
   2 z 20 nowości odrzucone.
 - Jedno sprawdzenie trwa ok. 17 s i kosztuje ok. 0,001 $. REST API z dokumentacją, testy automatyczne, licencja EUPL-1.2.
