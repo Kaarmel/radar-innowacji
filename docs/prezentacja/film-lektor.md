@@ -58,7 +58,7 @@ Każda ścieżka ma miernik skuteczności. Decyzję podejmuje analityk, a powód
 Przypadek drugi. Ktoś szuka rozwiązania do obsługi dronów. Wpisuje temat, wybiera projekt z bazy i jednym kliknięciem zleca ocenę.
 
 ### s10 · b–c) karta i ocena (do 22 słów)
-Po kilkunastu sekundach jest gotowa karta. Radar porównał projekt z setkami tysięcy dokumentów i pokazał, co trzeba sprawdzić.
+Po kilkunastu sekundach jest gotowa karta. Radar porównał projekt z setkami tysięcy dokumentów: wszystkie filtry zielone, potencjał osiemdziesiąt siedem na sto.
 
 ### s11 · d–e) ścieżka i miernik (do 22 słów)
 Ścieżka to ochrona, z miernikiem: zgłoszenie patentowe w ciągu roku. Radar wskazuje też uczelnie i instytuty, które budują podobne drony.
