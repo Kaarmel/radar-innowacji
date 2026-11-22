@@ -1,13 +1,20 @@
 {% extends "baza.html" %}
 {% block tresc %}
 <section class="hero">
-  <h1>Radar sam wyszukuje innowacje w regionie i ocenia je z dowodami</h1>
+  <h1>Radar sam wyszukuje innowacje w Polsce i ocenia je z dowodami</h1>
   <p class="lead">Czyta strony szkół, uczelni i gmin oraz bazy projektów z dotacją, projektów badawczych i patentów.
     Każdy znaleziony projekt przechodzi przez cztery filtry odrzucenia i dostaje ocenę potencjału. Każdy wynik ma procent
     i link do dokumentu, na którym się opiera. Decyzję podejmuje człowiek.</p>
-  <p class="zwiad">Przeszukujemy: <b>{{ zwiad.projekty | liczba(0) }}</b> projektów z dotacją (Mapa Dotacji UE z całej Polski, Interreg)
-    · <b>{{ zwiad.naukowe | liczba(0) }}</b> projektów naukowych (RAD-on) · <b>{{ zwiad.patenty | liczba(0) }}</b> patentów i zgłoszeń patentowych
-    (RAD-on, Biuletyn UPRP) · <b>{{ zwiad.www }}</b> stron szkół, uczelni i instytucji · EPO, OpenAlex i Crossref na żywo.</p>
+  <div class="zwiad" aria-label="Przeszukiwane źródła">
+    <p class="zwiad-tytul">Przeszukujemy</p>
+    <div class="zwiad-siatka">
+      <div><b>{{ zwiad.projekty | liczba(0) }}</b> projektów z dotacją<span>Mapa Dotacji UE z całej Polski, Interreg</span></div>
+      <div><b>{{ zwiad.naukowe | liczba(0) }}</b> projektów naukowych<span>RAD-on</span></div>
+      <div><b>{{ zwiad.patenty | liczba(0) }}</b> patentów i zgłoszeń patentowych<span>RAD-on, Biuletyn UPRP</span></div>
+      <div><b>{{ zwiad.www }}</b> stron szkół, uczelni i instytucji<span>radar WWW, codziennie</span></div>
+    </div>
+    <p class="zwiad-na-zywo">Przy każdym sprawdzeniu dodatkowo EPO, OpenAlex i Crossref na żywo.</p>
+  </div>
   <div class="akcje">
     <a class="przycisk" href="/o/pci/kolejka">Przejrzyj wykryte innowacje</a>
     <a class="przycisk drugi" href="/szukaj">Szukam rozwiązania</a>

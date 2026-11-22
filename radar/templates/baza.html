@@ -6,7 +6,7 @@
 <title>{% block tytul %}Radar Innowacji{% endblock %}</title>
 <link rel="icon" type="image/png" href="/static/logo.png">
 <link rel="apple-touch-icon" href="/static/logo.png">
-<link rel="stylesheet" href="/static/styl.css?v=20261122a">
+<link rel="stylesheet" href="/static/styl.css?v=20261122pci">
 {% block glowa %}{% endblock %}
 </head>
 <body>
@@ -15,13 +15,13 @@
   <a class="logo" href="/"><img src="/static/logo.svg?v=08" alt="Radar Innowacji" width="235" height="44"></a>
   <nav aria-label="Główne">
     <a href="/dla/analityk" {% if sciezka.startswith('/dla/') %}aria-current="page"{% endif %}>Dla kogo</a>
-    <a href="/o/pci/kolejka" {% if sciezka.startswith('/o/') %}aria-current="page"{% endif %}>Wykryte (PCI)</a>
     <a href="/szukaj" {% if sciezka.startswith('/szukaj') %}aria-current="page"{% endif %}>Szukam rozwiązania</a>
     <a href="/kolejka" {% if sciezka == '/kolejka' %}aria-current="page"{% endif %}>Katalog</a>
     <a href="/zglos" {% if sciezka.startswith('/zglos') %}aria-current="page"{% endif %}>Oceń projekt</a>
     <a href="/miary" {% if sciezka.startswith('/miary') %}aria-current="page"{% endif %}>Miary</a>
     <a href="/warunki" {% if sciezka.startswith('/warunki') %}aria-current="page"{% endif %}>Warunki</a>
     <a href="/docs">API</a>
+    <a class="cta" href="/o/pci/kolejka" {% if sciezka.startswith('/o/') %}aria-current="page"{% endif %}>Wykryte (PCI)</a>
   </nav>
 </div></header>
 <main class="w">{% block tresc %}{% endblock %}</main>
