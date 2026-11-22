@@ -117,7 +117,7 @@ każdą odpowiedź, która powołuje się na dokument spoza wyników, i każdy �
 
 | Źródło | Tryb | Zakres | Uwagi |
 |---|---|---|---|
-| [Mapa Dotacji UE](https://mapadotacji.gov.pl) | pobierane (API WordPress) | projekty z całej Polski (pobieranie trwa; Podkarpacie: 20 069) | beneficjent tylko ze strony projektu, dociągany na żądanie; filtr województwa |
+| [Mapa Dotacji UE](https://mapadotacji.gov.pl) | pobierane (API WordPress) | 265 880 projektów z całej Polski (stan na 22.11.2026) | beneficjent tylko ze strony projektu, dociągany na żądanie; filtr województwa |
 | [Interreg Polska–Słowacja](https://pl-sk.eu) | pobierane (XLSX) | 258 projektów | |
 | [RAD-on](https://radon.nauka.gov.pl): projekty | pobierane (API) | 48 817 projektów naukowych | bez nazwisk kierowników |
 | RAD-on: patenty | pobierane (API) | 19 004 patentów i wzorów polskich uczelni | bez nazwisk twórców |
@@ -158,7 +158,7 @@ Dane z 21.11.2026 to pierwsze pełne pobranie.
 | B: lokalnie, własny model | `AI_URL` (API zgodne z OpenAI: Ollama, vLLM, LM Studio), `MODEL`, opcjonalnie `AI_API_KEY` | model 7–12 mld parametrów: ok. 8–12 GB GPU albo 16 GB RAM | nic nie opuszcza serwera; jakości nie mierzyliśmy |
 | C: bez AI | brak klucza | brak | działa wyszukiwanie, plagiat, podobieństwo, patenty; kopia i patent najwyżej żółte; nowość i potencjał: brak danych |
 
-**Wymagania:** Linux albo macOS, Python 3.12+ (albo Docker), 2 vCPU, 4 GB RAM, 2 GB dysku (baza ok. 0,6 GB),
+**Wymagania:** Linux albo macOS, Python 3.12+ (albo Docker), 1–2 vCPU, 4 GB RAM, 3 GB dysku (baza z całą Polską ok. 1,0 GB; demo działa na 1 vCPU i 4 GB RAM),
 wyjście HTTPS do źródeł, reverse proxy z HTTPS. Klucze: `OPENROUTER_API_KEY` (ścieżka A), `OPENALEX_API_KEY`
 (darmowy, opcjonalny); EPO i RAD-on bez klucza. Jedno sprawdzenie trwa 15–45 s.
 

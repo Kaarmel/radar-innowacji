@@ -27,7 +27,7 @@ W nocy AI przepuściło zajęcia straży miejskiej z maskotką. Człowiek odrzuc
 Etykiety pochodzą z głosowania modeli, więc każde odrzucenie przegląda człowiek.
 
 **3:30–4:30 · Wdrożenie.**
-Działa teraz na jednym serwerze (1 vCPU, 4 GB RAM): 315 616 dokumentów, radar co godzinę, bazy co tydzień.
+Działa teraz na jednym serwerze (1 vCPU, 4 GB RAM): 338 373 dokumentów, radar co godzinę, bazy co tydzień.
 Jedno sprawdzenie kosztuje ok. 0,001 $. REST API, licencja EUPL. Nowa organizacja to jeden plik z kryteriami i wagami.
 Dalej: logowanie analityków i kalibracja wag na decyzjach z dziennika.
 
