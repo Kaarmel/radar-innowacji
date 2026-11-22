@@ -1,82 +1,266 @@
-<!doctype html><html lang="pl"><head><meta charset="utf-8"><title>Radar Innowacji</title><style>
-  @page{size:1600px 900px;margin:0}*{box-sizing:border-box}body{margin:0;font-family:-apple-system,"Inter","Segoe UI",sans-serif;color:#111827}
-  section{width:1600px;height:900px;padding:64px 80px;page-break-after:always;overflow:hidden;position:relative;background:#fff}
-  h1{font-size:56px;line-height:1.15;margin:40px 0 24px;letter-spacing:-.02em}h2{font-size:42px;margin:0 0 32px;letter-spacing:-.01em}
-  h3{font-size:24px;margin:0 0 10px;color:#1d4ed8}p,li{font-size:23px;line-height:1.45}ul{padding-left:26px;margin:0 0 12px}li{margin-bottom:8px}
-  .title{background:linear-gradient(135deg,#eff6ff,#fff 60%)}.logo2{width:520px;height:auto;display:block}.lead{font-size:28px;max-width:1200px;color:#374151}
-  .links{display:flex;gap:60px;margin-top:50px;font-size:26px}.links b{color:#1d4ed8;margin-right:10px}.foot{position:absolute;bottom:50px;color:#6b7280;font-size:20px}
-  .cols{display:grid;grid-template-columns:1fr 1fr;gap:56px}.cols2{display:grid;grid-template-columns:auto 1fr;gap:44px;align-items:start}
-  .flow{display:flex;align-items:stretch;gap:10px;margin-top:30px}.step{flex:1;background:#f3f4f6;border-radius:14px;padding:22px}.step p{font-size:19px}
-  .n{width:38px;height:38px;border-radius:50%;background:#1d4ed8;color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:20px}
-  .arrow{align-self:center;font-size:34px;color:#9ca3af}.lead2{font-size:26px;margin-top:50px;color:#374151}
-  .t{border-collapse:collapse;width:100%}.t td,.t th{border-bottom:1px solid #e5e7eb;padding:10px 12px;font-size:20px;text-align:left;vertical-align:top}.t th{color:#6b7280;font-size:16px;text-transform:uppercase;letter-spacing:.05em}
-  .num{text-align:right!important;white-space:nowrap}.small{font-size:18px;color:#4b5563}.cap{font-size:19px;color:#374151;margin-top:12px}
-  .crop{overflow:hidden;border:1px solid #e5e7eb;border-radius:10px;box-shadow:0 4px 20px rgba(0,0,0,.08)}.crop img{display:block}
-  .b{font-size:15px;padding:2px 8px;border-radius:10px;font-weight:600}.ai{background:#f3e8ff;color:#7e22ce}.fo{background:#f3f4f6;color:#4b5563}.kod{background:#e0f2fe;color:#0369a1}
-  </style></head><body><section class="title"><img class="logo2" src="../../logo2.png" alt="Radar Innowacji">
-    <h1>Radar sam wyszukuje istniejące innowacje<br>i ocenia je z dowodami przy każdej liczbie</h1>
-    <p class="lead">Strony szkół, uczelni i gmin oraz publiczne bazy projektów i patentów → karta innowacji z procentami i linkami do dowodów → decyzja człowieka. Podkarpackie Centrum Innowacji jest pierwszym profilem.</p>
-    <div class="links"><div><b>Demo</b> radar-innowacji.skroban.tech</div><div><b>Kod</b> github.com/Kaarmel/radar-innowacji</div></div>
-    <p class="foot">HackNation 2026 · zadanie „Radar innowacji” · licencja EUPL-1.2</p></section>
-<section><h2>Problem</h2><div class="cols"><div>
-    <h3>Dziś</h3><ul><li>Analityk szuka projektów ręcznie: bazy, strony szkół i uczelni, telefony do naukowców.</li>
-    <li>Każdy projekt trzeba sprawdzić: czy jest nowy, czy nie jest kopią albo plagiatem, czy nie jest już opatentowany (także zgłoszenie w toku).</li>
-    <li>Ocena zależy od osoby, a powody decyzji nie są zapisane.</li></ul></div><div>
-    <h3>Czego chcą mentorzy PCI</h3><ul><li><b>Odkrywać</b> innowacje, które już istnieją, i je <b>oceniać</b>; to nie platforma do zgłaszania pomysłów.</li>
-    <li>Cztery powody odrzucenia: brak innowacyjności, kopia, plagiat, patent.</li>
-    <li>Procenty i linki do dowodów, żeby od razu wykluczyć albo przepuścić.</li>
-    <li>Nie „AI wrapper”: kod tam, gdzie się da; AI tylko do oceny nowości.</li>
-    <li>Komórki: młodzi 16–30, naukowcy, inni, ogólne.</li></ul></div></div></section>
-<section><h2>Jak działa</h2><div class="flow"><div class="step"><div class="n">1</div><h3>Odkrywanie</h3><p>radar WWW: 172 strony szkół, uczelni, PCI i gmin (co godzinę i na żądanie) · bazy projektów i patentów (co tydzień) · analityk: projekt z bazy lub z linku</p></div><div class="arrow">→</div><div class="step"><div class="n">2</div><h3>Wyszukiwanie</h3><p>88 tys. dokumentów: Mapa Dotacji, Interreg, RAD-on, patenty uczelni; EPO i publikacje na żądanie. Kod: BM25.</p></div><div class="arrow">→</div><div class="step"><div class="n">3</div><h3>Bramka</h3><p>4 filtry odrzucenia: procent, pasmo, link do dowodu</p></div><div class="arrow">→</div><div class="step"><div class="n">4</div><h3>Potencjał 0–100</h3><p>7 kryteriów, jawny wzór, wagi z profilu organizacji</p></div><div class="arrow">→</div><div class="step"><div class="n">5</div><h3>Człowiek</h3><p>kolejka, decyzja z powodem, dziennik</p></div></div>
-    <p class="lead2">AI przepuszcza z WWW tylko wpisy z konkretnym rozwiązaniem (Oslo Manual 2018), bez nazwisk. Jedno sprawdzenie trwa 15–45 s i kosztuje około 0,001 $. Każdą pozycję z flagą przegląda człowiek.</p></section>
-<section><h2>Bramka: cztery filtry odrzucenia</h2><div class="cols2"><div style="width:640px">
-    <table class="t"><tr><th>Filtr</th><th>Co mierzy</th><th>Kto</th></tr>
-    <tr><td><b>Plagiat</b></td><td>część 8-wyrazowych ciągów występująca dosłownie gdzie indziej</td><td>kod</td></tr>
-    <tr><td><b>Kopia</b></td><td>podobieństwo treści TF-IDF; czerwone tylko gdy AI potwierdzi „ten sam pomysł”</td><td>kod + AI</td></tr>
-    <tr><td><b>Patent</b></td><td>patenty EP (udzielone i zgłoszenia) i 19 tys. patentów polskich uczelni; przypomnienie o 18 miesiącach</td><td>kod + AI</td></tr>
-    <tr><td><b>Nowość</b></td><td>5 pytań rubryki; każda odpowiedź wskazuje dokument z wyników, kod to sprawdza</td><td>AI, kod sprawdza</td></tr></table>
-    <p class="small">Wcześniejsza praca tej samej instytucji nie odrzuca: jest oznaczona jako kontynuacja.</p></div>
-    <div><div class="crop" style="width:780px;height:353px"><img src="../zrzuty/karta-plagiat.png" style="width:960px;max-width:none;margin-top:-53px;margin-left:-90px"></div><p class="cap">Przepisany projekt z Mapy Dotacji: plagiat 65,9%, kopia 64,9% → odrzucone, do przeglądu.</p></div></div></section>
-<section><h2>Karta innowacji: fakty oddzielone od szacunków</h2><div class="crop" style="width:1440px;height:650px"><img src="../zrzuty/karta-innowacji.png" style="width:1772px;max-width:none;margin-top:-284px;margin-left:-166px"></div>
-    <p class="cap">Wykryte przez radar na stronie technikum: obszar, źródło z cytatem, status wdrożenia (5 poziomów), TRL, potencjał, wiarygodność liczona kodem. Każde pole: fakt z danych, deklaracja, szacunek AI albo reguła.</p></section>
-<section><h2>Ocena potencjału 0–100</h2><div class="cols2"><div><div class="crop" style="width:700px;height:673px"><img src="../zrzuty/karta-potencjal.png" style="width:862px;max-width:none;margin-top:-363px;margin-left:-81px"></div></div><div>
-    <p><b>Wzór:</b> 100 × Σ punktów / Σ maksimów kryteriów z danymi.</p>
-    <ul><li><span class="b ai">AI</span> nowość wobec znalezionych dokumentów, mierzalna przewaga</li>
-    <li><span class="b fo">formularz</span> dojrzałość (etap)</li>
-    <li><span class="b kod">kod</span> zapotrzebowanie (inne instytucje z podobnym problemem), możliwość ochrony, precedens finansowania, specjalizacje organizacji</li></ul>
-    <p><b>Bramka nowości:</b> kryteria „kod” i dojrzałość mnożymy przez udział punktów nowości. Rutynowy zakup bywa dojrzały i sfinansowany, ale nie jest innowacją.</p>
-    <p class="small">Wagi i specjalizacje są w profilu organizacji (PCI: lotnictwo i kosmos, motoryzacja, ICT, jakość życia). Przykład: filtr mikroplastiku ze szkoły w Jaśle → 47/100, ścieżka R1.</p></div></div></section>
-<section><h2>Dla kogo: ta sama karta, prosty język</h2><div class="cols2"><div><div class="crop" style="width:820px;height:526px"><img src="../zrzuty/dla-mlodzi.png" style="width:990px;max-width:none;margin-top:-46px;margin-left:-85px"></div><p class="cap">Zakładka dla szkół i młodych: korzyść, 3 kroki i przyciski do prawdziwych kart.</p></div><div>
-    <ul><li><b>Analityk PCI:</b> radar znajduje, analityk przegląda tylko flagi; decyzja z powodem trafia do dziennika.</li>
-    <li><b>Szkoła i młodzi 16–30:</b> projekt z aktualności szkoły zostaje zauważony bez zgłaszania.</li>
-    <li><b>Uczelnia:</b> nowość na tle patentów i publikacji przed ochroną.</li>
-    <li><b>Gmina:</b> kto już wdrożył podobne rozwiązanie z dotacją.</li>
-    <li><b>Firma:</b> kto w regionie pracuje nad jej problemem.</li></ul>
-    <p class="small">Komórki PCI i ścieżki z nazwaną regułą: R1 akceleracja i Protolab, R2 ochrona, R3 transfer, R4 finansowanie, R5 współpraca.</p></div></div></section>
-<section><h2>Dane, aktualność, AI i wymagania</h2><div class="cols2"><div style="width:760px">
-    <table class="t"><tr><th>Źródło</th><th class="num">Dokumenty</th><th>Aktualizacja</th></tr>
-    <tr><td>Mapa Dotacji UE (Podkarpacie)</td><td class="num">20 069</td><td>co tydzień (pon.)</td></tr>
-    <tr><td>RAD-on: projekty naukowe</td><td class="num">48 817</td><td>co tydzień (wt.)</td></tr>
-    <tr><td>RAD-on: patenty polskich uczelni</td><td class="num">19 004</td><td>co tydzień (śr.)</td></tr>
-    <tr><td>Interreg Polska–Słowacja</td><td class="num">258</td><td>co miesiąc</td></tr>
-    <tr><td>EPO, OpenAlex, Crossref</td><td class="num">na żywo</td><td>przy każdym sprawdzeniu</td></tr>
-    <tr><td>Radar WWW: RSS 172 stron</td><td class="num">wykrycia</td><td>co godzinę i na żądanie</td></tr></table>
-    <p class="small">Stan każdego źródła i harmonogram: strona /warunki. Zgłoszenia patentowe są jawne po 18 miesiącach; karta o tym przypomina. robots.txt, 1 zapytanie/s, bez obchodzenia zabezpieczeń.</p></div><div>
-    <h3>Ścieżki AI</h3><p><b>A</b> API (DeepSeek, ~0,001 $/sprawdzenie, bez trenowania na danych) · <b>B</b> model lokalny przez AI_URL (Ollama, vLLM; nic nie opuszcza serwera) · <b>C</b> bez AI: filtry kodu działają, nowość „brak danych”</p>
-    <h3>Wymagania</h3><p>2 vCPU, 4 GB RAM, 2 GB dysku; Python 3.12 albo Docker. Model lokalny: 8–12 GB GPU albo 16 GB RAM.</p>
-    <p class="small">Kod: wyszukiwanie, plagiat, podobieństwo, reguły, wzór potencjału. AI: tłumaczenie, potwierdzenie kopii, rubryka nowości, karta ze strony. Kod odrzuca dowód spoza wyników i cytat spoza tekstu.</p></div></div></section>
-<section><h2>Miary: 52 sprawdzeń ze znaną prawdą</h2><div class="cols"><div><table class="t">
-    <tr><td>Plagiat: połowa zdań z dwóch projektów</td><td class="num"><b>9 z 9</b></td></tr><tr><td>Kopia: projekt przepisany przez AI</td><td class="num"><b>10 z 10</b></td></tr>
-    <tr><td>Patent: opis patentu uczelni przepisany</td><td class="num"><b>5 z 5</b></td></tr><tr><td>Własna praca: kontynuacja, bez odrzucenia</td><td class="num"><b>5 z 5</b></td></tr>
-    <tr><td>Duplikat zgłoszenia</td><td class="num"><b>3 z 3</b></td></tr></table>
-    <p class="small">Mediana czasu 44,3 s (4 sprawdzenia równolegle), średni koszt AI 0,00129 $.</p></div><div>
-    <h3>Nowość: pomiar na 50 nowych projektach</h3><p>Etykiety: głosowanie 5 modeli (GPT, Gemini, Claude, Mistral, Antigravity). Rubrykę zamroziliśmy przed losowaniem projektów.</p>
-    <p>Potencjał nowości wyżej niż rutyny w 89% par (AUC 0,89). Lejek odrzucił 2 z 20 nowości i zatrzymał 29 z 30 rutyn. Sam kolor nowości zgadza się w 0,62: rutyna często trafia na żółte „do sprawdzenia”.</p>
-    <p class="small">Na 20 projektach, na których poprawialiśmy rubrykę, zgodność 0,95; niezależny jest tylko zestaw kontrolny. Każde odrzucenie przegląda człowiek.</p></div></div></section>
-<section><h2>Wdrożenie i skalowanie</h2><div class="cols"><div><h3>Już działa</h3><ul>
-    <li>Publiczna strona i REST API (OpenAPI): radar, wyszukiwarka, karta, kolejka, ocena projektu.</li>
-    <li>Nowa organizacja = 1 plik JSON: komórki, ścieżki, wagi, specjalizacje. Kolejka pod /o/&lt;nazwa&gt;.</li>
-    <li>SQLite + FTS5 na jednej maszynie; Docker albo systemd + Caddy z HTTPS.</li>
-    <li>Ochrona przed SSRF, escapowanie, limit sprawdzeń na IP.</li></ul></div><div><h3>Następne kroki</h3><ul>
-    <li>Biuletyn UPRP, PBN (token), zrzuty CORDIS.</li><li>Logowanie i role dla analityków.</li>
-    <li>Kalibracja wag i progów na podstawie decyzji z dziennika.</li><li>Inne województwa: parametr źródeł i lista stron.</li></ul></div></div></section></body></html>
+<!doctype html>
+<html lang="pl"><head><meta charset="utf-8"><title>Radar Innowacji · prezentacja</title>
+<style>
+@font-face{font-family:Lato;font-weight:400;src:url(../../radar/static/fonts/lato-400-latin-ext.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:Lato;font-weight:400;src:url(../../radar/static/fonts/lato-400-latin.woff2) format("woff2")}
+@font-face{font-family:Lato;font-weight:700;src:url(../../radar/static/fonts/lato-700-latin-ext.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:Lato;font-weight:700;src:url(../../radar/static/fonts/lato-700-latin.woff2) format("woff2")}
+@font-face{font-family:Lato;font-weight:900;src:url(../../radar/static/fonts/lato-900-latin-ext.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:Lato;font-weight:900;src:url(../../radar/static/fonts/lato-900-latin.woff2) format("woff2")}
+@page{size:1600px 900px;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--granat:#001A49;--niebieski:#035487;--jasny:#DEE7EF;--zielony:#6BB437;--tusz:#1D1D1B;--szary:#5b6474;--mono:ui-monospace,"SF Mono",Menlo,monospace}
+body{font-family:Lato,system-ui,sans-serif;color:var(--tusz);background:#e9edf2}
+section{width:1600px;height:900px;padding:64px 88px 70px;position:relative;overflow:hidden;page-break-after:always;break-after:page;background:#fff;margin:0 auto}
+@media screen{section{margin:24px auto;box-shadow:0 4px 30px rgba(0,26,73,.15)}}
+.siatka::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--jasny) 1px,transparent 1px),linear-gradient(90deg,var(--jasny) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.85),rgba(0,0,0,.05));mask-image:linear-gradient(180deg,rgba(0,0,0,.85),rgba(0,0,0,.05))}
+section>*{position:relative}
+.etykieta{font:600 16px/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--niebieski);display:flex;gap:12px;align-items:center}
+.etykieta::before{content:"";width:13px;height:13px;background:var(--zielony);flex:none}
+h1{font-weight:900;font-size:84px;line-height:1.02;color:var(--granat);letter-spacing:-.01em;margin:26px 0 22px}
+h2{font-weight:900;font-size:48px;line-height:1.08;color:var(--granat);margin:14px 0 30px;max-width:1240px;letter-spacing:-.005em}
+p,li{font-size:23px;line-height:1.42}
+b,strong{font-weight:900}
+.lead{font-size:29px;line-height:1.38;max-width:760px}
+.maly{font-size:18px;color:var(--szary);line-height:1.4}
+.kroki{position:absolute;top:58px;right:88px;display:flex;gap:4px;font:700 13px/1 Lato,sans-serif;letter-spacing:.06em;text-transform:uppercase}
+.kroki span{padding:8px 10px;border:1px solid var(--jasny);color:#8a96a8}
+.kroki span.tu{background:var(--granat);border-color:var(--granat);color:#fff}
+.stopka{position:absolute;left:88px;right:88px;bottom:28px;display:flex;justify-content:space-between;font-size:15px;color:var(--szary);border-top:1px solid var(--jasny);padding-top:10px}
+.stopka b{color:var(--granat)}
+.dwie{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.dwie.l{grid-template-columns:1.05fr .95fr}.dwie.p{grid-template-columns:.9fr 1.1fr}
+.zrzut{border:1px solid var(--jasny);box-shadow:12px 12px 0 var(--jasny);overflow:hidden;background:#fff}
+.zrzut img{display:block;width:100%}
+.zrzut+.zrzut{margin-top:22px}
+.kadr{overflow:hidden}.kadr img{width:100%;height:100%;object-fit:cover;object-position:top}
+a{color:inherit;text-decoration:none}
+.kafle{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.kafel{border:1px solid var(--jasny);border-top:5px solid var(--granat);padding:22px 22px 20px;background:#fff;box-shadow:8px 8px 0 var(--jasny)}
+.kafel b{display:block;font-size:46px;line-height:1;color:var(--granat);margin-bottom:10px}
+.kafel span{font-size:20px;line-height:1.35;display:block}
+.kafel.z{border-top-color:var(--zielony)}
+.pytanie{margin-top:34px;border-left:6px solid var(--zielony);background:#F3F8EE;padding:18px 24px;font-size:25px;line-height:1.4;color:var(--granat)}
+.lista{list-style:none}
+.lista li{padding:13px 0 13px 30px;border-bottom:1px solid var(--jasny);position:relative}
+.lista li::before{content:"";position:absolute;left:0;top:24px;width:12px;height:12px;background:var(--zielony)}
+.lista li b{color:var(--granat)}
+.ae{list-style:none;display:grid;gap:12px}
+.ae li{display:grid;grid-template-columns:44px 1fr;gap:16px;align-items:start}
+.ae .lit{width:44px;height:44px;background:var(--granat);color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;text-transform:lowercase}
+.ae strong{display:block;font-size:21px;color:var(--granat);line-height:1.25}
+.ae span{display:block;font-size:19px;line-height:1.38}
+table{border-collapse:collapse;width:100%}
+th{font:700 14px/1.2 Lato,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--niebieski);text-align:left;padding:10px 12px;background:#F1F5F9;border-bottom:2px solid var(--jasny)}
+td{font-size:19px;line-height:1.35;padding:10px 12px;border-bottom:1px solid var(--jasny);vertical-align:top}
+td.n{text-align:right;white-space:nowrap;font-weight:900;color:var(--granat)}
+.znak{display:inline-block;font:700 13px/1 Lato,sans-serif;padding:4px 7px;border:1px solid var(--jasny);color:var(--niebieski);white-space:nowrap}
+.znak.ai{background:#F3EEFB;color:#6b2fb3;border-color:#e2d6f5}.znak.kod{background:#EAF2FA;color:var(--niebieski)}
+.lejek{display:grid;gap:12px;margin-top:6px}
+.lejek div{color:#fff;font-weight:900;font-size:30px;padding:14px 18px;display:flex;align-items:baseline;gap:14px}
+.lejek div span{font-weight:400;font-size:19px}
+.lejek .a{background:var(--granat);width:100%}.lejek .b{background:var(--niebieski);width:72%}.lejek .c{background:var(--zielony);width:44%;color:var(--tusz)}.lejek .d{background:#fff;border:2px solid var(--granat);color:var(--granat);width:44%}
+.linki{display:grid;gap:12px;margin-top:40px;font-size:24px}
+.linki div{display:flex;gap:18px;align-items:baseline}
+.linki small{font:600 14px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--niebieski);min-width:90px}
+.linki b{color:var(--granat)}
+.trzy{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+.trzy h3{font-size:24px;color:var(--granat);margin-bottom:10px;padding-top:12px;border-top:5px solid var(--granat)}
+.trzy h3.z{border-top-color:var(--zielony)}
+.trzy p,.trzy li{font-size:19px;line-height:1.4}
+.trzy ul{list-style:none}.trzy li{padding:6px 0;border-bottom:1px solid var(--jasny)}
+.uwaga{margin-top:22px;font-size:18px;color:var(--szary);line-height:1.4}
+</style></head><body>
+
+<section class="siatka">
+  <p class="etykieta">HackNation 2026 · zadanie Podkarpackiego Centrum Innowacji</p>
+  <div class="dwie l" style="margin-top:10px">
+    <div>
+      <h1>Radar Innowacji</h1>
+      <p class="lead">Sam wyszukuje innowacje w Polsce i ocenia je z dowodami. Decyzję podejmuje człowiek.</p>
+      <div class="linki">
+        <div><small>Demo</small><a href="https://radar-innowacji.skroban.tech/"><b>radar-innowacji.skroban.tech</b></a></div>
+        <div><small>Kod</small><a href="https://github.com/Kaarmel/radar-innowacji"><b>github.com/Kaarmel/radar-innowacji</b></a></div>
+        <div><small>Film</small><a href="https://github.com/Kaarmel/radar-innowacji/blob/main/docs/prezentacja/radar-innowacji-film.mp4">w repozytorium: docs/prezentacja/radar-innowacji-film.mp4</a></div>
+      </div>
+    </div>
+    <div class="zrzut" style="margin-top:26px"><img src="img/dowod.jpg" alt="Karta ostatniego wykrycia na stronie głównej: cytat ze źródła, cztery filtry i potencjał"></div>
+  </div>
+  <div class="stopka"><span></span><span>Radar Innowacji · HackNation 2026 · 1/10</span></div>
+</section>
+
+<section>
+  <p class="etykieta">Problem</p><div class="kroki"><span class="tu">Empatia</span><span class="tu">Definicja</span><span>Pomysł</span><span>Prototyp</span><span>Test</span></div>
+  <h2>Innowacje giną na stronach szkół, uczelni i gmin</h2>
+  <div class="dwie p">
+    <div>
+      <p><b>Analityk PCI</b> szuka dziś ręcznie: bazy, strony szkół i uczelni, telefony do naukowców.</p>
+      <p style="margin-top:14px">Każdy projekt sprawdza sam: czy jest nowy, czy to nie kopia albo plagiat, czy nie blokuje go patent. Ocena zależy od osoby, a powody decyzji nigdzie nie zostają.</p>
+      <p style="margin-top:14px">Mentorzy PCI: <b>odkrywać innowacje, które już istnieją</b>, zamiast czekać na zgłoszenia.</p>
+    </div>
+    <div class="kafle" style="grid-template-columns:1fr 1fr 1fr">
+      <div class="kafel"><b>172</b><span>strony szkół, uczelni i instytucji do śledzenia</span></div>
+      <div class="kafel"><b>1 519</b><span>wpisów przeczytanych przez radar od startu</span></div>
+      <div class="kafel z"><b>13</b><span>z nich to innowacje warte oceny</span></div>
+    </div>
+  </div>
+  <p class="pytanie"><b>Pytanie projektowe:</b> jak sprawić, żeby analityk dowiadywał się o innowacji pierwszy i od razu miał dowody do decyzji?</p>
+  <div class="stopka"><span><b>Kryterium:</b> związek z wyzwaniem</span><span>Radar Innowacji · HackNation 2026 · 2/10</span></div>
+</section>
+
+<section>
+  <p class="etykieta">Dla kogo</p><div class="kroki"><span class="tu">Empatia</span><span>Definicja</span><span>Pomysł</span><span>Prototyp</span><span>Test</span></div>
+  <h2>Jedna karta z dowodami, pięciu odbiorców</h2>
+  <div class="dwie">
+    <ul class="lista">
+      <li><b>Analityk PCI</b>: radar znajduje, analityk przegląda tylko flagi; decyzja z powodem trafia do dziennika.</li>
+      <li><b>Szkoła i młodzi 16–30</b>: projekt z aktualności szkoły zostaje zauważony bez zgłaszania.</li>
+      <li><b>Uczelnia</b>: nowość na tle patentów i publikacji, zanim zacznie chronić wynik.</li>
+      <li><b>Gmina</b>: kto już wdrożył podobne rozwiązanie z dotacją.</li>
+      <li><b>Firma</b>: „Szukam rozwiązania” pokazuje, kto pracuje nad jej problemem.</li>
+    </ul>
+    <div>
+      <div class="zrzut"><img src="img/kolejka.jpg" alt="Kolejka PCI: wykrycia z filtrami, werdyktem, potencjałem i decyzją"></div>
+      <p class="maly" style="margin-top:22px">Kolejka PCI dzieli wykrycia na komórki: młodzi 16–30, naukowcy, inni. Zakładki „Dla kogo” tłumaczą to prostym językiem.</p>
+    </div>
+  </div>
+  <div class="stopka"><span><b>Kryterium:</b> użyteczność i doświadczenie użytkownika</span><span>Radar Innowacji · HackNation 2026 · 3/10</span></div>
+</section>
+
+<section>
+  <p class="etykieta">Rozwiązanie</p><div class="kroki"><span>Empatia</span><span>Definicja</span><span class="tu">Pomysł</span><span>Prototyp</span><span>Test</span></div>
+  <h2>Z tysięcy wpisów zostaje kilka kart do decyzji</h2>
+  <div class="dwie l">
+    <div>
+      <div class="lejek">
+        <div class="a">1 519<span>wpisów ze 172 stron, czytanych co godzinę</span></div>
+        <div class="b">135<span>z sygnałem innowacji, sprawdzonych przez AI</span></div>
+        <div class="c">13<span>innowacji ocenionych filtrami</span></div>
+        <div class="d">1 decyzja<span>człowieka, z powodem</span></div>
+      </div>
+      <p style="margin-top:26px">AI odrzuca wydarzenia, szkolenia, kampanie i zakupy. Reszta przechodzi <b>4 filtry odrzucenia</b> i dostaje <b>ocenę potencjału</b> z linkami do dowodów.</p>
+    </div>
+    <div>
+      <div class="zrzut"><img src="img/start_lejek.jpg" alt="Strona główna: lejek radaru i przycisk Sprawdź źródła teraz"></div>
+      <p class="maly" style="margin-top:22px"><b>Co nowego:</b> nie czekamy na zgłoszenia, radar sam czyta strony co godzinę (i na żądanie). Każda liczba na karcie ma procent i link do dokumentu.</p>
+    </div>
+  </div>
+  <div class="stopka"><span><b>Kryterium:</b> pomysł i oryginalność</span><span>Radar Innowacji · HackNation 2026 · 4/10</span></div>
+</section>
+
+<section>
+  <p class="etykieta">Jak działa</p><div class="kroki"><span>Empatia</span><span>Definicja</span><span class="tu">Pomysł</span><span class="tu">Prototyp</span><span>Test</span></div>
+  <h2>Cztery filtry odrzucenia i jawny wzór potencjału</h2>
+  <div class="dwie">
+    <table>
+      <tr><th>Filtr</th><th>Co mierzy</th><th>Liczy</th></tr>
+      <tr><td><b>Plagiat</b></td><td>dosłowne 8-wyrazowe ciągi w innych dokumentach</td><td><span class="znak kod">kod</span></td></tr>
+      <tr><td><b>Kopia pomysłu</b></td><td>podobieństwo treści; czerwone tylko gdy AI potwierdzi „ten sam pomysł”</td><td><span class="znak kod">kod</span> <span class="znak ai">AI</span></td></tr>
+      <tr><td><b>Patent</b></td><td>patenty EP i polskich uczelni, Biuletyn UPRP</td><td><span class="znak kod">kod</span> <span class="znak ai">AI</span></td></tr>
+      <tr><td><b>Nowość</b></td><td>5 pytań rubryki; każda odpowiedź wskazuje dokument, kod sprawdza, że był w wynikach</td><td><span class="znak ai">AI</span> <span class="znak kod">kod</span></td></tr>
+    </table>
+    <div>
+      <p><b>Potencjał 0–100</b> = 100 × suma punktów / suma maksimów:</p>
+      <table style="margin-top:12px">
+        <tr><td>nowość wobec znalezionych dokumentów</td><td class="n">25</td></tr>
+        <tr><td>dojrzałość (etap)</td><td class="n">15</td></tr>
+        <tr><td>zapotrzebowanie: inne instytucje z tym problemem</td><td class="n">15</td></tr>
+        <tr><td>zgodność ze specjalizacjami regionu (RIS3)</td><td class="n">15</td></tr>
+        <tr><td>mierzalna przewaga · możliwość ochrony · precedens finansowania</td><td class="n">10 · 10 · 10</td></tr>
+      </table>
+      <p class="maly" style="margin-top:14px">Wagi, komórki i ścieżki są w pliku profilu organizacji. Bramka nowości: bez nowości nie ma wysokiego wyniku, nawet dla dojrzałego zakupu.</p>
+    </div>
+  </div>
+  <p class="uwaga"><b>To nie „nakładka na AI”.</b> Wyszukiwanie, plagiat, podobieństwo, reguły i wzór liczy kod. AI ocenia tylko to, czego kod nie umie: czy wpis opisuje innowację, nowość i potwierdzenie kopii. Kod odrzuca dowód spoza wyników.</p>
+  <div class="stopka"><span><b>Kryterium:</b> kompletność prototypu</span><span>Radar Innowacji · HackNation 2026 · 5/10</span></div>
+</section>
+
+<section>
+  <p class="etykieta">Przypadek 1 · automatyczne wykrycie</p><div class="kroki"><span>Empatia</span><span>Definicja</span><span>Pomysł</span><span class="tu">Prototyp</span><span>Test</span></div>
+  <h2>Radar sam znalazł aplikację RescuePet uczennic z technikum</h2>
+  <div class="dwie">
+    <div><div class="zrzut kadr" style="height:345px"><img src="img/k7_top.jpg" alt="Karta innowacji RescuePet"></div><div class="zrzut kadr" style="height:190px"><img src="img/k7_filtry.jpg" alt="Filtry i ocena potencjału RescuePet"></div></div>
+    <ol class="ae"><li><b class="lit">a</b><div><strong>Wykrycie bez zgłoszenia</strong><span>Wpis w aktualnościach technikum w Trzcianie, 21.11; radar przeczytał go w ciągu godziny.</span></div></li><li><b class="lit">b</b><div><strong>Informacje w jednej karcie</strong><span>Opis, cytat ze strony, etap: koncepcja, TRL 1–3, specjalizacja: ICT, wiarygodność 2/5.</span></div></li><li><b class="lit">c</b><div><strong>Ocena potencjału: 74/100</strong><span>Plagiat 0%, kopia 20%, patent 17%, nowość 80%: wszystkie filtry zielone.</span></div></li><li><b class="lit">d</b><div><strong>Odbiorcy i ścieżka</strong><span>Komórka: młodzi 16–30. Ścieżka: ochrona (R2) i finansowanie (R4). 5 uczelni z podobnymi projektami jako partnerzy.</span></div></li><li><b class="lit">e</b><div><strong>Uzasadnienie i miernik</strong><span>Każdy punkt ma dowód. Miernik: zgłoszenie do UPRP albo licencja w 12 miesięcy. Decyzję zapisuje analityk.</span></div></li></ol>
+  </div>
+  <div class="stopka"><span><b>Kryterium:</b> kompletność prototypu · użyteczność</span><span>Radar Innowacji · HackNation 2026 · 6/10</span></div>
+</section>
+
+<section>
+  <p class="etykieta">Przypadek 2 · ocena projektu z bazy</p><div class="kroki"><span>Empatia</span><span>Definicja</span><span>Pomysł</span><span class="tu">Prototyp</span><span>Test</span></div>
+  <h2>Firma szuka rozwiązania i jednym kliknięciem zleca ocenę</h2>
+  <div class="dwie">
+    <ol class="ae"><li><b class="lit">a</b><div><strong>Zapytanie i wybór projektu</strong><span>„Drony autonomiczne ładowanie” w „Szukam rozwiązania” → system AirNest (firma z Podkarpacia, Mapa Dotacji) → „Oceń ten projekt”: pola uzupełnione z bazy.</span></div></li><li><b class="lit">b</b><div><strong>Karta po 17 sekundach</strong><span>Status wdrożenia z rejestru, TRL 6–9, wiarygodność 3/5; każde pole oznaczone: fakt, deklaracja, szacunek AI albo reguła.</span></div></li><li><b class="lit">c</b><div><strong>Ocena potencjału: 87/100</strong><span>Porównanie z ponad 300 tys. dokumentów: kopia 35%, patent 22%, nowość 80%, bez flag.</span></div></li><li><b class="lit">d</b><div><strong>Odbiorcy i ścieżka</strong><span>Ochrona (R2), finansowanie (R4) i partnerzy: Politechnika Łódzka, AGH, Łukasiewicz – Instytut Lotnictwa.</span></div></li><li><b class="lit">e</b><div><strong>Mierniki skuteczności</strong><span>Wniosek o finansowanie w najbliższym naborze; zgłoszenie do UPRP albo licencja w 12 miesięcy.</span></div></li></ol>
+    <div><div class="zrzut kadr" style="height:345px"><img src="img/k18_top.jpg" alt="Karta innowacji AirNest"></div><div class="zrzut kadr" style="height:190px"><img src="img/k18_sciezka.jpg" alt="Ścieżka dalej z miernikami dla AirNest"></div></div>
+  </div>
+  <div class="stopka"><span><b>Kryterium:</b> kompletność prototypu · potencjał wdrożeniowy</span><span>Radar Innowacji · HackNation 2026 · 7/10</span></div>
+</section>
+
+<section>
+  <p class="etykieta">Test</p><div class="kroki"><span>Empatia</span><span>Definicja</span><span>Pomysł</span><span>Prototyp</span><span class="tu">Test</span></div>
+  <h2>Testujemy uczciwie: co działa, a co poprawia człowiek</h2>
+  <div class="trzy">
+    <div><h3>52 przypadki ze znaną prawdą</h3><ul>
+      <li>Plagiat: <b>9/9</b></li><li>Kopia przepisana przez AI: <b>10/10</b></li><li>Patent uczelni przepisany: <b>5/5</b></li><li>Własna praca jako kontynuacja: <b>5/5</b></li><li>Duplikat zgłoszenia: <b>3/3</b></li></ul></div>
+    <div><h3>Zestaw kontrolny: 50 nowych projektów</h3><ul>
+      <li>Nowości ocenione wyżej niż rutyny: <b>AUC 0,89</b></li><li>Rutyny zatrzymane: <b>29 z 30</b></li><li>Nowości odrzucone: <b>2 z 20</b></li><li>Zgodność samego koloru nowości: <b>0,62</b> (n=48)</li><li>Mediana sprawdzenia: <b>16,6 s</b>, koszt AI ok. <b>0,001 $</b></li></ul></div>
+    <div><h3 class="z">Na żywo, w nocy</h3>
+      <p>AI przepuściło zajęcia straży miejskiej z maskotką. Analityk odrzucił je jednym kliknięciem, z powodem w dzienniku.</p>
+      <p style="margin-top:10px">Bramkę uszczelniliśmy: szkolenia, kampanie, konkursy i montaż gotowych instalacji odpadają na wejściu.</p>
+      <div class="zrzut" style="margin-top:14px"><img src="img/k10_decyzja.jpg" alt="Decyzja analityka: odrzucam, to nie innowacja"></div></div>
+  </div>
+  <p class="uwaga">Etykiety zestawu kontrolnego pochodzą z głosowania 5 modeli, nie od człowieka. Wynik 0,95 na 20 projektach, na których poprawialiśmy rubrykę, nie jest niezależnym pomiarem. Dlatego każde odrzucenie przegląda człowiek.</p>
+  <div class="stopka"><span><b>Kryterium:</b> użyteczność · wiarygodność wyników</span><span>Radar Innowacji · HackNation 2026 · 8/10</span></div>
+</section>
+
+<section>
+  <p class="etykieta">Wdrożenie</p><div class="kroki"><span>Empatia</span><span>Definicja</span><span>Pomysł</span><span>Prototyp</span><span class="tu">Test</span></div>
+  <h2>Działa teraz na serwerze i da się to przenieść</h2>
+  <div class="trzy">
+    <div><h3>Dane i aktualność</h3>
+      <table>
+        <tr><td>Mapa Dotacji UE, cała Polska</td><td class="n">243 123</td></tr>
+        <tr><td>RAD-on: projekty naukowe</td><td class="n">48 817</td></tr>
+        <tr><td>RAD-on: patenty uczelni</td><td class="n">19 004</td></tr>
+        <tr><td>Biuletyn UPRP</td><td class="n">3 304</td></tr>
+        <tr><td>Interreg PL–SK</td><td class="n">258</td></tr>
+        <tr><td>EPO, OpenAlex, Crossref</td><td class="n">na żywo</td></tr>
+      </table>
+      <p class="maly" style="margin-top:10px">Bazy odświeżane co tydzień, Interreg co miesiąc, 172 strony co godzinę. Stan i harmonogram: strona /warunki.</p></div>
+    <div><h3>Skalowalność i integracja</h3><ul>
+      <li>REST API z dokumentacją OpenAPI (/docs)</li>
+      <li>Nowa organizacja: 1 plik JSON z kryteriami, wagami i komórkami</li>
+      <li>Nowe strony do radaru: wiersz w pliku CSV</li>
+      <li>SQLite + FTS5: 315 616 dokumentów, demo na 1 vCPU i 4 GB RAM</li>
+      <li>Docker albo systemd + Caddy z HTTPS; licencja EUPL-1.2</li></ul></div>
+    <div><h3 class="z">Bezpieczeństwo i ograniczenia AI</h3><ul>
+      <li>Bez nazwisk: zapisujemy instytucję, nie osoby</li>
+      <li>robots.txt, 1 zapytanie/s, bez obchodzenia zabezpieczeń</li>
+      <li>Klucze poza repozytorium, ochrona przed SSRF, limit na IP</li>
+      <li>AI tylko flaguje; decyzja należy do człowieka</li>
+      <li>Patenty są jawne po 18 miesiącach; karta o tym przypomina</li>
+      <li>AI przez API, model lokalny albo bez AI</li></ul></div>
+  </div>
+  <div class="stopka"><span><b>Kryterium:</b> potencjał wdrożeniowy, skalowalność i transfer</span><span>Radar Innowacji · HackNation 2026 · 9/10</span></div>
+</section>
+
+<section class="siatka">
+  <p class="etykieta">Podsumowanie</p>
+  <h2 style="font-size:56px;margin-top:22px">Analityk dowiaduje się o innowacji pierwszy i od razu ma dowody</h2>
+  <div class="trzy" style="margin-top:8px">
+    <div><h3>Odkrywa</h3><p>Co godzinę czyta strony szkół, uczelni i gmin w całej Polsce. Nie czeka na zgłoszenia.</p></div>
+    <div><h3>Ocenia</h3><p>4 filtry odrzucenia i potencjał z jawnego wzoru. Każdy punkt ma procent i link do dowodu.</p></div>
+    <div><h3 class="z">Zostawia decyzję człowiekowi</h3><p>Decyzje z powodami trafiają do dziennika i posłużą do kalibracji wag.</p></div>
+  </div>
+  <div class="dwie" style="margin-top:34px">
+    <div><p><b>Dalszy rozwój:</b> logowanie i role analityków, kalibracja wag z dziennika decyzji, powiadomienia dla komórek PCI, kolejne źródła (PBN, CORDIS).</p>
+      <p class="maly" style="margin-top:14px">Zasoby zewnętrzne: dane publiczne (Mapa Dotacji UE, Interreg, RAD-on, UPRP, EPO, OpenAlex, Crossref), model AI DeepSeek przez OpenRouter, font Lato (SIL OFL 1.1).</p></div>
+    <div class="linki" style="margin-top:0">
+      <div><small>Demo</small><a href="https://radar-innowacji.skroban.tech/"><b>radar-innowacji.skroban.tech</b></a></div>
+      <div><small>Kod</small><a href="https://github.com/Kaarmel/radar-innowacji"><b>github.com/Kaarmel/radar-innowacji</b></a></div>
+      <div><small>Film</small><a href="https://github.com/Kaarmel/radar-innowacji/blob/main/docs/prezentacja/radar-innowacji-film.mp4"><b>docs/prezentacja/radar-innowacji-film.mp4</b></a></div>
+      <div><small>API</small><a href="https://radar-innowacji.skroban.tech/docs"><b>radar-innowacji.skroban.tech/docs</b></a></div>
+    </div>
+  </div>
+  <div class="stopka"><span></span><span>Radar Innowacji · HackNation 2026 · 10/10</span></div>
+</section>
+</body></html>

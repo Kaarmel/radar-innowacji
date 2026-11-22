@@ -102,7 +102,7 @@ ROLE = {
         "nazwa": "Analityk PCI",
         "kto": "Opiekun innowacji w Podkarpackim Centrum Innowacji",
         "korzysc": "Radar sam znajduje projekty w regionie, a Ty dostajesz gotowe karty z dowodami do decyzji.",
-        "kroki": ["Codziennie radar czyta strony szkół, uczelni i gmin, a co tydzień odświeża bazy dotacji, projektów badawczych i patentów.",
+        "kroki": ["Co godzinę radar czyta strony szkół, uczelni i gmin, a co tydzień odświeża bazy dotacji, projektów badawczych i patentów.",
                   "Każdy znaleziony projekt dostaje kartę: czy jest nowy, czy to kopia albo plagiat, czy blokuje go patent i jaki ma potencjał.",
                   "Przeglądasz tylko pozycje z flagą i jednym kliknięciem potwierdzasz albo zmieniasz decyzję."],
         "zobaczysz": ["Procent i kolor przy każdym filtrze, z linkiem do dokumentu, który jest dowodem.",
