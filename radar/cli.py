@@ -74,7 +74,7 @@ def main(argv=None) -> int:
         ids = a.ids or [r[0] for r in con.execute("SELECT id FROM zgloszenie WHERE status='gotowe' ORDER BY id")]
         for zid in ids:
             w = przelicz_podobne(con, zid, zapisz=not a.sucho)
-            print(json.dumps({"id": zid, "potencjal": w["wynik"], "sciezki": [r.reguly[0] for r in w["rekomendacje"]],
+            print(json.dumps({"id": zid, "zmieniono": w["zmieniono"], "potencjal": w["wynik"], "sciezki": [r.reguly[0] for r in w["rekomendacje"]],
                               "partnerzy": [p["nazwa"] for p in w["partnerzy"]],
                               "odrzucone": [o["tytul"][:70] for o in w["tematy"]["odrzucone"]]}, ensure_ascii=False), flush=True)
     elif a.cmd == "raport":

@@ -1,4 +1,5 @@
 """Sprawdzenie jednego zgłoszenia: wyszukiwanie w bazie i źródłach na żądanie, cztery filtry, werdykt, karta."""
+import re
 import sqlite3
 import time
 from concurrent.futures import ThreadPoolExecutor, wait
@@ -10,7 +11,7 @@ from .zrodla import BrakDostepu, crossref, epo, mapadotacji, openalex
 ZRODLA_NA_ZADANIE = {"epo": epo.szukaj, "openalex": openalex.szukaj, "crossref": crossref.szukaj}
 ZRODLA_PATENTOWE = {"epo"}
 MAX_BENEFICJENTOW = 5  # strona projektu Mapy Dotacji ładuje się kilka sekund
-TEMAT_MAX = 30  # tyle najbliższych dokumentów AI sprawdza pod kątem tematu (partnerzy, zapotrzebowanie, finansowanie)
+TEMAT_MAX = 50  # tyle najbliższych dokumentów AI sprawdza pod kątem tematu (partnerzy, zapotrzebowanie, finansowanie)
 
 
 def _poprzednie_zgloszenia(con: sqlite3.Connection, zgl_id: int, limit: int = 2000) -> list[Dokument]:
@@ -175,30 +176,70 @@ def sprawdz(con: sqlite3.Connection, zgl_id: int) -> dict:
     return db.karta(con, zgl_id)
 
 
+
+R4_DOKUMENT = re.compile(r"(.+?) \((https?://[^)\s]+)\)(?:; |$)")
+
+
+def _dokument_z_dowodu(con: sqlite3.Connection, tytul: str | None, link: str | None, zrodlo: str | None,
+                       instytucja: str | None = None) -> Dokument:
+    r = con.execute("SELECT id, zrodlo, typ, opis FROM dokument WHERE link=? LIMIT 1", (link,)).fetchone() if link else None
+    return Dokument(id=r["id"] if r else (link or tytul or ""), zrodlo=(r["zrodlo"] if r else zrodlo) or "",
+                    typ=r["typ"] if r else "projekt", tytul=tytul or "", opis=(r["opis"] if r else "") or "", link=link or "",
+                    instytucje=[instytucja] if instytucja else [])
+
+
 def przelicz_podobne(con: sqlite3.Connection, zgl_id: int, zapisz: bool = True) -> dict:
-    """Ponownie liczy tylko to, co zależy od podobnych projektów (zapotrzebowanie, finansowanie, ścieżka R4, partnerzy),
-    z potwierdzeniem tematu przez AI. Wyniki czterech filtrów, werdykt, komórka i czas sprawdzenia zostają bez zmian."""
+    """Potwierdza temat dokumentów, z których karta policzyła zapotrzebowanie, finansowanie, ścieżkę R4 i partnerów
+    (AI, jak przy kopii), i przelicza tylko te części. Dowody pochodzą z zapisanej karty, więc wynik nie zależy od tego,
+    jak od tamtej pory zmieniła się baza. Wyniki czterech filtrów, werdykt, komórka i czas sprawdzenia zostają bez zmian."""
     z, k = db.zgloszenie(con, zgl_id), db.karta(con, zgl_id)
-    if z is None or not k or k["status"] != "gotowe":
+    if z is None or not k or k["status"] != "gotowe" or not k["potencjal"]:
         raise KeyError(f"brak gotowej karty {zgl_id}")
     wyniki = [WynikFiltra(w["filtr"], w["procent"], w["pasmo"], w["dowody"], w["uwaga"] or "", w["wlasna_praca"])
               for w in k["wyniki"]]
-    koszt: list[float] = []
+    kryteria = {x["id"]: x for x in k["potencjal"].get("kryteria", [])}
+    dowody: dict[str, tuple[Dokument, float | None]] = {}
+
+    def dodaj(tytul, link, zrodlo, podobienstwo=None, instytucja=None) -> str:
+        klucz = link or tytul or ""
+        if klucz not in dowody:
+            dowody[klucz] = (_dokument_z_dowodu(con, tytul, link, zrodlo, instytucja), podobienstwo)
+        elif instytucja and not dowody[klucz][0].instytucje:
+            dowody[klucz][0].instytucje = [instytucja]
+        return klucz
+
+    for d in kryteria.get("zapotrzebowanie", {}).get("dowody", []):
+        dodaj(d.get("tytul"), d.get("link"), d.get("zrodlo"), d.get("podobienstwo"), d.get("instytucja"))
+    finansowane = [dodaj(d.get("tytul"), d.get("link"), d.get("zrodlo"), d.get("podobienstwo"))
+                   for d in kryteria.get("finansowanie", {}).get("dowody", [])]
+    r4 = [dodaj(t, link, "mapadotacji") for r in k["rekomendacje"] if r["reguly"] == ["R4"]
+          for t, link in R4_DOKUMENT.findall(r["powod"].split(": ", 1)[-1])]
+    partnerzy = [(p, dodaj(p.get("dokument"), p.get("link"), p.get("zrodlo"), None, p.get("nazwa"))) for p in k["partnerzy"]]
+    if not dowody:
+        return {"zmieniono": False, "wynik": k["potencjal"].get("wynik"), "rekomendacje": [], "partnerzy": k["partnerzy"],
+                "tematy": {"sprawdzono": False, "odrzucone": []}}
     termin.ustaw(config.LIMIT_SPRAWDZENIA_S)
     try:
-        df, N = db.funkcja_df(con)
-        terminy_en = tekst.terminy(z.opis_en, n=10, df=df, N=N) if z.opis_en else []
-        kandydaci = [d for d in _lokalne(con, z, terminy_en, df, N) if d.id != z.zrodlo_dok]
-        ranking_tem, tematy = _tematyczne(z, filtry.ranking(z, kandydaci, df, N), koszt)
-        profil = organizacje.wczytaj(z.organizacja)
-        ocena = potencjal.ocen(z, wyniki, ranking_tem, profil)
-        podobne = _podobne(ranking_tem)
-        rekomendacje, partnerzy = werdykt.sciezka(z, wyniki, podobne, profil), werdykt.partnerzy(z, podobne)
+        oceny, koszt = ai.ten_sam_problem(z.opis, [d for d, _ in dowody.values()])
     finally:
         termin.ustaw(None)
+    if not oceny:
+        return {"zmieniono": False, "wynik": k["potencjal"].get("wynik"), "rekomendacje": [], "partnerzy": k["partnerzy"],
+                "tematy": {"sprawdzono": False, "odrzucone": []}}
+    inne = {kl for kl, (d, _) in dowody.items() if not oceny.get(d.id, {"ten_sam": True})["ten_sam"]}
+    ranking = sorted(((s / 100, d) for kl, (d, s) in dowody.items() if kl not in inne and s is not None), key=lambda x: -x[0])
+    profil = organizacje.wczytaj(z.organizacja)
+    ocena = potencjal.ocen(z, wyniki, ranking, profil)
+    podobne = [dowody[kl][0] for kl in dict.fromkeys(r4 + finansowane) if kl not in inne]
+    rekomendacje = werdykt.sciezka(z, wyniki, podobne, profil)
+    zostaja = [p for p, kl in partnerzy if kl not in inne]
+    tematy = {"sprawdzono": True, "sprawdzonych": len(dowody),
+              "odrzucone": [{"tytul": d.tytul, "link": d.link, "zrodlo": d.zrodlo, "uzasadnienie": oceny.get(d.id, {}).get("uzasadnienie", "")}
+                            for kl, (d, _) in dowody.items() if kl in inne]}
     if zapisz:
         pokrycie = {**k["pokrycie"], "tematy": tematy, "przeliczono_podobne": slowniki.czas_pl(time.time())}
         db.zapisz_ocene(con, zgl_id, ocena)
-        db.zapisz_wyniki(con, zgl_id, wyniki, k["werdykt"], k["komorka"], rekomendacje, partnerzy, k["czas_s"],
-                         round((k["koszt_usd"] or 0) + sum(koszt), 5), pokrycie=pokrycie)
-    return {"wynik": ocena["wynik"], "rekomendacje": rekomendacje, "partnerzy": partnerzy, "tematy": tematy, "ocena": ocena}
+        db.zapisz_wyniki(con, zgl_id, wyniki, k["werdykt"], k["komorka"], rekomendacje, zostaja, k["czas_s"],
+                         round((k["koszt_usd"] or 0) + koszt, 5), pokrycie=pokrycie)
+    return {"zmieniono": True, "wynik": ocena["wynik"], "rekomendacje": rekomendacje, "partnerzy": zostaja, "tematy": tematy,
+            "ocena": ocena}
