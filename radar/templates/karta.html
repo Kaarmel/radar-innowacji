@@ -120,7 +120,7 @@
         <td class="liczba">{% if kr.punkty is none %}brak danych{% else %}{{ kr.punkty | liczba }} / {{ kr.max }}{% if kr.punkty_bez_bramki is defined and kr.punkty_bez_bramki is not none and kr.punkty_bez_bramki != kr.punkty %}<br><span class="maly">przed bramką {{ kr.punkty_bez_bramki | liczba }}</span>{% endif %}{% endif %}</td>
         <td><span class="znaczek zr-{{ kr.zrodlo }}">{{ kr.zrodlo }}</span></td>
         <td>{{ kr.uzasadnienie }}
-          {% for d in kr.dowody if d.link %}{% set href = d.link | link %}
+          {% for d in kr.dowody | selectattr('link') | unique(attribute='link') %}{% set href = d.link | link %}
             <br><span class="maly">{% if d.instytucja %}<b>{{ d.instytucja }}</b>: {% endif %}{% if href %}<a href="{{ href }}" rel="noopener" target="_blank">{{ d.tytul or d.pytanie }}</a>{% else %}{{ d.tytul }}{% endif %}{% if d.podobienstwo %} ({{ d.podobienstwo | liczba }}%){% endif %}</span>
           {% endfor %}</td>
       </tr>

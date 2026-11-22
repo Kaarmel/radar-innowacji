@@ -5,6 +5,18 @@ from radar.model import Zgloszenie
 from .test_app import klient  # noqa: F401
 
 
+def test_dowody_kryterium_bez_powtorzen(klient):
+    """Kilka pytań rubryki może wskazać ten sam dokument; w tabeli potencjału pokazujemy go raz."""
+    from .test_app import POLA
+    klient.post("/zglos", data=POLA)
+    con = db.polacz()
+    d = {"tytul": "Rój dronów 2021", "link": "https://radon.example/projekt-1"}
+    db.zapisz_ocene(con, 1, {"wynik": 20, "uwaga": "", "formula": "wzór", "kryteria": [
+        {"id": "nowosc", "nazwa": "Nowość", "max": 25, "punkty": 6.2, "zrodlo": "AI", "uzasadnienie": "1 z 4", "dowody": [d, d, dict(d)]}]})
+    s = klient.get("/karta/1").text
+    assert s.count("https://radon.example/projekt-1") == 1
+
+
 def test_legenda_kropek_na_starcie_i_w_kolejce(klient):
     con = db.polacz()
     zid = db.zapisz_zgloszenie(con, Zgloszenie(id=None, wejscie="radar", tytul="Aplikacja", opis="Opis.", link="https://x.pl/1",
