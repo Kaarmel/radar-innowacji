@@ -211,6 +211,12 @@ class ZgloszenieWe(BaseModel):
     def _przytnij(cls, v):
         return v.strip() if isinstance(v, str) else v
 
+    @field_validator("wiek_przedzial", mode="before")
+    @classmethod
+    def _wiek(cls, v):
+        # pole „jeśli wiadomo”: puste = nieznany, liczony jak zespół mieszany (tak samo robi radar)
+        return v if (v or "").strip() else "mieszany"
+
     @field_validator("zrodlo_dok", mode="before")
     @classmethod
     def _zrodlo(cls, v):
