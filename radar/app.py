@@ -602,9 +602,16 @@ def wyszukaj(con, q: str, zrodlo: str = "", rok_od: int | None = None, woj: str 
             "dokumenty": dict(dokumenty)}
 
 
+def _rok(wartosc: str) -> int | None:
+    """Pole „Od roku” z formularza przychodzi jako tekst, także pusty; pusty lub błędny rok oznacza brak filtra."""
+    wartosc = (wartosc or "").strip()
+    return int(wartosc) if wartosc.isdigit() else None
+
+
 @app.get("/szukaj", response_class=HTMLResponse, include_in_schema=False)
-def szukaj_strona(request: Request, q: str = "", zrodlo: str = "", rok_od: int | None = None, woj: str = "",
+def szukaj_strona(request: Request, q: str = "", zrodlo: str = "", rok_od: str = "", woj: str = "",
                   con=Depends(polaczenie)):
+    rok_od = _rok(rok_od)
     wynik = wyszukaj(con, q, zrodlo, rok_od, woj) if len(q.strip()) >= 3 else None
     return strona(request, "szukaj.html", q=q, wynik=wynik, zrodlo=zrodlo, rok_od=rok_od, woj=woj, wojewodztwa=WOJEWODZTWA)
 
@@ -691,10 +698,10 @@ def api_karta(zid: int, con=Depends(polaczenie)):
 
 
 @app.get("/api/szukaj", tags=["wyszukiwanie"], summary="Szukam rozwiązania: zgłoszenia i dokumenty z korpusu (bez AI)")
-def api_szukaj(q: str, zrodlo: str = "", rok_od: int | None = None, woj: str = "", con=Depends(polaczenie)):
+def api_szukaj(q: str, zrodlo: str = "", rok_od: str = "", woj: str = "", con=Depends(polaczenie)):
     if len(q.strip()) < 3:
         raise HTTPException(422, "Zapytanie musi mieć co najmniej 3 znaki.")
-    return wyszukaj(con, q, zrodlo, rok_od, woj)
+    return wyszukaj(con, q, zrodlo, _rok(rok_od), woj)
 
 
 @app.get("/api/miary", tags=["miary"], summary="Miary: czas, koszt, werdykty, decyzje, korpus, zestaw testowy")
