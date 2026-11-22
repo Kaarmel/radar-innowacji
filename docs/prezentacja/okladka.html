@@ -1,0 +1,56 @@
+<!doctype html><html lang="pl"><head><meta charset="utf-8"><title>Radar Innowacji — okładka</title>
+<style>
+@font-face{font-family:Lato;font-weight:400;src:url(../../radar/static/fonts/lato-400-latin-ext.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:Lato;font-weight:400;src:url(../../radar/static/fonts/lato-400-latin.woff2) format("woff2")}
+@font-face{font-family:Lato;font-weight:700;src:url(../../radar/static/fonts/lato-700-latin-ext.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:Lato;font-weight:700;src:url(../../radar/static/fonts/lato-700-latin.woff2) format("woff2")}
+@font-face{font-family:Lato;font-weight:900;src:url(../../radar/static/fonts/lato-900-latin-ext.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:Lato;font-weight:900;src:url(../../radar/static/fonts/lato-900-latin.woff2) format("woff2")}
+:root{--granat:#001A49;--niebieski:#035487;--pci:#0085CC;--jasny:#DEE7EF;--zielony:#6BB437;--tusz:#1D1D1B;--szary:#5b6474;--mono:ui-monospace,"SF Mono",Menlo,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:800px;height:600px;overflow:hidden}
+body{font-family:Lato,system-ui,sans-serif;color:var(--tusz);background:#fff;
+  background-image:linear-gradient(#eef2f6 1px,transparent 1px),linear-gradient(90deg,#eef2f6 1px,transparent 1px);background-size:40px 40px;position:relative}
+.ram{position:absolute;inset:0;padding:44px 48px 40px;display:grid;grid-template-columns:1fr 300px;column-gap:36px;align-items:center}
+.etykieta{font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--niebieski);display:flex;align-items:center;gap:10px}
+.etykieta:before{content:"";width:12px;height:12px;background:var(--zielony)}
+.logo{display:block;width:330px;margin:18px 0 0 -26px}
+h1{font-weight:900;font-size:33px;line-height:1.12;color:var(--granat);margin-top:14px;letter-spacing:-.01em}
+.pod{font-size:17px;color:var(--szary);margin-top:10px}
+.lejek{margin-top:24px;display:grid;gap:7px}
+.lejek div{color:#fff;font-size:14px;padding:8px 12px;display:flex;align-items:baseline;gap:9px;white-space:nowrap}
+.lejek b{font-size:20px;font-weight:900}
+.lejek .a{background:var(--granat);width:100%}.lejek .b{background:var(--niebieski);width:76%}.lejek .c{background:var(--zielony);width:52%;color:var(--tusz)}
+.zrzut{border:1px solid var(--jasny);box-shadow:12px 12px 0 var(--jasny);background:#fff;overflow:hidden}
+.zrzut img{display:block;width:100%}
+.adres{position:absolute;left:48px;bottom:26px;font-family:var(--mono);font-size:12px;color:var(--szary);letter-spacing:.04em}
+/* pion 3:4 */
+body.pion,html.pion{width:600px;height:800px}
+body.pion .ram{grid-template-columns:1fr;padding:38px 44px 56px;align-items:start;align-content:start}
+body.pion .logo{width:320px;margin-top:12px}
+body.pion h1{font-size:32px;margin-top:8px}
+body.pion .pod{font-size:16px;margin-top:6px}
+body.pion .zrzut{width:340px;margin-top:20px}
+body.pion .lejek{margin-top:28px;gap:6px}
+body.pion .lejek div{padding:6px 12px;font-size:13px}
+body.pion .lejek b{font-size:18px}
+body.pion .adres{left:44px}
+</style></head><body>
+<div class="ram">
+  <div class="lewa">
+    <div class="etykieta">HACKNATION 2026 · ZADANIE PCI</div>
+    <img class="logo" src="../../08-wyloniony-modul.svg" alt="Radar Innowacji">
+    <h1>Sam znajduje innowacje i&nbsp;ocenia je z&nbsp;dowodami</h1>
+    <p class="pod">Decyzję podejmuje człowiek.</p>
+    <div class="lejek x1">
+      <div class="a"><b>1 542</b>wpisy ze 172 stron</div>
+      <div class="b"><b>137</b>sprawdzonych przez AI</div>
+      <div class="c"><b>13</b>innowacji z oceną</div>
+    </div>
+  </div>
+  <div class="prawa"><div class="zrzut"><img src="img/dowod.jpg" alt="Karta wykrycia z czterema filtrami"></div></div>
+</div>
+<div class="adres">radar-innowacji.skroban.tech</div>
+<script>if(location.search==='?pion'){document.documentElement.classList.add('pion');document.body.classList.add('pion');
+const l=document.querySelector('.lejek'),z=document.querySelector('.prawa .zrzut');l.parentNode.insertBefore(z,l);}</script>
+</body></html>
