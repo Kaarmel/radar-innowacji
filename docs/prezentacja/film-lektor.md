@@ -1,6 +1,6 @@
 # Film: tekst lektora
 
-Film trwa 2:33 (limit 3 minuty). Obraz ma napisy, więc da się go obejrzeć bez dźwięku. Lektor czyta 14 krótkich fragmentów; s14 idzie po s11. Napisy na dole ekranu wskazują kroki a–e ze scenariusza testowego zadania.
+Film trwa 2:31 (limit 3 minuty). Obraz ma napisy, więc da się go obejrzeć bez dźwięku. Lektor czyta 14 krótkich fragmentów; s14 idzie po s11. Napisy na dole ekranu wskazują kroki a–e ze scenariusza testowego zadania.
 
 ## Jak nagrać ponownie
 
@@ -43,7 +43,7 @@ Pierwszy przypadek: RescuePet. Robisz zdjęcie rannego zwierzęcia, a aplikacja 
 Radar składa wszystko w jedną kartę. Kto to zrobił? Cytat ze strony szkoły, etap koncepcji.
 
 ### s06 · Przypadek 1 · c) ocena
-Potem próbuje ten pomysł obalić. Plagiat zero procent, kopia dwadzieścia, patent siedemnaście, nowość osiemdziesiąt. Potencjał: siedemdziesiąt cztery na sto, każdy punkt z linkiem do dowodu.
+Potem próbuje ten pomysł obalić. Plagiat zero procent, kopia dwadzieścia, patent siedemnaście, nowość osiemdziesiąt. Każdy punkt z linkiem do dowodu.
 
 ### s07 · Przypadek 1 · d) ścieżka
 To uczennice, więc projekt trafia do komórki młodych innowatorów. Nowość jest wysoka, kolidującego patentu brak, dlatego radar proponuje ochronę.
