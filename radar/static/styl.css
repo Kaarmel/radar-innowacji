@@ -278,3 +278,9 @@ select, input, textarea { border-radius: 0; }
   nav a.cta { margin-left: 0; padding: 8px 12px; }
   .zwiad-siatka b { font-size: 1.5rem; }
 }
+
+/* pola wyboru i filtry w jednej linii */
+input[type="checkbox"], input[type="radio"] { width: auto; accent-color: var(--pci-niebieski); }
+.filtry label { display: inline-flex; align-items: center; gap: 6px; margin: 0; font-weight: 700; color: var(--tusz); }
+.filtry select, .filtry input { width: auto; margin-left: 0; padding: 6px 8px; }
+.filtry input.rok { width: 6.5rem; }
