@@ -79,13 +79,15 @@ def pobierz_wszystko(con: sqlite3.Connection, woj: str = CALA_POLSKA, log=print)
     return razem
 
 
-def pobierz_od_konca(con: sqlite3.Connection, woj: str = CALA_POLSKA, log=print) -> int:
-    """Dopełnienie od najnowszych projektów: strony malejąco po id, aż cała strona jest już w bazie.
-    Potrzebne, gdy strony z dużym przesunięciem nie odpowiadają. Wznawialne (osobny klucz w tabeli postep)."""
+def pobierz_od_konca(con: sqlite3.Connection, woj: str = CALA_POLSKA, log=print, koniec_po: int = 5) -> int:
+    """Dopełnienie od najnowszych projektów: strony malejąco po id, aż koniec_po stron z rzędu jest już w bazie
+    (pojedyncza znana strona to za mało: wcześniejsze pobrania zostawiają wyspy). Potrzebne, gdy strony z dużym
+    przesunięciem nie odpowiadają. Wznawialne (osobny klucz w tabeli postep)."""
     filtr = {} if woj == CALA_POLSKA else {"wojewodztwa_projekty": woj}
     klucz = f"mapadotacji:{woj}:od_konca"
     strona = int(_postep(con, klucz) or 0) + 1
     razem = 0
+    znanych_z_rzedu = 0
     while True:
         r = siec.pobierz(API, params={**filtr, "per_page": 100, "page": strona, "orderby": "id", "order": "desc"}, timeout=90)
         if r.status_code != 200:
@@ -98,8 +100,9 @@ def pobierz_od_konca(con: sqlite3.Connection, woj: str = CALA_POLSKA, log=print)
         znane = con.execute(f"SELECT count(*) FROM dokument WHERE id IN ({','.join('?' * len(ids))})", ids).fetchone()[0]
         razem += db.zapisz_dokumenty(con, docs)
         _postep(con, klucz, str(strona))
-        if znane == len(ids):
-            log(f"mapadotacji (od końca): strona {strona} już w bazie, koniec")
+        znanych_z_rzedu = znanych_z_rzedu + 1 if znane == len(ids) else 0
+        if znanych_z_rzedu >= koniec_po:
+            log(f"mapadotacji (od końca): {koniec_po} stron z rzędu już w bazie (do strony {strona}), koniec")
             break
         if strona % 20 == 0:
             log(f"mapadotacji (od końca): strona {strona}")

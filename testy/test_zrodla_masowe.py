@@ -116,9 +116,31 @@ def test_mapadotacji_od_konca_dopelnia_najnowsze_i_konczy_na_znanych(tmp_path, m
         def __init__(self, ids):
             self.text = json.dumps([{**p, "id": i} for i in ids])
     monkeypatch.setattr(siec, "pobierz", lambda url, params=None, **kw: (wywolania.append(params or {}), Odp(strony[params["page"]]))[1])
-    mapadotacji.pobierz_od_konca(con, log=lambda *a: None)
+    mapadotacji.pobierz_od_konca(con, log=lambda *a: None, koniec_po=1)
     assert [w["page"] for w in wywolania] == [1, 2, 3]
     assert all(w["order"] == "desc" and w["orderby"] == "id" for w in wywolania)
     ids = {r[0] for r in con.execute("SELECT id FROM dokument WHERE zrodlo='mapadotacji'")}
     assert {"mapadotacji:10", "mapadotacji:9", "mapadotacji:8"} <= ids and "mapadotacji:4" not in ids
     assert mapadotacji._postep(con, "mapadotacji:pl:od_konca") == "3"
+
+
+def test_mapadotacji_od_konca_nie_konczy_na_pojedynczej_znanej_stronie(tmp_path, monkeypatch):
+    """22.11: strona 198 (malejąco) była już w bazie, ale 199+ nie: zostało 54 tys. projektów. Koniec dopiero po
+    kilku znanych stronach z rzędu."""
+    from radar import db
+    p = json.loads((D / "mapadotacji_1.json").read_text(encoding="utf-8"))[0]
+    con = db.polacz(tmp_path / "t.sqlite")
+    db.zapisz_dokumenty(con, mapadotacji.parsuj([{**p, "id": i} for i in (10, 9, 4, 3, 2, 1)]))
+    strony = {1: [12, 11], 2: [10, 9], 3: [8, 7], 4: [6, 5], 5: [4, 3], 6: [2, 1], 7: [0]}
+    wywolania = []
+
+    class Odp:
+        status_code = 200
+
+        def __init__(self, ids):
+            self.text = json.dumps([{**p, "id": i} for i in ids])
+    monkeypatch.setattr(siec, "pobierz", lambda url, params=None, **kw: (wywolania.append(params or {}), Odp(strony[params["page"]]))[1])
+    mapadotacji.pobierz_od_konca(con, log=lambda *a: None, koniec_po=2)
+    assert [w["page"] for w in wywolania] == [1, 2, 3, 4, 5, 6]
+    ids = {r[0] for r in con.execute("SELECT id FROM dokument WHERE zrodlo='mapadotacji'")}
+    assert {"mapadotacji:8", "mapadotacji:7", "mapadotacji:6", "mapadotacji:5"} <= ids
