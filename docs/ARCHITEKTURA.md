@@ -180,7 +180,7 @@ flowchart LR
     C --> D{"sygnał słów<br/>co najmniej 2 (kod)"}
     D -- "nie" --> X1["pominięte"]
     D -- "tak: 136" --> E{"AI: nowe rozwiązanie<br/>wg Oslo Manual?"}
-    E -- "nie albo cytatu<br/>nie ma w tekście" --> X2["pominięte"]
+    E -- "nie albo brak cytatu" --> X2["pominięte"]
     E -- "tak: 13" --> F["AI: karta bez nazwisk<br/>kod usuwa imiona"]
     F --> G["zgłoszenie<br/>z wejściem radar"]
     G --> H["pełne sprawdzenie<br/>(rozdział 4)"]

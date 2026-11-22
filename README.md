@@ -425,7 +425,7 @@ curl -X POST https://radar-innowacji.skroban.tech/api/zgloszenia -H 'Content-Typ
   "typ_innowacji": "techniczna",
   "etap": "prototyp",
   "wiek_przedzial": "16_30",
-  "organizacja": "pci"
+  "organizacja": "ogolny"
 }'
 curl https://radar-innowacji.skroban.tech/api/karta/7                     # filtry z dowodami, potencjał, werdykt, komórka, ścieżka
 curl "https://radar-innowacji.skroban.tech/api/szukaj?q=drony&zrodlo=mapadotacji"
